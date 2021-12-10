@@ -1,0 +1,45 @@
+// ignore_for_file: empty_constructor_bodies
+
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
+
+class ShimmerWidget extends StatelessWidget {
+  final double width;
+  final double height;
+  final ShapeBorder shapeBorder;
+
+  const ShimmerWidget.rectangular({
+    required this.height,
+    required this.width,
+  }):this.shapeBorder =  const RoundedRectangleBorder();
+
+  const ShimmerWidget.circular({
+    required this.height,
+    required this.width,
+    this.shapeBorder= const CircleBorder(),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    ScreenUtil.init(
+        BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width,
+            maxHeight: MediaQuery.of(context).size.height),
+        designSize: Size(416, 897),
+        orientation: Orientation.portrait);
+    return Shimmer.fromColors(
+        child:  Container(
+            width:width,
+            height: height,
+            decoration: ShapeDecoration(
+              color: Color.fromRGBO(246, 246, 246, 1),
+              shape: shapeBorder,
+            ),
+        ),
+        baseColor: Color.fromRGBO(246, 246, 246, 1),
+        highlightColor:Colors.grey[300]!,
+
+    );
+  }
+}

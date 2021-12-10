@@ -1,0 +1,224 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
+import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/features/orders/bloc/orders.dart';
+import 'package:ivfoods_mobile_app/features/orders/domain/entities/recovery.dart';
+import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/ui/delivery/order/widgets/to_delivery/order_to_delivery_display.dart';
+import 'package:ivfoods_mobile_app/ui/shimmer_widgets.dart';
+
+class OrderToDeliver extends StatefulWidget {
+  @override
+  _OrderToDeliverState createState() => _OrderToDeliverState();
+}
+
+class _OrderToDeliverState extends State<OrderToDeliver> {
+  OrdersBloc _ordersBloc = sl<OrdersBloc>();
+  List<Recovery>? visibleOrdersMasters = List.empty();
+  List<Recovery>? visibleOrdersMastersTwo = List.empty();
+  bool test = false;
+
+  @override
+  void initState() {
+    _ordersBloc.add(GetOrders());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    ScreenUtil.init(
+        BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width,
+            maxHeight: MediaQuery.of(context).size.height),
+        designSize: Size(416, 897),
+        orientation: Orientation.portrait);
+
+    return BlocProvider(
+      create: (BuildContext context) => _ordersBloc,
+      child: BlocListener<OrdersBloc, OrdersState>(
+        bloc: _ordersBloc,
+        listener: (context, state){
+          if(state is LoadingOrders){
+            print("load...");
+          }
+        },
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: SafeArea(
+            child: BlocBuilder(
+              bloc: _ordersBloc,
+            builder: (context, OrdersState state){
+                if(state is EmptyOrders){
+                  return Container(
+                    child: Center(
+                      child: Text(
+                          "Tout est vide!"
+                      ),
+                    ),
+                  );
+                }
+                if(state is LoadingOrders){
+                  return Center(child:LoadingWidget());
+                }
+
+                if(state is LoadedOrders){
+                  visibleOrdersMasters = state.ordersMasters.recoveries;
+
+                  return Container(
+                    child: Column(
+                      children: [
+                        //Search
+                        Center(
+                          child: Container(
+                            width: 344.w,
+                            height: 36.h,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                //Search
+                                Container(
+                                  height: 36.h,
+                                  width: 236.w,
+                                  decoration: BoxDecoration(
+                                    color: Color(0XFFF8F7F7),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: TextFormField(
+                                    textAlignVertical: TextAlignVertical.center,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autocorrect: false,
+                                    onChanged: (value){
+                                      setState(() {
+                                        visibleOrdersMastersTwo = state.ordersMasters.recoveries!.where((element) =>
+                                            element.restaurant!.name!.toLowerCase().contains(value.toLowerCase())).toList();
+                                        print(visibleOrdersMastersTwo!.length.toString());
+                                        test = true;
+                                        print("charge...");
+                                      });
+                                    },
+                                    style: TextStyle(
+                                      color: Color(0XFF949494),
+                                      fontSize: 15.sp,
+                                      fontFamily: "Milliard",
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
+                                      hintText: "Search orders",
+                                      border: InputBorder.none,
+                                      prefixIcon: Icon(
+                                        LvIcons.search_interface_symbol,
+                                        size: 16.sp,
+                                        color: Color(0XFF949494),
+                                      ),
+                                      hintStyle: TextStyle(
+                                          color: Color(0XFF949494),
+                                          fontSize: 15.sp,
+                                          fontFamily: "Milliard"
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                //Filter Button
+                                Container(
+                                  height: 36.r,
+                                  width: 94.r,
+                                  child: TextButton.icon(
+                                    onPressed: () {},
+                                    label: Text('Filter', style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontFamily: "Milliard",
+                                      color: Color(0XFF949494),
+                                    ),),
+                                    icon: Icon(
+                                      LvIcons.filter,
+                                      size: 17.sp,
+                                      color:Color(0XFFFBB634),
+                                    ),
+                                    style: TextButton.styleFrom(
+
+                                      backgroundColor: Color(0XFFF8F7F7),
+                                      shape:RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20.h,),
+                        //List Of Order
+                        Expanded(
+                            child:SingleChildScrollView(
+                              child: OrderToDeliveryDisplay(recoveries: (test == false) ? visibleOrdersMasters : visibleOrdersMastersTwo),
+                            ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                if(state is ErrorOrders){
+                  return Container(
+                    child: Center(
+                      child: Text(
+                          "Erreur "
+                      ),
+                    ),
+                  );
+                }
+                return Container(
+                  child: Center(
+                    child: Text(
+                      "Aucun cas!"
+                    ),
+                  ),
+                );
+            }
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  Widget buildOrderShimmer(){
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ShimmerWidget.rectangular(
+                  height: 21.h,
+                  width: 200.w,
+                ),
+                SizedBox(height:7.h,),
+                ShimmerWidget.rectangular(
+                  height: 15.h,
+                  width: 20.w,
+                ),
+
+                SizedBox(height:7.h,),
+                ShimmerWidget.rectangular(
+                  height: 15.h,
+                  width: 83.w,
+                ),
+                SizedBox(height:14.h,),
+                Divider(),
+                SizedBox(height:15.h,),
+              ],
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+}
