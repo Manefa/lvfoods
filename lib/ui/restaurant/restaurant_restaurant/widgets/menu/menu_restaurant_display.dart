@@ -55,6 +55,7 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
     return SingleChildScrollView(
       child: GridView.builder(
           shrinkWrap: true,
+          physics: ScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 5,
