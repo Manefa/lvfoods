@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../../delivery/profil_delivery/pages/profile_delivery_page.dart';
 class ProfileRestaurant extends StatefulWidget {
   const ProfileRestaurant({Key? key}) : super(key: key);
 
@@ -9,11 +11,6 @@ class ProfileRestaurant extends StatefulWidget {
 class _ProfileRestaurantState extends State<ProfileRestaurant> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey,
-      body: SafeArea(
-        child: Container(),
-      ),
-    );
+    return ProfileDeliveryPage();
   }
 }
