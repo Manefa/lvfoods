@@ -1,6 +1,7 @@
 
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ivfoods_mobile_app/core/error/exception.dart';
@@ -25,12 +26,15 @@ class UpdateUserRemoteDataSourceImpl implements UpdateUserRemoteDataSource {
   @override
   Future<UserMasterModel> updateUser(UserForUpdate user) async {
     final token = sl<SharedPreferences>().getString("token");
+    String? imageFileName = user.image == null ? null : user.image!.path.split("/").last;
     var formData = FormData.fromMap({
       "username": user.username,
       "full_name": user.fullName,
       "email": user.email,
       "newsletter": true,
+      'picture': user.image == null ? null :await MultipartFile.fromFile(user.image!.path, filename: imageFileName),
     });
+
     dio.options.headers['content-Type'] = 'application/json; charset=UTF-8';
     dio.options.headers["Accept"] = "application/json";
     dio.options.headers["api_key"] = "9a5c786c-2762-45ab-a781-44dc705c4970";
@@ -49,6 +53,7 @@ class UpdateUserRemoteDataSourceImpl implements UpdateUserRemoteDataSource {
       }
 
     }on DioError catch (e){
+      print(e.response);
       throw Exception(e.message);
     }
   }

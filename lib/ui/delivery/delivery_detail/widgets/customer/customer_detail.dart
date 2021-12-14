@@ -294,7 +294,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                       ),
                       child: Center(
                         child: Text(
-                          "TRACK THE RESTAURANT",
+                          "TRACK THE CUSTOMER",
                           style: TextStyle(
                             fontFamily: "Milliard",
                             fontSize: 16.sp,

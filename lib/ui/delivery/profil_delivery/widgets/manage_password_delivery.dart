@@ -116,12 +116,12 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                           style: TextStyle(
                             fontFamily: "Milliard",
                             fontSize: 16.sp,
-                            color: Colors.black,
+                            color: kPrimaryColor,
                           ),
                         ),
                         InkWell(
                           onTap: (){
-                            if(secondPassword.text.length  .toString() == thirdPassword.text.toString()){
+                            if(secondPassword.text.length.toString() == thirdPassword.text.toString()){
                               SendPassword sendPassword = SendPassword(newPassword: firstPassword.text, lastPassword: secondPassword.text);
                               _updatePasswordBloc.add(LaunchUpdatePassword(sendPassword: sendPassword));
                             }else{
@@ -140,7 +140,7 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                             style: TextStyle(
                               fontFamily: "Milliard",
                               fontSize: 20.sp,
-                              color: Colors.black,
+                              color: kPrimaryColor,
                             ),
                           ),
                         )

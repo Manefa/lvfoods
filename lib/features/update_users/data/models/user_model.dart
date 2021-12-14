@@ -5,10 +5,12 @@ class UserModel extends User{
     final String? username,
     final String? fullName,
     final String? email,
+    final String? image,
   }) : super(
     username: username,
     fullName: fullName,
     email: email,
+    image: image,
   );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(

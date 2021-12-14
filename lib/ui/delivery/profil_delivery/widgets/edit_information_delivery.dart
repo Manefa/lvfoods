@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/alert_dialog/alert_dialog_update_user.dart';
 import 'package:ivfoods_mobile_app/features/get_user/bloc/get_user.dart';
@@ -45,6 +49,7 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
   TextEditingController userNameInput = TextEditingController();
   UpdateUserBloc _updateUserBloc = sl<UpdateUserBloc>();
   GetUserBloc _getUserBloc = sl<GetUserBloc>();
+  XFile? _image;
 
   @override
   void initState() {
@@ -171,57 +176,97 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: 240.w,
-                        child: Row(
-                          children: [
-                            Container(
-                              child:
-                              user1.image!=null ?
-                              //Letter Name
-                              CircleAvatar(
-                                backgroundColor: Color.fromRGBO(246, 246, 246, 1),
-                                child: Center(
-                                  child:Text(
-                                    user1.name[0],
-                                    style: TextStyle(
-                                      fontFamily: "Milliard",
-                                      fontSize: 20.sp,
-                                      color: Color.fromRGBO(188, 44, 61, 1),
-                                      fontWeight: FontWeight.w600,
+                      InkWell(
+                        onTap:(){
+                          _showPicker(context);
+                        },
+                        child: Container(
+                          width: 240.w,
+                          child: Row(
+                            children: [
+                              Container(
+                                child:
+                                user1.image!=null ?
+                                //Letter Name
+                                CircleAvatar(
+                                  backgroundColor: Color.fromRGBO(246, 246, 246, 1),
+                                  child: Center(
+                                    child:Text(
+                                      user1.name[0],
+                                      style: TextStyle(
+                                        fontFamily: "Milliard",
+                                        fontSize: 20.sp,
+                                        color: Color.fromRGBO(188, 44, 61, 1),
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
+                                )
+                                    :
+                                //Image
+                                _image ==null ? CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  backgroundImage: NetworkImage(widget.image,),
+                                ) : CircleAvatar(
+                                    backgroundImage: FileImage(
+                                      File(_image!.path),
+                                  ),
+                                  backgroundColor: Colors.transparent,
+                                ),
+
+                              ),
+                              SizedBox(width: 10.w,),
+                              Text("Change Avatar",
+                                style: TextStyle(
+                                  fontFamily: "Milliard",
+                                  fontSize: 16.sp,
+                                  color: kPrimaryColor,
                                 ),
                               )
-                                  :
-                              //Image
-                              CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                backgroundImage: NetworkImage(widget.image,),
-                              ),
-
-                            ),
-                            SizedBox(width: 10.w,),
-                            Text("Change Avatar",
-                              style: TextStyle(
-                                fontFamily: "Milliard",
-                                fontSize: 16.sp,
-                                color: Colors.black,
-                              ),
-                            )
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       InkWell(
                         onTap: (){
-                          UserForUpdate userForUpdate = UserForUpdate(username: userNameInput.text, email: emailAddressInput.text, fullName: fullNameInput.text);
-                          _updateUserBloc.add(UpdateUser(userForUpdate: userForUpdate));
+                          if(_image != null || fullNameInput.text.isEmpty || emailAddressInput.text.isEmpty){
+                            UserForUpdate userForUpdate = UserForUpdate(username: username, email: email, fullName: fullName, image: File(_image!.path));
+                            _updateUserBloc.add(UpdateUser(userForUpdate: userForUpdate));
+                          }else{
+                            Fluttertoast.showToast(
+                              msg: "Remplissez tout les champs",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 2,
+                              backgroundColor: Colors.grey,
+                              textColor: Colors.white,
+                              fontSize: 16.sp,
+                            );
+                          }
+
+                          if(_image == null){
+                            if(fullNameInput.text.isEmpty || emailAddressInput.text.isEmpty){
+                              Fluttertoast.showToast(
+                                msg: "Remplissez tout les champs",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: Colors.grey,
+                                textColor: Colors.white,
+                                fontSize: 16.sp,
+                              );
+                            }else{
+                              UserForUpdate userForUpdate = UserForUpdate(username: username, email: email, fullName: fullName);
+                              _updateUserBloc.add(UpdateUser(userForUpdate: userForUpdate));
+                            }
+                          }
+
                         },
                         child: Text("Save",
                           style: TextStyle(
                             fontFamily: "Milliard",
                             fontSize: 20.sp,
-                            color: Colors.black,
+                            color: kPrimaryColor,
                           ),
                         ),
                       )
@@ -290,10 +335,82 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
     );
   }
 
+  _imgFromCamera() async {
+    XFile? image = await ImagePicker().pickImage(
+        source: ImageSource.camera, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  _imgFromGallery() async {
+    XFile? image = await  ImagePicker().pickImage(
+        source: ImageSource.gallery, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(
+                          Icons.photo_library,
+                        color: kPrimaryColor,
+                      ),
+                      title: new Text(
+                          'Photo Library',
+                        style: TextStyle(
+                          fontFamily: "Milliard",
+                        ),
+                      ),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(
+                        Icons.photo_camera,
+                      color: kPrimaryColor,
+                    ),
+                    title: new Text(
+                        'Camera',
+                      style: TextStyle(
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
+
   Widget fullNameWidget()=>Container(
     height: 48.h,
     child: TextFormField(
       controller: fullNameInput,
+      onChanged: (value){
+        setState(() {
+          fullName = value;
+        });
+      },
       style: TextStyle(
         color: Colors.black,
         fontSize: 20.sp,
@@ -311,6 +428,11 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
     height: 48.h,
     child: TextFormField(
       controller: emailAddressInput,
+      onChanged: (value){
+        setState(() {
+          email = value;
+        });
+      },
       style: TextStyle(
         color: Colors.black,
         fontSize: 20.sp,
@@ -341,6 +463,11 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
     height: 48.h,
     child: TextFormField(
       controller: userNameInput,
+      onChanged: (value){
+        setState(() {
+          username = value;
+        });
+      },
       style: TextStyle(
         color: Colors.black,
         fontSize: 20.sp,
