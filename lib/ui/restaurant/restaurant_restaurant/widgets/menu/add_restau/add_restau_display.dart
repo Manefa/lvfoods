@@ -1,5 +1,8 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/add_restau/widgets/choice_chip.dart';
 
 class AddRestauDisplay extends StatefulWidget {
   const AddRestauDisplay({Key? key}) : super(key: key);
@@ -10,8 +13,16 @@ class AddRestauDisplay extends StatefulWidget {
 
 class _AddRestauDisplayState extends State<AddRestauDisplay> {
   final formKey = GlobalKey<FormState>();
-  int _selectedIndex=1;
-  List<String> _restauStyleOptions = ['Senegalais', 'Kmer', 'Resto Local'];
+  int _selectedIndex=0;
+  List<String> _restauStyleOptions = [
+    'Senegalais',
+    'Kmer',
+    'Resto Local',
+    'Senegalais',
+    'Kmer',
+    'Resto Local',
+    'Resto Local'
+  ];
 
 
 
@@ -222,11 +233,115 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             ),
             SizedBox(height: 21.h,),
             Container(
-              //width: 344.w,
+              width: 344.w,
+              child: ChipList(
+                listOfChipNames: _restauStyleOptions,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontFamily: "Milliard",
+                ),
+                borderRadiiList: [8.r],
+                runSpacing: 17.h,
+                activeBgColorList: [Color.fromRGBO(188, 44, 61,1)],
+                listOfChipIndicesCurrentlySeclected: [_selectedIndex],
+                inactiveBgColorList: [Color.fromRGBO(248, 247, 247, 1)],
+                activeTextColorList: [Colors.white],
+                inactiveTextColorList: [Color.fromRGBO(148, 148, 148,1)],
+                shouldWrap: true,
+              ),
+            ),
+            SizedBox(height: 23.h,),
+            //Description
+            Container(
+              width: 344.w,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Description",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18.sp,
+                    fontFamily: "Milliard",
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 7.h,),
+            description(),
+            SizedBox(height: 23.h,),
+            //UploadImage
+            Container(
+              width: 344.w,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Upload Slide Cover Image",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18.sp,
+                    fontFamily: "Milliard",
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 23.h,),
+            Container(
+              height: 42.h,
+              width: 344.w,
+              child: DottedBorder(
+                  color: Color.fromRGBO(188, 44, 61, 1),
+                  strokeWidth: 0.2,
+                  dashPattern: [10,6],
+                  child:Center(
+                      child:Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            LvIconsResto.upload,
+                            color: Color.fromRGBO(188, 44, 61, 1),
+                            size: 16.sp,
+                          ),
+                          SizedBox(width: 19.w,),
+                          Text(
+                            "Upload Images Here",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Color.fromRGBO(188, 44, 61, 1),
+                                fontSize: 20.sp,
+                                fontFamily: "Milliard",
 
-            )
-
-
+                                fontWeight: FontWeight.w200
+                            ),
+                          )
+                        ],
+                      )
+                  )
+              ),
+            ),
+            SizedBox(height: 43.h,),
+            //AddResto Button
+            Container(
+              width: 340.w,
+              height: 45.h,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(188, 44, 61, 1),
+                borderRadius: BorderRadius.circular(5.r),
+              ),
+              child: Center(
+                child: Text(
+                  "Add Restaurant",
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: "Milliard",
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 43.h,),
 
 
           ],
@@ -306,5 +421,26 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         ),
       )
   );
-//Widget choiseChipRestauStyle(){};
+  Widget description()=>Container(
+    height: 121.h,
+    width: 344.w,
+    decoration: new BoxDecoration(
+        borderRadius: BorderRadius.circular(5.r),
+        border: new Border.all(color: Color.fromRGBO(223, 222, 221, 1))
+    ),
+    child: new SizedBox.expand(
+      child: new TextField(
+          maxLines: 8,
+          style: new TextStyle(
+              fontSize: 16.sp,
+              fontFamily: "Milliard",
+              color: Colors.black
+          ),
+          decoration: const InputDecoration(
+            hintText: "Enter description...",
+            contentPadding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 10.0),
+          )
+      ),
+    ),
+  );
 }
