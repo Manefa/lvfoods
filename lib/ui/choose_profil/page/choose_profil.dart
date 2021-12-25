@@ -48,7 +48,7 @@ class ChooseProfil extends StatelessWidget {
                   //Profile Restaurateur
                   InkWell(
                     onTap: (){
-                      Navigator.pushNamed(context, "/navigatorrestaurantpage");
+                      Navigator.pushNamed(context, "/chooserestaurant");
                     },
                     child: Container(
                         height: 82.h,
