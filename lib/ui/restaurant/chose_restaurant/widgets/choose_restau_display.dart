@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
 class ChooseRestaurantModel{
   final String image;
   final String name;
@@ -37,9 +38,73 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
-    List<ChooseRestaurantModel> items = [items1, items2,items1, items2,items1, items2];
+    List<ChooseRestaurantModel> items = [];
     return SingleChildScrollView(
-      child: ListView.builder(
+      child: items.length ==0 ?
+      Column(
+        children: [
+          SizedBox(height: 100.h,),
+          Text(
+            'Aucun Restaurant Disponible',
+            style: TextStyle(
+              fontFamily: "Milliard",
+              fontSize:18.sp,
+              fontWeight: FontWeight.w200,
+            ),
+          ),
+          SizedBox(height: 31.h,),
+          Center(
+              child: InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, "/addrestau");
+                },
+                child: Container(
+                  height: 110.h,
+                  width: 344.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.36),
+                            spreadRadius: -3,
+                            blurRadius: 10,
+                            offset: Offset(0, 5)
+                        )
+                      ]
+                  ),
+                  child: Center(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          LvIconsResto.restaurant,
+                          color: Color.fromRGBO(188, 44, 61, 1),
+                          size: 30.sp,
+                        ),
+                        SizedBox(width: 10,),
+
+                        Text(
+                          'Ajouter un restaurant',
+                          style: TextStyle(
+                            fontFamily: "Milliard",
+                            fontSize:20.sp,
+                            color: Color.fromRGBO(188, 44, 61, 1),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ),
+              )
+          ),
+        ],
+      )
+          :
+      ListView.builder(
           shrinkWrap: true,
           itemCount: items.length,
           clipBehavior: Clip.none,
