@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/orders/restau_orders_detail/restau_orders_detail.dart';
 
 enum Level {
   toDelivery, InProgress, carryOut
@@ -116,213 +117,221 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
               child: Column(
                 children: [
                   SizedBox(height: 16.h,),
-                  Container(
-                    width: 340.w,
-                    //color: Colors.red,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        //ImageContainer
-                        Container(
-                          height: 66.h,
-                          width: 63.w,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(items[index].image),
-                                fit:BoxFit.cover
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => RestauOrderDetails()),
+                      );
+                    },
+                    child: Container(
+                      width: 340.w,
+                      //color: Colors.red,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          //ImageContainer
+                          Container(
+                            height: 66.h,
+                            width: 63.w,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(items[index].image),
+                                  fit:BoxFit.cover
+                              ),
+                              borderRadius: BorderRadius.circular(10.r),
                             ),
-                            borderRadius: BorderRadius.circular(10.r),
                           ),
-                        ),
-                        SizedBox(width: 8.w,),
-                        //InformationCOntainer
-                        Expanded(
-                            child:Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          SizedBox(width: 8.w,),
+                          //InformationCOntainer
+                          Expanded(
+                              child:Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
 
-                              children: [
-                                //Name
-                                Container(
-                                  child: Text(
-                                    items[index].name,
-                                    style: TextStyle(
-                                      fontFamily: "Milliard",
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),),
-                                SizedBox(height: 3.h,),
-                                //Location
-                                Container(
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        LvIcons.pin,
-                                        size: 15.sp,
-                                        color: Color.fromRGBO(148, 148, 148, 1),
+                                children: [
+                                  //Name
+                                  Container(
+                                    child: Text(
+                                      items[index].name,
+                                      style: TextStyle(
+                                        fontFamily: "Milliard",
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                      SizedBox(width: 8.8.w,),
-                                      Text(
-                                        items[index].location,
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(148, 148, 148, 1),
-                                          fontFamily: "Milliard",
-                                          fontSize: 15.sp,
-                                        ),
-                                      )
-
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 3.h,),
-                                //Timer
-                                Container(
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        LvIcons.ic_timer_24px,
-                                        size: 15.sp,
-                                        color: Color.fromRGBO(148, 148, 148, 1),
-                                      ),
-                                      SizedBox(width: 8.8.w,),
-                                      Text(
-                                        items[index].hours +" Hours Ago",
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(148, 148, 148, 1),
-                                          fontFamily: "Milliard",
-                                          fontSize: 15.sp,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                //PlatNumber Statut,and Price
-                                SizedBox(height: 3.h,),
-                                Container(
-                                  child: IntrinsicHeight(
+                                    ),),
+                                  SizedBox(height: 3.h,),
+                                  //Location
+                                  Container(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        //PlatNumber Statut
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                LvIcons.dish,
-                                                size: 15.sp,
-                                                color:  Color(0XFF4884EE),
-                                              ),
-                                              SizedBox(width: 3.w,),
-                                              Padding(
-                                                padding: const EdgeInsets.only(top: 2.0),
-                                                child: Text(
-                                                  "X "+items[index].qtt.toString(),
-                                                  style: TextStyle(
-                                                    color:  Color(0XFF4884EE),
-                                                    fontFamily: "Milliard",
-                                                    fontSize: 15.sp,
-                                                  ),
-                                                ),
-                                              ),
-                                              VerticalDivider(),
-                                              items[index].level == Level.carryOut ?
-                                              Container(
-                                                height: 20.r,
-                                                width: 20.r,
-                                                decoration: BoxDecoration(
-                                                    color: Color(0XFFFFF7E9),
-                                                    borderRadius: BorderRadius.circular(8)
-                                                ),
-                                                child: Center(
-                                                  child: Icon(
-                                                    Icons.check,
-                                                    size: 10.sp,
-                                                    color: Color(0XFFFBB634),
-                                                  ),
-                                                ),
-                                              ):(items[index].level == Level.toDelivery ?
-                                              Container(
-                                                height: 20.r,
-                                                width: 20.r,
-                                                decoration: BoxDecoration(
-                                                    color: Color(0XFFFFF7E9),
-                                                    borderRadius: BorderRadius.circular(8)
-                                                ),
-                                                child: Center(
-                                                  child: Icon(
-                                                    Icons.clean_hands_sharp,
-                                                    size: 10.sp,
-                                                    color: Color(0XFFA27AFA),
-                                                  ),
-                                                ),
-                                              ):Container(
-                                                height: 20.r,
-                                                width: 20.r,
-                                                decoration: BoxDecoration(
-                                                    color: Color(0XFFFFF7E9),
-                                                    borderRadius: BorderRadius.circular(8)
-                                                ),
-                                                child: Center(
-                                                  child: Icon(
-                                                    Icons.access_time_rounded,
-                                                    size: 10.sp,
-                                                    color: Color(0XFFFBB634),
-                                                  ),
-                                                ),
-                                              )),
-                                              SizedBox(width: 5.w,),
-                                              items[index].level == Level.carryOut ?
-                                              Text(
-                                                "Delivered",
-                                                style: TextStyle(
-                                                  color: Color(0XFF68D389),
-                                                  fontSize: 15.sp,
-                                                  fontFamily: "Milliard",
-                                                ),
-                                              ) : (
-                                                  items[index].level == Level.toDelivery ?
-                                                  Text(
-                                                    "Ready",
-                                                    style: TextStyle(
-                                                      color: Color(0XFFA27AFA),
-                                                      fontSize: 15.sp,
-                                                      fontFamily: "Milliard",
-                                                    ),
-                                                  ) : Text(
-                                                    "In Progress",
-                                                    style: TextStyle(
-                                                      color: Color(0XFFFBB634),
-                                                      fontSize: 15.sp,
-                                                      fontFamily: "Milliard",
-                                                    ),
-                                                  )
-                                              ),
-                                            ],
-                                          ),
+                                        Icon(
+                                          LvIcons.pin,
+                                          size: 15.sp,
+                                          color: Color.fromRGBO(148, 148, 148, 1),
                                         ),
-
-                                        //Price
+                                        SizedBox(width: 8.8.w,),
                                         Text(
-                                          items[index].price.toString()+" fcfa",
+                                          items[index].location,
                                           style: TextStyle(
-                                              color:  Color.fromRGBO(188, 44, 61, 1),
-                                              fontFamily: "Milliard",
-                                              fontSize: 20.sp,
-                                              fontWeight: FontWeight.w200
+                                            color: Color.fromRGBO(148, 148, 148, 1),
+                                            fontFamily: "Milliard",
+                                            fontSize: 15.sp,
                                           ),
-                                        ),
+                                        )
 
                                       ],
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
-                        ),
-                        SizedBox(width: 8.w,),
-                      ],
+                                  SizedBox(height: 3.h,),
+                                  //Timer
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          LvIcons.ic_timer_24px,
+                                          size: 15.sp,
+                                          color: Color.fromRGBO(148, 148, 148, 1),
+                                        ),
+                                        SizedBox(width: 8.8.w,),
+                                        Text(
+                                          items[index].hours +" Hours Ago",
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(148, 148, 148, 1),
+                                            fontFamily: "Milliard",
+                                            fontSize: 15.sp,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  //PlatNumber Statut,and Price
+                                  SizedBox(height: 3.h,),
+                                  Container(
+                                    child: IntrinsicHeight(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          //PlatNumber Statut
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  LvIcons.dish,
+                                                  size: 15.sp,
+                                                  color:  Color(0XFF4884EE),
+                                                ),
+                                                SizedBox(width: 3.w,),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 2.0),
+                                                  child: Text(
+                                                    "X "+items[index].qtt.toString(),
+                                                    style: TextStyle(
+                                                      color:  Color(0XFF4884EE),
+                                                      fontFamily: "Milliard",
+                                                      fontSize: 15.sp,
+                                                    ),
+                                                  ),
+                                                ),
+                                                VerticalDivider(),
+                                                items[index].level == Level.carryOut ?
+                                                Container(
+                                                  height: 20.r,
+                                                  width: 20.r,
+                                                  decoration: BoxDecoration(
+                                                      color: Color(0XFFFFF7E9),
+                                                      borderRadius: BorderRadius.circular(8)
+                                                  ),
+                                                  child: Center(
+                                                    child: Icon(
+                                                      Icons.check,
+                                                      size: 10.sp,
+                                                      color: Color(0XFFFBB634),
+                                                    ),
+                                                  ),
+                                                ):(items[index].level == Level.toDelivery ?
+                                                Container(
+                                                  height: 20.r,
+                                                  width: 20.r,
+                                                  decoration: BoxDecoration(
+                                                      color: Color(0XFFFFF7E9),
+                                                      borderRadius: BorderRadius.circular(8)
+                                                  ),
+                                                  child: Center(
+                                                    child: Icon(
+                                                      Icons.clean_hands_sharp,
+                                                      size: 10.sp,
+                                                      color: Color(0XFFA27AFA),
+                                                    ),
+                                                  ),
+                                                ):Container(
+                                                  height: 20.r,
+                                                  width: 20.r,
+                                                  decoration: BoxDecoration(
+                                                      color: Color(0XFFFFF7E9),
+                                                      borderRadius: BorderRadius.circular(8)
+                                                  ),
+                                                  child: Center(
+                                                    child: Icon(
+                                                      Icons.access_time_rounded,
+                                                      size: 10.sp,
+                                                      color: Color(0XFFFBB634),
+                                                    ),
+                                                  ),
+                                                )),
+                                                SizedBox(width: 5.w,),
+                                                items[index].level == Level.carryOut ?
+                                                Text(
+                                                  "Delivered",
+                                                  style: TextStyle(
+                                                    color: Color(0XFF68D389),
+                                                    fontSize: 15.sp,
+                                                    fontFamily: "Milliard",
+                                                  ),
+                                                ) : (
+                                                    items[index].level == Level.toDelivery ?
+                                                    Text(
+                                                      "Ready",
+                                                      style: TextStyle(
+                                                        color: Color(0XFFA27AFA),
+                                                        fontSize: 15.sp,
+                                                        fontFamily: "Milliard",
+                                                      ),
+                                                    ) : Text(
+                                                      "In Progress",
+                                                      style: TextStyle(
+                                                        color: Color(0XFFFBB634),
+                                                        fontSize: 15.sp,
+                                                        fontFamily: "Milliard",
+                                                      ),
+                                                    )
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+
+                                          //Price
+                                          Text(
+                                            items[index].price.toString()+" fcfa",
+                                            style: TextStyle(
+                                                color:  Color.fromRGBO(188, 44, 61, 1),
+                                                fontFamily: "Milliard",
+                                                fontSize: 20.sp,
+                                                fontWeight: FontWeight.w200
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                          ),
+                          SizedBox(width: 8.w,),
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 16.h,),

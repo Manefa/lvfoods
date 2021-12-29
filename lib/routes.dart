@@ -13,6 +13,8 @@ import 'package:ivfoods_mobile_app/ui/restaurant/home_restaurant/page/home_resta
 import 'package:ivfoods_mobile_app/ui/restaurant/notifications_page/page/notifications_restaurant.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/profile_restaurant/page/profile_restaurant.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/page/restaurant_restaurant.dart';
+import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/add_meal/add_meal.dart';
+import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/menu_restau_detail/pages/menu_restau_details.dart';
 import 'package:ivfoods_mobile_app/ui/splash/splash_page.dart';
 
 var routes = {
@@ -39,4 +41,6 @@ var routes = {
    "/restaurantpage" : (BuildContext context) => RestaurantResto(),
    "/notificationrestaurantpage" : (BuildContext context) => NotificationRestaurant(),
    "/profileresaturant" : (BuildContext context) => ProfileRestaurant(),
+   "/addmeal":(BuildContext context) => AddMeal(),
+   "/restaudetail":(BuildContext context) => RestauMenuDetails()
 };
