@@ -32,7 +32,6 @@ class _HomeRestaurantState extends State<HomeRestaurant> {
       return widgetListRestaurantHomeStateDisplay;
     }
 
-
     return Scaffold(
       body: SafeArea(
         child: Container(

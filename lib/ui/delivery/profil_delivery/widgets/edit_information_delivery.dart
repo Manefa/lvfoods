@@ -260,7 +260,6 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                               _updateUserBloc.add(UpdateUser(userForUpdate: userForUpdate));
                             }
                           }
-
                         },
                         child: Text("Save",
                           style: TextStyle(

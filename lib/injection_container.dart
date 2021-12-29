@@ -61,6 +61,44 @@ import 'package:ivfoods_mobile_app/features/paid_order_group/data/datasources/or
 import 'package:ivfoods_mobile_app/features/paid_order_group/data/repositories/order_group_paid_repository_impl.dart';
 import 'package:ivfoods_mobile_app/features/paid_order_group/domain/repositories/order_group_paid_repository.dart';
 import 'package:ivfoods_mobile_app/features/paid_order_group/domain/usecases/order_group_paid.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_product/bloc/create_product.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_product/data/datasources/create_product_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_product/data/repositories/create_product_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_product/domain/repositories/create_product_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_product/domain/usecases/create_product.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/bloc/add_restaurant.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/data/datasources/create_restaurant_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/data/repositories/add_restaurant_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/domain/repositories/add_restaurant_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/domain/usecases/add_restaurant.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/delete_product/bloc/delete_product.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/delete_product/data/datasources/delete_product_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/delete_product/data/repositories/delete_product_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/delete_product/domain/repositories/delete_product_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/delete_product/domain/usecases/delete_product.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/bloc/get_all_restaurants_for_current_user.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/data/datasources/get_all_restaurants_for_current_user_local_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/data/datasources/get_all_restaurants_for_current_user_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/data/repositories/get_all_restaurants_for_current_user_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/domain/repositories/get_all_restaurants_for_current_user_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/domain/usecases/get_all_restaurants_for_current_user.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/bloc/get_one_restaurant_and_populate_products.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/data/datasources/get_one_restaurant_and_populate_products_local_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/data/datasources/get_one_restaurant_and_populate_products_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/data/repositories/get_one_restaurant_and_populate_products_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/domain/repositories/get_one_restaurant_and_populate_products_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/domain/usecases/get_one_restaurant_and_populate_products.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/bloc/get_product_details.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/data/datasources/get_product_details_local_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/data/datasources/get_product_details_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/data/repositories/get_product_details_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/repositories/get_product_details_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/usecases/get_product_details.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/bloc/update_product.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/data/datasources/update_product_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/data/repositories/update_product_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/domain/repositories/update_product_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/domain/usecases/update_product.dart';
 import 'package:ivfoods_mobile_app/features/start_deposition/bloc/start_deposition.dart';
 import 'package:ivfoods_mobile_app/features/start_deposition/data/datasources/start_deposition_remote_data_source.dart';
 import 'package:ivfoods_mobile_app/features/start_deposition/data/repositories/start_depostion_repository_impl.dart';
@@ -519,6 +557,208 @@ Future<void> init() async {
   sl.registerLazySingleton<UpdatePasswordRemoteDataSource>(
         () => UpdatePasswordRemoteDataSourceImpl(client: sl()),
   );
+
+
+
+  //! Features - GetAllRestaurantsForCurrentUser
+  //Bloc
+
+  sl.registerFactory<GetAllRestaurantsForCurrentUserBloc>(
+        () => GetAllRestaurantsForCurrentUserBloc(
+      getAllRestaurantsForCurrentUserUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetAllRestaurantsForCurrentUserUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<GetAllRestaurantsForCurrentUserRepository>(
+        () => GetAllRestaurantsForCurrentUserRepositoryImpl(
+      remoteDataSource: sl(),
+      localDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<GetAllRestaurantsForCurrentUserRemoteDataSource>(
+        () => GetAllRestaurantsForCurrentUserRemoteDataSourceImpl(client: sl()),
+  );
+
+  sl.registerLazySingleton<GetAllRestaurantsForCurrentUserLocalDataSource>(
+        () => GetAllRestaurantsForCurrentUserLocalDataSourceImpl(sharedPreferences: sl()),
+  );
+
+
+  //! Features - AddRestaurant
+  //Bloc
+
+  sl.registerFactory<AddRestaurantBloc>(
+        () => AddRestaurantBloc(
+      addRestaurantUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => AddRestaurantUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<AddRestaurantRepository>(
+        () => AddRestaurantRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<AddRestaurantRemoteDataSource>(
+        () => AddRestaurantRemoteDataSourceImpl(dio: sl()),
+  );
+
+  //! Features - GetOneRestaurantAndPopulateProducts
+  //Bloc
+
+  sl.registerFactory<GetOneRestaurantAndPopulateProductsBloc>(
+        () => GetOneRestaurantAndPopulateProductsBloc(
+      getOneRestaurantAndPopulateProductsUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetOneRestaurantAndPopulateProductsUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<GetOneRestaurantAndPopulateProductsRepository>(
+        () => GetOneRestaurantAndPopulateProductsRepositoryImpl(
+      remoteDataSource: sl(),
+      localDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<GetOneRestaurantAndPopulateProductsRemoteDataSource>(
+        () => GetOneRestaurantAndPopulateProductsRemoteDataSourceImpl(client: sl()),
+  );
+
+  sl.registerLazySingleton<GetOneRestaurantAndPopulateProductsLocalDataSource>(
+        () => GetOneRestaurantAndPopulateProductsLocalDataSourceImpl(sharedPreferences: sl()),
+  );
+
+
+  //! Features - GetProductDetails
+  //Bloc
+
+  sl.registerFactory<GetProductDetailsBloc>(
+        () => GetProductDetailsBloc(
+      getProductDetailsUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetProductDetailsUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<GetProductDetailsRepository>(
+        () => GetProductDetailsRepositoryImpl(
+      remoteDataSource: sl(),
+      localDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<GetProductDetailsRemoteDataSource>(
+        () => GetProductDetailsRemoteDataSourceImpl(client: sl()),
+  );
+
+  sl.registerLazySingleton<GetProductDetailsLocalDataSource>(
+        () => GetProductDetailsLocalDataSourceImpl(sharedPreferences: sl()),
+  );
+
+
+  //! Features - DeleteProduct
+  //Bloc
+
+  sl.registerFactory<DeleteProductBloc>(
+        () => DeleteProductBloc(
+      deleteProductUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => DeleteProductUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<DeleteProductRepository>(
+        () => DeleteProductRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<DeleteProductRemoteDataSource>(
+        () => DeleteProductRemoteDataSourceImpl(client: sl()),
+  );
+
+  //! Features - UpdateProduct
+  //Bloc
+
+  sl.registerFactory<UpdateProductBloc>(
+        () => UpdateProductBloc(
+      updateProductUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => UpdateProductUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<UpdateProductRepository>(
+        () => UpdateProductRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<UpdateProductRemoteDataSource>(
+        () => UpdateProductRemoteDataSourceImpl(dio: sl()),
+  );
+
+  //! Features - CreateProduct
+  //Bloc
+
+  sl.registerFactory<CreateProductBloc>(
+        () => CreateProductBloc(
+      createProductUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => CreateProductUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<CreateProductRepository>(
+        () => CreateProductRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<CreateProductRemoteDataSource>(
+        () => CreateProductRemoteDataSourceImpl(dio: sl()),
+  );
+
+
+
+
+
+
+
 
 
 
