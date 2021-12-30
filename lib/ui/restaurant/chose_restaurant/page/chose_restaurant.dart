@@ -42,7 +42,6 @@ class _ChooseRestaurantState extends State<ChooseRestaurant> {
               ),
               SizedBox(height:26.h ,),
 
-
               Expanded(
                 child: Stack(
                   children: <Widget>[

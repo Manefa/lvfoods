@@ -7,7 +7,9 @@ import 'package:ivfoods_mobile_app/ui/delivery/home_delivery/widgets/order_state
 import 'package:ivfoods_mobile_app/ui/restaurant/home_restaurant/widgets/appbar_restaurant.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/home_restaurant/widgets/restaurant_display.dart';
 class HomeRestaurant extends StatefulWidget {
-  const HomeRestaurant({Key? key}) : super(key: key);
+  final String? restaurantName;
+  final String? address;
+  const HomeRestaurant({Key? key, this.restaurantName, this.address}) : super(key: key);
 
   @override
   _HomeRestaurantState createState() => _HomeRestaurantState();
@@ -23,14 +25,7 @@ class _HomeRestaurantState extends State<HomeRestaurant> {
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
-    List<Widget> widgetListRestaurantHomeStateDisplay = <Widget>[];
 
-    List<Widget> listOfRestaurant() {
-      for (int i = 0; i < 3; i++) {
-        widgetListRestaurantHomeStateDisplay.add(RestaurantHomeDisplay());
-      }
-      return widgetListRestaurantHomeStateDisplay;
-    }
 
     return Scaffold(
       body: SafeArea(
@@ -88,7 +83,7 @@ class _HomeRestaurantState extends State<HomeRestaurant> {
                 child: Center(
                   child: Container(
                     width: 344.w,
-                    child:RestaurantHomeDisplay(),
+                    child:RestaurantHomeDisplay(restaurantName: widget.restaurantName!, address: widget.address!,),
                   ),
                 ),
               ),

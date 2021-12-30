@@ -10,6 +10,10 @@ import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/page/rest
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class NavigatorRestaurantPage extends StatefulWidget {
+  final String? restaurantName;
+  final String? address;
+
+  const NavigatorRestaurantPage({Key? key, this.restaurantName, this.address}) : super(key: key);
   @override
   _NavigatorRestaurantPageState createState() => _NavigatorRestaurantPageState();
 }
@@ -26,7 +30,7 @@ class _NavigatorRestaurantPageState extends State<NavigatorRestaurantPage> {
 
   List<Widget> _buildScreens() {
     return [
-      HomeRestaurant(),
+      HomeRestaurant(restaurantName: widget.restaurantName!, address: widget.address,),
       RestaurantResto(),
       NotificationRestaurant(),
       ProfileRestaurant(),

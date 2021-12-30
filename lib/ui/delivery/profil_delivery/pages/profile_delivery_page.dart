@@ -115,8 +115,7 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                           backgroundColor: Colors.transparent,
                                           radius: 30.0,
                                           backgroundImage: NetworkImage(image!),
-                                        )
-                                        ,
+                                        ),
                                       ],
                                     ),
 

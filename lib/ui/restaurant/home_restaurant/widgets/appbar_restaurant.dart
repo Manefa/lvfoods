@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/get_user/bloc/get_user.dart';
+import 'package:ivfoods_mobile_app/features/get_user/domain/entities/phone.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class AppBarRestaurant extends StatefulWidget {
   const AppBarRestaurant({Key? key}) : super(key: key);
 
@@ -35,6 +38,14 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
             name = state.userMaster.users!.username.toString();
             image = state.userMaster.users!.picture.toString();
             userName =  state.userMaster.users!.username.toString();
+            sl<SharedPreferences>().setString("username", state.userMaster.users!.username.toString());
+            sl<SharedPreferences>().setString("fullname", state.userMaster.users!.fullName.toString());
+            sl<SharedPreferences>().setString("image", state.userMaster.users!.picture.toString());
+            sl<SharedPreferences>().setString("email", state.userMaster.users!.email.toString());
+            List<Phone>? phones = List.empty();
+            phones = state.userMaster.users!.phones;
+            sl<SharedPreferences>().setStringList("phones", phones!.map((item) => json.encode(item.toJson())).toList());
+
           }
         },
         child: BlocBuilder(

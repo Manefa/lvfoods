@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/category.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/get_product_details.dart';
+import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/add_meal/add_meal.dart';
+import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/edit_meal/edit_meal.dart';
 class InfosMenuDisplay extends StatefulWidget {
-  const InfosMenuDisplay({Key? key}) : super(key: key);
+  final GetProductDetails getProductDetails;
+  final String addres;
+  const InfosMenuDisplay({Key? key, required this.getProductDetails, required this.addres}) : super(key: key);
 
   @override
   _InfosMenuDisplayState createState() => _InfosMenuDisplayState();
@@ -69,43 +75,51 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                       ),
                     ),
                   ),
-                  Container(
-                    width: 87.w,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 0.1.w,
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditMeal(getProductDetails: widget.getProductDetails, code: widget.getProductDetails.product!.code!,)),
+                      ).then((_) => setState(() {}));
+                    },
+                    child: Container(
+                      width: 87.w,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 0.1.w,
+                          ),
+                          borderRadius: BorderRadius.circular(6.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white12,
+                              offset: Offset(0, 5),
+                              spreadRadius: -17,
+                              blurRadius: 20,
+                            ),
+                          ]
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              LvIconsResto.edit,
+                              color: Color.fromRGBO(148, 148, 148,1),
+                              size: 12.sp,
+                            ),
+                            SizedBox(width: 5.7.w,),
+                            Text(
+                                "Edit Infos",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color.fromRGBO(148, 148, 148, 1),
+                                  fontFamily: "Milliard",
+                                  fontSize: 13.sp,
+                                )
+                            ),
+                          ],
                         ),
-                        borderRadius: BorderRadius.circular(6.r),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.white12,
-                            offset: Offset(0, 5),
-                            spreadRadius: -17,
-                            blurRadius: 20,
-                          ),
-                        ]
-                    ),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            LvIconsResto.edit,
-                            color: Color.fromRGBO(148, 148, 148,1),
-                            size: 12.sp,
-                          ),
-                          SizedBox(width: 5.7.w,),
-                          Text(
-                              "Edit Infos",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(148, 148, 148, 1),
-                                fontFamily: "Milliard",
-                                fontSize: 13.sp,
-                              )
-                          ),
-                        ],
                       ),
                     ),
                   ),
@@ -134,7 +148,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                     child: Container(
                       width: 178.w,
                       child: Text(
-                          'Poulet braisé aux Crevettes',
+                          widget.getProductDetails.product!.name!,
                           textDirection: TextDirection.rtl,
                           style: TextStyle(
                             fontFamily: "Milliard",
@@ -144,8 +158,6 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                       ),
                     ),
                   ),
-
-
                 ],
               ),
             ),
@@ -169,7 +181,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
 
                   ),
                   Text(
-                      '2500 fcfa',
+                      widget.getProductDetails.product!.price.toString()+" fcfa",
                       textDirection: TextDirection.ltr,
                       style: TextStyle(
                         fontFamily: "Milliard",
@@ -202,16 +214,13 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
 
                   ),
                   Text(
-                      'Moder food',
+                      removeLastCharacter(getCategories(widget.getProductDetails.product!.categories!).toString()),
                       textDirection: TextDirection.ltr,
                       style: TextStyle(
                         fontFamily: "Milliard",
                         fontSize: 16.sp,
                       )
-
                   )
-
-
                 ],
               ),
             ),
@@ -235,16 +244,13 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
 
                   ),
                   Text(
-                      'Available now',
+                      widget.getProductDetails.product!.status!,
                       textDirection: TextDirection.ltr,
                       style: TextStyle(
                         fontFamily: "Milliard",
                         fontSize: 16.sp,
                       )
-
                   )
-
-
                 ],
               ),
             ),
@@ -272,7 +278,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                       child:Row(
                         children: [
                           Text(
-                            "Carrefour Mendong ",
+                            widget.addres,
                             style: TextStyle(
                               color: Color.fromRGBO(188, 44, 61, 1),
                               fontFamily: "Milliard",
@@ -314,7 +320,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                   ),
                   SizedBox(height: 6.h,),
                   Text(
-                    "Rien a dire a part que je suis un chomeur  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ",
+                    widget.getProductDetails.product!.description!,
                     style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Milliard",
@@ -322,7 +328,6 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                     ),
                   ),
                   SizedBox(height: 19.h,),
-
                 ],
               ),
             ),
@@ -332,4 +337,23 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
       ),
     );
   }
+
+  String getCategories(List<Category> list) {
+    String categories ="";
+    list.forEach((element) {
+      categories = categories + element.name! + ",";
+    });
+
+    return categories;
+  }
+
+  String removeLastCharacter(String str) {
+    String result="";
+    if ((str != null) && (str.length > 0)) {
+      result = str.substring(0, str.length - 1);
+    }
+
+    return result;
+  }
+
 }

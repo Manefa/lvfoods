@@ -27,19 +27,6 @@ class Product extends Equatable{
     required this.status,
   });
 
-  // factory Product.fromJson(Map<String, dynamic> json) => Product(
-  //   name: json["name"] == null ? null : json["name"],
-  //   description: json["description"] == null ? null : json["description"],
-  //   picture: json["picture"] == null ? null : json["picture"],
-  //   code: json["code"] == null ? null : json["code"],
-  //   price: json["price"] == null ? null : json["price"],
-  //   note: json["note"] == null ? null : json["note"],
-  //   discount: json["discount"] == null ? null : json["discount"],
-  //   notices: json["notices"] == null ? null : List<Notice>.from(json["notices"].map((x) => Notice.fromJson(x))),
-  //   categories: json["categories"] == null ? null : List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
-  //   status: json["status"] == null ? null : json["status"],
-  // );
-
   Map<String, dynamic> toJson() => {
     "name": name == null ? null : name,
     "description": description == null ? null : description,
@@ -54,6 +41,6 @@ class Product extends Equatable{
   };
 
   @override
-  List<Object?> get props => throw[name, description, picture, code, price, note, discount,
+  List<Object?> get props => [name, description, picture, code, price, note, discount,
   notices, categories, status];
 }

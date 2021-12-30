@@ -76,7 +76,7 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                 width:77.w ,
                                 decoration: BoxDecoration(
                                   image: const DecorationImage(
-                                    image: NetworkImage('images/appbarrestaurant.jpg'),
+                                    image: AssetImage('images/appbarrestaurant.jpg'),
                                     fit: BoxFit.cover,
                                   ),
                                   borderRadius: BorderRadius.circular(10.r),

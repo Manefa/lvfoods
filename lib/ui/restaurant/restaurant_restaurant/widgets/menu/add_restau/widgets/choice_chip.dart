@@ -45,6 +45,7 @@ class ChipList extends StatefulWidget {
   /// setState at the end of the function.
   final OnToggle? extraOnToggle;
 
+
   /// List of ChoiceChip names in order of building them.
   final List<String> listOfChipNames;
 

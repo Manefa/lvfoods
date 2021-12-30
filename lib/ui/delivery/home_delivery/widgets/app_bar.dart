@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/get_user/bloc/get_user.dart';
-import 'package:ivfoods_mobile_app/features/get_user/data/models/phone_model.dart';
 import 'package:ivfoods_mobile_app/features/get_user/domain/entities/phone.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/notification_delivery/page/notification_page.dart';

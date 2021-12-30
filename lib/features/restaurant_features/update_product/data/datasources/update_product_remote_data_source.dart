@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:ivfoods_mobile_app/core/error/exception.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/data/models/update_product_model.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/domain/entities/for_update_product.dart';
@@ -35,7 +36,7 @@ class UpdateProductRemoteDataSourceImpl implements UpdateProductRemoteDataSource
       "discount": updateProduct.discount,
       "price": updateProduct.price,
       "categories": updateProduct.categories == null ? null : updateProduct.categories,
-      'picture' : await MultipartFile.fromFile(updateProduct.picture!.path, filename: imagePictureFileName),
+      'picture' : updateProduct.picture == null ? null : await MultipartFile.fromFile(updateProduct.picture!.path, filename: imagePictureFileName),
     });
 
     dio.options.headers['content-Type'] = 'application/json; charset=UTF-8';

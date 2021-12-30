@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/get_product_details.dart';
 
 class RatingMenuModel{
   final String name;
@@ -26,7 +27,8 @@ RatingMenuModel comm2 = new RatingMenuModel(
 );
 
 class RatingMenuDisplay extends StatefulWidget {
-  const RatingMenuDisplay({Key? key}) : super(key: key);
+  final GetProductDetails getProductDetails;
+  const RatingMenuDisplay({Key? key, required this.getProductDetails}) : super(key: key);
 
   @override
   _RatingMenuDisplayState createState() => _RatingMenuDisplayState();
@@ -35,14 +37,14 @@ class RatingMenuDisplay extends StatefulWidget {
 class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
   @override
   Widget build(BuildContext context) {
-    List<RatingMenuModel> items = [comm1,comm2,comm1,comm1,];
+    //List<RatingMenuModel> items = [comm1,comm2,comm1,comm1,];
     ScreenUtil.init(
         BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
-    return Expanded(
+    return widget.getProductDetails.product!.notices!.isNotEmpty ? Expanded(
       child:Center(
         child: Container(
           width: 344.w,
@@ -56,7 +58,7 @@ class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       clipBehavior: Clip.none,
-                      itemCount: items.length,
+                      itemCount: widget.getProductDetails.product!.notices!.length,
                       itemBuilder: (BuildContext context, int index){
                         return Container(
                           child: Column(
@@ -70,7 +72,10 @@ class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
                                       height: 47.r,
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(9.r),
-                                          color: Colors.red
+
+                                        image: DecorationImage(
+                                          image: NetworkImage(widget.getProductDetails.product!.notices![index].user!.picture!),
+                                        )
                                       ),
                                     ),
                                     SizedBox(width: 17.w,),
@@ -81,7 +86,7 @@ class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
                                           Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              items[index].name,
+                                              widget.getProductDetails.product!.notices![index].user!.username!,
                                               style: TextStyle(
                                                 fontFamily: "Milliard",
                                                 fontWeight: FontWeight.w300,
@@ -99,7 +104,7 @@ class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
                                                   //Rate Container
                                                 ),
                                                 Text(
-                                                  items[index].date,
+                                                    widget.getProductDetails.product!.notices![index].createdAt!,
                                                   style: TextStyle(
                                                     fontFamily: "Milliard",
                                                     color: Color.fromRGBO(148, 148, 148, 1),
@@ -119,7 +124,7 @@ class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
                               ),
                               SizedBox(height: 9.h,),
 
-                              items[index].commentaire==null?
+                              widget.getProductDetails.product!.notices![index].comment == null ?
                               Column(
                                 children: [
                                   SizedBox(height: 14.5.h,),
@@ -131,7 +136,7 @@ class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
                               Column(
                                 children: [
                                   Text(
-                                    items[index].commentaire!,
+                                    widget.getProductDetails.product!.notices![index].comment!,
                                     style: TextStyle(
                                       fontFamily: "Milliard",
                                       fontSize: 14.sp,
@@ -159,6 +164,8 @@ class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
           ),
         ),
       ) ,
+    ) : Container(
+      child: Center(child: Text("Pas de commentaire")),
     );
   }
 }

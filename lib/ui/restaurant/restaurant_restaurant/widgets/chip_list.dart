@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 typedef OnToggle = void Function(int index);
 
+
 /// Creates a list of [ChoiceChips] with
 /// all logic handled.
 ///

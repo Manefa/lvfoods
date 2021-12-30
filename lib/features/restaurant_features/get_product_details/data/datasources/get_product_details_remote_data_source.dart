@@ -36,7 +36,8 @@ class GetProductDetailsRemoteDataSourceImpl implements GetProductDetailsRemoteDa
     );
 
     if (response.statusCode == 200) {
-      return GetProductDetailsModel.fromJson(json.decode(response.body));
+      var responseJson = json.decode(response.body) as Map<String, dynamic>;
+      return GetProductDetailsModel.fromJson(responseJson);
     } else {
       throw ServerException();
     }
