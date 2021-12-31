@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/ui/restaurant/notifications_page/widgets/notification_restau_display.dart';
 class NotificationRestaurant extends StatefulWidget {
   const NotificationRestaurant({Key? key}) : super(key: key);
 
@@ -9,11 +11,29 @@ class NotificationRestaurant extends StatefulWidget {
 class _NotificationRestaurantState extends State<NotificationRestaurant> {
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(
+        BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width,
+            maxHeight: MediaQuery.of(context).size.height),
+        designSize: Size(416, 897),
+        orientation: Orientation.portrait);
     return Scaffold(
-      backgroundColor: Colors.yellow,
-      body: SafeArea(
-        child: Container(),
+      appBar: AppBar(
+        title:  Text(
+          "Notifications",
+          style: TextStyle(
+              color: Colors.black,
+              fontFamily: "Milliard",
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w400
+          ),
+        ),
+        centerTitle: true,
+        elevation: 0.0,
+        backgroundColor: Colors.white,
       ),
+      body: NotificationRestauDisplay(),
+      backgroundColor: Colors.white,
     );
   }
 }
