@@ -82,6 +82,11 @@ import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaura
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/data/repositories/get_all_restaurants_for_current_user_repository_impl.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/domain/repositories/get_all_restaurants_for_current_user_repository.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/domain/usecases/get_all_restaurants_for_current_user.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/bloc/get_categories.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/data/datasources/get_categories_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/data/repositories/get_categories_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/repositories/get_categories_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/usecases/get_categories.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/bloc/get_one_restaurant_and_populate_products.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/data/datasources/get_one_restaurant_and_populate_products_local_data_source.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/data/datasources/get_one_restaurant_and_populate_products_remote_data_source.dart';
@@ -94,6 +99,11 @@ import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_deta
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/data/repositories/get_product_details_repository_impl.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/repositories/get_product_details_repository.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/usecases/get_product_details.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/bloc/get_styles.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/data/datasources/get_styles_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/data/repositories/get_styles_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/repositories/get_styles_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/usecases/get_categories.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/bloc/update_product.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/data/datasources/update_product_remote_data_source.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/data/repositories/update_product_repository_impl.dart';
@@ -753,11 +763,55 @@ Future<void> init() async {
         () => CreateProductRemoteDataSourceImpl(dio: sl()),
   );
 
+  //! Features - GetCategories
+  //Bloc
 
+  sl.registerFactory<GetCategoriesBloc>(
+        () => GetCategoriesBloc(
+      getCategoriesUseCase: sl(),
+    ),
+  );
 
+  // Use cases
+  sl.registerLazySingleton(() => GetCategoriesUseCase(sl()));
 
+  // Repository
+  sl.registerLazySingleton<GetCategoriesRepository>(
+        () => GetCategoriesRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
 
+  // Data sources
+  sl.registerLazySingleton<GetCategoriesRemoteDataSource>(
+        () => GetCategoriesRemoteDataSourceImpl(client: sl()),
+  );
 
+  //! Features - GetStyles
+  //Bloc
+
+  sl.registerFactory<GetStylesBloc>(
+        () => GetStylesBloc(
+      getStylesUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetStylesUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<GetStylesRepository>(
+        () => GetStylesRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<GetStylesRemoteDataSource>(
+        () => GetStylesRemoteDataSourceImpl(client: sl()),
+  );
 
 
 

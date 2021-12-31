@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/category.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/categorys.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/notice.dart';
 
 class Product extends Equatable{
@@ -11,7 +11,7 @@ class Product extends Equatable{
   final double? note;
   final double? discount;
   final List<Notice>? notices;
-  final List<Category>? categories;
+  final List<Categorys>? categories;
   final String? status;
 
   Product({

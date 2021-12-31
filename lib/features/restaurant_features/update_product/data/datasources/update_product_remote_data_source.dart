@@ -30,6 +30,9 @@ class UpdateProductRemoteDataSourceImpl implements UpdateProductRemoteDataSource
 
     String? imagePictureFileName = updateProduct.picture == null ? null : updateProduct.picture!.path.split("/").last;
 
+    if(updateProduct.categories == null){
+      print("cdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+    }
     var formData = FormData.fromMap({
       "name": updateProduct.name,
       "description": updateProduct.description,

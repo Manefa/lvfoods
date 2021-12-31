@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/entities/category.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/bloc/get_product_details.dart';
-import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/category.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/categorys.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery/widgets/sub_widgets/custom_tab_view_order.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/menu_restau_detail/widgets/infos_menu_display.dart';
@@ -15,7 +16,8 @@ class RestauMenuDetailsDisplay extends StatefulWidget {
   final String code;
   final String name;
   final String address;
-  const RestauMenuDetailsDisplay({Key? key, required this.code, required this.name, required this.address}) : super(key: key);
+  final List<Category> categories;
+  const RestauMenuDetailsDisplay({Key? key, required this.code, required this.name, required this.address, required this.categories}) : super(key: key);
 
   @override
   _RestauMenuDetailsDisplayState createState() => _RestauMenuDetailsDisplayState();
@@ -29,9 +31,15 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
 
   @override
   void initState() {
-
+    _getProductDetailsBloc.add(StartGetProductDetails(code: widget.code));
     super.initState();
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   _getProductDetailsBloc.add(StartGetProductDetails(code: widget.code));
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +50,6 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
-    _getProductDetailsBloc.add(StartGetProductDetails(code: widget.code));
-
     return BlocProvider<GetProductDetailsBloc>(
       create: (_) => _getProductDetailsBloc,
       child: Scaffold(
@@ -56,7 +62,7 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
             }
 
             if(state is GetProductDetailsLoaded){
-              List<Widget> widgets = [InfosMenuDisplay( getProductDetails: state.getProductDetails, addres: widget.address,), RatingMenuDisplay(getProductDetails: state.getProductDetails,)];
+              List<Widget> widgets = [InfosMenuDisplay( getProductDetails: state.getProductDetails, addres: widget.address, categories: widget.categories,), RatingMenuDisplay(getProductDetails: state.getProductDetails,)];
               return SafeArea(
                     child: Stack(
                       children: [
@@ -199,13 +205,17 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                       size: 18.sp,
                                                     ),
                                                     SizedBox(width: 10.w,),
-                                                    Text(
-                                                      state.getProductDetails.product!.categories!.isEmpty ? "Undelined" : removeLastCharacter(getCategories(state.getProductDetails.product!.categories!).toString()),
-                                                      style: TextStyle(
-                                                        fontSize: 18.sp,
-                                                        color: Colors.grey,
-                                                        fontFamily: "Milliard",
-                                                        fontWeight: FontWeight.w200,
+                                                    SizedBox(
+                                                      width: 152.w,
+                                                      child: Text(
+                                                        state.getProductDetails.product!.categories!.isEmpty ? " " : removeLastCharacter(getCategories(state.getProductDetails.product!.categories!).toString()),
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: TextStyle(
+                                                          fontSize: 18.sp,
+                                                          color: Colors.grey,
+                                                          fontFamily: "Milliard",
+                                                          fontWeight: FontWeight.w200,
+                                                        ),
                                                       ),
                                                     ),
                                                   ],
@@ -316,10 +326,10 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
     );
   }
 
-  String getCategories(List<Category> list) {
+  String getCategories(List<Categorys> list) {
     String categories ="";
     list.forEach((element) {
-      categories = categories + element.name! + ",";
+      categories = categories + element.name! + ", ";
     });
 
     return categories;
@@ -328,7 +338,7 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
   String removeLastCharacter(String str) {
     String result="";
     if ((str != null) && (str.length > 0)) {
-      result = str.substring(0, str.length - 1);
+      result = str.substring(0, str.length - 2);
     }
 
     return result;

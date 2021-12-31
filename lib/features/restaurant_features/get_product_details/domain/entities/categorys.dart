@@ -1,10 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class Category extends Equatable{
+class Categorys extends Equatable{
   final String? name;
+  final String? id;
 
-  Category({
+  Categorys({
     required this.name,
+    required this.id
   });
 
   // factory Category.fromJson(Map<String, dynamic> json) => Category(
@@ -13,6 +15,7 @@ class Category extends Equatable{
 
   Map<String, dynamic> toJson() => {
     "name": name == null ? null : name,
+    "_id": id == null ? null : id,
   };
 
   @override

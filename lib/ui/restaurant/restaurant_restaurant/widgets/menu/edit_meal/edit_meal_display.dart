@@ -8,6 +8,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/utils/url_convert.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/entities/category.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/get_product_details.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/bloc/update_product.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/domain/entities/for_update_product.dart';
@@ -18,7 +20,8 @@ import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/c
 class EditMealDisplay extends StatefulWidget {
   final GetProductDetails getProductDetails;
   final String code;
-  const EditMealDisplay({Key? key, required this.getProductDetails, required this.code}) : super(key: key);
+  final List<Category> categories;
+  const EditMealDisplay({Key? key, required this.getProductDetails, required this.code, required this.categories}) : super(key: key);
 
   @override
   _EditMealDisplayState createState() => _EditMealDisplayState();
@@ -30,15 +33,12 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
   String price = "";
   String remise = "";
   String description = "";
+  List<Category>? categoriesList;
   final formKey = GlobalKey<FormState>();
   UpdateProductBloc _updateProductBloc = sl<UpdateProductBloc>();
 
-  List<String> _categorieOptions = [
-    'Desert',
-    'Entrée',
-    'Plat de résistance',
-  ];
   XFile? _imageCover;
+  File? _oldCoverFile;
 
   TextEditingController mealNameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -46,19 +46,31 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
   TextEditingController descriptionController = TextEditingController();
 
   @override
-  void initState() {
+  void initState()  {
     name = widget.getProductDetails.product!.name!;
     price = widget.getProductDetails.product!.price.toString();
     remise = widget.getProductDetails.product!.discount!.toString();
     description = widget.getProductDetails.product!.description!.toString();
+    categoriesList = widget.categories;
     mealNameController = TextEditingController(text: name);
     priceController = TextEditingController(text: price);
     remiseController = TextEditingController(text: remise);
     descriptionController = TextEditingController(text: description);
+    _asyncMethod();
     super.initState();
   }
 
-  int day = 1;
+  _asyncMethod() async {
+    _oldCoverFile = await urlToFile(widget.getProductDetails.product!.picture!);
+    if(_oldCoverFile != null){
+      _imageCover = XFile(_oldCoverFile!.path);
+      print("chargement effectuer");
+      setState(() {
+
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +80,24 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
+
+    int day = 1;
+
    List<int> selectedList = [];
+    // List<String> _categorieOptions = [
+    //   'Desert',
+    //   'Entrée',
+    //   'Plat de résistance',
+    // ];
+
+    List<String> _categorieOptionsTwo = [];
+
+    if(categoriesList != null){
+      categoriesList!.forEach((element) {
+        _categorieOptionsTwo.add(element.name!);
+      });
+    }
+
 
     return BlocProvider<UpdateProductBloc>(
       create: (_) => _updateProductBloc,
@@ -80,6 +109,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
+                  duration: (state is UpdateProductLoading) ? Duration(days: day) : Duration(seconds: day),
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -101,6 +131,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
           }
 
           if(state is UpdateProductLoaded){
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             Navigator.pop(context);
           }
 
@@ -154,6 +185,106 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                       ),
                     )
                 ),
+                SizedBox(height: 23.h,),
+                //UploadImage
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Upload Slide Cover Image",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 23.h,),
+                _imageCover == null ? InkWell(
+                  onTap: (){
+                    _showPickerCover(context);
+                  },
+                  child: Container(
+                    height: 42.h,
+                    width: 344.w,
+                    child: DottedBorder(
+                        color: Color.fromRGBO(188, 44, 61, 1),
+                        strokeWidth: 0.2,
+                        dashPattern: [10,6],
+                        child:Center(
+                            child:Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  LvIconsResto.upload,
+                                  color: Color.fromRGBO(188, 44, 61, 1),
+                                  size: 16.sp,
+                                ),
+                                SizedBox(width: 19.w,),
+                                Text(
+                                  "Upload Images Here",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(188, 44, 61, 1),
+                                      fontSize: 20.sp,
+                                      fontFamily: "Milliard",
+
+                                      fontWeight: FontWeight.w200
+                                  ),
+                                )
+                              ],
+                            )
+                        )
+                    ),
+                  ),
+                ):InkWell(
+                  onTap: (){
+                    _showPickerCover(context);
+                  },
+                  child: Container(
+                    height: 50.h,
+                    width: 344.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0XFFF4F4F4),
+                            spreadRadius: 2,
+                            blurRadius: 6,
+                          )
+                        ]
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(width: 15.w,),
+                        Icon(
+                          Icons.image,
+                          color: Color(0XFFCBCBCB),
+                        ),
+                        SizedBox(width: 14.w,),
+                        SizedBox(
+                          width: 120.w,
+                          child: Text(
+                            _imageCover!.name,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Expanded(child: SizedBox()),
+                        Icon(
+                          Icons.cancel,
+                          color: Color(0XFFCBCBCB),
+                          size: 20.sp,
+                        ),
+                        SizedBox(width: 22.w,),
+                      ],
+                    ),
+                  ),
+                ),
                 SizedBox(height: 15.h,),
                 //Categorie
                 Container(
@@ -175,7 +306,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                   width: 344.w,
                   child: ChipList(
                     supportsMultiSelect: true,
-                    listOfChipNames: _categorieOptions,
+                    listOfChipNames: _categorieOptionsTwo,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontFamily: "Milliard",
@@ -342,116 +473,19 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 23.h,),
-                //UploadImage
-                Container(
-                  width: 344.w,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Upload Slide Cover Image",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.sp,
-                        fontFamily: "Milliard",
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 23.h,),
-                _imageCover == null ? InkWell(
-                  onTap: (){
-                    _showPickerCover(context);
-                  },
-                  child: Container(
-                    height: 42.h,
-                    width: 344.w,
-                    child: DottedBorder(
-                        color: Color.fromRGBO(188, 44, 61, 1),
-                        strokeWidth: 0.2,
-                        dashPattern: [10,6],
-                        child:Center(
-                            child:Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  LvIconsResto.upload,
-                                  color: Color.fromRGBO(188, 44, 61, 1),
-                                  size: 16.sp,
-                                ),
-                                SizedBox(width: 19.w,),
-                                Text(
-                                  "Upload Images Here",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(188, 44, 61, 1),
-                                      fontSize: 20.sp,
-                                      fontFamily: "Milliard",
-
-                                      fontWeight: FontWeight.w200
-                                  ),
-                                )
-                              ],
-                            )
-                        )
-                    ),
-                  ),
-                ):InkWell(
-                  onTap: (){
-                    _showPickerCover(context);
-                  },
-                  child: Container(
-                    height: 50.h,
-                    width: 344.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0XFFF4F4F4),
-                            spreadRadius: 2,
-                            blurRadius: 6,
-                          )
-                        ]
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 15.w,),
-                        Icon(
-                          Icons.image,
-                          color: Color(0XFFCBCBCB),
-                        ),
-                        SizedBox(width: 14.w,),
-                        SizedBox(
-                          width: 120.w,
-                          child: Text(
-                            _imageCover!.name,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Expanded(child: SizedBox()),
-                        Icon(
-                          Icons.cancel,
-                          color: Color(0XFFCBCBCB),
-                          size: 20.sp,
-                        ),
-                        SizedBox(width: 22.w,),
-                      ],
-                    ),
-                  ),
-                ),
                 SizedBox(height: 43.h,),
                 //EditResto Button
                 InkWell(
                   onTap: (){
                     String categories="";
+                    String theIds="";
                     for(int y=0; y < selectedList.length; y++){
-                      for(int i=0; i <= _categorieOptions.length; i++){
+                      for(int i=0; i <= _categorieOptionsTwo.length; i++){
                         if(i == selectedList[y]){
-                          categories = categories+_categorieOptions[i]+"|";
+                          categories = categories+_categorieOptionsTwo[i].trim()+"|";
+                          theIds = theIds+categoriesList![i].id!.trim()+"|";
                           print(removeLastCharacter(categories.trim()));
+                          print(removeLastCharacter(theIds.trim()));
                         }
                       }
                     }
@@ -468,7 +502,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                       );
                     }else{
                       ForUpdateProduct product = ForUpdateProduct(name: mealNameController.text,
-                          //categories: categories,
+                          categories: removeLastCharacter(theIds.trim()),
                           price: double.parse(priceController.text),
                           discount: double.parse(remiseController.text.toString()),
                           description: descriptionController.text,
@@ -510,15 +544,18 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
     XFile? image = await ImagePicker().pickImage(
         source: ImageSource.camera, imageQuality: 50
     );
+    setState(() {
       _imageCover = image;
+    });
   }
 
   _imgFromGalleryCover() async {
     XFile? image = await  ImagePicker().pickImage(
         source: ImageSource.gallery, imageQuality: 50
     );
-
+    setState(() {
       _imageCover = image;
+    });
   }
 
   void _showPickerCover(context) {

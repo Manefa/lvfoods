@@ -1,23 +1,25 @@
 
-import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/category.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/categorys.dart';
 
-class CategoryModel extends Category{
-  final String? name;
-
+class CategoryModel extends Categorys{
   CategoryModel({
-    required this.name,
+    required String? name,
+    required String id,
   }) : super(
-    name: name
+    name: name,
+    id: id,
   );
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
     name: json["name"] == null ? null : json["name"],
+    id: json["_id"] == null ? null : json["_id"],
   );
 
   Map<String, dynamic> toJson() => {
     "name": name == null ? null : name,
+    "_id": id == null ? null : id,
   };
 
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [name, id];
 }
