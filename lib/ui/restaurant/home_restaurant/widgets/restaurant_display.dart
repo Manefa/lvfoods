@@ -90,7 +90,8 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
               return LoadingWidget();
             }
             if(state is GetOneRestaurantAndPopulateProductsLoaded){
-              return SingleChildScrollView(
+
+              return state.getOneRestaurantAndPopulateProducts.restaurant!.products!.isNotEmpty ? SingleChildScrollView(
                 child: GridView.builder(
                     shrinkWrap: true,
                     physics: ScrollPhysics(),
@@ -237,6 +238,8 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
                       );
                     }
                 ),
+              ) : Container(
+                child: Center(child: Text("Aucun Produit")),
               );
             }
             if(state is GetOneRestaurantAndPopulateProductsError){

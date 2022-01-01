@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/add_restau/add_restau_display.dart';
 class AddRestaurant extends StatefulWidget {
-  const AddRestaurant({Key? key}) : super(key: key);
+  final List<Style> styles;
+
+  const AddRestaurant({Key? key, required this.styles}) : super(key: key);
 
   @override
   _AddRestaurantState createState() => _AddRestaurantState();
@@ -32,7 +35,7 @@ class _AddRestaurantState extends State<AddRestaurant> {
         elevation: 0.0,
         backgroundColor: Colors.white,
       ),
-      body: AddRestauDisplay(),
+      body: AddRestauDisplay(styles: widget.styles,),
       backgroundColor: Colors.white,
     );
   }

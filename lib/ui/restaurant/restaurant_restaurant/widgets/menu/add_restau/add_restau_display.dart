@@ -10,11 +10,13 @@ import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/bloc/add_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/domain/entities/for_create_restaurant.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/add_restau/widgets/choice_chip.dart';
 
 class AddRestauDisplay extends StatefulWidget {
-  const AddRestauDisplay({Key? key}) : super(key: key);
+  final List<Style> styles;
+  const AddRestauDisplay({Key? key, required this.styles}) : super(key: key);
 
   @override
   _AddRestauDisplayState createState() => _AddRestauDisplayState();
@@ -33,17 +35,23 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   int _selectedIndex=0;
   bool isSwitched = true;
   List<int> mySelected = List.empty();
-  List<String> _restauStyleOptions = [
-    'Senegalais',
-    'Kmer',
-    'Bami',
-    'Douala',
-    'Francais',
-  ];
+  List<Style>? styleList;
+  // List<String> _restauStyleOptions = [
+  //   'Senegalais',
+  //   'Kmer',
+  //   'Bami',
+  //   'Douala',
+  //   'Francais',
+  // ];
   String style="";
   XFile? _imageProfile;
   XFile? _imageCover;
 
+  @override
+  void initState() {
+    styleList = widget.styles;
+    super.initState();
+  }
 
 
   @override
@@ -55,6 +63,13 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
     List<int> selectedList = [];
+    List<String> _styleOptionsTwo = [];
+
+    if(styleList != null){
+      styleList!.forEach((element) {
+        _styleOptionsTwo.add(element.name!);
+      });
+    }
     int day = 1;
     return BlocProvider<AddRestaurantBloc>(
       create: (_) => _addRestaurantBloc,
@@ -92,17 +107,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
           }
 
           if(state is AddRestaurantLoaded){
-            // ScaffoldMessenger.of(context)
-            //   ..hideCurrentSnackBar()
-            //   ..showSnackBar(
-            //     SnackBar(
-            //       content: Row(
-            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //         children: [Text("Restaurant Ajouter", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.check, color: Colors.white,)],
-            //       ),
-            //       backgroundColor: kPrimaryColor,
-            //     ),
-            //   );
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             Navigator.pop(context);
           }
 
@@ -167,18 +172,107 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                           ],
                         ),
                       ),
-                      InkWell(
-                        child: Text(
-                          "Save",
-                          style: TextStyle(
-                            color: Color.fromRGBO(188, 44, 61, 1),
-                            fontSize: 22.sp,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: "Milliard",
+                    ],
+                  ),
+                ),
+                SizedBox(height: 26.h,),
+                //UploadImage
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Upload Slide Cover Image",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 23.h,),
+                _imageCover == null ? InkWell(
+                  onTap: (){
+                    _showPickerCover(context);
+                  },
+                  child: Container(
+                    height: 42.h,
+                    width: 344.w,
+                    child: DottedBorder(
+                        color: Color.fromRGBO(188, 44, 61, 1),
+                        strokeWidth: 0.2,
+                        dashPattern: [10,6],
+                        child:Center(
+                            child:Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  LvIconsResto.upload,
+                                  color: Color.fromRGBO(188, 44, 61, 1),
+                                  size: 16.sp,
+                                ),
+                                SizedBox(width: 19.w,),
+                                Text(
+                                  "Upload Images Here",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(188, 44, 61, 1),
+                                      fontSize: 20.sp,
+                                      fontFamily: "Milliard",
+
+                                      fontWeight: FontWeight.w200
+                                  ),
+                                )
+                              ],
+                            )
+                        )
+                    ),
+                  ),
+                ): InkWell(
+                  onTap: (){
+                    _showPickerCover(context);
+                  },
+                  child: Container(
+                    height: 50.h,
+                    width: 344.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0XFFF4F4F4),
+                            spreadRadius: 2,
+                            blurRadius: 6,
+                          )
+                        ]
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(width: 15.w,),
+                        Icon(
+                          Icons.image,
+                          color: Color(0XFFCBCBCB),
+                        ),
+                        SizedBox(width: 14.w,),
+                        SizedBox(
+                          width: 120.w,
+                          child: Text(
+                            _imageCover!.name,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                      )
-                    ],
+                        Expanded(child: SizedBox()),
+                        Icon(
+                          Icons.cancel,
+                          color: Color(0XFFCBCBCB),
+                          size: 20.sp,
+                        ),
+                        SizedBox(width: 22.w,),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 26.h,),
@@ -316,6 +410,24 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                 //   ),
                 // ),
                 SizedBox(height: 24.h,),
+                //Description
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Description",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 7.h,),
+                description(),
+                SizedBox(height: 23.h,),
                 //Resto style
                 Container(
                   width: 344.w,
@@ -335,7 +447,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                 Container(
                   child: ChipList(
                     supportsMultiSelect: true,
-                    listOfChipNames: _restauStyleOptions,
+                    listOfChipNames: _styleOptionsTwo,
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontFamily: "Milliard",
@@ -351,157 +463,42 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                   ),
                 ),
                 SizedBox(height: 23.h,),
-                //Description
-                Container(
-                  width: 344.w,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Description",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.sp,
-                        fontFamily: "Milliard",
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 7.h,),
-                description(),
-                SizedBox(height: 23.h,),
-                //UploadImage
-                Container(
-                  width: 344.w,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Upload Slide Cover Image",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.sp,
-                        fontFamily: "Milliard",
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 23.h,),
-                _imageCover == null ? InkWell(
-                  onTap: (){
-                    _showPickerCover(context);
-                  },
-                  child: Container(
-                    height: 42.h,
-                    width: 344.w,
-                    child: DottedBorder(
-                        color: Color.fromRGBO(188, 44, 61, 1),
-                        strokeWidth: 0.2,
-                        dashPattern: [10,6],
-                        child:Center(
-                            child:Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  LvIconsResto.upload,
-                                  color: Color.fromRGBO(188, 44, 61, 1),
-                                  size: 16.sp,
-                                ),
-                                SizedBox(width: 19.w,),
-                                Text(
-                                  "Upload Images Here",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(188, 44, 61, 1),
-                                      fontSize: 20.sp,
-                                      fontFamily: "Milliard",
-
-                                      fontWeight: FontWeight.w200
-                                  ),
-                                )
-                              ],
-                            )
-                        )
-                    ),
-                  ),
-                ): InkWell(
-                  onTap: (){
-                    _showPickerCover(context);
-                  },
-                  child: Container(
-                    height: 50.h,
-                    width: 344.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0XFFF4F4F4),
-                          spreadRadius: 2,
-                          blurRadius: 6,
-                        )
-                      ]
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 15.w,),
-                        Icon(
-                          Icons.image,
-                          color: Color(0XFFCBCBCB),
-                        ),
-                        SizedBox(width: 14.w,),
-                        SizedBox(
-                          width: 120.w,
-                          child: Text(
-                            _imageCover!.name,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Expanded(child: SizedBox()),
-                        Icon(
-                          Icons.cancel,
-                          color: Color(0XFFCBCBCB),
-                          size: 20.sp,
-                        ),
-                        SizedBox(width: 22.w,),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 43.h,),
                 //AddResto Button
                 InkWell(
                   onTap: (){
                     String styles="";
+                    String theIds="";
                     for(int y=0; y < selectedList.length; y++){
-                      for(int i=0; i <= _restauStyleOptions.length; i++){
+                      for(int i=0; i <= _styleOptionsTwo.length; i++){
                         if(i == selectedList[y]){
-                          styles = styles+_restauStyleOptions[i]+"|";
+                          styles = styles+_styleOptionsTwo[i].trim()+"|";
+                          theIds = theIds+styleList![i].id!.trim()+"|";
                           print(removeLastCharacter(styles.trim()));
+                          print(removeLastCharacter(theIds.trim()));
                         }
                       }
                     }
 
-                    // if(restaurantNameController.text.isEmpty ||
-                    //     phoneNumberController.text.isEmpty ||
-                    //     emailController.text.isEmpty ||
-                    //     locationController.text.isEmpty || _imageCover == null || _imageProfile == null ){
-                    //   Fluttertoast.showToast(
-                    //     msg: "Renseignez tout les champs et chargez toutes les images",
-                    //     toastLength: Toast.LENGTH_SHORT,
-                    //     gravity: ToastGravity.BOTTOM,
-                    //     timeInSecForIosWeb: 5,
-                    //     backgroundColor: Colors.grey,
-                    //     textColor: Colors.white,
-                    //     fontSize: 16.sp,
-                    //   );
-                    // }
-                    // else{
-                    //   ForCreateRestaurant restaurant = ForCreateRestaurant(name: restaurantNameController.text, email: emailController.text,
-                    //   description: descriptionController.text, address: locationController.text, profilePicture: File(_imageProfile!.path), coverPicture: File(_imageCover!.path), styles: styles);
-                    //
-                    //   _addRestaurantBloc.add(StartAddRestaurant(createRestaurant: restaurant));
-                    // }
+                    if(restaurantNameController.text.isEmpty ||
+                        phoneNumberController.text.isEmpty ||
+                        emailController.text.isEmpty ||
+                        locationController.text.isEmpty || _imageCover == null || _imageProfile == null ){
+                      Fluttertoast.showToast(
+                        msg: "Renseignez tout les champs et chargez toutes les images",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 5,
+                        backgroundColor: Colors.grey,
+                        textColor: Colors.white,
+                        fontSize: 16.sp,
+                      );
+                    }
+                    else{
+                      ForCreateRestaurant restaurant = ForCreateRestaurant(name: restaurantNameController.text, email: emailController.text,
+                      description: descriptionController.text, address: locationController.text, profilePicture: File(_imageProfile!.path), coverPicture: File(_imageCover!.path), styles: removeLastCharacter(theIds.trim()));
+
+                      _addRestaurantBloc.add(StartAddRestaurant(createRestaurant: restaurant));
+                    }
                   },
                   child: Container(
                     width: 340.w,

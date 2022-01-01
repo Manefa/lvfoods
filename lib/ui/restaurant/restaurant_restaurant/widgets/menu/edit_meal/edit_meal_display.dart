@@ -34,6 +34,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
   String remise = "";
   String description = "";
   List<Category>? categoriesList;
+  List<Category> categoriesForSaveList = [];
   final formKey = GlobalKey<FormState>();
   UpdateProductBloc _updateProductBloc = sl<UpdateProductBloc>();
 
@@ -52,6 +53,10 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
     remise = widget.getProductDetails.product!.discount!.toString();
     description = widget.getProductDetails.product!.description!.toString();
     categoriesList = widget.categories;
+    for(int i = 0; i < widget.getProductDetails.product!.categories!.length; i++){
+      Category category = Category(id:widget.getProductDetails.product!.categories![i].id , name: widget.getProductDetails.product!.categories![i].name);
+      categoriesForSaveList.add(category);
+    }
     mealNameController = TextEditingController(text: name);
     priceController = TextEditingController(text: price);
     remiseController = TextEditingController(text: remise);
@@ -286,42 +291,6 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                   ),
                 ),
                 SizedBox(height: 15.h,),
-                //Categorie
-                Container(
-                  width: 344.w,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Categorie",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.sp,
-                        fontFamily: "Milliard",
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 21.h,),
-                Container(
-                  width: 344.w,
-                  child: ChipList(
-                    supportsMultiSelect: true,
-                    listOfChipNames: _categorieOptionsTwo,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontFamily: "Milliard",
-                    ),
-                    borderRadiiList: [8.r],
-                    runSpacing: 17.h,
-                    activeBgColorList: [Color.fromRGBO(188, 44, 61,1)],
-                    listOfChipIndicesCurrentlySeclected: selectedList,
-                    inactiveBgColorList: [Color.fromRGBO(248, 247, 247, 1)],
-                    activeTextColorList: [Colors.white],
-                    inactiveTextColorList: [Color.fromRGBO(148, 148, 148,1)],
-                    shouldWrap: true,
-                  ),
-                ),
-                SizedBox(height: 17.h,),
                 //Price
                 Container(
                   width: 344.w,
@@ -474,11 +443,53 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                   ),
                 ),
                 SizedBox(height: 43.h,),
+                //Categorie
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Categorie",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 21.h,),
+                Container(
+                  width: 344.w,
+                  child: ChipList(
+                    supportsMultiSelect: true,
+                    listOfChipNames: _categorieOptionsTwo,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontFamily: "Milliard",
+                    ),
+                    borderRadiiList: [8.r],
+                    runSpacing: 17.h,
+                    activeBgColorList: [Color.fromRGBO(188, 44, 61,1)],
+                    listOfChipIndicesCurrentlySeclected: selectedList,
+                    inactiveBgColorList: [Color.fromRGBO(248, 247, 247, 1)],
+                    activeTextColorList: [Colors.white],
+                    inactiveTextColorList: [Color.fromRGBO(148, 148, 148,1)],
+                    shouldWrap: true,
+                  ),
+                ),
+                SizedBox(height: 17.h,),
                 //EditResto Button
                 InkWell(
                   onTap: (){
                     String categories="";
                     String theIds="";
+
+                    String theIdsForSave="";
+                    for(int i = 0; i<categoriesForSaveList.length; i++){
+                      theIdsForSave = theIdsForSave+categoriesForSaveList[i].id!+"|";
+                    }
+
                     for(int y=0; y < selectedList.length; y++){
                       for(int i=0; i <= _categorieOptionsTwo.length; i++){
                         if(i == selectedList[y]){
@@ -501,8 +512,9 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                         fontSize: 16.sp,
                       );
                     }else{
-                      ForUpdateProduct product = ForUpdateProduct(name: mealNameController.text,
-                          categories: removeLastCharacter(theIds.trim()),
+                      ForUpdateProduct product = ForUpdateProduct(
+                          name: mealNameController.text,
+                          categories: theIds == "" ? removeLastCharacter(theIdsForSave.trim()) : removeLastCharacter(theIds.trim()),
                           price: double.parse(priceController.text),
                           discount: double.parse(remiseController.text.toString()),
                           description: descriptionController.text,

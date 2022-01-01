@@ -61,6 +61,16 @@ import 'package:ivfoods_mobile_app/features/paid_order_group/data/datasources/or
 import 'package:ivfoods_mobile_app/features/paid_order_group/data/repositories/order_group_paid_repository_impl.dart';
 import 'package:ivfoods_mobile_app/features/paid_order_group/domain/repositories/order_group_paid_repository.dart';
 import 'package:ivfoods_mobile_app/features/paid_order_group/domain/usecases/order_group_paid.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_hours/bloc/add_hours.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_hours/data/datasources/add_hours_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_hours/data/repositories/add_hours_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_hours/domain/repository/add_hours_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_hours/domain/usecases/add_hours.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_phone/bloc/add_phone.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_phone/data/datasources/add_phone_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_phone/data/repositories/add_phone_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_phone/domain/repository/add_phone_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/add_phone/domain/usecases/add_phone.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_product/bloc/create_product.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_product/data/datasources/create_product_data_source.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_product/data/repositories/create_product_repository_impl.dart';
@@ -99,16 +109,36 @@ import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_deta
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/data/repositories/get_product_details_repository_impl.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/repositories/get_product_details_repository.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/usecases/get_product_details.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/bloc/get_restaurant.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/data/datasources/get_restaurant_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/data/repositories/get_restaurant_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/domain/repository/get_restaurant_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/domain/usecases/get_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/bloc/get_styles.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/data/datasources/get_styles_remote_data_source.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/data/repositories/get_styles_repository_impl.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/repositories/get_styles_repository.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/usecases/get_categories.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/remove_hours/bloc/remove_hours.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/remove_hours/data/datasources/remove_hours_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/remove_hours/data/repositories/remove_hours_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/remove_hours/domain/repository/remove_hours_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/remove_hours/domain/usecases/remove_hours.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/remove_phone/bloc/remove_phone.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/remove_phone/data/datasources/remove_phone_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/remove_phone/data/repositories/remove_phone_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/remove_phone/domain/repository/remove_phone_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/remove_phone/domain/usecases/remove_phone.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/bloc/update_product.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/data/datasources/update_product_remote_data_source.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/data/repositories/update_product_repository_impl.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/domain/repositories/update_product_repository.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/domain/usecases/update_product.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/update_restaurant/bloc/update_restaurant.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/update_restaurant/data/datasources/update_restaurant_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/update_restaurant/data/repositories/update_restaurant_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/update_restaurant/domain/repositories/update_restaurant_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/update_restaurant/domain/usecases/update_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/start_deposition/bloc/start_deposition.dart';
 import 'package:ivfoods_mobile_app/features/start_deposition/data/datasources/start_deposition_remote_data_source.dart';
 import 'package:ivfoods_mobile_app/features/start_deposition/data/repositories/start_depostion_repository_impl.dart';
@@ -812,6 +842,163 @@ Future<void> init() async {
   sl.registerLazySingleton<GetStylesRemoteDataSource>(
         () => GetStylesRemoteDataSourceImpl(client: sl()),
   );
+
+  //! Features - GetRestaurant
+  //Bloc
+
+  sl.registerFactory<GetRestaurantBloc>(
+        () => GetRestaurantBloc(
+      getRestaurantUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetRestaurantUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<GetRestaurantRepository>(
+        () => GetRestaurantRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<GetRestaurantRemoteDataSource>(
+        () => GetRestaurantRemoteDataSourceImpl(client: sl()),
+  );
+
+  //! Features - UpdateRestaurant
+  //Bloc
+
+  sl.registerFactory<UpdateRestaurantBloc>(
+        () => UpdateRestaurantBloc(
+      updateRestaurantUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => UpdateRestaurantUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<UpdateRestaurantRepository>(
+        () => UpdateRestaurantRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<UpdateRestaurantRemoteDataSource>(
+        () => UpdateRestaurantRemoteDataSourceImpl(dio: sl(),),
+  );
+
+  //! Features - AddPhone
+  //Bloc
+
+  sl.registerFactory<AddPhoneBloc>(
+        () => AddPhoneBloc(
+      addPhoneUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => AddPhoneUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<AddPhoneRepository>(
+        () => AddPhoneRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<AddPhoneRemoteDataSource>(
+        () => AddPhoneRemoteDataSourceImpl(client: sl(),),
+  );
+
+
+  //! Features - RemovePhone
+  //Bloc
+
+  sl.registerFactory<RemovePhoneBloc>(
+        () => RemovePhoneBloc(
+      removePhoneUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => RemovePhoneUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<RemovePhoneRepository>(
+        () => RemovePhoneRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<RemovePhoneRemoteDataSource>(
+        () => RemovePhoneRemoteDataSourceImpl(client: sl(),),
+  );
+
+
+
+  //! Features - AddHours
+  //Bloc
+
+  sl.registerFactory<AddHoursBloc>(
+        () => AddHoursBloc(
+      addHoursUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => AddHoursUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<AddHoursRepository>(
+        () => AddHoursRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<AddHoursRemoteDataSource>(
+        () => AddHoursRemoteDataSourceImpl(client: sl(),),
+  );
+
+
+  //! Features - RemoveHours
+  //Bloc
+
+  sl.registerFactory<RemoveHoursBloc>(
+        () => RemoveHoursBloc(
+      removeHoursUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => RemoveHoursUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<RemoveHoursRepository>(
+        () => RemoveHoursRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<RemoveHoursRemoteDataSource>(
+        () => RemoveHoursRemoteDataSourceImpl(client: sl(),),
+  );
+
+
+
 
 
 

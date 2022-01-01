@@ -202,7 +202,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => EditMeal(getProductDetails: widget.getProductDetails, code: widget.getProductDetails.product!.code!, categories: widget.categories,),),
-                          ).then((_) => setState(() {}));
+                          );
                         },
                         child: Container(
                           width: 87.w,
@@ -335,15 +335,18 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             Container(
-                              width: 152.w,
-                              child: Text(
-                                  removeLastCharacter(getCategories(widget.getProductDetails.product!.categories!).toString()),
-                                  overflow: TextOverflow.ellipsis,
-                                  textDirection: TextDirection.ltr,
-                                  style: TextStyle(
-                                    fontFamily: "Milliard",
-                                    fontSize: 16.sp,
-                                  )
+                              child: Row(
+                                children: [
+                                  Text(
+                                      removeLastCharacter(getCategories(widget.getProductDetails.product!.categories!).toString()),
+                                      overflow: TextOverflow.ellipsis,
+                                      textDirection: TextDirection.ltr,
+                                      style: TextStyle(
+                                        fontFamily: "Milliard",
+                                        fontSize: 16.sp,
+                                      )
+                                  ),
+                                ],
                               ),
                             ),
                           ],

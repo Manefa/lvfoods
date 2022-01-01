@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/entities/category.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/domain/entities/get_one_restaurant_and_populate_products.dart';
+import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/menu_restau_detail/pages/menu_restau_details.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class RestaurantHomeDisplayModel{
   final String name;
   final String image;
@@ -33,7 +37,9 @@ RestaurantHomeDisplayModel items2= new RestaurantHomeDisplayModel(
 );
 
 class MenuRestaurantDisplay extends StatefulWidget {
-  const MenuRestaurantDisplay({Key? key}) : super(key: key);
+  final GetOneRestaurantAndPopulateProducts getOneRestaurantAndPopulateProducts;
+  final List<Category> categories;
+  const MenuRestaurantDisplay({Key? key, required this.getOneRestaurantAndPopulateProducts, required this.categories}) : super(key: key);
 
   @override
   _MenuRestaurantDisplayState createState() => _MenuRestaurantDisplayState();
@@ -46,13 +52,15 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
     double width = MediaQuery.of(context).size.width;
     final double _heightCard=169.h;
     final double _widthtCard=157.w;
-    List<RestaurantHomeDisplayModel> items = [items1, items2, items1, items2,items1, items2, items1, items2,items1, items2, items1, items2];
+    //List<RestaurantHomeDisplayModel> items = [items1, items2, items1, items2,items1, items2, items1, items2,items1, items2, items1, items2];
     ScreenUtil.init(
         BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
+    var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
+    var adressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
     return SingleChildScrollView(
       child: GridView.builder(
           shrinkWrap: true,
@@ -63,13 +71,19 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
               mainAxisSpacing: 5,
               childAspectRatio: width / (height *0.6)
           ),
-          itemCount: items.length,
+          itemCount: widget.getOneRestaurantAndPopulateProducts.restaurant!.products!.length,
           itemBuilder: (BuildContext context, int index){
             return InkWell(
               onTap: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RestauMenuDetails()),
+                  MaterialPageRoute(builder: (context) =>
+                      RestauMenuDetails(
+                        code: widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].code,
+                        name: nameRestaurant,
+                        address: adressRestaurant,
+                        categories: widget.categories,
+                      )),
                 );
               },
               child: SizedBox(
@@ -82,9 +96,8 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
                       Container(
                         height: 106.h,
                         decoration: BoxDecoration(
-                          image: const DecorationImage(
-                            image: NetworkImage(
-                                'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'),
+                          image: DecorationImage(
+                            image: NetworkImage(widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].picture!),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -104,7 +117,7 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        items[index].name,
+                                        widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].name!,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -120,7 +133,7 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        items[index].subname,
+                                        widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].description!,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -132,7 +145,6 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
                                       ),
                                     )),
 
-
                                 //OtherDetail
                                 SizedBox(height: 10.h,),
                                 Row(
@@ -140,7 +152,7 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
                                   children: [
                                     //Price
                                     Text(
-                                      items[index].price.toString()+" FCFA",
+                                      widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].price.toString()+" FCFA",
                                       style: TextStyle(
                                           fontSize: 12.sp,
                                           fontFamily: "Milliard",
@@ -149,8 +161,8 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
                                       ),
                                     ),
                                     //Reduction
-                                    items[index].percent==null ?SizedBox( width: 23.w,):Text(
-                                      items[index].percent.toString()+"%",
+                                    widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount==null ?SizedBox( width: 23.w,):Text(
+                                      widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount.toString()+" %",
                                       style: TextStyle(
                                           fontSize: 12.sp,
                                           fontFamily: "Milliard",
@@ -176,7 +188,7 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
                                             Align(
                                               alignment: Alignment.centerRight,
                                               child: Text(
-                                                items[index].note.toString(),
+                                                widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].note!.toStringAsFixed(1),
                                                 style: TextStyle(
                                                     fontSize: 12.sp,
                                                     fontFamily: "Milliard",
