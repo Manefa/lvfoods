@@ -141,7 +141,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
               //Phone
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment:CrossAxisAlignment.center,
+                crossAxisAlignment:CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Phones",
@@ -161,7 +161,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //PhoneNumberList
                           Text(
                             "+237 691 380 128",
-                            textDirection: TextDirection.rtl,
+                            textDirection: TextDirection.ltr,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: "Milliard",
