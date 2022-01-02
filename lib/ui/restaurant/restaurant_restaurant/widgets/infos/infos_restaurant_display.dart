@@ -50,6 +50,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
   }
   @override
   Widget build(BuildContext context) {
+    bool isSwitched = true;
     List<String> litems= ['+237 691 380 128','+237 677 589 625'];
     ScreenUtil.init(
         BoxConstraints(
