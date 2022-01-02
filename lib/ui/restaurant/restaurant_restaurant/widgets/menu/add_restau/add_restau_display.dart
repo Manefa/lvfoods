@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
+import 'package:ivfoods_mobile_app/core/platform/alert_dialog/country_code_picker.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/bloc/add_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/domain/entities/for_create_restaurant.dart';
@@ -29,6 +30,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   TextEditingController emailController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+
 
 
   final formKey = GlobalKey<FormState>();
@@ -462,6 +465,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     shouldWrap: true,
                   ),
                 ),
+                // SizedBox(height: 23.h,),
+                // _phoneContainer(),
                 SizedBox(height: 23.h,),
                 //AddResto Button
                 InkWell(
@@ -795,6 +800,50 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
 
     return result;
   }
+
+  // Widget _phoneContainer() {
+  //   return new Container(
+  //     width: 344.w,
+  //     height: 48.h,
+  //     decoration: new BoxDecoration(
+  //         borderRadius: BorderRadius.circular(5.r),
+  //         border: new Border.all(color: Color.fromRGBO(223, 222, 221, 1))
+  //     ),
+  //     child: new TextFormField(
+  //       controller: phoneController,
+  //       textAlignVertical: TextAlignVertical.top,
+  //       decoration: InputDecoration(
+  //         prefixIcon: CountryCodePicker(
+  //           initialSelection: '+237',
+  //           favorite: ['+237', 'CMR'],
+  //           textStyle: TextStyle(
+  //             color: Color(0XFF949494),
+  //             fontSize: 20.sp,
+  //             fontFamily: "Milliard",
+  //           ),
+  //           showFlag: true,
+  //           padding: EdgeInsets.zero,
+  //           flagDecoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(4),
+  //           ),
+  //           flagWidth: 35.w,
+  //         ),
+  //
+  //         focusedBorder: OutlineInputBorder(
+  //           borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+  //         ),
+  //         focusColor: Color(0XFFB8B8B8),
+  //         border: InputBorder.none,
+  //       ),
+  //       style: TextStyle(
+  //         color: Colors.black,
+  //         fontSize: 20.sp,
+  //         fontFamily: "Milliard",
+  //       ),
+  //     ),
+  //   );
+  // }
 }
+
 
 

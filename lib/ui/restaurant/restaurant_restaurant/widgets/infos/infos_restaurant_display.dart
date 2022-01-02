@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/bloc/get_restaurant.dart';
@@ -8,6 +9,7 @@ import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/d
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/bloc/get_styles.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/infos/sub_widgets/phones_display.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/edit_restau/edit_restau.dart';
 
 class InfosRestaurantModel{
@@ -197,9 +199,8 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           width: 344.w,
                           //Phone
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.center,
-                            children: [
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
                               Text(
                                 "Phones",
                                 style: TextStyle(
@@ -209,31 +210,23 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                     fontWeight: FontWeight.w600
                                 ),
                               ),
-                              SizedBox(width: 82.w,),
+                              Expanded(child: SizedBox()),
                               Expanded(
                                 child: Align(
-                                  alignment: Alignment.centerRight,
+                                  alignment: Alignment.centerLeft,
                                   child: Column(
                                     children: [
                                       //PhoneNumberList
-                                      Text(
-                                        state.getRestaurant.restaurant!.phones!.isNotEmpty ? state.getRestaurant.restaurant!.phones![0].code!+" "+state.getRestaurant.restaurant!.phones![0].content! :" ",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: "Milliard",
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w200
-                                        ),
-                                      ),
+                                      PhonesDisplay(),
                                       SizedBox(height: 8.h,),
                                       //AddNumberButton
                                       InkWell(
                                         child: Text(
                                           '+  Add phone number',
                                           style: TextStyle(
-                                              color: Colors.black,
+                                              color: kPrimaryColor,
                                               fontFamily: "Milliard",
-                                              fontSize: 14.sp,
+                                              fontSize: 18.sp,
                                               fontWeight: FontWeight.w100
                                           ),
                                         ),
@@ -242,7 +235,6 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                   ),
                                 ),
                               ),
-
                             ],
                           ),
                         ),
