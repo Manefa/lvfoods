@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/alert_dialog/country_code_picker.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
@@ -35,6 +36,10 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
 
 
   final formKey = GlobalKey<FormState>();
+  final TextEditingController controller = TextEditingController();
+  String initialCountry = 'NG';
+  PhoneNumber number = PhoneNumber(isoCode: 'NG');
+  PhoneNumber number2 = PhoneNumber(dialCode: '+237');
   int _selectedIndex=0;
   bool isSwitched = true;
   List<int> mySelected = List.empty();
@@ -55,7 +60,6 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
     styleList = widget.styles;
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -313,7 +317,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                   ),
                 ),
                 SizedBox(height: 7.h,),
-                restauNumber(),
+                phoneNum(),
                 SizedBox(height: 16.h,),
                 //EmailRestau
                 Container(
@@ -554,7 +558,66 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         ),
       )
   );
-  Widget restauNumber()=>Container(
+
+
+
+
+Widget phoneNum()=>Form(
+  key: formKey,
+  child: Container(
+    width: 344.w,
+    height: 48.h,
+    decoration: BoxDecoration(
+      border: Border.all(width: 2, color: Colors.grey),
+
+    ),
+    child:InternationalPhoneNumberInput(
+      onInputChanged: (PhoneNumber number) {
+        print(number.phoneNumber);
+      },
+      onInputValidated: (bool value) {
+        print(value);
+      },
+      selectorConfig: SelectorConfig(
+        selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+      ),
+      ignoreBlank: false,
+      autoValidateMode: AutovalidateMode.disabled,
+      selectorTextStyle: TextStyle(color: Colors.black),
+      initialValue: number,
+
+      textFieldController: controller,
+      formatInput: false,
+      keyboardType:
+      TextInputType.numberWithOptions(signed: true, decimal: true),
+      inputBorder: OutlineInputBorder(
+        borderSide: BorderSide.none,
+      ),
+      onSaved: (PhoneNumber number) {
+        print('On Saved: $number');
+      },
+    ),
+  ),
+);
+
+  void getPhoneNumber(String phoneNumber) async {
+    PhoneNumber number =
+    await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
+
+    setState(() {
+      this.number = number;
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+
+
+    Widget restauNumber()=>Container(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
