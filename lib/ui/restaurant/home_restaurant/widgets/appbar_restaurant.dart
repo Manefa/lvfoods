@@ -61,7 +61,6 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
                 List<Phone>? phones = List.empty();
                 phones = state.userMaster.users!.phones;
                 sl<SharedPreferences>().setStringList("phones", phones!.map((item) => json.encode(item.toJson())).toList());
-
               }
             },
           ),
