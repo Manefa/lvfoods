@@ -56,159 +56,164 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     var adressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
     return widget.getOneRestaurantAndPopulateProducts.restaurant!.products!.isNotEmpty ? SingleChildScrollView(
-      child: GridView.builder(
-          shrinkWrap: true,
-          physics: ScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-              childAspectRatio: width / (height *0.6)
-          ),
-          itemCount: widget.getOneRestaurantAndPopulateProducts.restaurant!.products!.length,
-          itemBuilder: (BuildContext context, int index){
-            return InkWell(
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>
-                      RestauMenuDetails(
-                        code: widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].code,
-                        name: nameRestaurant,
-                        address: adressRestaurant,
-                        categories: widget.categories,
-                      )),
-                );
-              },
-              child: SizedBox(
-                width: 157.w,
-                height: 169.h,
-                child: Card(
-                  child: Column(
-                    children: [
-                      //Image
-                      Container(
-                        height: 106.h,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].picture!),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10.h,),
-                      Row(
+      child: Column(
+        children: [
+          GridView.builder(
+              shrinkWrap: true,
+              physics: ScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  childAspectRatio: width / (height *0.6)
+              ),
+              itemCount: widget.getOneRestaurantAndPopulateProducts.restaurant!.products!.length,
+              itemBuilder: (BuildContext context, int index){
+                return InkWell(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>
+                          RestauMenuDetails(
+                            code: widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].code,
+                            name: nameRestaurant,
+                            address: adressRestaurant,
+                            categories: widget.categories,
+                          )),
+                    );
+                  },
+                  child: SizedBox(
+                    width: 157.w,
+                    height: 169.h,
+                    child: Card(
+                      child: Column(
                         children: [
-                          SizedBox(width: 9.w,),
+                          //Image
                           Container(
-                            height: 80.h,
-                            width: 137.w,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                //Name
-                                Expanded(
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].name!,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontFamily: "Milliard",
-                                            fontWeight: FontWeight.w500
-                                        ),
-                                      ),
-                                    )),
-                                //SubName
-                                SizedBox(height: 10.h,),
-                                Expanded(
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].description!,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 12.sp,
-                                            fontFamily: "Milliard",
-                                            fontWeight: FontWeight.w500,
-                                            color: Color.fromRGBO(148, 148, 148, 1)
-                                        ),
-                                      ),
-                                    )),
-
-                                //OtherDetail
-                                SizedBox(height: 10.h,),
-                                Row(
+                            height: 106.h,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].picture!),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10.h,),
+                          Row(
+                            children: [
+                              SizedBox(width: 9.w,),
+                              Container(
+                                height: 80.h,
+                                width: 137.w,
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    //Price
-                                    Text(
-                                      widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].price.toString()+" FCFA",
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontFamily: "Milliard",
-                                          fontWeight: FontWeight.w500,
-                                          color: Color.fromRGBO(183, 43, 59, 1)
-                                      ),
-                                    ),
-                                    //Reduction
-                                    widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount==null ?SizedBox( width: 23.w,):Text(
-                                      widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount.toString()+" %",
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontFamily: "Milliard",
-                                          fontWeight: FontWeight.w500,
-                                          color: Color.fromRGBO(242, 176, 50, 1)
-                                      ),
-                                    ),
-                                    //Note
-                                    Container(
-                                      child: Center(
-                                        child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Icon(
-                                                LvIconsResto.star,
-                                                color:Color.fromRGBO(251, 182, 52, 1),
-                                                size: 12.sp,
-                                              ),
+                                    //Name
+                                    Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].name!,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: 16.sp,
+                                                fontFamily: "Milliard",
+                                                fontWeight: FontWeight.w500
                                             ),
-                                            SizedBox(width: 3.2.w,),
-                                            Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].note!.toStringAsFixed(1),
-                                                style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    fontFamily: "Milliard",
-                                                    fontWeight: FontWeight.w500,
-                                                    color:Color.fromRGBO(251, 182, 52, 1)
-                                                ),
-                                              ),
+                                          ),
+                                        )),
+                                    //SubName
+                                    SizedBox(height: 10.h,),
+                                    Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].description!,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: 12.sp,
+                                                fontFamily: "Milliard",
+                                                fontWeight: FontWeight.w500,
+                                                color: Color.fromRGBO(148, 148, 148, 1)
                                             ),
-                                          ],
+                                          ),
+                                        )),
+
+                                    //OtherDetail
+                                    SizedBox(height: 10.h,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        //Price
+                                        Text(
+                                          widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].price.toString()+" FCFA",
+                                          style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontFamily: "Milliard",
+                                              fontWeight: FontWeight.w500,
+                                              color: Color.fromRGBO(183, 43, 59, 1)
+                                          ),
                                         ),
-                                      ),
-                                    )
+                                        //Reduction
+                                        widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount==null ?SizedBox( width: 23.w,):Text(
+                                          widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount.toString()+" %",
+                                          style: TextStyle(
+                                              fontSize: 12.sp,
+                                              fontFamily: "Milliard",
+                                              fontWeight: FontWeight.w500,
+                                              color: Color.fromRGBO(242, 176, 50, 1)
+                                          ),
+                                        ),
+                                        //Note
+                                        Container(
+                                          child: Center(
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Icon(
+                                                    LvIconsResto.star,
+                                                    color:Color.fromRGBO(251, 182, 52, 1),
+                                                    size: 12.sp,
+                                                  ),
+                                                ),
+                                                SizedBox(width: 3.2.w,),
+                                                Align(
+                                                  alignment: Alignment.centerRight,
+                                                  child: Text(
+                                                    widget.getOneRestaurantAndPopulateProducts.restaurant!.products![index].note!.toStringAsFixed(1),
+                                                    style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        fontFamily: "Milliard",
+                                                        fontWeight: FontWeight.w500,
+                                                        color:Color.fromRGBO(251, 182, 52, 1)
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
+                              )
+                            ],
                           )
-                        ],
-                      )
 
-                    ],
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          }
+                );
+              }
+          ),
+          SizedBox(height: 100.h,)
+        ],
       ),
     ):Container(
       height: 130.w,
