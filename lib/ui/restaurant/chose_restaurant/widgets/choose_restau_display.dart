@@ -5,6 +5,7 @@ import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/bloc/get_all_restaurants_for_current_user.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/bloc/get_styles.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/ui/navigator_restaurant_page.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/add_restau/add_restau.dart';
@@ -40,7 +41,9 @@ class ChooseRestaurantDisplay extends StatefulWidget {
 class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
   GetAllRestaurantsForCurrentUserBloc _getAllRestaurantsForCurrentUserBloc = sl<GetAllRestaurantsForCurrentUserBloc>();
   GetStylesBloc _getStylesBloc = sl<GetStylesBloc>();
-  var styles;
+  //var styles;
+  List<Style> styles = List.empty();
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
@@ -87,7 +90,7 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
               }
 
               if(state is GetStylesLoaded){
-                styles = state.getStylesMaster.styles;
+                styles = state.getStylesMaster.styles!;
                 print("dddddddddddddddddddddddddddddddddddddddddddddddd");
               }
 

@@ -76,9 +76,10 @@ dev_dependencies:
   flutter_launcher_icons: ^0.9.2
 
 flutter_icons:
-  image_path: "images/pizza.png"
+  image_path: "images/logo4.png"
   android: true
   ios: true
+  adaptive_icon_background: #ffffff
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
