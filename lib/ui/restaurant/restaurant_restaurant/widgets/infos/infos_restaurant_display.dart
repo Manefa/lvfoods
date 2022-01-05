@@ -202,6 +202,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //Phone
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
                                 "Phones",
@@ -212,11 +213,11 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                     fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Expanded(child: SizedBox()),
                               Expanded(
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       //PhoneNumberList
                                       PhonesDisplay(restaurantName: nameRestaurant!,),
@@ -233,6 +234,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                         },
                                         child: Text(
                                           '+  Add phone number',
+                                          textAlign: TextAlign.end,
                                           style: TextStyle(
                                               color: kPrimaryColor,
                                               fontFamily: "Milliard",
@@ -497,7 +499,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 60.h,),
+                        SizedBox(height: 80.h,),
                       ],
                     ),
                   ),

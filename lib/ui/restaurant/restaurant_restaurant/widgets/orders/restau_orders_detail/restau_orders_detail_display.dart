@@ -230,6 +230,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                       Container(
                         width: 344.w,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             //Image
                             Container(
@@ -243,8 +244,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                                 ),
                               ),
                             ),
-
-                            SizedBox(width: 12.w,),
+                            //SizedBox(width: 12.w,),
                             //Name price and Qtt
                             Container(
                               width: 273.w,
