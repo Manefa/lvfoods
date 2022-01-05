@@ -183,22 +183,22 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
                                                           height: 20.r,
                                                           width: 20.r,
                                                           decoration: BoxDecoration(
-                                                              color: Color(0XFFFFF7E9),
+                                                              color: Color(0XFFF4EFFF),
                                                               borderRadius: BorderRadius.circular(8)
                                                           ),
                                                           child: Center(
                                                             child: Icon(
-                                                              Icons.check,
+                                                              Icons.clean_hands,
                                                               size: 10.sp,
-                                                              color: Color(0XFFFBB634),
+                                                              color: Color(0XFFA27AFA),
                                                             ),
                                                           ),
                                                         ),
                                                         SizedBox(width: 5.w,),
                                                         Text(
-                                                          "Get",
+                                                          "recuperate",
                                                           style: TextStyle(
-                                                            color: Color(0XFF68D389),
+                                                            color: Color(0XFFA27AFA),
                                                             fontSize: 15.sp,
                                                             fontFamily: "Milliard",
                                                           ),

@@ -70,7 +70,7 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
                           height: 42.r,
                           width: 42.r,
                           decoration: BoxDecoration(
-                            color: Color.fromRGBO(246, 246, 246, 1),
+                            color: Colors.transparent,
                             border: Border.all(
                               color: Colors.white,
                               width:2.r,
@@ -79,7 +79,7 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
                           ),
                           child: Center(
                             child: Text(
-                              name == "" ? "A" : name![0],
+                              name == "" ? " " : name![0],
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 fontSize: 35.sp,

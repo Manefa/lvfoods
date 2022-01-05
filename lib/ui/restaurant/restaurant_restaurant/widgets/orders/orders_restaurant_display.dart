@@ -7,20 +7,23 @@ import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/bloc/get_all_for_owner_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/get_all_for_owner_restaurant.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/orders/restau_orders_detail/restau_orders_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 class OrderRestaurantDisplay extends StatefulWidget {
-  const OrderRestaurantDisplay({Key? key,}) : super(key: key);
+  final List<Order> orders;
+
+  const OrderRestaurantDisplay({Key? key, required this.orders,}) : super(key: key);
 
   @override
   _OrderRestaurantDisplayState createState() => _OrderRestaurantDisplayState();
 }
 
 class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
-  GetAllForOwnerRestaurantBloc _getAllForOwnerRestaurantBloc = sl<GetAllForOwnerRestaurantBloc>();
+  // GetAllForOwnerRestaurantBloc _getAllForOwnerRestaurantBloc = sl<GetAllForOwnerRestaurantBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,36 +34,25 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
-    var addressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
-
-    var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
-
-    _getAllForOwnerRestaurantBloc.add(StartGetAllForOwnerRestaurant(name: nameRestaurant!));
+     var addressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
+    //
+    // var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
+    //
+    // _getAllForOwnerRestaurantBloc.add(StartGetAllForOwnerRestaurant(name: nameRestaurant!));
 
     // Future<void> _refresh() async {
     //   _getAllForOwnerRestaurantBloc.add(StartGetAllForOwnerRestaurant(name: nameRestaurant));
     // }
 
 
-    return BlocProvider(
-      create: (_) => _getAllForOwnerRestaurantBloc,
-      child: BlocBuilder(
-        bloc: _getAllForOwnerRestaurantBloc,
-        builder: (context, state){
-
-          if(state is GetAllForOwnerRestaurantLoading){
-            return LoadingWidget();
-          }
-
-          if(state is GetAllForOwnerRestaurantLoaded){
-            return state.getAllForOwnerRestaurant.orders!.isNotEmpty ? SingleChildScrollView(
+    return widget.orders.isNotEmpty ? SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
                 child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     clipBehavior: Clip.none,
-                    itemCount: state.getAllForOwnerRestaurant.orders!.length,
+                    itemCount: widget.orders.length,
                     itemBuilder: (BuildContext context, int index){
                       return Container(
                         //color: Colors.withe,
@@ -71,7 +63,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                               onTap: (){
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => RestauOrderDetails(order: state.getAllForOwnerRestaurant.orders![index], index: index,)),
+                                  MaterialPageRoute(builder: (context) => RestauOrderDetails(order: widget.orders[index], index: index,)),
                                 ).then((value) => setState(() {
                                 }));
                               },
@@ -88,7 +80,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                       width: 63.w,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                            image: NetworkImage(state.getAllForOwnerRestaurant.orders![index].item!.picture!),
+                                            image: NetworkImage(widget.orders[index].item!.picture!),
                                             fit:BoxFit.cover
                                         ),
                                         borderRadius: BorderRadius.circular(10.r),
@@ -105,7 +97,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                             //Name
                                             Container(
                                               child: Text(
-                                                state.getAllForOwnerRestaurant.orders![index].item!.name!,
+                                                widget.orders[index].item!.name!,
                                                 style: TextStyle(
                                                   fontFamily: "Milliard",
                                                   fontSize: 16.sp,
@@ -146,7 +138,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                   ),
                                                   SizedBox(width: 8.8.w,),
                                                   Text(
-                                                    getHour(state.getAllForOwnerRestaurant.orders![index].createdAt.toString()) +" Hours Ago",
+                                                    getHour(widget.orders[index].createdAt.toString()) +" Hours Ago",
                                                     style: TextStyle(
                                                       color: Color.fromRGBO(148, 148, 148, 1),
                                                       fontFamily: "Milliard",
@@ -176,7 +168,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                           Padding(
                                                             padding: const EdgeInsets.only(top: 2.0),
                                                             child: Text(
-                                                              "X "+(state.getAllForOwnerRestaurant.orders![index].quantity as num).toInt().toString(),
+                                                              "X "+(widget.orders[index].quantity as num).toInt().toString(),
                                                               style: TextStyle(
                                                                 color:  Color(0XFF4884EE),
                                                                 fontFamily: "Milliard",
@@ -185,7 +177,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                             ),
                                                           ),
                                                           VerticalDivider(),
-                                                          state.getAllForOwnerRestaurant.orders![index].status! == "ready" ?
+                                                          widget.orders[index].status! == "ready" ?
                                                           Container(
                                                             height: 20.r,
                                                             width: 20.r,
@@ -200,7 +192,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                                 color: Color(0XFF68D389),
                                                               ),
                                                             ),
-                                                          ):( state.getAllForOwnerRestaurant.orders![index].status! == "valid" ?
+                                                          ):( widget.orders[index].status! == "valid" ?
                                                           Container(
                                                             height: 20.r,
                                                             width: 20.r,
@@ -231,7 +223,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                             ),
                                                           )),
                                                           SizedBox(width: 5.w,),
-                                                          state.getAllForOwnerRestaurant.orders![index].status! == "valid" ?
+                                                          widget.orders[index].status! == "valid" ?
                                                           Text(
                                                             "Valid",
                                                             style: TextStyle(
@@ -240,7 +232,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                               fontFamily: "Milliard",
                                                             ),
                                                           ) : (
-                                                              state.getAllForOwnerRestaurant.orders![index].status! == "ready" ?
+                                                              widget.orders[index].status! == "ready" ?
                                                               Text(
                                                                 "Pret",
                                                                 style: TextStyle(
@@ -263,7 +255,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
 
                                                     //Price
                                                     Text(
-                                                      state.getAllForOwnerRestaurant.orders![index].item!.price.toString()+" fcfa",
+                                                      widget.orders[index].item!.price.toString()+" fcfa",
                                                       style: TextStyle(
                                                           color:  Color.fromRGBO(188, 44, 61, 1),
                                                           fontFamily: "Milliard",
@@ -304,40 +296,6 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                 ),
               ),
             );
-          }
-
-          if(state is GetAllForOwnerRestaurantError){
-            return Container(
-              height: 130.w,
-              width: 130,
-              child: Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("images/error1.png"),
-                      )
-                  ),
-                ),
-              ),
-            );
-          }
-
-          return Container(
-            height: 130.w,
-            width: 130,
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("images/error2.png"),
-                    )
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
   }
 
   String getHour(String hour) {

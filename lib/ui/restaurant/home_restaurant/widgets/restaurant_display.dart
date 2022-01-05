@@ -155,7 +155,7 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
                                                 ),
                                               ),
                                               //Reduction
-                                              state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount == null ?SizedBox( width: 23.w,):Text(
+                                              state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount == null ? SizedBox( width: 23.w,):Text(
                                                 state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount.toString()+"%",
                                                 style: TextStyle(
                                                     fontSize: 12.sp,

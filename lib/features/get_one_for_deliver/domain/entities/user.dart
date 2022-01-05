@@ -17,7 +17,6 @@ class User extends Equatable{
   final bool? newsletter;
   final String? role;
   final List<Phone>? phones;
-  final List<Restaurant>? restaurants;
   final List<String>? recoveredOrders;
   final List<String>? ordersGroups;
   final List<Notice>? notices;
@@ -37,7 +36,6 @@ class User extends Equatable{
     required this.newsletter,
     required this.role,
     required this.phones,
-    required this.restaurants,
     required this.recoveredOrders,
     required this.ordersGroups,
     required this.notices,
@@ -81,7 +79,6 @@ class User extends Equatable{
     "newsletter": newsletter == null ? null : newsletter,
     "role": role == null ? null : role,
     "phones": phones == null ? null : List<dynamic>.from(phones!.map((x) => x.toJson())),
-    "restaurants": restaurants == null ? null : List<dynamic>.from(restaurants!.map((x) => x.toJson())),
     "recovered_orders": recoveredOrders == null ? null : List<dynamic>.from(recoveredOrders!.map((x) => x)),
     "orders_groups": ordersGroups == null ? null : List<dynamic>.from(ordersGroups!.map((x) => x)),
     "notices": notices == null ? null : List<dynamic>.from(notices!.map((x) => x.toJson())),
@@ -94,6 +91,6 @@ class User extends Equatable{
 
   @override
   List<Object?> get props => [username, code, fullName, email, picture, password, newsletter, role,
-  phones, restaurants, recoveredOrders, ordersGroups, notices, myDeliveries,
+  phones, recoveredOrders, ordersGroups, notices, myDeliveries,
   favorites, id, createdAt, updatedAt];
 }

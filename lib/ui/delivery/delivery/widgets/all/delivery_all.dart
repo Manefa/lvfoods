@@ -39,149 +39,162 @@ class _DeliveryAllState extends State<DeliveryAll> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: BlocProvider<DeliveriesBloc>(
-        create: (_) => _deliveriesBloc,
-        child: BlocBuilder(
-          bloc: _deliveriesBloc,
-          builder: (context, state){
-            if(state is EmptyDeliveries){
-              return Container(
-                child: Center(
-                  child: Text("Aucune Livraisons"),
-                ),
-              );
-            }
+      body: Center(
+        child: BlocProvider<DeliveriesBloc>(
+          create: (_) => _deliveriesBloc,
+          child: BlocBuilder(
+            bloc: _deliveriesBloc,
+            builder: (context, state){
+              if(state is EmptyDeliveries){
+                return Container(
+                  child: Center(
+                    child: Text("Aucune Livraisons"),
+                  ),
+                );
+              }
 
-            if(state is LoadingDeliveries){
-              return LoadingWidget();
-            }
+              if(state is LoadingDeliveries){
+                return LoadingWidget();
+              }
 
-            if(state is LoadedDeliveries){
-              var toRemove = [];
+              if(state is LoadedDeliveries){
+                var toRemove = [];
 
-              state.deliveriesMasters.deliveries!.forEach((element) {
-                element.orderGroup!.orders!.forEach((element) {
-                  if(element.status == "cancel"){
-                    toRemove.add(element);
-                  }
+                state.deliveriesMasters.deliveries!.forEach((element) {
+                  element.orderGroup!.orders!.forEach((element) {
+                    if(element.status == "cancel"){
+                      toRemove.add(element);
+                    }
+                  });
                 });
-              });
 
-              state.deliveriesMasters.deliveries!.forEach((element) {
-                element.orderGroup!.orders!.removeWhere((element) => toRemove.contains(element));
-              });
+                state.deliveriesMasters.deliveries!.forEach((element) {
+                  element.orderGroup!.orders!.removeWhere((element) => toRemove.contains(element));
+                });
 
-              visibleDeliveries = state.deliveriesMasters.deliveries;
+                visibleDeliveries = state.deliveriesMasters.deliveries;
 
-              return SafeArea(
-                child: SingleChildScrollView(
-                  child: Container(
-                    color: Colors.white,
-                    width: size.width,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 20.h,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              height: 36.h,
-                              width: 236.w,
-                              decoration: BoxDecoration(
-                                color: Color(0XFFF8F7F7),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: TextFormField(
-                                textAlignVertical: TextAlignVertical.center,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                autocorrect: false,
-                                onChanged: (value){
-                                  setState(() {
-                                    visibleDeliveriesTwo = visibleDeliveries!.where((element) => getName(element.orderGroup!.orders).toLowerCase().contains(value.toLowerCase())).toList();
-                                    visibleDeliveries!.forEach((element) {
-                                      print(getName(element.orderGroup!.orders));
+                return SafeArea(
+                  child: SingleChildScrollView(
+                    child: Container(
+                      color: Colors.white,
+                      width: size.width,
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 20.h,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                height: 36.h,
+                                width: 236.w,
+                                decoration: BoxDecoration(
+                                  color: Color(0XFFF8F7F7),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: TextFormField(
+                                  textAlignVertical: TextAlignVertical.center,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  autocorrect: false,
+                                  onChanged: (value){
+                                    setState(() {
+                                      visibleDeliveriesTwo = visibleDeliveries!.where((element) => getName(element.orderGroup!.orders).toLowerCase().contains(value.toLowerCase())).toList();
+                                      visibleDeliveries!.forEach((element) {
+                                        print(getName(element.orderGroup!.orders));
+                                      });
+                                      print(visibleDeliveriesTwo!.length.toString());
+                                      test = true;
                                     });
-                                    print(visibleDeliveriesTwo!.length.toString());
-                                    test = true;
-                                  });
-                                },
-                                style: TextStyle(
-                                  color: Color(0XFF949494),
-                                  fontSize: 15.sp,
-                                  fontFamily: "Milliard",
-                                ),
-                                decoration: InputDecoration(
-                                  contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
-                                  hintText: "Search delivery",
-                                  border: InputBorder.none,
-                                  prefixIcon: Icon(
-                                    LvIcons.search_interface_symbol,
-                                    size: 16.sp,
+                                  },
+                                  style: TextStyle(
                                     color: Color(0XFF949494),
+                                    fontSize: 15.sp,
+                                    fontFamily: "Milliard",
                                   ),
-                                  hintStyle: TextStyle(
+                                  decoration: InputDecoration(
+                                    contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
+                                    hintText: "Search delivery",
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(
+                                      LvIcons.search_interface_symbol,
+                                      size: 16.sp,
                                       color: Color(0XFF949494),
-                                      fontSize: 15.sp,
-                                      fontFamily: "Milliard"
+                                    ),
+                                    hintStyle: TextStyle(
+                                        color: Color(0XFF949494),
+                                        fontSize: 15.sp,
+                                        fontFamily: "Milliard"
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(width: 10.w,),
-                            Container(
-                              height: 36.h,
-                              width: 94.w,
-                              decoration: BoxDecoration(
-                                color: Color(0XFFF8F7F7),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Row(
-                                children: <Widget>[
-                                  SizedBox(width: 14.sp,),
-                                  Icon(
-                                    LvIcons.filter,
+                              SizedBox(width: 10.w,),
+                              Container(
+                                height: 36.r,
+                                width: 94.r,
+                                child: TextButton.icon(
+                                  onPressed: () {
+                                    _deliveriesBloc.add(GetDeliveries());
+                                  },
+                                  label: Text('Refresh', style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontFamily: "Milliard",
+                                    color: Color(0XFF68D389),
+                                  ),),
+                                  icon: Icon(
+                                    Icons.refresh,
                                     size: 17.sp,
-                                    color: Color(0XFFFBB634),
+                                    color: Color(0XFF68D389),
                                   ),
-                                  SizedBox(width: 14.sp,),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 4.0),
-                                    child: Text(
-                                      "Filter",
-                                      style: TextStyle(
-                                        fontSize: 15.sp,
-                                        fontFamily: "Milliard",
-                                        color: Color(0XFF949494),
-                                      ),
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Color(0XFFDEF9E7),
+                                    shape:RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        DeliveryAllDisplay(deliveries: (test == true) ? visibleDeliveriesTwo! : visibleDeliveries!,),
-                      ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          DeliveryAllDisplay(deliveries: (test == true) ? visibleDeliveriesTwo! : visibleDeliveries!,),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }
+
+              if(state is ErrorDeliveries){
+                return Container(
+                  height: 130.w,
+                  width: 130,
+                  child: Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("images/error1.png"),
+                          )
+                      ),
+                    ),
+                  ),
+                );
+              }
+
+              return Container(
+                height: 130.w,
+                width: 130,
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("images/error2.png"),
+                        )
                     ),
                   ),
                 ),
               );
-            }
-
-            if(state is ErrorDeliveries){
-              return Container(
-                child: Text(
-                  "Erreur Deliverie!",
-                ),
-              );
-            }
-
-            return Container(
-              child: Text(
-                "Aucun Cas",
-              ),
-            );
-          },
+            },
+          ),
         ),
       ),
     );

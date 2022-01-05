@@ -504,8 +504,34 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                 );
               }
 
+            if(state is GetRestaurantError){
               return Container(
-                child: Center(child: Text("AUCUN CAS")),
+                height: 130.w,
+                width: 130,
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("images/error1.png"),
+                        )
+                    ),
+                  ),
+                ),
+              );
+            }
+
+              return Container(
+                height: 130.w,
+                width: 130,
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("images/error2.png"),
+                        )
+                    ),
+                  ),
+                ),
               );
             },
           ),

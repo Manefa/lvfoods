@@ -109,9 +109,8 @@ class _MenuRestaurantState extends State<MenuRestaurant> {
                     ),
                   );
                 }
-                return Container(
-                  child: Text("ca a cuit"),
-                );
+
+                return Container();
               },
             ),
             SizedBox(height: 19.h,),

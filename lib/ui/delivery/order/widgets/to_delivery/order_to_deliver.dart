@@ -35,6 +35,11 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
+    var size = MediaQuery.of(context).size;
+
+    Future<void> _refresh() async {
+      _ordersBloc.add(GetOrders());
+    }
 
     return BlocProvider(
       create: (BuildContext context) => _ordersBloc,
@@ -48,137 +53,153 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
         child: Scaffold(
           backgroundColor: Colors.white,
           body: SafeArea(
-            child: BlocBuilder(
-              bloc: _ordersBloc,
-            builder: (context, OrdersState state){
-                if(state is EmptyOrders){
-                  return Container(
-                    child: Center(
-                      child: Text(
-                          "Tout est vide!"
+            child: Center(
+              child: BlocBuilder(
+                bloc: _ordersBloc,
+              builder: (context, OrdersState state){
+                  if(state is EmptyOrders){
+                    return Container(
+                      child: Center(
+                        child: Text(
+                            "Tout est vide!"
+                        ),
                       ),
-                    ),
-                  );
-                }
-                if(state is LoadingOrders){
-                  return Center(child:LoadingWidget());
-                }
+                    );
+                  }
+                  if(state is LoadingOrders){
+                    return Center(child:LoadingWidget());
+                  }
 
-                if(state is LoadedOrders){
-                  visibleOrdersMasters = state.ordersMasters.recoveries;
+                  if(state is LoadedOrders){
+                    visibleOrdersMasters = state.ordersMasters.recoveries;
 
-                  return Container(
-                    child: Column(
-                      children: [
-                        //Search
-                        Center(
-                          child: Container(
-                            width: 344.w,
-                            height: 36.h,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                //Search
-                                Container(
-                                  height: 36.h,
-                                  width: 236.w,
-                                  decoration: BoxDecoration(
-                                    color: Color(0XFFF8F7F7),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: TextFormField(
-                                    textAlignVertical: TextAlignVertical.center,
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                                    autocorrect: false,
-                                    onChanged: (value){
-                                      setState(() {
-                                        visibleOrdersMastersTwo = state.ordersMasters.recoveries!.where((element) =>
-                                            element.restaurant!.name!.toLowerCase().contains(value.toLowerCase())).toList();
-                                        print(visibleOrdersMastersTwo!.length.toString());
-                                        test = true;
-                                        print("charge...");
-                                      });
-                                    },
-                                    style: TextStyle(
-                                      color: Color(0XFF949494),
-                                      fontSize: 15.sp,
-                                      fontFamily: "Milliard",
+                    return Container(
+                      child: Column(
+                        children: [
+                          //Search
+                          Center(
+                            child: Container(
+                              width: 344.w,
+                              height: 36.h,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //Search
+                                  Container(
+                                    height: 36.h,
+                                    width: 236.w,
+                                    decoration: BoxDecoration(
+                                      color: Color(0XFFF8F7F7),
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
-                                    decoration: InputDecoration(
-                                      contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
-                                      hintText: "Search orders",
-                                      border: InputBorder.none,
-                                      prefixIcon: Icon(
-                                        LvIcons.search_interface_symbol,
-                                        size: 16.sp,
+                                    child: TextFormField(
+                                      textAlignVertical: TextAlignVertical.center,
+                                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                                      autocorrect: false,
+                                      onChanged: (value){
+                                        setState(() {
+                                          visibleOrdersMastersTwo = state.ordersMasters.recoveries!.where((element) =>
+                                              element.restaurant!.name!.toLowerCase().contains(value.toLowerCase())).toList();
+                                          print(visibleOrdersMastersTwo!.length.toString());
+                                          test = true;
+                                          print("charge...");
+                                        });
+                                      },
+                                      style: TextStyle(
                                         color: Color(0XFF949494),
+                                        fontSize: 15.sp,
+                                        fontFamily: "Milliard",
                                       ),
-                                      hintStyle: TextStyle(
+                                      decoration: InputDecoration(
+                                        contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
+                                        hintText: "Search orders",
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(
+                                          LvIcons.search_interface_symbol,
+                                          size: 16.sp,
                                           color: Color(0XFF949494),
-                                          fontSize: 15.sp,
-                                          fontFamily: "Milliard"
+                                        ),
+                                        hintStyle: TextStyle(
+                                            color: Color(0XFF949494),
+                                            fontSize: 15.sp,
+                                            fontFamily: "Milliard"
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
 
-                                //Filter Button
-                                Container(
-                                  height: 36.r,
-                                  width: 94.r,
-                                  child: TextButton.icon(
-                                    onPressed: () {},
-                                    label: Text('Filter', style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontFamily: "Milliard",
-                                      color: Color(0XFF949494),
-                                    ),),
-                                    icon: Icon(
-                                      LvIcons.filter,
-                                      size: 17.sp,
-                                      color:Color(0XFFFBB634),
-                                    ),
-                                    style: TextButton.styleFrom(
-
-                                      backgroundColor: Color(0XFFF8F7F7),
-                                      shape:RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
+                                  //Filter Button
+                                  Container(
+                                    height: 36.r,
+                                    width: 94.r,
+                                    child: TextButton.icon(
+                                      onPressed: () {
+                                        _refresh();
+                                      },
+                                      label: Text('Refresh', style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontFamily: "Milliard",
+                                        color: Color(0XFF68D389),
+                                      ),),
+                                      icon: Icon(
+                                        Icons.refresh,
+                                        size: 17.sp,
+                                        color: Color(0XFF68D389),
+                                      ),
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Color(0XFFDEF9E7),
+                                        shape:RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
+                          SizedBox(height: 20.h,),
+                          //List Of Order
+                          Expanded(
+                              child: SingleChildScrollView(
+                                  physics: AlwaysScrollableScrollPhysics(),
+                                  child: OrderToDeliveryDisplay(recoveries: (test == false) ? visibleOrdersMasters : visibleOrdersMastersTwo),
+                                ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  if(state is ErrorOrders){
+                    return Container(
+                      height: 130.w,
+                      width: 130,
+                      child: Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("images/error1.png"),
+                              )
+                          ),
                         ),
-                        SizedBox(height: 20.h,),
-                        //List Of Order
-                        Expanded(
-                            child:SingleChildScrollView(
-                              child: OrderToDeliveryDisplay(recoveries: (test == false) ? visibleOrdersMasters : visibleOrdersMastersTwo),
-                            ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-                if(state is ErrorOrders){
+                      ),
+                    );
+                  }
                   return Container(
+                    height: 130.w,
+                    width: 130,
                     child: Center(
-                      child: Text(
-                          "Erreur "
+                      child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("images/error2.png"),
+                            )
+                        ),
                       ),
                     ),
                   );
-                }
-                return Container(
-                  child: Center(
-                    child: Text(
-                      "Aucun cas!"
-                    ),
-                  ),
-                );
-            }
+              }
+              ),
             ),
           ),
         ),

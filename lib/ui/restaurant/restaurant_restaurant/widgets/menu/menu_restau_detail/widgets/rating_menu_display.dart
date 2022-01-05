@@ -142,7 +142,6 @@ class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
                                       fontSize: 14.sp,
                                       color: Color.fromRGBO(148, 148, 148, 1),
                                     ),
-
                                   ),
                                   SizedBox(height: 14.5.h,),
                                   Divider(),

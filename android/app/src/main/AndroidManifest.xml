@@ -2,7 +2,7 @@
     package="com.example.ivfoods_mobile_app">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="ivfoods_mobile_app"
+        android:label="Lv Foods"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

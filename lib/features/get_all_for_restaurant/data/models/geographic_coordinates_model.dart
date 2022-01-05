@@ -11,8 +11,8 @@ class GeographicCoordinatesModel extends GeographicCoordinates{
   );
 
   factory GeographicCoordinatesModel.fromJson(Map<String, dynamic> json) => GeographicCoordinatesModel(
-    latitude: (json["latitude"]).toDouble(),
-    longitude: (json["longitude"]).toDouble(),
+    latitude: json["latitude"] == null ? null :(json["latitude"]).toDouble(),
+    longitude: json["longitude"] == null ? null : (json["longitude"]).toDouble(),
   );
 
   Map<String, dynamic> toJson() => {

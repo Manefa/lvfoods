@@ -44,6 +44,11 @@ class _HomeDeliveryState extends State<HomeDelivery> {
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
 
+    Future<void> _refresh() async {
+      _ordersBloc.add(GetOrders());
+      _deliveriesBloc.add(GetDeliveries());
+    }
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<OrdersBloc>(
@@ -76,161 +81,195 @@ class _HomeDeliveryState extends State<HomeDelivery> {
             child: Container(
               height: size.height,
               color: Colors.white,
-              child: CustomScrollView(
-                slivers: <Widget>[
-                  SliverAppBar(
-                    backgroundColor: kPrimaryColor,
-                    expandedHeight: 240.h,
-                    automaticallyImplyLeading: false,
-                    stretch: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: BlocBuilder(
-                        bloc: _ordersBloc,
-                          builder: (context, state){
-                            return Appbar(ordersTotal: orderTotal);
-                          },
+              child: RefreshIndicator(
+                onRefresh: _refresh,
+                color: kPrimaryColor,
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverAppBar(
+                      backgroundColor: kPrimaryColor,
+                      expandedHeight: 240.h,
+                      automaticallyImplyLeading: false,
+                      stretch: true,
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: BlocBuilder(
+                          bloc: _ordersBloc,
+                            builder: (context, state){
+                              return Appbar(ordersTotal: orderTotal);
+                            },
+                        ),
                       ),
                     ),
-                  ),
-                  SliverToBoxAdapter(child: SizedBox(height: 20.h,)),
-                  SliverToBoxAdapter(child: SizedBox(height: 30.h,)),
-                  //ORDERS
-                  SliverToBoxAdapter(
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 35.w,),
-                        Container(
-                          height: 1.h,
-                          width: 9.w,
-                          color: kPrimaryColor,
-                        ),
-                        SizedBox(width: 5.w,),
-                        Text(
-                          "ORDERS",
-                          style: TextStyle(
+                    SliverToBoxAdapter(child: SizedBox(height: 20.h,)),
+                    SliverToBoxAdapter(child: SizedBox(height: 30.h,)),
+                    //ORDERS
+                    SliverToBoxAdapter(
+                      child: Row(
+                        children: <Widget>[
+                          SizedBox(width: 35.w,),
+                          Container(
+                            height: 1.h,
+                            width: 9.w,
                             color: kPrimaryColor,
-                            fontSize: 15.sp,
-                            fontFamily: "Milliard",
-                            fontWeight: FontWeight.bold,
                           ),
-                        ),
-                        SizedBox(width: 5.w,),
-                        Container(
-                          height: 1.h,
-                          width: 9.w,
-                          color: kPrimaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SliverToBoxAdapter(child: SizedBox(height: 20.h,),),
-                  SliverToBoxAdapter(
-                    child: BlocBuilder(
-                      bloc: _ordersBloc,
-                      builder: (context, OrdersState state){
-                        if(state is EmptyOrders){
-                          return Container(
-                            child: Center(
-                              child: Text("Aucune Commandes"),
-                            ),
-                          );
-                        }
-
-                        if(state is LoadingOrders){
-                          return buildHomeShimmer();
-                        }
-
-                        if(state is LoadedOrders){
-                          return Container(
-                            child: OrderDisplay(recoveries: state.ordersMasters.recoveries!),
-                          );
-                        }
-
-                        if(state is ErrorOrders){
-                          return Container(
-                            child: Text(
-                              "Erreur Orders!",
-                            ),
-                          );
-                        }
-                        return Container(
-                          child: Center(
-                            child: Text(
-                                "Aucun cas"
+                          SizedBox(width: 5.w,),
+                          Text(
+                            "ORDERS",
+                            style: TextStyle(
+                              color: kPrimaryColor,
+                              fontSize: 15.sp,
+                              fontFamily: "Milliard",
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                  SliverToBoxAdapter(child: SizedBox(height: 20.h,)),
-                  SliverToBoxAdapter(
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 35.w,),
-                        Container(
-                          height: 1.h,
-                          width: 9.w,
-                          color: kPrimaryColor,
-                        ),
-                        SizedBox(width: 5.w,),
-                        Text(
-                          "DELIVERY",
-                          style: TextStyle(
+                          SizedBox(width: 5.w,),
+                          Container(
+                            height: 1.h,
+                            width: 9.w,
                             color: kPrimaryColor,
-                            fontSize: 15.sp,
-                            fontFamily: "Milliard",
-                            fontWeight: FontWeight.bold,
                           ),
-                        ),
-                        SizedBox(width: 5.w,),
-                        Container(
-                          height: 1.h,
-                          width: 9.w,
-                          color: kPrimaryColor,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  SliverToBoxAdapter(child: SizedBox(height: 20.h,)),
-                  SliverToBoxAdapter(
-                    child: BlocBuilder(
-                      bloc: _deliveriesBloc,
-                      builder: (context, DeliveriesState state){
-                        if(state is EmptyDeliveries){
+                    SliverToBoxAdapter(child: SizedBox(height: 20.h,),),
+                    SliverToBoxAdapter(
+                      child: BlocBuilder(
+                        bloc: _ordersBloc,
+                        builder: (context, OrdersState state){
+                          if(state is EmptyOrders){
+                            return Container(
+                              child: Center(
+                                child: Text("Aucune Commandes"),
+                              ),
+                            );
+                          }
+
+                          if(state is LoadingOrders){
+                            return buildHomeShimmer();
+                          }
+
+                          if(state is LoadedOrders){
+                            return Container(
+                              child: OrderDisplay(recoveries: state.ordersMasters.recoveries!),
+                            );
+                          }
+
+                          if(state is ErrorOrders){
+                            return Container(
+                              height: 130.w,
+                              width: 130,
+                              child: Center(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage("images/error1.png"),
+                                      )
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
                           return Container(
+                            height: 130.w,
+                            width: 130,
                             child: Center(
-                              child: Text("Aucune Livraisons"),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("images/error2.png"),
+                                    )
+                                ),
+                              ),
                             ),
                           );
-                        }
-
-                        if(state is LoadingDeliveries){
-                           return buildHomeShimmer();
-                        }
-
-                        if(state is LoadedDeliveries){
-                          return Container(
-                            child: DeliveryDisplay(deliveries: state.deliveriesMasters,),
-                          );
-                        }
-
-                        if(state is ErrorDeliveries){
-                          return Container(
-                            child: Text(
-                              "Erreur Deliverie!",
-                            ),
-                          );
-                        }
-                        return Container(
-                          child: Text(
-                            "Aucun Cas",
-                          ),
-                        );
-                      },
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                    SliverToBoxAdapter(child: SizedBox(height: 20.h,)),
+                    SliverToBoxAdapter(
+                      child: Row(
+                        children: <Widget>[
+                          SizedBox(width: 35.w,),
+                          Container(
+                            height: 1.h,
+                            width: 9.w,
+                            color: kPrimaryColor,
+                          ),
+                          SizedBox(width: 5.w,),
+                          Text(
+                            "DELIVERY",
+                            style: TextStyle(
+                              color: kPrimaryColor,
+                              fontSize: 15.sp,
+                              fontFamily: "Milliard",
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(width: 5.w,),
+                          Container(
+                            height: 1.h,
+                            width: 9.w,
+                            color: kPrimaryColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SliverToBoxAdapter(child: SizedBox(height: 20.h,)),
+                    SliverToBoxAdapter(
+                      child: BlocBuilder(
+                        bloc: _deliveriesBloc,
+                        builder: (context, DeliveriesState state){
+                          if(state is EmptyDeliveries){
+                            return Container(
+                              child: Center(
+                                child: Text("Aucune Livraisons"),
+                              ),
+                            );
+                          }
+
+                          if(state is LoadingDeliveries){
+                             return buildHomeShimmer();
+                          }
+
+                          if(state is LoadedDeliveries){
+                            return Container(
+                              child: DeliveryDisplay(deliveries: state.deliveriesMasters,),
+                            );
+                          }
+
+                          if(state is ErrorDeliveries){
+                            return Container(
+                              height: 130.w,
+                              width: 130,
+                              child: Center(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage("images/error1.png"),
+                                      )
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          return Container(
+                            height: 130.w,
+                            width: 130,
+                            child: Center(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("images/error2.png"),
+                                    )
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
