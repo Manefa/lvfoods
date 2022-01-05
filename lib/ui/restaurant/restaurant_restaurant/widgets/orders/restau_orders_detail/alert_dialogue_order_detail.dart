@@ -84,6 +84,7 @@ class _AlertDialogueOrderReadyState extends State<AlertDialogueOrderReady> {
                     onTap: (){
                       Navigator.of(context).pop();
                     },
+
                     child: Text(
                       "OK",
                       textAlign: TextAlign.center,
@@ -95,8 +96,6 @@ class _AlertDialogueOrderReadyState extends State<AlertDialogueOrderReady> {
                       ),
                     ),
                   )
-
-
                 ],
               )
           ),

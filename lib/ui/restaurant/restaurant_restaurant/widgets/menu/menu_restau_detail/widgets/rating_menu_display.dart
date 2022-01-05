@@ -165,7 +165,17 @@ class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
         ),
       ) ,
     ) : Container(
-      child: Center(child: Text("Pas de commentaire")),
+      child: Center(
+        child: Container(
+          height: 130.w,
+          width: 130,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/empty2.png"),
+              )
+          ),
+        ),
+      ),
     );
   }
 }

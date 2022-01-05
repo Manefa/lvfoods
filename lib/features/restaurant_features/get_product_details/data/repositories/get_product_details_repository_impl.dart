@@ -17,6 +17,7 @@ class GetProductDetailsRepositoryImpl implements GetProductDetailsRepository{
     required this.localDataSource,
     required this.networkInfo,
   });
+
   @override
   Future<Either<Failure, GetProductDetails>> getProductDetails(String code) async {
     if (await networkInfo.isConnected){

@@ -61,7 +61,7 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
         orientation: Orientation.portrait);
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     var adressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
-    return SingleChildScrollView(
+    return widget.getOneRestaurantAndPopulateProducts.restaurant!.products!.isNotEmpty ? SingleChildScrollView(
       child: GridView.builder(
           shrinkWrap: true,
           physics: ScrollPhysics(),
@@ -215,6 +215,18 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
               ),
             );
           }
+      ),
+    ):Container(
+      height: 130.w,
+      width: 130,
+      child: Center(
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/empty2.png"),
+              )
+          ),
+        ),
       ),
     );
   }

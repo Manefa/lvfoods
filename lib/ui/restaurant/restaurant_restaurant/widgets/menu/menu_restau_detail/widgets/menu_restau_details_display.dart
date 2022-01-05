@@ -331,12 +331,32 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
 
               if(state is GetProductDetailsError){
                 return Container(
-                  child: Center(child: Text("Error")),
+                  height: 130.w,
+                  width: 130,
+                  child: Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("images/error1.png"),
+                          )
+                      ),
+                    ),
+                  ),
                 );
               }
 
               return Container(
-                child: Center(child: Text("Aucun Cas")),
+                height: 130.w,
+                width: 130,
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("images/error2.png"),
+                        )
+                    ),
+                  ),
+                ),
               );
             },
           ),

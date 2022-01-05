@@ -8,6 +8,9 @@ class ForUpdateRestaurant extends Equatable{
   final String? email;
   final String? description;
   final String? address;
+  final String? country;
+  final String? city;
+  final String? district;
   final double? latitude;
   final double? longitude;
   final String? styles;
@@ -23,6 +26,9 @@ class ForUpdateRestaurant extends Equatable{
     required final this.email,
     required final this.description,
     required final this.address,
+    required final this.country,
+    required final this.city,
+    required final this.district,
     final this.latitude,
     final this.longitude,
     final this.styles,
@@ -81,6 +87,6 @@ class ForUpdateRestaurant extends Equatable{
   // };
 
   @override
-  List<Object?> get props => [name, email, description, address, latitude, longitude, styles,
+  List<Object?> get props => [name, email, description, address, country, city, district, latitude, longitude, styles,
     codes, contents, profilePicture, coverPicture];
 }

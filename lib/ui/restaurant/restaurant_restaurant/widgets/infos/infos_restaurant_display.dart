@@ -9,8 +9,10 @@ import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/d
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/bloc/get_styles.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/infos/sub_widgets/alert_dialogue_add_phone.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/infos/sub_widgets/phones_display.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/edit_restau/edit_restau.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InfosRestaurantModel{
   final String name;
@@ -44,15 +46,13 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
   bool isSwitched = true;
   List<Style> styles = [];
 
-  @override
-  void initState() {
-    _getRestaurantBloc.add(StartGetRestaurant(name: widget.name));
-    _getStylesBloc.add(StartGetStyles());
-    super.initState();
-  }
+
   @override
   Widget build(BuildContext context) {
+    _getRestaurantBloc.add(StartGetRestaurant(name: widget.name));
+    _getStylesBloc.add(StartGetStyles());
     bool isSwitched = true;
+    var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     List<String> litems= ['+237 691 380 128','+237 677 589 625'];
     ScreenUtil.init(
         BoxConstraints(
@@ -60,6 +60,8 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
+    _getRestaurantBloc.add(StartGetRestaurant(name: widget.name));
+    _getStylesBloc.add(StartGetStyles());
     return MultiBlocProvider(
       providers: [
         BlocProvider<GetRestaurantBloc>(
@@ -217,10 +219,18 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                   child: Column(
                                     children: [
                                       //PhoneNumberList
-                                      PhonesDisplay(),
+                                      PhonesDisplay(restaurantName: nameRestaurant!,),
                                       SizedBox(height: 8.h,),
                                       //AddNumberButton
                                       InkWell(
+                                        onTap: (){
+                                          showDialog(
+                                              context: context,
+                                              builder:(BuildContext context){
+                                                return AlerDialogueAddPhoneDisplay();
+                                              }
+                                          );
+                                        },
                                         child: Text(
                                           '+  Add phone number',
                                           style: TextStyle(

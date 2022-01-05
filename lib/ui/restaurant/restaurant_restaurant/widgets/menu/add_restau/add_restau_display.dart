@@ -32,7 +32,9 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   TextEditingController locationController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-
+  TextEditingController countryController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController districtController = TextEditingController();
 
 
   final formKey = GlobalKey<FormState>();
@@ -54,6 +56,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   String style="";
   XFile? _imageProfile;
   XFile? _imageCover;
+  String code = "+237";
 
   @override
   void initState() {
@@ -300,6 +303,60 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                 ),
                 SizedBox(height: 7.h,),
                 restauName(),
+                SizedBox(height: 16.h,),
+                //Restau country
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Restaurant Country",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 7.h,),
+                restauCountry(),
+                SizedBox(height: 16.h,),
+                //Restau city
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Restaurant City",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 7.h,),
+                restauCity(),
+                SizedBox(height: 16.h,),
+                //Restau city
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Restaurant District",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 7.h,),
+                restauDistrict(),
                 //Phone Number
                 SizedBox(height: 16.h,),
                 Container(
@@ -317,7 +374,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                   ),
                 ),
                 SizedBox(height: 7.h,),
-                phoneNum(),
+                _phoneContainer(),
                 SizedBox(height: 16.h,),
                 //EmailRestau
                 Container(
@@ -491,7 +548,12 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     if(restaurantNameController.text.isEmpty ||
                         phoneNumberController.text.isEmpty ||
                         emailController.text.isEmpty ||
-                        locationController.text.isEmpty || _imageCover == null || _imageProfile == null ){
+                        locationController.text.isEmpty ||
+                        countryController.text.isEmpty ||
+                        cityController.text.isEmpty ||
+                        districtController.text.isEmpty ||
+                        _imageCover == null ||
+                        _imageProfile == null ){
                       Fluttertoast.showToast(
                         msg: "Renseignez tout les champs et chargez toutes les images",
                         toastLength: Toast.LENGTH_SHORT,
@@ -503,8 +565,20 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                       );
                     }
                     else{
-                      ForCreateRestaurant restaurant = ForCreateRestaurant(name: restaurantNameController.text, email: emailController.text,
-                      description: descriptionController.text, address: locationController.text, profilePicture: File(_imageProfile!.path), coverPicture: File(_imageCover!.path), styles: removeLastCharacter(theIds.trim()));
+                      ForCreateRestaurant restaurant = ForCreateRestaurant(
+                        name: restaurantNameController.text.trim(),
+                        email: emailController.text.trim(),
+                        description: descriptionController.text.trim(),
+                        country: countryController.text.trim(),
+                        city: cityController.text.trim(),
+                        district: districtController.text.trim(),
+                        address: locationController.text.trim(),
+                        profilePicture: File(_imageProfile!.path),
+                        coverPicture: File(_imageCover!.path),
+                        styles: removeLastCharacter(theIds.trim()),
+                        codes: code.trim(),
+                        contents: phoneNumberController.text.trim(),
+                      );
 
                       _addRestaurantBloc.add(StartAddRestaurant(createRestaurant: restaurant));
                     }
@@ -560,45 +634,114 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   );
 
 
+  Widget restauCountry()=>Container(
+      width: 344.w,
+      height: 48.h,
+      child: TextFormField(
+        controller: countryController,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20.sp,
+          fontFamily: "Milliard",
+        ),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+          ),
+          hintText: 'Cameroun',
+          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          border: OutlineInputBorder(),
+        ),
+      )
+  );
+
+  Widget restauCity()=>Container(
+      width: 344.w,
+      height: 48.h,
+      child: TextFormField(
+        controller: cityController,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20.sp,
+          fontFamily: "Milliard",
+        ),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+          ),
+          hintText: 'Douala',
+          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          border: OutlineInputBorder(),
+        ),
+      )
+  );
+
+  Widget restauDistrict()=>Container(
+      width: 344.w,
+      height: 48.h,
+      child: TextFormField(
+        controller: districtController,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20.sp,
+          fontFamily: "Milliard",
+        ),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+          ),
+          hintText: 'Logbessou',
+          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          border: OutlineInputBorder(),
+        ),
+      )
+  );
 
 
-Widget phoneNum()=>Form(
-  key: formKey,
-  child: Container(
-    width: 344.w,
-    height: 48.h,
-    decoration: BoxDecoration(
-      border: Border.all(width: 2, color: Colors.grey),
+  Widget _phoneContainer() {
+    return new Container(
+      width: 344.w,
+      height: 48.h,
+      child: new TextFormField(
+        controller: phoneNumberController,
+        textAlignVertical: TextAlignVertical.top,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          prefixIcon: CountryCodePicker(
+            onChanged: (val){
+              code = val.dialCode!;
+            },
+            initialSelection: '+237',
+            favorite: ['+237', 'CMR'],
+            textStyle: TextStyle(
+              color: Color(0XFF949494),
+              fontSize: 20.sp,
+              fontFamily: "Milliard",
+            ),
+            showFlag: true,
+            padding: EdgeInsets.zero,
+            flagDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
 
-    ),
-    child:InternationalPhoneNumberInput(
-      onInputChanged: (PhoneNumber number) {
-        print(number.phoneNumber);
-      },
-      onInputValidated: (bool value) {
-        print(value);
-      },
-      selectorConfig: SelectorConfig(
-        selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+          ),
+
+          hintText: '697675437',
+          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          focusColor: Color(0XFFB8B8B8),
+          border: OutlineInputBorder(),
+        ),
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20.sp,
+          fontFamily: "Milliard",
+        ),
       ),
-      ignoreBlank: false,
-      autoValidateMode: AutovalidateMode.disabled,
-      selectorTextStyle: TextStyle(color: Colors.black),
-      initialValue: number,
-
-      textFieldController: controller,
-      formatInput: false,
-      keyboardType:
-      TextInputType.numberWithOptions(signed: true, decimal: true),
-      inputBorder: OutlineInputBorder(
-        borderSide: BorderSide.none,
-      ),
-      onSaved: (PhoneNumber number) {
-        print('On Saved: $number');
-      },
-    ),
-  ),
-);
+    );
+  }
 
   void getPhoneNumber(String phoneNumber) async {
     PhoneNumber number =
@@ -617,27 +760,6 @@ Widget phoneNum()=>Form(
 
 
 
-    Widget restauNumber()=>Container(
-      width: 344.w,
-      height: 48.h,
-      child: TextFormField(
-        controller: phoneNumberController,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 20.sp,
-          fontFamily: "Milliard",
-        ),
-        decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
-          ),
-          focusColor: Color(0XFFB8B8B8),
-          hintText: 'Enter Number',
-          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
-          border: OutlineInputBorder(),
-        ),
-      )
-  );
   Widget restauEmail()=>Container(
       width: 344.w,
       height: 48.h,

@@ -10,6 +10,9 @@ class RestaurantModel  extends Restaurant{
     required String? email,
     required String? description,
     required String? address,
+    required String? country,
+    required String? city,
+    required String? district,
     required String? profilePicture,
     required String? coverPicture,
     required List<PhoneModel>? phones,
@@ -24,6 +27,9 @@ class RestaurantModel  extends Restaurant{
     email: email,
     description: description,
     address: address,
+    country: country,
+    city: city,
+    district: district,
     profilePicture: profilePicture,
     coverPicture: coverPicture,
     phones: phones,
@@ -41,6 +47,9 @@ class RestaurantModel  extends Restaurant{
     email: json["email"] == null ? null : json["email"],
     description: json["description"] == null ? null : json["description"],
     address: json["address"] == null ? null : json["address"],
+    country: json["country"] == null ? null : json["country"],
+    city: json["city"] == null ? null : json["city"],
+    district: json["district"] == null ? null : json["district"],
     profilePicture: json["profile_picture"] == null ? null : json["profile_picture"],
     coverPicture: json["cover_picture"] == null ? null : json["cover_picture"],
     phones: json["phones"] == null ? null : List<PhoneModel>.from(json["phones"].map((x) => PhoneModel.fromJson(x))),
@@ -57,6 +66,9 @@ class RestaurantModel  extends Restaurant{
     "email": email == null ? null : email,
     "description": description == null ? null : description,
     "address": address == null ? null : address,
+    "country": country == null ? null : country,
+    "city": city == null ? null : city,
+    "district": district == null ? null : district,
     "profile_picture": profilePicture == null ? null : profilePicture,
     "cover_picture": coverPicture == null ? null : coverPicture,
     "phones": phones == null ? null : List<dynamic>.from(phones!.map((x) => x.toJson())),
@@ -69,5 +81,5 @@ class RestaurantModel  extends Restaurant{
   };
 
   @override
-  List<Object?> get props => [name, email, description, address, profilePicture, coverPicture, phones, hours, note, products, styles, status, createdAt];
+  List<Object?> get props => [name, email, description, address, country, city, district, profilePicture, coverPicture, phones, hours, note, products, styles, status, createdAt];
 }

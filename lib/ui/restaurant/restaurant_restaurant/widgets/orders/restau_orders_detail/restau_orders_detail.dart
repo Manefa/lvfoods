@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/orders/restau_orders_detail/restau_orders_detail_display.dart';
 class RestauOrderDetails extends StatefulWidget {
-  const RestauOrderDetails({Key? key}) : super(key: key);
+  final Order order;
+  final int index;
+  const RestauOrderDetails({Key? key, required this.order, required this.index}) : super(key: key);
 
   @override
   _RestauOrderDetailsState createState() => _RestauOrderDetailsState();
@@ -32,7 +35,7 @@ class _RestauOrderDetailsState extends State<RestauOrderDetails> {
         elevation: 0.0,
         backgroundColor: Colors.white,
       ),
-      body: RestauOrderDetailsDisplay(),
+      body: RestauOrderDetailsDisplay(index: widget.index,),
       backgroundColor: Colors.white,
     );
   }

@@ -196,7 +196,7 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
                       return LoadingWidget();
                     }
                     if(state is GetRestaurantLoaded){
-                      return Center(
+                      return state.getRestaurant.restaurant!.hours!.isNotEmpty ? Center(
                         child: ListView.builder(
                             itemCount: state.getRestaurant.restaurant!.hours!.length,
                             clipBehavior: Clip.none,
@@ -260,16 +260,50 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
                               );
                             }
                         ),
+                      ): Center(
+                        child:  Container(
+                          height: 130.w,
+                          width: 130,
+                          child: Center(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage("images/empty2.png"),
+                                  )
+                              ),
+                            ),
+                          ),
+                        ),
                       );
                     }
 
                     if(state is GetRestaurantError){
                       return Container(
-                        child: Text("Aucun cas"+state.message.toString()),
+                        height: 130.w,
+                        width: 130,
+                        child: Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("images/error1.png"),
+                                )
+                            ),
+                          ),
+                        ),
                       );
                     }
                     return Container(
-                      child: Text("Aucun cas"),
+                      height: 130.w,
+                      width: 130,
+                      child: Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("images/error2.png"),
+                              )
+                          ),
+                        ),
+                      ),
                     );
                   },
                 ),

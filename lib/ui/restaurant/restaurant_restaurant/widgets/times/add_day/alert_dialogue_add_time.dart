@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_hours/bloc/add_hours.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_hours/domain/entities/for_add_hours.dart';
@@ -364,8 +365,21 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                       String close = closeHourController.text + "h" + closeMinuteController.text + "min";
                       print(open);
                       print(close);
-                      ForAddHours hours = ForAddHours(day: start, open: open, close: close);
-                      _addHoursBloc.add(StartAddHours(addHours: hours, name:  nameRestaurant!));
+                      if(start == "Select Day" || openHourController.text.isEmpty || openMinuteController.text.isEmpty||
+                          closeHourController.text.isEmpty || closeMinuteController.text.isEmpty){
+                        Fluttertoast.showToast(
+                          msg: "Remplissez tous les champs",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 5,
+                          backgroundColor: Colors.grey,
+                          textColor: Colors.white,
+                          fontSize: 16.sp,
+                        );
+                      }else{
+                        ForAddHours hours = ForAddHours(day: start, open: open, close: close);
+                        _addHoursBloc.add(StartAddHours(addHours: hours, name:  nameRestaurant!));
+                      }
                     },
                     child: Container(
                       width: 292.w,
@@ -397,6 +411,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
   Widget openHours()=>Container(
     width: 72.w,
     child: TextFormField(
+      keyboardType: TextInputType.number,
       controller: openHourController,
       decoration: InputDecoration(
         contentPadding: new EdgeInsets.symmetric(vertical: 35.h, horizontal: 10.w),
@@ -407,6 +422,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
   Widget openMin()=>Container(
     width: 72.w,
     child: TextFormField(
+      keyboardType: TextInputType.number,
       controller: openMinuteController,
       decoration: InputDecoration(
         contentPadding: new EdgeInsets.symmetric(vertical: 35.h, horizontal: 10.w),
@@ -417,6 +433,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
   Widget closeMin()=>Container(
     width: 72.w,
     child: TextFormField(
+      keyboardType: TextInputType.number,
       controller: closeMinuteController,
       decoration: InputDecoration(
         contentPadding: new EdgeInsets.symmetric(vertical: 35.h, horizontal: 10.w),
@@ -427,6 +444,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
   Widget closeHours()=>Container(
     width: 72.w,
     child: TextFormField(
+      keyboardType: TextInputType.number,
       controller: closeHourController,
       decoration: InputDecoration(
         contentPadding: new EdgeInsets.symmetric(vertical: 35.h, horizontal: 10.w),

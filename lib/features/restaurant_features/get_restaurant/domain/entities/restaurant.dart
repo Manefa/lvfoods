@@ -9,6 +9,9 @@ class Restaurant  extends Equatable{
   final String? email;
   final String? description;
   final String? address;
+  final String? country;
+  final String? city;
+  final String? district;
   final String? profilePicture;
   final String? coverPicture;
   final List<Phone>? phones;
@@ -24,6 +27,9 @@ class Restaurant  extends Equatable{
     required this.email,
     required this.description,
     required this.address,
+    required this.country,
+    required this.city,
+    required this.district,
     required this.profilePicture,
     required this.coverPicture,
     required this.phones,
@@ -56,6 +62,9 @@ class Restaurant  extends Equatable{
     "email": email == null ? null : email,
     "description": description == null ? null : description,
     "address": address == null ? null : address,
+    "country": country == null ? null : country,
+    "city": city == null ? null : city,
+    "district": district == null ? null : district,
     "profile_picture": profilePicture == null ? null : profilePicture,
     "cover_picture": coverPicture == null ? null : coverPicture,
     "phones": phones == null ? null : List<dynamic>.from(phones!.map((x) => x.toJson())),
@@ -68,5 +77,5 @@ class Restaurant  extends Equatable{
   };
 
   @override
-  List<Object?> get props => [name, email, description, address, profilePicture, coverPicture,phones, hours, note, products, styles, status, createdAt];
+  List<Object?> get props => [name, email, description, address, country, city, district, profilePicture, coverPicture,phones, hours, note, products, styles, status, createdAt];
 }

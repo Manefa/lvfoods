@@ -86,6 +86,11 @@ import 'package:ivfoods_mobile_app/features/restaurant_features/delete_product/d
 import 'package:ivfoods_mobile_app/features/restaurant_features/delete_product/data/repositories/delete_product_repository_impl.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/delete_product/domain/repositories/delete_product_repository.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/delete_product/domain/usecases/delete_product.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/bloc/get_all_for_owner_restaurant.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/data/datasources/get_all_for_owner_restaurant_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/data/repositories/get_all_for_owner_restaurant_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/repositories/get_all_for_owner_restaurant_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/usecases/get_all_for_owner_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/bloc/get_all_restaurants_for_current_user.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/data/datasources/get_all_restaurants_for_current_user_local_data_source.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/data/datasources/get_all_restaurants_for_current_user_remote_data_source.dart';
@@ -119,6 +124,11 @@ import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/data/
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/data/repositories/get_styles_repository_impl.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/repositories/get_styles_repository.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/usecases/get_categories.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/mention_order_ready/bloc/mention_order_ready.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/mention_order_ready/data/datasources/mention_order_ready_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/mention_order_ready/data/repositories/mention_order_ready_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/mention_order_ready/domain/repository/mention_order_ready_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/mention_order_ready/domain/usecases/mention_order_ready.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/remove_hours/bloc/remove_hours.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/remove_hours/data/datasources/remove_hours_remote_data_source.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/remove_hours/data/repositories/remove_hours_repository_impl.dart';
@@ -997,11 +1007,56 @@ Future<void> init() async {
         () => RemoveHoursRemoteDataSourceImpl(client: sl(),),
   );
 
+  //! Features - GetAllForOwnerRestaurant
+  //Bloc
+
+  sl.registerFactory<GetAllForOwnerRestaurantBloc>(
+        () => GetAllForOwnerRestaurantBloc(
+      getAllForOwnerRestaurantUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetAllForOwnerRestaurantUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<GetAllForOwnerRestaurantRepository>(
+        () => GetAllForOwnerRestaurantRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<GetAllForOwnerRestaurantRemoteDataSource>(
+        () => GetAllForOwnerRestaurantRemoteDataSourceImpl(client: sl(),),
+  );
 
 
+  //! Features - MentionOrderReady
+  //Bloc
 
+  sl.registerFactory<MentionOrderReadyBloc>(
+        () => MentionOrderReadyBloc(
+      mentionOrderReadyUseCase: sl(),
+    ),
+  );
 
+  // Use cases
+  sl.registerLazySingleton(() => MentionOrderReadyUseCase(sl()));
 
+  // Repository
+  sl.registerLazySingleton<MentionOrderReadyRepository>(
+        () => MentionOrderReadyRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<MentionOrderReadyRemoteDataSource>(
+        () => MentionOrderReadyRemoteDataSourceImpl(client: sl(),),
+  );
 
 
   //! Core

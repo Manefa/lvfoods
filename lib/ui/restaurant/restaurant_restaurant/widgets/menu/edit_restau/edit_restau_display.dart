@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
+import 'package:ivfoods_mobile_app/core/platform/alert_dialog/country_code_picker.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/core/utils/url_convert.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/domain/entities/get_restaurant.dart';
@@ -32,12 +33,19 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
   String email = "";
   String localisation = "";
   String descrip = "";
+  String country = "";
+  String city = "";
+  String district = "";
+
   UpdateRestaurantBloc _updateRestaurantBloc = sl<UpdateRestaurantBloc>();
   TextEditingController restaurantNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController districtController = TextEditingController();
 
 
   final formKey = GlobalKey<FormState>();
@@ -46,17 +54,9 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
   List<int> mySelected = List.empty();
   List<Style>? styleList;
   List<Style> stylesForSaveList = [];
-  // List<String> _restauStyleOptions = [
-  //   'Senegalais',
-  //   'Kmer',
-  //   'Bami',
-  //   'Douala',
-  //   'Francais',
-  // ];
   String style="";
   XFile? _imageProfile;
   XFile? _imageCover;
-
   File? _imageOldProfile;
   File? _imageOldCover;
 
@@ -66,11 +66,33 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
     email = widget.getRestaurant.restaurant!.email!;
     localisation = widget.getRestaurant.restaurant!.address!;
     descrip = widget.getRestaurant.restaurant!.description!;
+
+    if (widget.getRestaurant.restaurant!.country == "") {
+      country = "";
+    } else {
+      country = widget.getRestaurant.restaurant!.country.toString();
+    }
+
+    if (widget.getRestaurant.restaurant!.city == "") {
+      city = "";
+    } else {
+      city = widget.getRestaurant.restaurant!.city.toString();
+    }
+
+    if (widget.getRestaurant.restaurant!.district == "") {
+      district = "";
+    } else {
+      district = widget.getRestaurant.restaurant!.district.toString();
+    }
+
     restaurantNameController = TextEditingController(text: name);
     phoneNumberController = TextEditingController();
     emailController = TextEditingController(text: email);
     locationController = TextEditingController(text: localisation);
     descriptionController = TextEditingController(text: descrip);
+    countryController = TextEditingController(text: country);
+    cityController = TextEditingController(text: city);
+    districtController = TextEditingController(text: district);
 
     for(int i = 0; i < widget.styles.length; i++){
       Style category = Style(id: widget.styles[i].id  , name: widget.styles[i].name);
@@ -340,14 +362,14 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                 ),
                 SizedBox(height: 7.h,),
                 restauName(),
-                //Phone Number
                 SizedBox(height: 16.h,),
+                //Restau Country
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Phone Number",
+                      "Restaurant Country",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -357,7 +379,43 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                   ),
                 ),
                 SizedBox(height: 7.h,),
-                restauNumber(),
+                restauCountry(),
+                SizedBox(height: 16.h,),
+                //Restau City
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Restaurant City",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 7.h,),
+                restauCity(),
+                SizedBox(height: 16.h,),
+                //Restau District
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Restaurant District",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 7.h,),
+                restauDistrict(),
                 SizedBox(height: 16.h,),
                 //EmailRestau
                 Container(
@@ -547,13 +605,16 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                     }
                     else{
                       ForUpdateRestaurant restaurant = ForUpdateRestaurant(
-                          name: restaurantNameController.text,
-                          email: emailController.text,
-                      description: descriptionController.text,
-                          address: locationController.text,
-                          profilePicture: File(_imageProfile!.path),
-                          coverPicture: File(_imageCover!.path),
-                          styles: theIds == "" ? removeLastCharacter(theIdsForSave.trim()) : removeLastCharacter(theIds.trim()),
+                        name: restaurantNameController.text.trim(),
+                        email: emailController.text.trim(),
+                        description: descriptionController.text.trim(),
+                        address: locationController.text.trim(),
+                        country: countryController.text.trim(),
+                        city: cityController.text.trim(),
+                        district: districtController.text.trim(),
+                        profilePicture: File(_imageProfile!.path),
+                        coverPicture: File(_imageCover!.path),
+                        styles: theIds == "" ? removeLastCharacter(theIdsForSave.trim()) : removeLastCharacter(theIds.trim()),
                       );
 
                       _updateRestaurantBloc.add(StartUpdateRestaurant(updateRestaurant: restaurant, name: widget.name));
@@ -608,6 +669,115 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
         ),
       )
   );
+
+  Widget restauCountry()=>Container(
+      width: 344.w,
+      height: 48.h,
+      child: TextFormField(
+        controller: countryController,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20.sp,
+          fontFamily: "Milliard",
+        ),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+          ),
+          hintText: 'Cameroun',
+          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          border: OutlineInputBorder(),
+        ),
+      )
+  );
+
+  Widget restauCity()=>Container(
+      width: 344.w,
+      height: 48.h,
+      child: TextFormField(
+        controller: cityController,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20.sp,
+          fontFamily: "Milliard",
+        ),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+          ),
+          hintText: 'Douala',
+          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          border: OutlineInputBorder(),
+        ),
+      )
+  );
+
+  Widget restauDistrict()=>Container(
+      width: 344.w,
+      height: 48.h,
+      child: TextFormField(
+        controller: districtController,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20.sp,
+          fontFamily: "Milliard",
+        ),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+          ),
+          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          border: OutlineInputBorder(),
+        ),
+      )
+  );
+
+  //
+  // Widget _phoneContainer() {
+  //   return new Container(
+  //     width: 344.w,
+  //     height: 48.h,
+  //     child: new TextFormField(
+  //       controller: phoneNumberController,
+  //       textAlignVertical: TextAlignVertical.top,
+  //       keyboardType: TextInputType.number,
+  //       decoration: InputDecoration(
+  //         prefixIcon: CountryCodePicker(
+  //           onChanged: (val){
+  //             code = val.dialCode!;
+  //           },
+  //           initialSelection: '+237',
+  //           favorite: ['+237', 'CMR'],
+  //           textStyle: TextStyle(
+  //             color: Color(0XFF949494),
+  //             fontSize: 20.sp,
+  //             fontFamily: "Milliard",
+  //           ),
+  //           showFlag: true,
+  //           padding: EdgeInsets.zero,
+  //           flagDecoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(4),
+  //           ),
+  //         ),
+  //
+  //         focusedBorder: OutlineInputBorder(
+  //           borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+  //         ),
+  //
+  //         hintText: '697675437',
+  //         contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+  //         focusColor: Color(0XFFB8B8B8),
+  //         border: OutlineInputBorder(),
+  //       ),
+  //       style: TextStyle(
+  //         color: Colors.black,
+  //         fontSize: 20.sp,
+  //         fontFamily: "Milliard",
+  //       ),
+  //     ),
+  //   );
+  // }
+
   Widget restauNumber()=>Container(
       width: 344.w,
       height: 48.h,
@@ -629,6 +799,7 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
         ),
       )
   );
+
   Widget restauEmail()=>Container(
       width: 344.w,
       height: 48.h,

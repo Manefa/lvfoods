@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/bloc/get_all_for_owner_restaurant.dart';
+import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/orders/orders_restaurant_display.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class OrdersRestaurant extends StatefulWidget {
   const OrdersRestaurant({Key? key}) : super(key: key);
 
@@ -18,6 +23,10 @@ class _OrdersRestaurantState extends State<OrdersRestaurant> {
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
         orientation: Orientation.portrait);
+    var size = MediaQuery.of(context).size;
+
+
+
     return Column(
       children: [
         SizedBox(height: 18.5.h,),

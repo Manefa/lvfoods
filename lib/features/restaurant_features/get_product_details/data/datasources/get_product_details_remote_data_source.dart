@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 abstract class GetProductDetailsRemoteDataSource {
-
   /// Calls the https://lvfood-site.herokuapp.com/api/products/getOneAndPopulateRestaurantAndPopulateCategoriesAndPopulateOrdersAndPopulateNotices/{code} endpoint.
   ///
   /// Throws a [ServerException] for all error codes.
