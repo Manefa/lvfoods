@@ -64,7 +64,7 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 5,
                         mainAxisSpacing: 5,
-                        childAspectRatio: width / (height *0.6)
+                        childAspectRatio: width / (height *0.63)
                     ),
                     itemCount: state.getOneRestaurantAndPopulateProducts.restaurant!.products!.length,
                     itemBuilder: (BuildContext context, int index){
@@ -96,7 +96,7 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
                                   children: [
                                     SizedBox(width: 9.w,),
                                     Container(
-                                      height: 80.h,
+                                      height: 100.h,
                                       width: 137.w,
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +110,7 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
                                                   maxLines: 1,
                                                   overflow: TextOverflow.ellipsis,
                                                   style: TextStyle(
-                                                      fontSize: 16.sp,
+                                                      fontSize: 15.sp,
                                                       fontFamily: "Milliard",
                                                       fontWeight: FontWeight.w500
                                                   ),
@@ -118,78 +118,83 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
                                               )),
                                           //SubName
                                           SizedBox(height: 10.h,),
-                                          Expanded(
-                                              child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].description!,
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].description!,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontFamily: "Milliard",
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Color.fromRGBO(148, 148, 148, 1)
+                                              ),
+                                            ),
+                                          ),
+                                          //OtherDetail
+                                          SizedBox(height: 10.h,),
+                                          IntrinsicHeight(
+                                            child: Row(
+                                              children: [
+                                                //Reduction
+                                                state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount == null ? SizedBox( width: 23.w,):Text(
+                                                  state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount.toString()+"%",
                                                   style: TextStyle(
                                                       fontSize: 12.sp,
                                                       fontFamily: "Milliard",
                                                       fontWeight: FontWeight.w500,
-                                                      color: Color.fromRGBO(148, 148, 148, 1)
+                                                      color: Color.fromRGBO(242, 176, 50, 1)
                                                   ),
                                                 ),
-                                              )),
-                                          //OtherDetail
-                                          SizedBox(height: 10.h,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              //Price
-                                              Text(
-                                                state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].price.toString()+" FCFA",
-                                                style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    fontFamily: "Milliard",
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color.fromRGBO(183, 43, 59, 1)
-                                                ),
-                                              ),
-                                              //Reduction
-                                              state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount == null ? SizedBox( width: 23.w,):Text(
-                                                state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].discount.toString()+"%",
-                                                style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    fontFamily: "Milliard",
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color.fromRGBO(242, 176, 50, 1)
-                                                ),
-                                              ),
-                                              //Note
-                                              Container(
-                                                child: Center(
-                                                  child: Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: [
-                                                      Align(
-                                                        alignment: Alignment.centerLeft,
-                                                        child: Icon(
-                                                          LvIconsResto.star,
-                                                          color:Color.fromRGBO(251, 182, 52, 1),
-                                                          size: 12.sp,
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: 3.2.w,),
-                                                      Align(
-                                                        alignment: Alignment.centerRight,
-                                                        child: Text  (
-                                                          state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].note.toString(),
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              fontFamily: "Milliard",
-                                                              fontWeight: FontWeight.w500,
-                                                              color:Color.fromRGBO(251, 182, 52, 1)
+                                                VerticalDivider(),
+                                                //Note
+                                                Container(
+                                                  child: Center(
+                                                    child: Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: [
+                                                        Align(
+                                                          alignment: Alignment.centerLeft,
+                                                          child: Icon(
+                                                            LvIconsResto.star,
+                                                            color:Color.fromRGBO(251, 182, 52, 1),
+                                                            size: 12.sp,
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                        SizedBox(width: 3.2.w,),
+                                                        Align(
+                                                          alignment: Alignment.centerRight,
+                                                          child: Text  (
+                                                            state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].note!.toStringAsFixed(2),
+                                                            style: TextStyle(
+                                                                fontSize: 12.sp,
+                                                                fontFamily: "Milliard",
+                                                                fontWeight: FontWeight.w500,
+                                                                color:Color.fromRGBO(251, 182, 52, 1)
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                            ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(height: 10.h,),
+                                          //Price
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].price.toString()+" FCFA",
+                                              style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontFamily: "Milliard",
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color.fromRGBO(183, 43, 59, 1)
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),
