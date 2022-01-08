@@ -53,7 +53,7 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   child: Align(
                     alignment: Alignment.center,
-                    child:  Text("Prêt",textAlign: TextAlign.center,),
+                    child:  FittedBox(child: Text("Prêt",textAlign: TextAlign.center,)),
                   ),
                 ),
               ),
@@ -66,7 +66,7 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   child: Align(
                     alignment: Alignment.center,
-                    child:  Text("En cours",textAlign: TextAlign.center,),
+                    child:  FittedBox(child: Text("En cours",textAlign: TextAlign.center,),),
                   ),
                 ),
               ),
@@ -80,7 +80,7 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   child: Align(
                     alignment: Alignment.center,
-                    child:  Text("Récupérés",textAlign: TextAlign.center,),
+                    child:  FittedBox(child: Text("Récupérés",textAlign: TextAlign.center,)),
                   ),
                 ),
               ),
