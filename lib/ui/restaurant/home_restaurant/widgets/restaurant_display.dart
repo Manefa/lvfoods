@@ -85,6 +85,10 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
                                 Container(
                                   height: 106.h,
                                   decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.r),
+                                      topLeft: Radius.circular(5.r),
+                                    ),
                                     image:  DecorationImage(
                                       image: NetworkImage(state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].picture!),
                                       fit: BoxFit.cover,

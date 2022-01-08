@@ -106,7 +106,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: Container(
-                                width: 87.w,
+                                width: 100.w,
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                       color: Colors.grey,
@@ -131,7 +131,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                       Icon(
                                         LvIconsResto.edit,
                                         color: Color.fromRGBO(148, 148, 148,1),
-                                        size: 12.sp,
+                                        size: 10.sp,
                                       ),
                                       SizedBox(width: 5.7.w,),
                                       Text(
@@ -140,7 +140,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                           style: TextStyle(
                                             color: Color.fromRGBO(148, 148, 148, 1),
                                             fontFamily: "Milliard",
-                                            fontSize: 15.sp,
+                                            fontSize: 13.sp,
                                           )
                                       ),
                                     ],
@@ -384,7 +384,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.center,
+                            crossAxisAlignment:CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "Style Resto",
@@ -438,13 +438,15 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                   alignment: Alignment.centerRight,
                                   child:Row(
                                     children: [
-                                      Text(
-                                        state.getRestaurant.restaurant!.address!,
-                                        style: TextStyle(
-                                            color: Color.fromRGBO(188, 44, 61, 1),
-                                            fontFamily: "Milliard",
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w100
+                                      FittedBox(
+                                        child: Text(
+                                          state.getRestaurant.restaurant!.address!,
+                                          style: TextStyle(
+                                              color: Color.fromRGBO(188, 44, 61, 1),
+                                              fontFamily: "Milliard",
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w100
+                                          ),
                                         ),
                                       ),
                                       SizedBox(width: 6.w,),

@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
-import 'package:ivfoods_mobile_app/constants.dart';
-import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
 import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
-import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/bloc/get_all_for_owner_restaurant.dart';
-import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/get_all_for_owner_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/orders/restau_orders_detail/restau_orders_detail.dart';
@@ -88,47 +82,23 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                             child:Column(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               crossAxisAlignment: CrossAxisAlignment.start,
-
                                               children: [
                                                 //Name
-                                                Container(
-                                                  child: Text(
+                                                  Text(
                                                     widget.orders[index].item!.name!,
                                                     style: TextStyle(
                                                       fontFamily: "Milliard",
                                                       fontSize: 16.sp,
                                                       fontWeight: FontWeight.w500,
                                                     ),
-                                                  ),),
-                                                SizedBox(height: 3.h,),
-                                                //Location
-                                                Container(
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        LvIcons.pin,
-                                                        size: 15.sp,
-                                                        color: Color.fromRGBO(148, 148, 148, 1),
-                                                      ),
-                                                      SizedBox(width: 8.8.w,),
-                                                      Text(
-                                                        addressRestaurant!,
-                                                        style: TextStyle(
-                                                          color: Color.fromRGBO(148, 148, 148, 1),
-                                                          fontFamily: "Milliard",
-                                                          fontSize: 15.sp,
-                                                        ),
-                                                      ),
-                                                    ],
                                                   ),
-                                                ),
                                                 SizedBox(height: 3.h,),
                                                 //Timer
                                                 Container(
                                                   child: Row(
                                                     children: [
                                                       Icon(
-                                                        LvIcons.ic_timer_24px,
+                                                      Icons.access_time_rounded,
                                                         size: 15.sp,
                                                         color: Color.fromRGBO(148, 148, 148, 1),
                                                       ),
