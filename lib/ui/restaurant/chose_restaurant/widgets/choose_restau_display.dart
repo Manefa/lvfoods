@@ -344,7 +344,7 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                   child:Center(
                                     child: Container(
                                       width: 300.w,
-                                      height: 50.h,
+                                      height: 100.h,
                                       child: Row(
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -368,12 +368,14 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: <Widget>[
-                                                    Text(
-                                                      state.getAllRestaurantsForCurrentUser.restaurants![index].name!,
-                                                      style: TextStyle(
-                                                        fontFamily: "Milliard",
-                                                        fontSize:19.sp,
-                                                        fontWeight: FontWeight.w500,
+                                                    FittedBox(
+                                                      child: Text(
+                                                        state.getAllRestaurantsForCurrentUser.restaurants![index].name!,
+                                                        style: TextStyle(
+                                                          fontFamily: "Milliard",
+                                                          fontSize:18.sp,
+                                                          fontWeight: FontWeight.w500,
+                                                        ),
                                                       ),
                                                     ),
                                                     SizedBox(height: 4.h,),
@@ -388,13 +390,15 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                                           borderRadius: BorderRadius.circular(6.r)
                                                       ),
                                                       child: Center(
-                                                        child: Text(
-                                                          'Restaurant Ouvert',
-                                                          textAlign: TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontSize: 12.sp,
-                                                              fontFamily: "Milliard",
-                                                              color: Colors.white
+                                                        child: FittedBox(
+                                                          child: Text(
+                                                            'Restaurant Ouvert',
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontSize: 12.sp,
+                                                                fontFamily: "Milliard",
+                                                                color: Colors.white
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -407,7 +411,7 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                                           borderRadius: BorderRadius.circular(6.r)
                                                       ),
                                                       child: Center(
-                                                        child: Text(
+                                                        child: FittedBox(child: Text(
                                                           'Restaurant Fermé',
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
@@ -415,7 +419,7 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                                               fontSize: 12.sp,
                                                               color: Colors.white
                                                           ),
-                                                        ),
+                                                        ),),
                                                       ),
                                                     )
                                                   ],
