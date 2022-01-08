@@ -248,13 +248,15 @@ class _ListViewOrderState extends State<ListViewOrder> {
                                                       )
                                                   )
                                               ),
-                                              child:Text(
-                                                "Récupérés",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color:  Color.fromRGBO(148, 148, 148, 1),
-                                                  fontFamily: "Milliard",
-                                                  fontSize: 10.3.sp,
+                                              child:FittedBox(
+                                                child: Text(
+                                                  "Récupérés",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color:  Color.fromRGBO(148, 148, 148, 1),
+                                                    fontFamily: "Milliard",
+                                                    fontSize: 12.sp,
+                                                  ),
                                                 ),
                                               ),
                                             ),

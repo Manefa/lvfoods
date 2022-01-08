@@ -43,7 +43,7 @@ class _NotificationPageState extends State<NotificationPage> {
                           "Notifications",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 18.sp,
+                            fontSize: 16.sp,
                             fontFamily: "Milliard",
                             fontWeight: FontWeight.w400,
                           ),

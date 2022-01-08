@@ -242,13 +242,15 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
                                                       )
                                                   )
                                               ),
-                                              child:Text(
-                                                "Déposer",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color:  Color.fromRGBO(148, 148, 148, 1),
-                                                  fontFamily: "Milliard",
-                                                  fontSize: 12.sp,
+                                              child:FittedBox(
+                                                child: Text(
+                                                  "Déposer",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color:  Color.fromRGBO(148, 148, 148, 1),
+                                                    fontFamily: "Milliard",
+                                                    fontSize: 12.sp,
+                                                  ),
                                                 ),
                                               ),
                                             ),

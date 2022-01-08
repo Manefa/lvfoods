@@ -256,13 +256,15 @@ class _ListOfOrderReadyState extends State<ListOfOrderReady> {
                                                       )
                                                   )
                                               ),
-                                              child:Text(
-                                                "Prendre",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color:  Color.fromRGBO(148, 148, 148, 1),
-                                                  fontFamily: "Milliard",
-                                                  fontSize: 12.sp,
+                                              child:FittedBox(
+                                                child: Text(
+                                                  "Prendre",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color:  Color.fromRGBO(148, 148, 148, 1),
+                                                    fontFamily: "Milliard",
+                                                    fontSize: 12.sp,
+                                                  ),
                                                 ),
                                               ),
                                             ),
