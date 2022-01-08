@@ -88,7 +88,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                       size: 15.sp,
                                       color: Color(0XFF949494),
                                     ),
-                                    SizedBox(width: 10.w,),
+                                    SizedBox(width: 10.h,),
                                     Flexible(
                                       child: Text(
                                         widget.deliveries!.deliveries![index].country.toString() + " - " + widget.deliveries!.deliveries![index].city.toString()+ " - " + widget.deliveries!.deliveries![index].district.toString(),
@@ -99,33 +99,32 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                         ),
                                       ),
                                     ),
-                                    Flexible(child: SizedBox(width: 10.w,)),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          height: 8.r,
-                                          width: 8.r,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(20.r),
-                                            color: Color(0XFFD7D7D7),
-                                          ),
-                                        ),
-                                        SizedBox(width: 10.w,),
-                                        Text(
-                                          getHour(widget.deliveries!.deliveries![index].createdAt.toString()).toString()+" min",
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            fontFamily: "Milliard",
-                                            color: Color(0XFF949494),
-                                          ),
-                                        ),
-                                      ],
-                                    )
                                   ],
                                 ),
                                 SizedBox(height: 10.h,),
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                  Icon(
+                                  Icons.access_time_rounded,
+                                  size: 15.sp,
+                                  color: Color(0XFF949494),
+                                ),
+                                    SizedBox(width: 10.w,),
+                                    Text(
+                                      getHour(widget.deliveries!.deliveries![index].createdAt.toString()).toString()+" min",
+                                      style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontFamily: "Milliard",
+                                        color: Color(0XFF949494),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10.h,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     widget.deliveries!.deliveries![index].statusPayment == "paid" && widget.deliveries!.deliveries![index].orderGroup!.statusPayment == "paid"?
                                     Icon(
@@ -284,7 +283,6 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                               ],
                             ))
                       ),
-                      //Icon
                       Container(
                         child: Icon(
                           Icons.arrow_forward_ios_rounded,
