@@ -230,7 +230,7 @@ class _ListViewOrderState extends State<ListViewOrder> {
                                           Container(
                                             height: 29.h,
                                             width: 80.w,
-                                            child: TextButton(
+                                            child: ElevatedButton(
                                               onPressed: (){
                                                 _startDepositionBloc.add(UpdateStatusOrder(code: _ordersInProgressReal[index].code!));
                                                 _getAllForRestaurantBloc.add(GetGetAllForRestaurantEvent(restaurantName: widget.name));
@@ -239,6 +239,8 @@ class _ListViewOrderState extends State<ListViewOrder> {
                                                 });
                                               },
                                               style: ButtonStyle(
+                                                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                                                  elevation: MaterialStateProperty.all(0),
                                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                       RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(5.r),
@@ -248,10 +250,11 @@ class _ListViewOrderState extends State<ListViewOrder> {
                                               ),
                                               child:Text(
                                                 "Récupérés",
+                                                textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color:  Color.fromRGBO(148, 148, 148, 1),
                                                   fontFamily: "Milliard",
-                                                  fontSize: 12.sp,
+                                                  fontSize: 10.3.sp,
                                                 ),
                                               ),
                                             ),

@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:ivfoods_mobile_app/core/error/failures.dart';
 import 'package:ivfoods_mobile_app/core/usecases/delivered/delivered.dart';
 import 'package:ivfoods_mobile_app/features/delivered/domain/entities/delivered.dart';
-import 'package:ivfoods_mobile_app/features/delivered/domain/entities/location.dart';
 import 'package:ivfoods_mobile_app/features/delivered/domain/repositories/delivered_repository.dart';
 
 class DeliveredUseCase extends UseCaseDelivered<Delivered, Params>{
