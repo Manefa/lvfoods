@@ -4,7 +4,6 @@ import 'package:ivfoods_mobile_app/core/error/failures.dart';
 import 'package:ivfoods_mobile_app/core/platform/network_info.dart';
 import 'package:ivfoods_mobile_app/features/delivered/data/datasources/delivered_remote_data_source.dart';
 import 'package:ivfoods_mobile_app/features/delivered/domain/entities/delivered.dart';
-import 'package:ivfoods_mobile_app/features/delivered/domain/entities/location.dart';
 import 'package:ivfoods_mobile_app/features/delivered/domain/repositories/delivered_repository.dart';
 
 class DeliveredRepositoryImpl implements DeliveredRepository{

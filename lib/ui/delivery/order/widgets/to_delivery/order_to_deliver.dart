@@ -129,15 +129,19 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
                                       onPressed: () {
                                         _refresh();
                                       },
-                                      label: Text('Refresh', style: TextStyle(
-                                        fontSize: 15.sp,
-                                        fontFamily: "Milliard",
-                                        color: Color(0XFF68D389),
-                                      ),),
-                                      icon: Icon(
-                                        Icons.refresh,
-                                        size: 17.sp,
-                                        color: Color(0XFF68D389),
+                                      label: FittedBox(
+                                        child: Text('Refresh', style: TextStyle(
+                                          fontSize: 15.sp,
+                                          fontFamily: "Milliard",
+                                          color: Color(0XFF68D389),
+                                        ),),
+                                      ),
+                                      icon: FittedBox(
+                                        child: Icon(
+                                          Icons.refresh,
+                                          size: 17.sp,
+                                          color: Color(0XFF68D389),
+                                        ),
                                       ),
                                       style: TextButton.styleFrom(
                                         backgroundColor: Color(0XFFDEF9E7),

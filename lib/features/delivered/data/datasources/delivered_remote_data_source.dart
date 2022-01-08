@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:ivfoods_mobile_app/core/error/exception.dart';
 import 'package:ivfoods_mobile_app/features/delivered/data/models/delivered_model.dart';
 import 'package:ivfoods_mobile_app/features/delivered/domain/entities/delivered.dart';
-import 'package:ivfoods_mobile_app/features/delivered/domain/entities/location.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

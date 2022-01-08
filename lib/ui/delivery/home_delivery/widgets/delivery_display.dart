@@ -59,219 +59,232 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                            Text(
-                            change(names.values),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: "Milliard",
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                            SizedBox(height: 10.h,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                      Container(
+                        child:Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Icon(
-                                  Icons.location_on_outlined,
-                                  size: 15.sp,
-                                  color: Color(0XFF949494),
+                                Text(
+                                  change(names.values),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: "Milliard",
+                                    fontSize: 16.sp,
+                                  ),
                                 ),
-                              SizedBox(width: 10.h,),
-                              Text(
-                                widget.deliveries!.deliveries![index].country.toString() + " - " + widget.deliveries!.deliveries![index].city.toString()+ " - " + widget.deliveries!.deliveries![index].district.toString(),
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontFamily: "Milliard",
-                                  color: Color(0XFF949494),
-                                ),
-                              ),
-                              SizedBox(width: 17.w,),
-                              Container(
-                                height: 8.r,
-                                width: 8.r,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  color: Color(0XFFD7D7D7),
-                                ),
-                              ),
-                              SizedBox(width: 10.w,),
-                              Text(
-                                getHour(widget.deliveries!.deliveries![index].createdAt.toString()).toString()+" min",
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontFamily: "Milliard",
-                                  color: Color(0XFF949494),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10.h,),
-                            Row(
-                              children: <Widget>[
-                                widget.deliveries!.deliveries![index].statusPayment == "paid" && widget.deliveries!.deliveries![index].orderGroup!.statusPayment == "paid"?
-                              Icon(
-                                Icons.monetization_on_outlined,
-                                size: 15.sp,
-                                color: Color(0XFF4784EE),
-                              ): Icon(
-                                  Icons.monetization_on_outlined,
-                                  size: 15.sp,
-                                  color: Color(0XFFBC2C3D),
-                                ),
-                              SizedBox(width: 5.w,),
-                                widget.deliveries!.deliveries![index].statusPayment == "paid" && widget.deliveries!.deliveries![index].orderGroup!.statusPayment == "paid" ?
-                              Text(
-                                "Paid",
-                                style: TextStyle(
-                                  color: Color(0XFF4784EE),
-                                  fontSize: 15.sp,
-                                ),
-                              ) : Text(
-                                "Unpaid",
-                                style: TextStyle(
-                                  color: Color(0XFFBC2C3D),
-                                  fontSize: 15.sp,
-                                ),
-                              ),
-                              SizedBox(width: 30.w,),
-                              Icon(
-                                LvIcons.dish,
-                                size: 15.sp,
-                                color: Color(0XFF4884EE),
-                              ),
-                              SizedBox(width: 5.w,),
-                              Text(
-                                "X "+getQuantity(widget.deliveries!.deliveries![index].orderGroup!.orders),
-                                style: TextStyle(
-                                  color: Color(0XFF4884EE),
-                                  fontSize: 15.sp,
-                                ),
-                              ),
-                              SizedBox(width: 24.w,),
-                                widget.deliveries!.deliveries![index].status == "ready" ?
-                              Row(
-                                children: [
-                                  Container(
-                                    height: 18.r,
-                                    width: 18.r,
-                                    decoration: BoxDecoration(
-                                        color: Color(0XFFF4EFFF),
-                                        borderRadius: BorderRadius.circular(8)
+                                SizedBox(height: 10.h,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.location_on_outlined,
+                                      size: 15.sp,
+                                      color: Color(0XFF949494),
                                     ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.clean_hands_sharp,
-                                        size: 10.sp,
-                                        color: Color(0XFFA27AFA),
+                                    SizedBox(width: 10.w,),
+                                    Flexible(
+                                      child: Text(
+                                        widget.deliveries!.deliveries![index].country.toString() + " - " + widget.deliveries!.deliveries![index].city.toString()+ " - " + widget.deliveries!.deliveries![index].district.toString(),
+                                        style: TextStyle(
+                                          fontSize: 15.sp,
+                                          fontFamily: "Milliard",
+                                          color: Color(0XFF949494),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(width: 5.w,),
-                                  Text(
-                                    widget.deliveries!.deliveries![index].status!,
-                                    style: TextStyle(
-                                        color: Color(0XFFA27AFA),
+                                    Flexible(child: SizedBox(width: 10.w,)),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 8.r,
+                                          width: 8.r,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20.r),
+                                            color: Color(0XFFD7D7D7),
+                                          ),
+                                        ),
+                                        SizedBox(width: 10.w,),
+                                        Text(
+                                          getHour(widget.deliveries!.deliveries![index].createdAt.toString()).toString()+" min",
+                                          style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontFamily: "Milliard",
+                                            color: Color(0XFF949494),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                SizedBox(height: 10.h,),
+                                Row(
+                                  children: <Widget>[
+                                    widget.deliveries!.deliveries![index].statusPayment == "paid" && widget.deliveries!.deliveries![index].orderGroup!.statusPayment == "paid"?
+                                    Icon(
+                                      Icons.monetization_on_outlined,
+                                      size: 15.sp,
+                                      color: Color(0XFF4784EE),
+                                    ): Icon(
+                                      Icons.monetization_on_outlined,
+                                      size: 15.sp,
+                                      color: Color(0XFFBC2C3D),
+                                    ),
+                                    SizedBox(width: 5.w,),
+                                    widget.deliveries!.deliveries![index].statusPayment == "paid" && widget.deliveries!.deliveries![index].orderGroup!.statusPayment == "paid" ?
+                                    Text(
+                                      "Paid",
+                                      style: TextStyle(
+                                        color: Color(0XFF4784EE),
                                         fontSize: 15.sp,
-                                        fontFamily: "Milliard"
+                                      ),
+                                    ) : Text(
+                                      "Unpaid",
+                                      style: TextStyle(
+                                        color: Color(0XFFBC2C3D),
+                                        fontSize: 15.sp,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ) : (widget.deliveries!.deliveries![index].status == "delivered") ?
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 18.r,
-                                      width: 18.r,
-                                      decoration: BoxDecoration(
-                                          color: Color(0XFFEFFBF2),
-                                          borderRadius: BorderRadius.circular(8)
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.check,
-                                          size: 10.sp,
-                                          color: Color(0XFF68D389),
-                                        ),
-                                      ),
+                                    SizedBox(width: 30.w,),
+                                    Icon(
+                                      LvIcons.dish,
+                                      size: 15.sp,
+                                      color: Color(0XFF4884EE),
                                     ),
                                     SizedBox(width: 5.w,),
                                     Text(
-                                      widget.deliveries!.deliveries![index].status!,
+                                      "X "+getQuantity(widget.deliveries!.deliveries![index].orderGroup!.orders),
                                       style: TextStyle(
-                                          color: Color(0XFF68D389),
-                                          fontSize: 15.sp,
-                                          fontFamily: "Milliard"
+                                        color: Color(0XFF4884EE),
+                                        fontSize: 15.sp,
                                       ),
                                     ),
-                                  ],
-                                ): (widget.deliveries!.deliveries![index].status == "on_the_way") ?
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 18.r,
-                                      width: 18.r,
-                                      decoration: BoxDecoration(
-                                          color: Color(0XFFFFF7E9),
-                                          borderRadius: BorderRadius.circular(8)
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.access_time_sharp,
-                                          size: 10.sp,
-                                          color: Color(0XFFFBB634),
+                                    SizedBox(width: 24.w,),
+                                    widget.deliveries!.deliveries![index].status == "ready" ?
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 18.r,
+                                          width: 18.r,
+                                          decoration: BoxDecoration(
+                                              color: Color(0XFFF4EFFF),
+                                              borderRadius: BorderRadius.circular(8)
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.clean_hands_sharp,
+                                              size: 10.sp,
+                                              color: Color(0XFFA27AFA),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 5.w,),
-                                    Text(
-                                      "On the way",
-                                      style: TextStyle(
-                                          color: Color(0XFFFBB634),
-                                          fontSize: 15.sp,
-                                          fontFamily: "Milliard"
-                                      ),
-                                    ),
-                                  ],
-                                ) : Row(
-                                  children: [
-                                    Container(
-                                      height: 18.r,
-                                      width: 18.r,
-                                      decoration: BoxDecoration(
-                                          color: Color(0XFFFFF7E9),
-                                          borderRadius: BorderRadius.circular(8)
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.access_time_sharp,
-                                          size: 10.sp,
-                                          color: Color(0XFFFBB634),
+                                        SizedBox(width: 5.w,),
+                                        Text(
+                                          widget.deliveries!.deliveries![index].status!,
+                                          style: TextStyle(
+                                              color: Color(0XFFA27AFA),
+                                              fontSize: 15.sp,
+                                              fontFamily: "Milliard"
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 5.w,),
-                                    Text(
-                                      widget.deliveries!.deliveries![index].status!,
-                                      style: TextStyle(
-                                          color: Color(0XFFFBB634),
-                                          fontSize: 15.sp,
-                                          fontFamily: "Milliard"
-                                      ),
+                                      ],
+                                    ) : (widget.deliveries!.deliveries![index].status == "delivered") ?
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 18.r,
+                                          width: 18.r,
+                                          decoration: BoxDecoration(
+                                              color: Color(0XFFEFFBF2),
+                                              borderRadius: BorderRadius.circular(8)
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.check,
+                                              size: 10.sp,
+                                              color: Color(0XFF68D389),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 5.w,),
+                                        Text(
+                                          widget.deliveries!.deliveries![index].status!,
+                                          style: TextStyle(
+                                              color: Color(0XFF68D389),
+                                              fontSize: 15.sp,
+                                              fontFamily: "Milliard"
+                                          ),
+                                        ),
+                                      ],
+                                    ): (widget.deliveries!.deliveries![index].status == "on_the_way") ?
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 18.r,
+                                          width: 18.r,
+                                          decoration: BoxDecoration(
+                                              color: Color(0XFFFFF7E9),
+                                              borderRadius: BorderRadius.circular(8)
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.access_time_sharp,
+                                              size: 10.sp,
+                                              color: Color(0XFFFBB634),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 5.w,),
+                                        Text(
+                                          "On the way",
+                                          style: TextStyle(
+                                              color: Color(0XFFFBB634),
+                                              fontSize: 15.sp,
+                                              fontFamily: "Milliard"
+                                          ),
+                                        ),
+                                      ],
+                                    ) : Row(
+                                      children: [
+                                        Container(
+                                          height: 18.r,
+                                          width: 18.r,
+                                          decoration: BoxDecoration(
+                                              color: Color(0XFFFFF7E9),
+                                              borderRadius: BorderRadius.circular(8)
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.access_time_sharp,
+                                              size: 10.sp,
+                                              color: Color(0XFFFBB634),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 5.w,),
+                                        Text(
+                                          widget.deliveries!.deliveries![index].status!,
+                                          style: TextStyle(
+                                              color: Color(0XFFFBB634),
+                                              fontSize: 15.sp,
+                                              fontFamily: "Milliard"
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                            ],
-                          ),
-                        ],
-                      )),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Color(0XFFBCBCBC),
-                        size: 15.sp,
+                              ],
+                            ))
+                      ),
+                      //Icon
+                      Container(
+                        child: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: Color(0XFFBCBCBC),
+                          size: 15.sp,
+                        ),
                       ),
                     ],
                   ),

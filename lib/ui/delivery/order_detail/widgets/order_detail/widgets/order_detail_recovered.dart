@@ -215,32 +215,34 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
                                           ),
                                           SizedBox(width: 8.w,),
                                           //Deposer
-                                          InkWell(
-                                            onTap:(){
-                                              _depositedBloc.add(UpdateStatusOrder(code: ordersIsDepositedReal![index].code!));
-                                              _getAllForRestaurantBloc.add(GetGetAllForRestaurantEvent(restaurantName: widget.name));
-                                              setState(() {
+                                          Container(
+                                            height: 29.h,
+                                            width: 80.w,
+                                            child: ElevatedButton(
+                                              onPressed:(){
+                                                _depositedBloc.add(UpdateStatusOrder(code: ordersIsDepositedReal![index].code!));
+                                                _getAllForRestaurantBloc.add(GetGetAllForRestaurantEvent(restaurantName: widget.name));
+                                                setState(() {
 
-                                              });
-                                            },
-                                            child: Container(
-                                              height: 29.h,
-                                              width: 80.w,
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  color: Colors.red,
-                                                  width: 1.w,
-                                                ),
-                                                borderRadius: BorderRadius.circular(5.r),
+                                                });
+                                              },
+                                              style: ButtonStyle(
+                                                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                                                  elevation: MaterialStateProperty.all(0),
+                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(5.r),
+                                                          side: BorderSide(color: Colors.red)
+                                                      )
+                                                  )
                                               ),
-                                              child: Center(
-                                                child:Text(
-                                                  "Déposer ",
-                                                  style: TextStyle(
-                                                    color:  Color.fromRGBO(148, 148, 148, 1),
-                                                    fontFamily: "Milliard",
-                                                    fontSize: 12.sp,
-                                                  ),
+                                              child:Text(
+                                                "Déposer",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color:  Color.fromRGBO(148, 148, 148, 1),
+                                                  fontFamily: "Milliard",
+                                                  fontSize: 12.sp,
                                                 ),
                                               ),
                                             ),
