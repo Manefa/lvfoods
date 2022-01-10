@@ -90,6 +90,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
           child: Container(
             height: 363.h,
             width: 344.w,
+
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(60.r),
               color: Colors.white,
@@ -129,11 +130,11 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                       ],
                     ),
                   ),
-                  SizedBox(height: 23.h,),
+                  SizedBox(height: 18.h,),
                   //Day Container
                   Container(
                     width: 292.w,
-                    height: 62.h,
+                    height: 70.h,
                     child: Column(
                       children: [
                         //Title
@@ -200,7 +201,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                   //Open Hours Container
                   Container(
                     width: 292.w,
-                    height: 62.h,
+                    height: 70.h,
                     child: Column(
                       children: [
                         //Title
@@ -281,7 +282,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                   //Close Hours Container
                   Container(
                     width: 292.w,
-                    height: 62.h,
+                    height: 70.h,
                     child: Column(
                       children: [
                         //Title

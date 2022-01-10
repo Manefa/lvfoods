@@ -124,146 +124,150 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                                 ),
                                               ),
                                               SizedBox(width: 17.w,),
-                                              Expanded(
-                                                  child: Container(
-                                                    child: Column(
-                                                      children: [
-                                                        //RestauName
-                                                        Container(
-                                                          height: 24.h,
-                                                          width: 245.w,
-                                                          child: Text(
-                                                            state.getRestaurant.restaurant!.name!,
-                                                            maxLines: 1,
-                                                            overflow: TextOverflow.ellipsis,
-                                                            style: TextStyle(
-                                                                fontSize: 20.sp,
-                                                                fontFamily: "Milliard",
-                                                                fontWeight: FontWeight.w500
-                                                            ),
-                                                          ),
+                                              Container(
+                                                width: 248.w,
+                                                child: Column(
+                                                  children: [
+                                                    //RestauName
+                                                    Container(
+                                                      height: 24.h,
+                                                      width: 245.w,
+                                                      child: Text(
+                                                        state.getRestaurant.restaurant!.name!,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: TextStyle(
+                                                            fontSize: 18.sp,
+                                                            fontFamily: "Milliard",
+                                                            fontWeight: FontWeight.w500
                                                         ),
-                                                        //Localisation
-                                                        SizedBox(height: 3.h,),
-                                                        Container(
-                                                          height: 19.h,
-                                                          width: 245.w,
-                                                          child: Row(
-                                                            children: [
-                                                              Icon(
-                                                                LvIcons.pin,
-                                                                size: 16.sp,
-                                                                color:Color.fromRGBO(148, 148, 148,1),
-                                                              ),
-                                                              SizedBox(width: 7.w,),
-                                                              //localisationName
-                                                              Text(
-                                                                state.getRestaurant.restaurant!.address!,
-                                                                maxLines: 1,
-                                                                overflow: TextOverflow.ellipsis,
-                                                                style: TextStyle(
-                                                                  color:Color.fromRGBO(148, 148, 148,1),
-                                                                  fontSize: 16.sp,
-                                                                  fontFamily: "Milliard",
-                                                                ),
-
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        //OtherInfos
-                                                        SizedBox(height: 4.h,),
-                                                        Container(
-                                                          height: 23.h,
-                                                          width: 249.w,
-                                                          child: IntrinsicHeight(
-                                                            child: Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              children: [
-                                                                //First Info
-                                                                Container(
-                                                                  child: Row(
-                                                                    children: [
-                                                                      //Note
-                                                                      Icon(
-                                                                        LvIconsResto.star,
-                                                                        color:Color.fromRGBO(251, 182, 52, 1),
-                                                                        size: 18.sp,
-                                                                      ),
-                                                                      SizedBox(width: 4.w,),
-                                                                      Text(
-                                                                        state.getRestaurant.restaurant!.note!.toStringAsFixed(1),
-                                                                        style: TextStyle(
-                                                                          fontSize: 18.sp,
-                                                                          fontFamily: "Milliard",
-                                                                          fontWeight: FontWeight.w200,
-                                                                        ),
-                                                                      ),
-                                                                      //VerticaleDevider
-                                                                      VerticalDivider(),
-                                                                      //ProductNumber
-                                                                      Icon(
-                                                                        LvIconsResto.product,
-                                                                        size: 18.sp,
-                                                                        color: Color.fromRGBO(70, 128, 232,1),
-                                                                      ),
-                                                                      SizedBox(width: 5.8.w,),
-                                                                      Text(
-                                                                        " "+getProductQtt(state.getRestaurant.restaurant!.products)+" Products",
-                                                                        style: TextStyle(
-                                                                            fontSize: 18.sp,
-                                                                            fontFamily: "Milliard",
-                                                                            color:Color.fromRGBO(148, 148, 148, 1)
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                //Statut
-                                                                state.getRestaurant.restaurant!.status == "enable" ?Container(
-                                                                  width: 56.w,
-                                                                  height: 23.h,
-                                                                  decoration: BoxDecoration(
-                                                                      color: Color.fromRGBO(222, 249, 231, 1),
-                                                                      borderRadius: BorderRadius.circular(5.r)
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: Text(
-                                                                      "Ouvert",
-                                                                      style: TextStyle(
-                                                                          fontSize: 16.sp,
-                                                                          fontFamily: "Milliard",
-                                                                          fontWeight: FontWeight.w300,
-                                                                          color:Color.fromRGBO(104, 211, 137, 1)
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ):Container(
-                                                                  width: 56.w,
-                                                                  height: 23.h,
-                                                                  decoration: BoxDecoration(
-                                                                      color: Color(0XFFE6BABF),
-                                                                      borderRadius: BorderRadius.circular(5.r)
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: Text(
-                                                                      "Fermer",
-                                                                      style: TextStyle(
-                                                                          fontSize: 16.sp,
-                                                                          fontFamily: "Milliard",
-                                                                          fontWeight: FontWeight.w300,
-                                                                          color: Color(0XFFBC2C3D)
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ))
+                                                    //Localisation
+                                                    SizedBox(height: 3.h,),
+                                                    Container(
+                                                      height: 19.h,
+                                                      width: 245.w,
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            LvIcons.pin,
+                                                            size: 14.sp,
+                                                            color:Color.fromRGBO(148, 148, 148,1),
+                                                          ),
+                                                          SizedBox(width: 7.w,),
+                                                          //localisationName
+                                                          Container(
+                                                            width: 220.w,
+                                                            child: Text(
+                                                              state.getRestaurant.restaurant!.address!,
+                                                              maxLines: 1,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              style: TextStyle(
+                                                                color:Color.fromRGBO(148, 148, 148,1),
+                                                                fontSize: 14.sp,
+                                                                fontFamily: "Milliard",
+                                                              ),
+
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    //OtherInfos
+                                                    SizedBox(height: 4.h,),
+                                                    Container(
+                                                      height: 23.h,
+                                                      width: 249.w,
+                                                      child: IntrinsicHeight(
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            //First Info
+                                                            Container(
+                                                              child: Row(
+                                                                children: [
+                                                                  //Note
+                                                                  Icon(
+                                                                    LvIconsResto.star,
+                                                                    color:Color.fromRGBO(251, 182, 52, 1),
+                                                                    size: 14.sp,
+                                                                  ),
+                                                                  SizedBox(width: 4.w,),
+                                                                  Text(
+                                                                    state.getRestaurant.restaurant!.note!.toStringAsFixed(1),
+                                                                    style: TextStyle(
+                                                                      fontSize: 14.sp,
+                                                                      fontFamily: "Milliard",
+                                                                      fontWeight: FontWeight.w200,
+                                                                    ),
+                                                                  ),
+                                                                  //VerticaleDevider
+                                                                  VerticalDivider(),
+                                                                  //ProductNumber
+                                                                  Icon(
+                                                                    LvIconsResto.product,
+                                                                    size: 14.sp,
+                                                                    color: Color.fromRGBO(70, 128, 232,1),
+                                                                  ),
+                                                                  SizedBox(width: 5.8.w,),
+                                                                  Text(
+                                                                    " "+getProductQtt(state.getRestaurant.restaurant!.products)+" Products",
+                                                                    style: TextStyle(
+                                                                        fontSize: 14.sp,
+                                                                        fontFamily: "Milliard",
+                                                                        color:Color.fromRGBO(148, 148, 148, 1)
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            //Statut
+                                                            state.getRestaurant.restaurant!.status == "enable" ?Container(
+                                                              width: 56.w,
+                                                              height: 23.h,
+                                                              decoration: BoxDecoration(
+                                                                  color: Color.fromRGBO(222, 249, 231, 1),
+                                                                  borderRadius: BorderRadius.circular(5.r)
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  "Ouvert",
+                                                                  style: TextStyle(
+                                                                      fontSize: 12.sp,
+                                                                      fontFamily: "Milliard",
+                                                                      fontWeight: FontWeight.w300,
+                                                                      color:Color.fromRGBO(104, 211, 137, 1)
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ):Container(
+                                                              width: 56.w,
+                                                              height: 23.h,
+                                                              decoration: BoxDecoration(
+                                                                  color: Color(0XFFE6BABF),
+                                                                  borderRadius: BorderRadius.circular(5.r)
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  "Fermer",
+                                                                  style: TextStyle(
+                                                                      fontSize: 12.sp,
+                                                                      fontFamily: "Milliard",
+                                                                      fontWeight: FontWeight.w300,
+                                                                      color: Color(0XFFBC2C3D)
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
                                             ],
                                           ),
                                         ),
