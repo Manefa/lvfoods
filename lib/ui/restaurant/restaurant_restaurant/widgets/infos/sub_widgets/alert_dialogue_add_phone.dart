@@ -150,11 +150,8 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
                     ],
                   ),
                   SizedBox(height: 15.h,),
-                  Row(
-                    children: <Widget>[
-                      SizedBox(width: 18.w,),
-                      _phoneContainer(),
-                    ],
+                  Center(
+                    child: _phoneContainer(),
                   ),
                   SizedBox(height: 40.h,),
                   InkWell(
@@ -193,7 +190,7 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
 
   Widget _phoneContainer() {
     return new Container(
-      width: 244.w,
+      width: 292.w,
       height: 48.h,
       decoration: new BoxDecoration(
           borderRadius: BorderRadius.circular(5.r),

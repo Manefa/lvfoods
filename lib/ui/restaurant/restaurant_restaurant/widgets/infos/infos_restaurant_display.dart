@@ -160,7 +160,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.center,
+                            crossAxisAlignment:CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "Nom restaurant",
@@ -177,7 +177,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     state.getRestaurant.restaurant!.name!,
-                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.end,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontFamily: "Milliard",
@@ -422,7 +422,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.center,
+                            crossAxisAlignment:CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "Localisation",
@@ -433,30 +433,20 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                     fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Container(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child:Row(
-                                    children: [
-                                      FittedBox(
-                                        child: Text(
-                                          state.getRestaurant.restaurant!.address!,
-                                          style: TextStyle(
-                                              color: Color.fromRGBO(188, 44, 61, 1),
-                                              fontFamily: "Milliard",
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w100
-                                          ),
-                                        ),
+                              Expanded(
+                                child: Container(
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      state.getRestaurant.restaurant!.address!,
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                          color: Color.fromRGBO(188, 44, 61, 1),
+                                          fontFamily: "Milliard",
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w100
                                       ),
-                                      SizedBox(width: 6.w,),
-                                      Icon(
-                                        Icons.my_location_rounded,
-                                        color: Color.fromRGBO(188, 44, 61, 1),
-                                        size:16.sp,
-                                      ),
-
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),

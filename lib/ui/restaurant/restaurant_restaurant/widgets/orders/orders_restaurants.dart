@@ -119,20 +119,24 @@ class _OrdersRestaurantState extends State<OrdersRestaurant> {
                           child: Row(
                             children: <Widget>[
                               SizedBox(width: 14.sp,),
-                              Icon(
-                                LvIcons.filter,
-                                size: 17.sp,
-                                color: Color(0XFFFBB634),
+                              FittedBox(
+                                child: Icon(
+                                  LvIcons.filter,
+                                  size: 17.sp,
+                                  color: Color(0XFFFBB634),
+                                ),
                               ),
                               SizedBox(width: 14.sp,),
                               Padding(
                                 padding: const EdgeInsets.only(top: 4.0),
-                                child: Text(
-                                  "Filter",
-                                  style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontFamily: "Milliard",
-                                    color: Color(0XFF949494),
+                                child: FittedBox(
+                                  child: Text(
+                                    "Filter",
+                                    style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontFamily: "Milliard",
+                                      color: Color(0XFF949494),
+                                    ),
                                   ),
                                 ),
                               )
