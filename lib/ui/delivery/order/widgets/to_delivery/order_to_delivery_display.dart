@@ -80,6 +80,7 @@ class _OrderToDeliveryDisplayState extends State<OrderToDeliveryDisplay> {
                             //Location Deli
                             Row(
                               mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Icon(
                                   Icons.location_on_outlined,
@@ -87,12 +88,14 @@ class _OrderToDeliveryDisplayState extends State<OrderToDeliveryDisplay> {
                                   color: Color(0XFF949494),
                                 ),
                                 SizedBox(width: 10.w,),
-                                Text(
-                                  widget.recoveries![index].restaurant!.address!,
-                                  style: TextStyle(
-                                    fontFamily: "Milliard",
-                                    fontSize: 15.sp,
-                                    color: Color(0XFF949494),
+                                Flexible(
+                                  child: Text(
+                                    widget.recoveries![index].restaurant!.address!,
+                                    style: TextStyle(
+                                      fontFamily: "Milliard",
+                                      fontSize: 15.sp,
+                                      color: Color(0XFF949494),
+                                    ),
                                   ),
                                 ),
                               ],
