@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,164 +83,190 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 SizedBox(height: 35.h,),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(width: 35.w,),
-                                    InkWell(
-                                      onTap: (){
-                                        Navigator.pop(context);
-                                      },
-                                      child: Icon(
-                                        Icons.arrow_back_ios_rounded,
-                                        size: 18.sp,
-                                        color: Colors.black,
+                                Center(
+                                  child: Container(
+                                    width: 344.w,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        InkWell(
+                                          onTap: (){
+                                            Navigator.pop(context);
+                                          },
+                                          child: Icon(
+                                            Icons.arrow_back_ios_rounded,
+                                            size: 18.sp,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        Text(
+                                      "Orders Detail",
+                                      style: TextStyle(
+                                        fontFamily: "Milliard",
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w200,
                                       ),
                                     ),
-                                    SizedBox(width: 115.w,),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 1.0),
-                                      child: Text(
-                                        "Orders Detail",
-                                        style: TextStyle(
-                                          fontFamily: "Milliard",
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.w200,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 30.h,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 35.0),
-                                  child: Text(
-                                    state.getAllForRestaurant.restaurant!.name!,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 20.sp,
-                                      fontFamily: "Milliard",
-                                      color: kPrimaryColor,
+                                        SizedBox()
+                                      ],
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 30.h,),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(width: 35.w,),
-                                    Icon(
-                                      Icons.location_on_outlined,
-                                      size: 16.sp,
-                                      color: Colors.black,
-                                    ),
-                                    SizedBox(width: 10.w,),
-                                    Text(
-                                      state.getAllForRestaurant.restaurant!.address!,
-                                      style: TextStyle(
+                                SizedBox(height: 12.h,),
+                                //Name
+                                Center(
+                                  child: Container(
+                                    width: 344.w,
+                                      child: Text(
+                                        state.getAllForRestaurant.restaurant!.name!,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 20.sp,
                                           fontFamily: "Milliard",
-                                          fontSize: 15.sp,
-                                          color: Color(0XFF2C2627)
-                                      ),
-                                    ),
-                                    Expanded(child: SizedBox()),
-                                    state.getAllForRestaurant.restaurant!.status == "enable" ?
-                                    Padding(
-                                      padding: const EdgeInsets.only(right:35.0),
-                                      child: Container(
-                                        width: 56.w,
-                                        height: 23.h,
-                                        decoration:BoxDecoration(
-                                          color: Color.fromRGBO(222, 249, 231, 1),
-                                          borderRadius: BorderRadius.circular(5.r),
+                                          color: kPrimaryColor,
                                         ),
-                                        child: Center(
-                                          child: Text(
-                                            "Ouvert",
-                                            style: TextStyle(
-                                                fontFamily: "Milliard",
-                                                fontSize: 15.sp,
-                                                color: Color.fromRGBO(104, 211, 137, 1)
-                                            ),
+                                      ),
+                                  ),
+                                ),
+                                SizedBox(height: 15.h,),
+                                //Localisation
+                                Center(
+                                  child: Container(
+                                    width: 344.w,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.location_on_outlined,
+                                                size: 14.sp,
+                                                color: Colors.black,
+                                              ),
+                                              SizedBox(width: 13.3.w,),
+                                              Container(
+                                                width: 200.w,
+                                                child: Text(
+                                                  state.getAllForRestaurant.restaurant!.address!,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                      fontFamily: "Milliard",
+                                                      fontSize: 14.sp,
+                                                      color: Color(0XFF2C2627)
+                                                  ),
+                                                ),
+                                                //child: ,
+                                              )
+                                            ],
                                           ),
                                         ),
-                                      ),
-                                    ) :
-                                    Padding(
-                                      padding: const EdgeInsets.only(right:35.0),
-                                      child: Container(
-                                        width: 56.w,
-                                        height: 23.h,
-                                        decoration:BoxDecoration(
-                                          color: Color(0XFFF9ECED),
-                                          borderRadius: BorderRadius.circular(5.r),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Fermer",
-                                            style: TextStyle(
+                                        state.getAllForRestaurant.restaurant!.status == "enable" ?
+                                        Container(
+                                          width: 56.w,
+                                          height: 23.h,
+                                          decoration:BoxDecoration(
+                                            color: Color.fromRGBO(222, 249, 231, 1),
+                                            borderRadius: BorderRadius.circular(5.r),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Ouvert",
+                                              style: TextStyle(
+                                                  fontFamily: "Milliard",
+                                                  fontSize: 12.sp,
+                                                  color: Color.fromRGBO(104, 211, 137, 1)
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                            :Container(
+                                          width: 56.w,
+                                          height: 23.h,
+                                          decoration:BoxDecoration(
+                                            color: Color(0XFFF9ECED),
+                                            borderRadius: BorderRadius.circular(5.r),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Fermer",
+                                              style: TextStyle(
                                                 fontFamily: "Milliard",
                                                 fontSize: 15.sp,
                                                 color: Color(0XFFBC2C3D),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
+
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                                 SizedBox(height: 15.h,),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(width: 35.w,),
-                                    Icon(
-                                      Icons.access_time_rounded,
-                                      size: 16.sp,
-                                      color: Colors.black,
-                                    ),
-                                    SizedBox(width: 10.w,),
-                                    Text(
-                                      getDate(state.getAllForRestaurant.restaurant!.createdAt.toString())+" a "+getHour(state.getAllForRestaurant.restaurant!.createdAt.toString()),
-                                      style: TextStyle(
-                                          fontFamily: "Milliard",
-                                          fontSize: 15.sp,
-                                          color: Color(0XFF2C2627)
-                                      ),
-                                    ),
-                                    Expanded(child: SizedBox()),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right : 35.0),
-                                      child: Row(
-                                        children: [
-                                          SizedBox(width: 35.w,),
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 2.0),
+                                //Timer
+                                Center(
+                                  child: Container(
+                                    width: 344.w,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        //Date
+                                          Container(
                                             child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
                                                 Icon(
-                                                  LvIconsResto.star,
-                                                  size: 16.sp,
-                                                  color: Color.fromRGBO(251, 182, 52, 1),
+                                                  Icons.access_time_rounded,
+                                                  size: 14.sp,
+                                                  color: Colors.black,
                                                 ),
-                                                SizedBox(width: 4.w,),
-
-                                                Text(
-                                                  state.getAllForRestaurant.restaurant!.note!.toStringAsFixed(2),
-                                                  style: TextStyle(
-                                                      fontFamily: "Milliard",
-                                                      fontSize: 15.sp,
-                                                      color: Colors.black,
-                                                      fontWeight:FontWeight.w300
+                                                SizedBox(width: 10.w,),
+                                                Container(
+                                                  width: 200.w,
+                                                  child: Text(
+                                                    getDate(state.getAllForRestaurant.restaurant!.createdAt.toString())+" a "+getHour(state.getAllForRestaurant.restaurant!.createdAt.toString()),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                        fontFamily: "Milliard",
+                                                        fontSize: 14.sp,
+                                                        color: Color(0XFF2C2627)
+                                                    ),
                                                   ),
-                                                ),
+                                                  //child: ,
+                                                )
                                               ],
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              LvIconsResto.star,
+                                              size: 14.sp,
+                                              color: Color.fromRGBO(251, 182, 52, 1),
+                                            ),
+                                            SizedBox(width: 4.w,),
+
+                                            Text(
+                                              state.getAllForRestaurant.restaurant!.note!.toStringAsFixed(2),
+                                              style: TextStyle(
+                                                  fontFamily: "Milliard",
+                                                  fontSize: 14.sp,
+                                                  color: Colors.black,
+                                                  fontWeight:FontWeight.w300
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ],
                             ),
