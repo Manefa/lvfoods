@@ -295,18 +295,75 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                     ),
                   );
                 }
-
+                //No Connexion
                 if(state is GetRestaurantError){
                   return Container(
-                    height: 130.w,
-                    width: 130,
+                    height: MediaQuery.of(context).size.height,
+                    color: Colors.white,
                     child: Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("images/error1.png"),
-                            )
-                        ),
+                      child: Column(
+                       children: [
+                         //Pas de connexion
+                         SizedBox(height: 100.h,),
+                         Text(
+                           "PAS DE CONNEXION !!!",
+                           style: TextStyle(
+                               fontSize: 19.sp,
+                               fontFamily: "Milliard",
+                               fontWeight: FontWeight.w600,
+                               color:Color.fromRGBO(188, 44, 61, 1)
+                           ),
+                         ),
+                         //Image
+                         SizedBox(height: 80.h,),
+                         Container(
+                           height: 366.h,
+                           width: 324.w,
+                           decoration: BoxDecoration(
+                               image: DecorationImage(
+                                   image: AssetImage("images/noconnection.png"),
+                                   fit: BoxFit.contain
+                               )
+                           ),
+                         ),
+                         SizedBox(height: 30.h,),
+                         Text(
+                           "Veuillez reactualiser s'il vous plaît",
+                           style: TextStyle(
+                               fontSize: 16.sp,
+                               fontFamily: "Milliard",
+                               color:Color.fromRGBO(148, 148, 148, 1)
+                           ),
+                         ),
+                         SizedBox(height: 82.h,),
+                         //Actualiser 
+                         InkWell(
+                           onTap:(){
+                             setState(() {
+                               _refresh();
+                             });
+                           },
+                           child: Container(
+                             height: 45.h,
+                             width: 342.w,
+                             decoration: BoxDecoration(
+                               color:Color.fromRGBO(188, 44, 61, 1),
+                               borderRadius: BorderRadius.circular(10.r)
+                             ),
+                             child:Center(
+                               child: Text(
+                                 "Actualiser".toUpperCase(),
+                                 style: TextStyle(
+                                     fontSize: 14.sp,
+                                     fontFamily: "Milliard",
+                                     fontWeight: FontWeight.w300,
+                                      color: Colors.white
+                                 ),
+                               ),
+                             ) ,
+                           ),
+                         )
+                       ],
                       ),
                     ),
                   );
