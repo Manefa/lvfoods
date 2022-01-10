@@ -113,7 +113,8 @@ class _PhonesDisplayState extends State<PhonesDisplay> {
 
             if(state is GetRestaurantLoaded){
               return Container(
-                child: state.getRestaurant.restaurant!.phones!.isNotEmpty ? ListView.builder(
+                child: state.getRestaurant.restaurant!.phones!.isNotEmpty ?
+                ListView.builder(
                     itemCount: state.getRestaurant.restaurant!.phones!.length,
                     clipBehavior: Clip.none,
                     shrinkWrap: true,
@@ -153,27 +154,26 @@ class _PhonesDisplayState extends State<PhonesDisplay> {
                         ],
                       );
                     }
-                ):Container(
-                  height: 130.w,
-                  width: 130,
-                  child: Center(
-                    child: Text(
-                      "Aucun numero",
-                      style: TextStyle(
-                        fontFamily: "Milliard",
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w200,
-                      ),
-                    ),
-                  ),
                 )
+                    :Align(
+                  alignment: Alignment.centerRight,
+                      child: Text(
+                  "Aucun numero",
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                      fontFamily: "Milliard",
+                      fontSize: 17.sp,
+                      fontWeight: FontWeight.w200,
+                  ),
+                ),
+                    )
               );
             }
 
             if(state is GetRestaurantError){
               Container(
-                height: 130.w,
-                width: 130,
+                height: 130.h,
+                width: 130.w,
                 child: Center(
                   child: Container(
                     decoration: BoxDecoration(
