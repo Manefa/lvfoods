@@ -192,7 +192,7 @@ class ChooseProfil extends StatelessWidget {
                         )
                     ),
                   ),
-                  SizedBox(height: 99.h,),
+                  SizedBox(height: 300.h,),
                   Expanded(
                       child:Container(
                         decoration: BoxDecoration(
@@ -206,7 +206,7 @@ class ChooseProfil extends StatelessWidget {
                         child:  Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(height: 91.h,),
+                            SizedBox(height: 41.h,),
                             Container(
                               width: size.width,
                               child: Center(

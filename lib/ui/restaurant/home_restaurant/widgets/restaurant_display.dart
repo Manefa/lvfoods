@@ -193,7 +193,7 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
                                             child: Text(
                                               state.getOneRestaurantAndPopulateProducts.restaurant!.products![index].price.toString()+" FCFA",
                                               style: TextStyle(
-                                                  fontSize: 12.sp,
+                                                  fontSize: 14.sp,
                                                   fontFamily: "Milliard",
                                                   fontWeight: FontWeight.w600,
                                                   color: Color.fromRGBO(183, 43, 59, 1)
