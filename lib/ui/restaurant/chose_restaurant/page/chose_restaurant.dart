@@ -25,7 +25,7 @@ class _ChooseRestaurantState extends State<ChooseRestaurant> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height:110.h ,),
+              SizedBox(height:50.h ,),
               Text(
                 "Choose Your Restaurant",
                 style: TextStyle(
@@ -34,19 +34,18 @@ class _ChooseRestaurantState extends State<ChooseRestaurant> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height:78.h ,),
+              SizedBox(height:50.h ,),
               Container(
                 width: 344.w,
-                height: 468.h,
+                height: 625.h,
                 child: ChooseRestaurantDisplay(),
               ),
               SizedBox(height:26.h ,),
-
               Expanded(
                 child: Stack(
                   children: <Widget>[
                     Positioned(
-                      top: 30.h,
+                      top: 25.h,
                       left: -108.w,
                       child: Container(
                         height: 631.h,

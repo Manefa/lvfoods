@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -447,6 +448,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
     child: TextFormField(
       keyboardType: TextInputType.number,
       controller: closeHourController,
+      inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[0-9]')),],
       decoration: InputDecoration(
         contentPadding: new EdgeInsets.symmetric(vertical: 35.h, horizontal: 10.w),
         border: OutlineInputBorder(),

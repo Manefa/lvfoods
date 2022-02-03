@@ -109,206 +109,6 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                 return LoadingWidget();
               }
 
-              // if(state is GetAllRestaurantsForCurrentUserLoaded){
-              //   state.getAllRestaurantsForCurrentUser.restaurants!.isEmpty ?
-              //   Column(
-              //     children: [
-              //       SizedBox(height: 100.h,),
-              //       Text(
-              //         'Aucun Restaurant Disponible',
-              //         style: TextStyle(
-              //           fontFamily: "Milliard",
-              //           fontSize:18.sp,
-              //           fontWeight: FontWeight.w200,
-              //         ),
-              //       ),
-              //       SizedBox(height: 31.h,),
-              //       Center(
-              //           child: InkWell(
-              //             onTap: (){
-              //               // Navigator.push(
-              //               //   context,
-              //               //   MaterialPageRoute(builder: (context) => SecondRoute()),
-              //               // );
-              //               Navigator.pushNamed(context, "/addrestau");
-              //             },
-              //             child: Container(
-              //               height: 110.h,
-              //               width: 344.w,
-              //               decoration: BoxDecoration(
-              //                   borderRadius: BorderRadius.circular(10.r),
-              //                   color: Colors.white,
-              //                   boxShadow: [
-              //                     BoxShadow(
-              //                         color: Colors.grey.withOpacity(0.36),
-              //                         spreadRadius: -3,
-              //                         blurRadius: 10,
-              //                         offset: Offset(0, 5)
-              //                     )
-              //                   ]
-              //               ),
-              //               child: Center(
-              //                 child: Row(
-              //                   crossAxisAlignment: CrossAxisAlignment.center,
-              //                   mainAxisAlignment: MainAxisAlignment.center,
-              //                   children: [
-              //                     Icon(
-              //                       LvIconsResto.restaurant,
-              //                       color: Color.fromRGBO(188, 44, 61, 1),
-              //                       size: 30.sp,
-              //                     ),
-              //                     SizedBox(width: 10,),
-              //
-              //                     Text(
-              //                       'Ajouter un restaurant',
-              //                       style: TextStyle(
-              //                         fontFamily: "Milliard",
-              //                         fontSize:20.sp,
-              //                         color: Color.fromRGBO(188, 44, 61, 1),
-              //                         fontWeight: FontWeight.w500,
-              //                       ),
-              //                     ),
-              //
-              //                   ],
-              //                 ),
-              //               ),
-              //             ),
-              //           )
-              //       ),
-              //     ],
-              //   )
-              //       :
-              //   ListView.builder(
-              //       shrinkWrap: true,
-              //       itemCount: items.length,
-              //       clipBehavior: Clip.none,
-              //       itemBuilder: (BuildContext context, int index){
-              //         return Column(
-              //           children: [
-              //             InkWell(
-              //               onTap: (){
-              //                 //Navigator.pushNamed(context, "/restaurantnavigatorpage");
-              //                 Navigator.push(
-              //                   context,
-              //                   MaterialPageRoute(builder: (context) => NavigatorRestaurantPage()),
-              //                 );
-              //               },
-              //               child: Container(
-              //                   height: 110.h,
-              //                   width: 344.w,
-              //                   decoration: BoxDecoration(
-              //                       color: Colors.white,
-              //                       borderRadius: BorderRadius.circular(10.r),
-              //                       boxShadow: [
-              //                         BoxShadow(
-              //                             color: Colors.grey.withOpacity(0.36),
-              //                             spreadRadius: -3,
-              //                             blurRadius: 10,
-              //                             offset: Offset(0, 5)
-              //                         )
-              //                       ]
-              //                   ),
-              //                   child:Center(
-              //                     child: Container(
-              //                       width: 300.w,
-              //                       height: 50.h,
-              //                       child: Row(
-              //                         crossAxisAlignment: CrossAxisAlignment.center,
-              //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //                         children: [
-              //                           Container(
-              //                             child: Row(
-              //                               children: [
-              //                                 Container(
-              //                                   height: 77.h,
-              //                                   width: 76.r,
-              //                                   decoration: BoxDecoration(
-              //                                     borderRadius: BorderRadius.circular(8.r),
-              //                                     image:  DecorationImage(
-              //                                       image: NetworkImage(state.getAllRestaurantsForCurrentUser.restaurants![index].profilePicture!),
-              //                                       fit: BoxFit.cover,
-              //                                     ),
-              //                                   ),
-              //                                 ),
-              //                                 SizedBox(width: 20.w,),
-              //                                 Column(
-              //                                   crossAxisAlignment: CrossAxisAlignment.start,
-              //                                   mainAxisAlignment: MainAxisAlignment.center,
-              //                                   children: <Widget>[
-              //                                     Text(
-              //                                       state.getAllRestaurantsForCurrentUser.restaurants![index].name!,
-              //                                       style: TextStyle(
-              //                                         fontFamily: "Milliard",
-              //                                         fontSize:19.sp,
-              //                                         fontWeight: FontWeight.w500,
-              //                                       ),
-              //                                     ),
-              //                                     SizedBox(height: 4.h,),
-              //
-              //
-              //                                     state.getAllRestaurantsForCurrentUser.restaurants![index].status == "enable" ?
-              //                                     Container(
-              //                                       width: 110.w,
-              //                                       height: 21.h,
-              //                                       decoration: BoxDecoration(
-              //                                           color: Color.fromRGBO(104, 211, 137, 1),
-              //                                           borderRadius: BorderRadius.circular(6.r)
-              //                                       ),
-              //                                       child: Center(
-              //                                         child: Text(
-              //                                           'Restaurant Ouvert',
-              //                                           textAlign: TextAlign.center,
-              //                                           style: TextStyle(
-              //                                               fontSize: 12.sp,
-              //                                               fontFamily: "Milliard",
-              //                                               color: Colors.white
-              //                                           ),
-              //                                         ),
-              //                                       ),
-              //                                     )
-              //                                         :Container(
-              //                                       width: 110.w,
-              //                                       height: 21.h,
-              //                                       decoration: BoxDecoration(
-              //                                           color: Color.fromRGBO(251, 182, 52, 1),
-              //                                           borderRadius: BorderRadius.circular(6.r)
-              //                                       ),
-              //                                       child: Center(
-              //                                         child: Text(
-              //                                           'Restaurant Fermé',
-              //                                           textAlign: TextAlign.center,
-              //                                           style: TextStyle(
-              //                                               fontFamily: "Milliard",
-              //                                               fontSize: 12.sp,
-              //                                               color: Colors.white
-              //                                           ),
-              //                                         ),
-              //                                       ),
-              //                                     )
-              //                                   ],
-              //                                 ),
-              //                               ],
-              //                             ),
-              //                           ),
-              //                           Icon(
-              //                             Icons.arrow_forward_ios_rounded ,
-              //                             color: Color(0XFFBCBCBC),
-              //                             size: 15.sp,
-              //                           ),
-              //                         ],
-              //                       ),
-              //                     ),
-              //                   )
-              //               ),
-              //             ),
-              //             SizedBox(height: 32.h,)
-              //           ],
-              //         );
-              //
-              //       }
-              //   );
-              // }
-
             if(state is GetAllRestaurantsForCurrentUserLoaded){
               return state.getAllRestaurantsForCurrentUser.restaurants!.isNotEmpty ? Container(
                 color: Colors.white,
@@ -449,7 +249,8 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                         ),
                       ) : Padding(
                         padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 5.r, bottom: 15.r),
-                        child: Center(
+                        child:
+                        Center(
                             child: InkWell(
                               onTap: (){
                                 Navigator.push(
@@ -516,6 +317,7 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                       ),
                     ),
                     SizedBox(height: 31.h,),
+                    //Ajouter restau
                     Center(
                         child: InkWell(
                           onTap: (){

@@ -396,6 +396,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           fontSize: 16.sp,
                         ),
                       ),
+                      SizedBox(width: 50.w,),
                       Expanded(
                         child: Container(
                           child: Align(

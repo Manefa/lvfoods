@@ -176,7 +176,7 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                       SizedBox(width: 7.w,),
                                                       //localisationName
                                                       Container(
-                                                        width: 315.w,
+                                                        width: 230.w,
                                                         child: Text(
                                                           widget.address+" - "+widget.name,
                                                           maxLines: 1,
