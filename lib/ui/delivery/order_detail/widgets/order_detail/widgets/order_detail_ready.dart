@@ -239,7 +239,7 @@ class _ListOfOrderReadyState extends State<ListOfOrderReady> {
                                           Container(
                                             height: 29.h,
                                             width: 80.w,
-                                            child: TextButton(
+                                            child: ElevatedButton(
                                               onPressed: (){
                                                 _recoveryBloc.add(UpdateStatusOrders(code: ordersIsReadyReal[index].code!));
                                                 setState(() {
@@ -247,6 +247,8 @@ class _ListOfOrderReadyState extends State<ListOfOrderReady> {
                                                 });
                                               },
                                               style: ButtonStyle(
+                                                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                                                  elevation: MaterialStateProperty.all(0),
                                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                       RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(5.r),
@@ -254,12 +256,15 @@ class _ListOfOrderReadyState extends State<ListOfOrderReady> {
                                                       )
                                                   )
                                               ),
-                                              child:Text(
-                                                "Prendre",
-                                                style: TextStyle(
-                                                  color:  Color.fromRGBO(148, 148, 148, 1),
-                                                  fontFamily: "Milliard",
-                                                  fontSize: 12.sp,
+                                              child:FittedBox(
+                                                child: Text(
+                                                  "Prendre",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color:  Color.fromRGBO(148, 148, 148, 1),
+                                                    fontFamily: "Milliard",
+                                                    fontSize: 12.sp,
+                                                  ),
                                                 ),
                                               ),
                                             ),

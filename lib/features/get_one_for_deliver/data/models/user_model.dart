@@ -3,8 +3,6 @@ import 'package:ivfoods_mobile_app/features/get_one_for_deliver/data/models/deli
 import 'package:ivfoods_mobile_app/features/get_one_for_deliver/data/models/favorites_model.dart';
 import 'package:ivfoods_mobile_app/features/get_one_for_deliver/data/models/notice_model.dart';
 import 'package:ivfoods_mobile_app/features/get_one_for_deliver/data/models/phone_model.dart';
-import 'package:ivfoods_mobile_app/features/get_one_for_deliver/data/models/recovered_order.dart';
-import 'package:ivfoods_mobile_app/features/get_one_for_deliver/data/models/restaurant_model.dart';
 import 'package:ivfoods_mobile_app/features/get_one_for_deliver/domain/entities/user.dart';
 
 class UserModel extends User{

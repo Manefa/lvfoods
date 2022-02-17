@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -152,12 +153,13 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      //Remove
                       InkWell(
                         onTap:(){
                           showAlertDialog(context);
                         },
                         child: Container(
-                          width: 122.w,
+                          width: 135.w,
                           decoration: BoxDecoration(
                               border: Border.all(
                                 color: Colors.grey,
@@ -180,7 +182,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                                 Icon(
                                   LvIconsResto.remove,
                                   color: Color.fromRGBO(188, 44, 61,1),
-                                  size: 12.sp,
+                                  size: 10.sp,
                                 ),
                                 SizedBox(width: 5.7.w,),
                                 Text(
@@ -197,6 +199,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           ),
                         ),
                       ),
+                      //Edit
                       InkWell(
                         onTap: (){
                           Navigator.push(
@@ -205,7 +208,8 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           );
                         },
                         child: Container(
-                          width: 87.w,
+                          width: 100.w,
+                          height: 29.h,
                           decoration: BoxDecoration(
                               border: Border.all(
                                 color: Colors.grey,
@@ -224,11 +228,13 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           child: Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+
                               children: [
                                 Icon(
                                   LvIconsResto.edit,
                                   color: Color.fromRGBO(148, 148, 148,1),
-                                  size: 12.sp,
+                                  size: 10.sp,
                                 ),
                                 SizedBox(width: 5.7.w,),
                                 Text(
@@ -271,7 +277,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           width: 178.w,
                           child: Text(
                               widget.getProductDetails.product!.name!,
-                              textDirection: TextDirection.rtl,
+                              textAlign: TextAlign.end,
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 fontSize: 16.sp,
@@ -283,7 +289,6 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                   ),
                 ),
                 SizedBox(height: 21.h,),
-
                 //Price
                 Container(
                   width: 344.w,
@@ -328,34 +333,24 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                             fontFamily: "Milliard",
                             fontSize: 16.sp,
                           )
-
                       ),
-
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Container(
-                              child: Row(
-                                children: [
-                                  Text(
-                                      removeLastCharacter(getCategories(widget.getProductDetails.product!.categories!).toString()),
-                                      overflow: TextOverflow.ellipsis,
-                                      textDirection: TextDirection.ltr,
-                                      style: TextStyle(
-                                        fontFamily: "Milliard",
-                                        fontSize: 16.sp,
-                                      )
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                      Expanded(
+                        child: Container(
+                          width: 178.w,
+                          child: Text(
+                              removeLastCharacter(getCategories(widget.getProductDetails.product!.categories!).toString()),
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                fontFamily: "Milliard",
+                                fontSize: 16.sp,
+                              )
+                          ),
                         ),
+                      ),
                     ],
                   ),
                 ),
                 SizedBox(height: 21.h,),
-
                 //Status
                 Container(
                   width: 344.w,
@@ -389,10 +384,9 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                 //Localisation
                 Container(
                   width: 344.w,
-                  //NameRestaurant
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment:CrossAxisAlignment.center,
+                    crossAxisAlignment:CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Localisation",
@@ -402,31 +396,23 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           fontSize: 16.sp,
                         ),
                       ),
-                      Container(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child:Row(
-                            children: [
-                              Text(
-                                widget.addres,
-                                style: TextStyle(
-                                  color: Color.fromRGBO(188, 44, 61, 1),
-                                  fontFamily: "Milliard",
-                                  fontSize: 16.sp,
-                                ),
-                              ),
-                              SizedBox(width: 6.w,),
-                              Icon(
-                                Icons.my_location_rounded,
+                      SizedBox(width: 50.w,),
+                      Expanded(
+                        child: Container(
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child:Text(
+                              widget.addres,
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
                                 color: Color.fromRGBO(188, 44, 61, 1),
-                                size:16.sp,
+                                fontFamily: "Milliard",
+                                fontSize: 16.sp,
                               ),
-
-                            ],
+                            ),
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -457,11 +443,10 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           fontSize: 16.sp,
                         ),
                       ),
-                      SizedBox(height: 19.h,),
                     ],
                   ),
                 ),
-                SizedBox(height: 52.h,),
+                SizedBox(height: 100.h,),
               ],
             ),
           ),

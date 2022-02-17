@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -126,8 +127,9 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                           width:219.w,
                                                           child:Text(
                                                             state.getProductDetails.product!.name!,
+                                                            textAlign: TextAlign.left,
                                                             style: TextStyle(
-                                                                fontSize: 20.sp,
+                                                                fontSize: 18.sp,
                                                                 fontFamily: "Milliard",
                                                                 fontWeight: FontWeight.w500
                                                             ),
@@ -148,10 +150,10 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                                 Text(
                                                                   state.getProductDetails.product!.price.toString()+" fcfa",
                                                                   style: TextStyle(
-                                                                      fontSize: 20.sp,
+                                                                      fontSize: 17.sp,
                                                                       color: Color.fromRGBO(188, 44, 61, 1),
                                                                       fontFamily: "Milliard",
-                                                                      fontWeight: FontWeight.w700
+                                                                      fontWeight: FontWeight.w800
                                                                   ),
                                                                 )
                                                               ],
@@ -164,25 +166,29 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                   SizedBox(height: 7.h,),
                                                   //Localisation
                                                   Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
                                                     children: [
                                                       Icon(
                                                         LvIcons.pin,
-                                                        size: 16.sp,
+                                                        size: 14.sp,
                                                         color:Color.fromRGBO(148, 148, 148,1),
                                                       ),
                                                       SizedBox(width: 7.w,),
                                                       //localisationName
-                                                      Text(
-                                                        widget.address+" - "+widget.name,
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        style: TextStyle(
-                                                          color:Color.fromRGBO(148, 148, 148,1),
-                                                          fontSize: 16.sp,
-                                                          fontFamily: "Milliard",
-                                                        ),
+                                                      Container(
+                                                        width: 230.w,
+                                                        child: Text(
+                                                          widget.address+" - "+widget.name,
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          style: TextStyle(
+                                                            color:Color.fromRGBO(148, 148, 148,1),
+                                                            fontSize: 14.sp,
+                                                            fontFamily: "Milliard",
+                                                          ),
 
-                                                      ),
+                                                        ),
+                                                      )
 
                                                     ],
                                                   ),
@@ -197,18 +203,19 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                       children: [
                                                         Container(
                                                           child: Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.center,
                                                             children: [
                                                               //Note
                                                               Icon(
                                                                 LvIconsResto.star,
                                                                 color:Color.fromRGBO(251, 182, 52, 1),
-                                                                size: 18.sp,
+                                                                size: 14.sp,
                                                               ),
                                                               SizedBox(width: 4.w,),
                                                               Text(
                                                                 state.getProductDetails.product!.note.toString(),
                                                                 style: TextStyle(
-                                                                  fontSize: 18.sp,
+                                                                  fontSize: 14.sp,
                                                                   fontFamily: "Milliard",
                                                                   fontWeight: FontWeight.w200,
                                                                 ),
@@ -218,7 +225,7 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                               Icon(
                                                                 LvIconsResto.morder,
                                                                 color:Color.fromRGBO(72, 132, 238, 1),
-                                                                size: 18.sp,
+                                                                size: 14.sp,
                                                               ),
                                                               SizedBox(width: 10.w,),
                                                               SizedBox(
@@ -227,7 +234,7 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                                   state.getProductDetails.product!.categories!.isEmpty ? " " : removeLastCharacter(getCategories(state.getProductDetails.product!.categories!).toString()),
                                                                   overflow: TextOverflow.ellipsis,
                                                                   style: TextStyle(
-                                                                    fontSize: 18.sp,
+                                                                    fontSize: 14.sp,
                                                                     color: Colors.grey,
                                                                     fontFamily: "Milliard",
                                                                     fontWeight: FontWeight.w200,
@@ -250,7 +257,7 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                             child: Text(
                                                               'Available now',
                                                               style: TextStyle(
-                                                                  fontSize: 14.sp,
+                                                                  fontSize: 12.sp,
                                                                   fontFamily: "Milliard",
                                                                   color: Color.fromRGBO(104, 211, 137, 1),
                                                                   fontWeight: FontWeight.w500
@@ -269,7 +276,7 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                             child: Text(
                                                               "Unavailable",
                                                               style: TextStyle(
-                                                                  fontSize: 14.sp,
+                                                                  fontSize: 12.sp,
                                                                   fontFamily: "Milliard",
                                                                   color: Color(0XFFBC2C3D),
                                                                   fontWeight: FontWeight.w500
