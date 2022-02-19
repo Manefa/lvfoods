@@ -51,6 +51,8 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     List<ChooseRestaurantModel> items = [items1, items2];
     _getAllRestaurantsForCurrentUserBloc.add(StartGetAllRestaurantsForCurrentUser());

@@ -37,6 +37,8 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     return BlocProvider<AddPhoneBloc>(

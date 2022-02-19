@@ -101,6 +101,8 @@ class _OrderDetailState extends State<OrderDetail> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
     return DefaultTabController(

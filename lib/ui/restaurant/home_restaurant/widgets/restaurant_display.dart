@@ -32,6 +32,8 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     _getOneRestaurantAndPopulateProductsBloc.add(StartGetOneRestaurantAndPopulateProducts(restaurantName: widget.restaurantName));
     _getCategoriesBloc.add(StartGetCategories());

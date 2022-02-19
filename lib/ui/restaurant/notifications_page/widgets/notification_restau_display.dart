@@ -39,6 +39,8 @@ class _NotificationRestauDisplayState extends State<NotificationRestauDisplay> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     List<NotificationModel> items = [items1,items2,items1];
     final Color _containerHomepage;

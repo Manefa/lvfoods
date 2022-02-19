@@ -31,6 +31,8 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     _getUserBloc.add(GetUser());
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
@@ -68,7 +70,6 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
           BlocListener<GetAllForOwnerRestaurantBloc, GetAllForOwnerRestaurantState>(
             listener: (context, state) {
               if(state is GetAllForOwnerRestaurantLoaded){
-                print("ffffffffffffffffffffffffffffffffffffffffffff");
                 order = state.getAllForOwnerRestaurant.orders!.length.toString();
                 print(order.toString());
               }

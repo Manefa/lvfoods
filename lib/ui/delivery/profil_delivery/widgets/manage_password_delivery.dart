@@ -32,7 +32,10 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
+
     return BlocProvider<UpdatePasswordBloc>(
       create: (_) => _updatePasswordBloc,
       child: BlocListener<UpdatePasswordBloc, UpdatePasswordState>(

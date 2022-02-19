@@ -18,6 +18,8 @@ class _ChooseRestaurantState extends State<ChooseRestaurant> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     return Scaffold(
       backgroundColor: Colors.white,

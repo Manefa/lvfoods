@@ -19,6 +19,8 @@ class _ManageAddressDeliveryState extends State<ManageAddressDelivery> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     return SingleChildScrollView(child: Container(
       child:Center(

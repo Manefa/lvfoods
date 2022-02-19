@@ -16,6 +16,14 @@ class CustomNavBarWidget extends StatelessWidget {
         required this.onItemSelected,});
 
   Widget _buildItem( PersistentBottomNavBarItem item, bool isSelected) {
+    // ScreenUtil.init(
+    //     BoxConstraints(
+    //         maxWidth: MediaQuery.of(context).size.width,
+    //         maxHeight: MediaQuery.of(context).size.height),
+    //     designSize: Size(416, 897),
+    //     context: context,
+    //     minTextAdapt: true,
+    //     orientation: Orientation.portrait);
 
     return Container(
       alignment: Alignment.center,
@@ -70,6 +78,8 @@ class CustomNavBarWidget extends StatelessWidget {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     return Container(
       decoration: BoxDecoration(

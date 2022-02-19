@@ -27,6 +27,8 @@ class _PhonesDisplayState extends State<PhonesDisplay> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     _getRestaurantBloc.add(StartGetRestaurant(name: nameRestaurant!));

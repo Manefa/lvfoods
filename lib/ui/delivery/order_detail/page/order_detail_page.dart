@@ -41,6 +41,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     return BlocProvider<GetAllForRestaurantBloc>(
       create: (BuildContext context) => _getAllForRestaurantBloc,

@@ -22,6 +22,8 @@ class _DeliveryPageState extends State<DeliveryPage> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     List<Widget> widget = [DeliveryToDeliver(), DeliveryInProgress(), DeliveryCarryOut(), DeliveryAll()];
     return Scaffold(

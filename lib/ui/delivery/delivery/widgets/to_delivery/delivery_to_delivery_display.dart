@@ -29,6 +29,8 @@ class _DeliveryToDeliveryDisplayState extends State<DeliveryToDeliveryDisplay> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
 
     List<Delivery> _ordersReady = List.empty();

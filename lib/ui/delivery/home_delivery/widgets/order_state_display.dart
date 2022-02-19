@@ -22,6 +22,8 @@ class _OrderStateDisplayState extends State<OrderStateDisplay> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     return Container(
       height: 75.h,

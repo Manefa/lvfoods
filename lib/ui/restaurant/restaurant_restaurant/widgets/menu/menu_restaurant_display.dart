@@ -58,6 +58,8 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
             maxWidth: MediaQuery.of(context).size.width,
             maxHeight: MediaQuery.of(context).size.height),
         designSize: Size(416, 897),
+        context: context,
+        minTextAdapt: true,
         orientation: Orientation.portrait);
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     var adressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
