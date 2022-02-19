@@ -17,14 +17,7 @@ class _OrderStateDisplayState extends State<OrderStateDisplay> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
+
     return Container(
       height: 75.h,
       color: Colors.white,

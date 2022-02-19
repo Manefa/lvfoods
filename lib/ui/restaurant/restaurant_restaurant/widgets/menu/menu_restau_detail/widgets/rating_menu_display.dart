@@ -38,14 +38,7 @@ class _RatingMenuDisplayState extends State<RatingMenuDisplay> {
   @override
   Widget build(BuildContext context) {
     //List<RatingMenuModel> items = [comm1,comm2,comm1,comm1,];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
+
     return widget.getProductDetails.product!.notices!.isNotEmpty ? Expanded(
       child:Center(
         child: Container(

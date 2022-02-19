@@ -29,14 +29,7 @@ class _AppbarState extends State<Appbar> {
   Widget build(BuildContext context) {
     String name=" ";
     _getUserBloc.add(GetUser());
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
+
     return BlocProvider<GetUserBloc>(
       create: (_) => _getUserBloc,
       child: BlocListener(

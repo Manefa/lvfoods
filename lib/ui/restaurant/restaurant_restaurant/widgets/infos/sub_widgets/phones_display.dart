@@ -22,14 +22,7 @@ class _PhonesDisplayState extends State<PhonesDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
+
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     _getRestaurantBloc.add(StartGetRestaurant(name: nameRestaurant!));
     return MultiBlocProvider(
@@ -120,8 +113,7 @@ class _PhonesDisplayState extends State<PhonesDisplay> {
 
             if(state is GetRestaurantLoaded){
               return Container(
-                child: state.getRestaurant.restaurant!.phones!.isNotEmpty ?
-                ListView.builder(
+                child: state.getRestaurant.restaurant!.phones!.isNotEmpty ? ListView.builder(
                     itemCount: state.getRestaurant.restaurant!.phones!.length,
                     clipBehavior: Clip.none,
                     shrinkWrap: true,
@@ -161,26 +153,27 @@ class _PhonesDisplayState extends State<PhonesDisplay> {
                         ],
                       );
                     }
-                )
-                    :Align(
-                  alignment: Alignment.centerRight,
-                      child: Text(
-                  "Aucun numero",
-                  textAlign: TextAlign.end,
-                  style: TextStyle(
-                      fontFamily: "Milliard",
-                      fontSize: 17.sp,
-                      fontWeight: FontWeight.w200,
+                ):Container(
+                  height: 130.w,
+                  width: 130,
+                  child: Center(
+                    child: Text(
+                      "Aucun numero",
+                      style: TextStyle(
+                        fontFamily: "Milliard",
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.w200,
+                      ),
+                    ),
                   ),
-                ),
-                    )
+                )
               );
             }
 
             if(state is GetRestaurantError){
               Container(
-                height: 130.h,
-                width: 130.w,
+                height: 130.w,
+                width: 130,
                 child: Center(
                   child: Container(
                     decoration: BoxDecoration(

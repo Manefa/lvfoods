@@ -20,14 +20,6 @@ class OrderDetailRecovered extends StatefulWidget {
 class _OrderDetailRecoveredState extends State<OrderDetailRecovered> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
 
     return Container(
       child: ListViewRecovered(name: widget.name,),
@@ -223,31 +215,27 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
                                           ),
                                           SizedBox(width: 8.w,),
                                           //Deposer
-                                          Container(
-                                            height: 29.h,
-                                            width: 80.w,
-                                            child: ElevatedButton(
-                                              onPressed:(){
-                                                _depositedBloc.add(UpdateStatusOrder(code: ordersIsDepositedReal![index].code!));
-                                                _getAllForRestaurantBloc.add(GetGetAllForRestaurantEvent(restaurantName: widget.name));
-                                                setState(() {
+                                          InkWell(
+                                            onTap:(){
+                                              _depositedBloc.add(UpdateStatusOrder(code: ordersIsDepositedReal![index].code!));
+                                              _getAllForRestaurantBloc.add(GetGetAllForRestaurantEvent(restaurantName: widget.name));
+                                              setState(() {
 
-                                                });
-                                              },
-                                              style: ButtonStyle(
-                                                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                                                  elevation: MaterialStateProperty.all(0),
-                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(5.r),
-                                                          side: BorderSide(color: Colors.red)
-                                                      )
-                                                  )
+                                              });
+                                            },
+                                            child: Container(
+                                              height: 29.h,
+                                              width: 80.w,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: Colors.red,
+                                                  width: 1.w,
+                                                ),
+                                                borderRadius: BorderRadius.circular(5.r),
                                               ),
-                                              child:FittedBox(
-                                                child: Text(
-                                                  "Déposer",
-                                                  textAlign: TextAlign.center,
+                                              child: Center(
+                                                child:Text(
+                                                  "Déposer ",
                                                   style: TextStyle(
                                                     color:  Color.fromRGBO(148, 148, 148, 1),
                                                     fontFamily: "Milliard",

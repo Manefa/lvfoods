@@ -50,14 +50,6 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
   @override
   Widget build(BuildContext context) {
     //List<HoursRestaurantModel> items = [items1, items2, items3];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
     nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     _getRestaurantBloc.add(StartGetRestaurant(name: nameRestaurant!));
     return MultiBlocProvider(

@@ -16,14 +16,6 @@ class AddMeal extends StatefulWidget {
 class _AddMealState extends State<AddMeal> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
     return Scaffold(
       appBar: AppBar(
         title:  Text(

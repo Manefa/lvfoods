@@ -13,21 +13,13 @@ class ChooseRestaurant extends StatefulWidget {
 class _ChooseRestaurantState extends State<ChooseRestaurant> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: Column(
             children: [
-              SizedBox(height:50.h ,),
+              SizedBox(height:110.h ,),
               Text(
                 "Choose Your Restaurant",
                 style: TextStyle(
@@ -36,18 +28,19 @@ class _ChooseRestaurantState extends State<ChooseRestaurant> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height:50.h ,),
+              SizedBox(height:78.h ,),
               Container(
                 width: 344.w,
-                height: 625.h,
+                height: 468.h,
                 child: ChooseRestaurantDisplay(),
               ),
               SizedBox(height:26.h ,),
+
               Expanded(
                 child: Stack(
                   children: <Widget>[
                     Positioned(
-                      top: 25.h,
+                      top: 30.h,
                       left: -108.w,
                       child: Container(
                         height: 631.h,

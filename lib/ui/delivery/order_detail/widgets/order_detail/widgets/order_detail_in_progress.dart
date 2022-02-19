@@ -21,14 +21,6 @@ class _OrderDetailInProgressState extends State<OrderDetailInProgress> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
 
     return Container(
       child: ListViewOrder(name: widget.name),
@@ -232,7 +224,7 @@ class _ListViewOrderState extends State<ListViewOrder> {
                                           Container(
                                             height: 29.h,
                                             width: 80.w,
-                                            child: ElevatedButton(
+                                            child: TextButton(
                                               onPressed: (){
                                                 _startDepositionBloc.add(UpdateStatusOrder(code: _ordersInProgressReal[index].code!));
                                                 _getAllForRestaurantBloc.add(GetGetAllForRestaurantEvent(restaurantName: widget.name));
@@ -241,8 +233,6 @@ class _ListViewOrderState extends State<ListViewOrder> {
                                                 });
                                               },
                                               style: ButtonStyle(
-                                                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                                                  elevation: MaterialStateProperty.all(0),
                                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                       RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(5.r),
@@ -250,15 +240,12 @@ class _ListViewOrderState extends State<ListViewOrder> {
                                                       )
                                                   )
                                               ),
-                                              child:FittedBox(
-                                                child: Text(
-                                                  "Récupérés",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color:  Color.fromRGBO(148, 148, 148, 1),
-                                                    fontFamily: "Milliard",
-                                                    fontSize: 12.sp,
-                                                  ),
+                                              child:Text(
+                                                "Récupérés",
+                                                style: TextStyle(
+                                                  color:  Color.fromRGBO(148, 148, 148, 1),
+                                                  fontFamily: "Milliard",
+                                                  fontSize: 12.sp,
                                                 ),
                                               ),
                                             ),

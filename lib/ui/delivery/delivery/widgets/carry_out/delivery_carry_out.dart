@@ -28,14 +28,6 @@ class _DeliveryCarryOutState extends State<DeliveryCarryOut> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -139,19 +131,15 @@ class _DeliveryCarryOutState extends State<DeliveryCarryOut> {
                                   onPressed: () {
                                     _deliveriesBloc.add(GetDeliveries());
                                   },
-                                  label: FittedBox(
-                                    child: Text('Refresh', style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontFamily: "Milliard",
-                                      color: Color(0XFF68D389),
-                                    ),),
-                                  ),
-                                  icon: FittedBox(
-                                    child: Icon(
-                                      Icons.refresh,
-                                      size: 17.sp,
-                                      color: Color(0XFF68D389),
-                                    ),
+                                  label: Text('Refresh', style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontFamily: "Milliard",
+                                    color: Color(0XFF68D389),
+                                  ),),
+                                  icon: Icon(
+                                    Icons.refresh,
+                                    size: 17.sp,
+                                    color: Color(0XFF68D389),
                                   ),
                                   style: TextButton.styleFrom(
                                     backgroundColor: Color(0XFFDEF9E7),

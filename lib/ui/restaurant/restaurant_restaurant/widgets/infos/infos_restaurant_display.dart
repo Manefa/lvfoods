@@ -54,14 +54,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
     bool isSwitched = true;
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     List<String> litems= ['+237 691 380 128','+237 677 589 625'];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
+
     _getRestaurantBloc.add(StartGetRestaurant(name: widget.name));
     _getStylesBloc.add(StartGetStyles());
     return MultiBlocProvider(
@@ -113,7 +106,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: Container(
-                                width: 100.w,
+                                width: 87.w,
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                       color: Colors.grey,
@@ -138,7 +131,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                       Icon(
                                         LvIconsResto.edit,
                                         color: Color.fromRGBO(148, 148, 148,1),
-                                        size: 10.sp,
+                                        size: 12.sp,
                                       ),
                                       SizedBox(width: 5.7.w,),
                                       Text(
@@ -147,7 +140,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                           style: TextStyle(
                                             color: Color.fromRGBO(148, 148, 148, 1),
                                             fontFamily: "Milliard",
-                                            fontSize: 13.sp,
+                                            fontSize: 15.sp,
                                           )
                                       ),
                                     ],
@@ -167,7 +160,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.start,
+                            crossAxisAlignment:CrossAxisAlignment.center,
                             children: [
                               Text(
                                 "Nom restaurant",
@@ -184,7 +177,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     state.getRestaurant.restaurant!.name!,
-                                    textAlign: TextAlign.end,
+                                    textDirection: TextDirection.rtl,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontFamily: "Milliard",
@@ -391,7 +384,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.start,
+                            crossAxisAlignment:CrossAxisAlignment.center,
                             children: [
                               Text(
                                 "Style Resto",
@@ -429,7 +422,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.start,
+                            crossAxisAlignment:CrossAxisAlignment.center,
                             children: [
                               Text(
                                 "Localisation",
@@ -440,20 +433,28 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                     fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Expanded(
-                                child: Container(
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      state.getRestaurant.restaurant!.address!,
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(188, 44, 61, 1),
-                                          fontFamily: "Milliard",
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w100
+                              Container(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child:Row(
+                                    children: [
+                                      Text(
+                                        state.getRestaurant.restaurant!.address!,
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(188, 44, 61, 1),
+                                            fontFamily: "Milliard",
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w100
+                                        ),
                                       ),
-                                    ),
+                                      SizedBox(width: 6.w,),
+                                      Icon(
+                                        Icons.my_location_rounded,
+                                        color: Color.fromRGBO(188, 44, 61, 1),
+                                        size:16.sp,
+                                      ),
+
+                                    ],
                                   ),
                                 ),
                               ),
@@ -464,6 +465,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                         SizedBox(height: 23.h,),
                         Container(
                           width: 344.w,
+                          //NameRestaurant
                           child: Column(
                             children: [
                               Align(

@@ -53,7 +53,7 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   child: Align(
                     alignment: Alignment.center,
-                    child:  FittedBox(child: Text("Prêt",textAlign: TextAlign.center,)),
+                    child:  Text("Prêt",),
                   ),
                 ),
               ),
@@ -66,7 +66,7 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   child: Align(
                     alignment: Alignment.center,
-                    child:  FittedBox(child: Text("En cours",textAlign: TextAlign.center,),),
+                    child:  Text("En cours",),
                   ),
                 ),
               ),
@@ -80,7 +80,7 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   child: Align(
                     alignment: Alignment.center,
-                    child:  FittedBox(child: Text("Récupérés",textAlign: TextAlign.center,)),
+                    child:  Text("Récupérés",),
                   ),
                 ),
               ),
@@ -96,14 +96,6 @@ class _OrderDetailState extends State<OrderDetail> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
     return DefaultTabController(
       length: 3,

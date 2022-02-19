@@ -35,16 +35,6 @@ class _HomeDeliveryState extends State<HomeDelivery> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
-
     _ordersBloc.add(GetOrders());
     _deliveriesBloc.add(GetDeliveries());
 
@@ -282,14 +272,6 @@ class _HomeDeliveryState extends State<HomeDelivery> {
     );
   }
   Widget buildHomeShimmer(){
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
     return ListTile(
       title: Align(
         alignment: Alignment.center,

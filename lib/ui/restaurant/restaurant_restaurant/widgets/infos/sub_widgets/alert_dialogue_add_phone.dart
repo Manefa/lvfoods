@@ -32,14 +32,7 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
   Widget build(BuildContext context) {
     String ? valueChoose;
     List dayList = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
+
     nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     return BlocProvider<AddPhoneBloc>(
       create: (_) => _addPhoneBloc,
@@ -157,8 +150,11 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
                     ],
                   ),
                   SizedBox(height: 15.h,),
-                  Center(
-                    child: _phoneContainer(),
+                  Row(
+                    children: <Widget>[
+                      SizedBox(width: 18.w,),
+                      _phoneContainer(),
+                    ],
                   ),
                   SizedBox(height: 40.h,),
                   InkWell(
@@ -197,7 +193,7 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
 
   Widget _phoneContainer() {
     return new Container(
-      width: 292.w,
+      width: 244.w,
       height: 48.h,
       decoration: new BoxDecoration(
           borderRadius: BorderRadius.circular(5.r),

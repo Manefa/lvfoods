@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -27,14 +26,6 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
   Widget build(BuildContext context) {
     String ? valueChoose;
     List dayList = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
     nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     return BlocProvider<AddHoursBloc>(
       create: (_) => _addHoursBloc,
@@ -93,7 +84,6 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
           child: Container(
             height: 363.h,
             width: 344.w,
-
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(60.r),
               color: Colors.white,
@@ -133,11 +123,11 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                       ],
                     ),
                   ),
-                  SizedBox(height: 18.h,),
+                  SizedBox(height: 23.h,),
                   //Day Container
                   Container(
                     width: 292.w,
-                    height: 70.h,
+                    height: 62.h,
                     child: Column(
                       children: [
                         //Title
@@ -204,7 +194,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                   //Open Hours Container
                   Container(
                     width: 292.w,
-                    height: 70.h,
+                    height: 62.h,
                     child: Column(
                       children: [
                         //Title
@@ -285,7 +275,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                   //Close Hours Container
                   Container(
                     width: 292.w,
-                    height: 70.h,
+                    height: 62.h,
                     child: Column(
                       children: [
                         //Title
@@ -450,7 +440,6 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
     child: TextFormField(
       keyboardType: TextInputType.number,
       controller: closeHourController,
-      inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[0-9]')),],
       decoration: InputDecoration(
         contentPadding: new EdgeInsets.symmetric(vertical: 35.h, horizontal: 10.w),
         border: OutlineInputBorder(),

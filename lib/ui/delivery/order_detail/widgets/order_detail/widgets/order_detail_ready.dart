@@ -22,14 +22,6 @@ class OrderDetailReady extends StatefulWidget {
 class _OrderDetailReadyState extends State<OrderDetailReady> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
 
     return Container(
         child: Container(
@@ -241,7 +233,7 @@ class _ListOfOrderReadyState extends State<ListOfOrderReady> {
                                           Container(
                                             height: 29.h,
                                             width: 80.w,
-                                            child: ElevatedButton(
+                                            child: TextButton(
                                               onPressed: (){
                                                 _recoveryBloc.add(UpdateStatusOrders(code: ordersIsReadyReal[index].code!));
                                                 setState(() {
@@ -249,8 +241,6 @@ class _ListOfOrderReadyState extends State<ListOfOrderReady> {
                                                 });
                                               },
                                               style: ButtonStyle(
-                                                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                                                  elevation: MaterialStateProperty.all(0),
                                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                       RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(5.r),
@@ -258,15 +248,12 @@ class _ListOfOrderReadyState extends State<ListOfOrderReady> {
                                                       )
                                                   )
                                               ),
-                                              child:FittedBox(
-                                                child: Text(
-                                                  "Prendre",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color:  Color.fromRGBO(148, 148, 148, 1),
-                                                    fontFamily: "Milliard",
-                                                    fontSize: 12.sp,
-                                                  ),
+                                              child:Text(
+                                                "Prendre",
+                                                style: TextStyle(
+                                                  color:  Color.fromRGBO(148, 148, 148, 1),
+                                                  fontFamily: "Milliard",
+                                                  fontSize: 12.sp,
                                                 ),
                                               ),
                                             ),

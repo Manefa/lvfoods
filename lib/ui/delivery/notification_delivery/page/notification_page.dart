@@ -14,14 +14,6 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -45,7 +37,7 @@ class _NotificationPageState extends State<NotificationPage> {
                           "Notifications",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 18.sp,
                             fontFamily: "Milliard",
                             fontWeight: FontWeight.w400,
                           ),

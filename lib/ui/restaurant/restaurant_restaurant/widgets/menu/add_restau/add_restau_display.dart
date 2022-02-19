@@ -66,14 +66,6 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
     List<int> selectedList = [];
     List<String> _styleOptionsTwo = [];
 

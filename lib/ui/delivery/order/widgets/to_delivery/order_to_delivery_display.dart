@@ -15,14 +15,6 @@ class OrderToDeliveryDisplay extends StatefulWidget {
 class _OrderToDeliveryDisplayState extends State<OrderToDeliveryDisplay> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
 
     return SingleChildScrollView(
       child : ListView.builder(
@@ -88,7 +80,6 @@ class _OrderToDeliveryDisplayState extends State<OrderToDeliveryDisplay> {
                             //Location Deli
                             Row(
                               mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Icon(
                                   Icons.location_on_outlined,
@@ -96,14 +87,12 @@ class _OrderToDeliveryDisplayState extends State<OrderToDeliveryDisplay> {
                                   color: Color(0XFF949494),
                                 ),
                                 SizedBox(width: 10.w,),
-                                Flexible(
-                                  child: Text(
-                                    widget.recoveries![index].restaurant!.address!,
-                                    style: TextStyle(
-                                      fontFamily: "Milliard",
-                                      fontSize: 15.sp,
-                                      color: Color(0XFF949494),
-                                    ),
+                                Text(
+                                  widget.recoveries![index].restaurant!.address!,
+                                  style: TextStyle(
+                                    fontFamily: "Milliard",
+                                    fontSize: 15.sp,
+                                    color: Color(0XFF949494),
                                   ),
                                 ),
                               ],

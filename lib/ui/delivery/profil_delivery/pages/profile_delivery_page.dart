@@ -49,14 +49,6 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
     userName = sl<SharedPreferences>().getString('username');
     List<String>? jsonPhones = sl<SharedPreferences>().getStringList("phones");
     phones = jsonPhones != null ? jsonPhones.map((item) => Phone.fromJson(json.decode(item))).toList() : List.empty();
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
 
     var size = MediaQuery.of(context).size;
     bool isSwitched = true;

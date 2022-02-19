@@ -25,15 +25,6 @@ class _DeliveryInProgressDisplayState extends State<DeliveryInProgressDisplay> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
-
     List<Delivery> _ordersInProgress = List.empty();
     List<Delivery> _ordersInProgressReal = _ordersInProgress.toList();
 

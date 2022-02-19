@@ -42,14 +42,6 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
   @override
   Widget build(BuildContext context) {
     _getOneForDeliverBloc.add(EventGetOneForDeliver(code: widget.code));
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
 
     return Scaffold(
       body: SafeArea(
