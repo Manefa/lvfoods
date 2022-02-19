@@ -28,12 +28,6 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
   @override
   Widget build(BuildContext context) {
     //List<OrderAllModel> items = [items2, items3,items1,items5,items5];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
      var addressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
     //
     // var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');

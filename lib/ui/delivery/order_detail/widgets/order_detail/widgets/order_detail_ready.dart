@@ -22,12 +22,6 @@ class OrderDetailReady extends StatefulWidget {
 class _OrderDetailReadyState extends State<OrderDetailReady> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
 
     return Container(
         child: Container(

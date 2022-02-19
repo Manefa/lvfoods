@@ -28,13 +28,6 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
 
   @override
   Widget build(BuildContext context) {
-
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
 
     Future<void> _refresh() async {

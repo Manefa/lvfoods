@@ -26,12 +26,6 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
 
     bool test = false;
     int day = 1;

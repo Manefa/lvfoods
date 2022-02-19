@@ -31,12 +31,6 @@ class _OrdersRestaurantState extends State<OrdersRestaurant> {
   }
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
 
     var addressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');

@@ -34,12 +34,6 @@ class NotificationRestauDisplay extends StatefulWidget {
 class _NotificationRestauDisplayState extends State<NotificationRestauDisplay> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     List<NotificationModel> items = [items1,items2,items1];
     final Color _containerHomepage;
 

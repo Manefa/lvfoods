@@ -82,12 +82,7 @@ class _OrderAllDisplayState extends State<OrderAllDisplay> {
   @override
   Widget build(BuildContext context) {
     List<OrderAllModel> items = [items6, items2, items3, items4, items5, items6];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
+
     return SingleChildScrollView(
       child : ListView.builder(
         physics: BouncingScrollPhysics(),

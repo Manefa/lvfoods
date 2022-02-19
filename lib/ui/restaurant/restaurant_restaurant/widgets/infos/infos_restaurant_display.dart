@@ -54,12 +54,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
     bool isSwitched = true;
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     List<String> litems= ['+237 691 380 128','+237 677 589 625'];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
+
     _getRestaurantBloc.add(StartGetRestaurant(name: widget.name));
     _getStylesBloc.add(StartGetStyles());
     return MultiBlocProvider(

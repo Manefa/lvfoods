@@ -14,12 +14,6 @@ class _ManageAddressDeliveryState extends State<ManageAddressDelivery> {
   String number = '';
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return SingleChildScrollView(child: Container(
       child:Center(
         child: Column(

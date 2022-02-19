@@ -24,13 +24,6 @@ class _DeliveryToDeliveryDisplayState extends State<DeliveryToDeliveryDisplay> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
-
     List<Delivery> _ordersReady = List.empty();
     List<Delivery> _ordersReadyReal = _ordersReady.toList();
 

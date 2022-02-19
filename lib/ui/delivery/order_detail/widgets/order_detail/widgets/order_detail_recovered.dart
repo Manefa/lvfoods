@@ -20,12 +20,6 @@ class OrderDetailRecovered extends StatefulWidget {
 class _OrderDetailRecoveredState extends State<OrderDetailRecovered> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
 
     return Container(
       child: ListViewRecovered(name: widget.name,),

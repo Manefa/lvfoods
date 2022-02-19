@@ -17,12 +17,6 @@ class _DeliveryPageState extends State<DeliveryPage> {
   int initPosition = 0;
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     List<Widget> widget = [DeliveryToDeliver(), DeliveryInProgress(), DeliveryCarryOut(), DeliveryAll()];
     return Scaffold(
       appBar: AppBar(

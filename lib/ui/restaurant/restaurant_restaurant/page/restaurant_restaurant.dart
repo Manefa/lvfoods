@@ -45,13 +45,6 @@ class _RestaurantRestoState extends State<RestaurantResto> {
       _getRestaurantBloc.add(StartGetRestaurant(name: nameRestaurant!));
     }
 
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
-
     return BlocProvider<GetRestaurantBloc>(
       create: (_) => _getRestaurantBloc,
       child: Scaffold(

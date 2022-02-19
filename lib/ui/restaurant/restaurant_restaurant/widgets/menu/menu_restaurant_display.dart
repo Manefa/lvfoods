@@ -53,12 +53,6 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
     final double _heightCard=169.h;
     final double _widthtCard=157.w;
     //List<RestaurantHomeDisplayModel> items = [items1, items2, items1, items2,items1, items2, items1, items2,items1, items2, items1, items2];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     var adressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
     return widget.getOneRestaurantAndPopulateProducts.restaurant!.products!.isNotEmpty ? SingleChildScrollView(

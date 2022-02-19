@@ -23,12 +23,6 @@ class _DeliveryAllDisplayState extends State<DeliveryAllDisplay> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return widget.deliveries.isNotEmpty ? SingleChildScrollView(
       child : ListView.builder(
         physics: BouncingScrollPhysics(),

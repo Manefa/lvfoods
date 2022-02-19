@@ -95,12 +95,7 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
+
     if (widget.itemCount < 1) return widget.stub ?? Container();
 
     return Column(

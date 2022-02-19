@@ -11,12 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ChooseProfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
 
     Future<bool> _onBackPressed() async {

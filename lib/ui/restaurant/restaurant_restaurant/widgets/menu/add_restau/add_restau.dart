@@ -14,12 +14,6 @@ class AddRestaurant extends StatefulWidget {
 class _AddRestaurantState extends State<AddRestaurant> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return Scaffold(
       appBar: AppBar(
         title:  Text(

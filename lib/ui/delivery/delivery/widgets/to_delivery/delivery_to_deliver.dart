@@ -32,12 +32,6 @@ class _DeliveryToDeliverState extends State<DeliveryToDeliver> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(

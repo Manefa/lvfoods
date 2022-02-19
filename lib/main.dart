@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/routes.dart';
 import 'core/utils/simple_bloc_delegate.dart';
@@ -15,12 +16,18 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Lv food',
-      debugShowCheckedModeBanner: false,
-      color: kPrimaryColor,
-      initialRoute: "/",
-      routes: routes,
+    return ScreenUtilInit(
+      designSize: Size(411, 896),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: () =>
+          MaterialApp(
+            title: 'Lv food',
+            debugShowCheckedModeBanner: false,
+            color: kPrimaryColor,
+            initialRoute: "/",
+            routes: routes,
+          ),
     );
   }
 }

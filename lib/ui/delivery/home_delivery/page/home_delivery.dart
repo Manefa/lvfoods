@@ -37,12 +37,6 @@ class _HomeDeliveryState extends State<HomeDelivery> {
     var size = MediaQuery.of(context).size;
     _ordersBloc.add(GetOrders());
     _deliveriesBloc.add(GetDeliveries());
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
 
     Future<void> _refresh() async {
       _ordersBloc.add(GetOrders());

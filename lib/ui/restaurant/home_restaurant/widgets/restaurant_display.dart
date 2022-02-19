@@ -27,12 +27,6 @@ class _RestaurantHomeDisplayState extends State<RestaurantHomeDisplay> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     List<Category> categories = [];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     _getOneRestaurantAndPopulateProductsBloc.add(StartGetOneRestaurantAndPopulateProducts(restaurantName: widget.restaurantName));
     _getCategoriesBloc.add(StartGetCategories());
     return MultiBlocProvider(

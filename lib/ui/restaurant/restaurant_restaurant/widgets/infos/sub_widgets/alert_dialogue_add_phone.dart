@@ -32,12 +32,7 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
   Widget build(BuildContext context) {
     String ? valueChoose;
     List dayList = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
+
     nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     return BlocProvider<AddPhoneBloc>(
       create: (_) => _addPhoneBloc,

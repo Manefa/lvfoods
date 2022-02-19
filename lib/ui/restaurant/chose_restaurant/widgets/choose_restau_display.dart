@@ -46,12 +46,6 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     List<ChooseRestaurantModel> items = [items1, items2];
     _getAllRestaurantsForCurrentUserBloc.add(StartGetAllRestaurantsForCurrentUser());
     _getStylesBloc.add(StartGetStyles());

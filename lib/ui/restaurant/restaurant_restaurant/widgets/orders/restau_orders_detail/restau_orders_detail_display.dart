@@ -31,13 +31,6 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
 
   @override
   Widget build(BuildContext context) {
-
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     initializeDateFormatting('fr');
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     _getAllForOwnerRestaurantBloc.add(StartGetAllForOwnerRestaurant(name: nameRestaurant!));

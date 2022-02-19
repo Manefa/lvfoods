@@ -51,12 +51,6 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
     Future<void> _refresh() async {
       _getProductDetailsBloc.add(StartGetProductDetails(code: widget.code));
     }
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
     return BlocProvider<GetProductDetailsBloc>(
       create: (_) => _getProductDetailsBloc,
