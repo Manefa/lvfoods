@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/delete_product/bloc/delete_product.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/entities/category.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/categorys.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/get_product_details.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/edit_meal/edit_meal.dart';
 class InfosMenuDisplay extends StatefulWidget {
   final GetProductDetails getProductDetails;
@@ -35,7 +36,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
       // set up the buttons
       Widget cancelButton = TextButton(
         child: Text(
-          "Cancel",
+          AppLocalizations.of(context)!.translate("cancel"),
           style: TextStyle(
             fontFamily: "Milliard",
             color: kPrimaryColor,
@@ -47,7 +48,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
       );
       Widget continueButton = TextButton(
         child: Text(
-          "Continue",
+          AppLocalizations.of(context)!.translate("continue"),
           style: TextStyle(
             fontFamily: "Milliard",
             color: kPrimaryColor,
@@ -61,9 +62,11 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
 
       // set up the AlertDialog
       AlertDialog alert = AlertDialog(
-        title: Text("Attention"),
+        title: Text(
+          AppLocalizations.of(context)!.translate("warning"),
+        ),
         content: Text(
-          "Voulez vous vraiment supprimer ce produit ?",
+          AppLocalizations.of(context)!.translate("doYouReallyWantToRemoveThisProduct"),
           style: TextStyle(
             fontFamily: "Milliard",
           ),
@@ -98,7 +101,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "En cours...",
+                        AppLocalizations.of(context)!.translate("inProgressBloc"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                           color: Colors.white,
@@ -126,7 +129,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text(state.message + "Echec lors de la suppresion", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                    children: [Text(state.message + AppLocalizations.of(context)!.translate("failedToDelete"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                   ),
                   backgroundColor: kPrimaryColor,
                 ),
@@ -178,7 +181,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                                 ),
                                 SizedBox(width: 5.7.w,),
                                 Text(
-                                    "Remove product",
+                                    AppLocalizations.of(context)!.translate("removeProduct"),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Color.fromRGBO(188, 44, 61, 1),
@@ -226,7 +229,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                                 ),
                                 SizedBox(width: 5.7.w,),
                                 Text(
-                                    "Edit Infos",
+                                    AppLocalizations.of(context)!.translate("editInfos"),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Color.fromRGBO(148, 148, 148, 1),
@@ -249,16 +252,14 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
-
                     children: [
                       Text(
-                          'Name meal',
+                          AppLocalizations.of(context)!.translate("mealName"),
                           style: TextStyle(
                             color: Color.fromRGBO(148, 148, 148, 1),
                             fontFamily: "Milliard",
                             fontSize: 16.sp,
                           )
-
                       ),
                       Expanded(
                         child: Container(
@@ -287,7 +288,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
 
                     children: [
                       Text(
-                          'Price',
+                          AppLocalizations.of(context)!.translate("price"),
                           style: TextStyle(
                             color: Color.fromRGBO(148, 148, 148, 1),
                             fontFamily: "Milliard",
@@ -296,7 +297,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
 
                       ),
                       Text(
-                          widget.getProductDetails.product!.price.toString()+" fcfa",
+                          widget.getProductDetails.product!.price.toString()+" Fcfa",
                           textDirection: TextDirection.ltr,
                           style: TextStyle(
                             fontFamily: "Milliard",
@@ -316,7 +317,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          'Category',
+                          AppLocalizations.of(context)!.translate("category"),
                           style: TextStyle(
                             color: Color.fromRGBO(148, 148, 148, 1),
                             fontFamily: "Milliard",
@@ -359,7 +360,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
 
                     children: [
                       Text(
-                          'Status',
+                          AppLocalizations.of(context)!.translate("status"),
                           style: TextStyle(
                             color: Color.fromRGBO(148, 148, 148, 1),
                             fontFamily: "Milliard",
@@ -389,7 +390,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                     crossAxisAlignment:CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Localisation",
+                        AppLocalizations.of(context)!.translate("location"),
                         style: TextStyle(
                           color: Color.fromRGBO(148, 148, 148, 1),
                           fontFamily: "Milliard",
@@ -401,12 +402,15 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           alignment: Alignment.centerRight,
                           child:Row(
                             children: [
-                              Text(
-                                widget.addres,
-                                style: TextStyle(
-                                  color: Color.fromRGBO(188, 44, 61, 1),
-                                  fontFamily: "Milliard",
-                                  fontSize: 16.sp,
+                              SizedBox(
+                                width: 130.w,
+                                child: Text(
+                                  widget.addres,
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(188, 44, 61, 1),
+                                    fontFamily: "Milliard",
+                                    fontSize: 16.sp,
+                                  ),
                                 ),
                               ),
                               SizedBox(width: 6.w,),
@@ -434,7 +438,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Description",
+                          AppLocalizations.of(context)!.translate("description"),
                           style: TextStyle(
                             color: Color.fromRGBO(148, 148, 148, 1),
                             fontFamily: "Milliard",

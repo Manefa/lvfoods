@@ -5,9 +5,10 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/get_all_for_restaurant/bloc/get_all_for_restaurant.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order_detail/widgets/order_detail/order_detail.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order_detail/widgets/restaurant/restaurant_detail.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order_detail/widgets/sub_widgets/custom_tab_view_order_detail.dart';
@@ -21,7 +22,7 @@ class OrderDetailPage extends StatefulWidget {
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
   GetAllForRestaurantBloc _getAllForRestaurantBloc = sl<GetAllForRestaurantBloc>();
-  List<String> data = ['Orders detail', 'Restaurant',];
+  List<String> data = [];
   int initPosition = 0;
   String nameRestaurant = "";
 
@@ -35,6 +36,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    data = [AppLocalizations.of(context)!.translate("orderDetail"), AppLocalizations.of(context)!.translate("restaurant")];
     return BlocProvider<GetAllForRestaurantBloc>(
       create: (BuildContext context) => _getAllForRestaurantBloc,
       child: Scaffold(
@@ -90,11 +92,11 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                    SizedBox(width: 115.w,),
+                                    SizedBox(width: 80.w,),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 1.0),
                                       child: Text(
-                                        "Orders Detail",
+                                        AppLocalizations.of(context)!.translate("orderDetail"),
                                         style: TextStyle(
                                           fontFamily: "Milliard",
                                           fontSize: 20.sp,
@@ -117,7 +119,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 30.h,),
+                                SizedBox(height: 20.h,),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
@@ -128,12 +130,16 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                       color: Colors.black,
                                     ),
                                     SizedBox(width: 10.w,),
-                                    Text(
-                                      state.getAllForRestaurant.restaurant!.address!,
-                                      style: TextStyle(
-                                          fontFamily: "Milliard",
-                                          fontSize: 15.sp,
-                                          color: Color(0XFF2C2627)
+                                    SizedBox(
+                                      width: 130.w,
+                                      child: Text(
+                                        state.getAllForRestaurant.restaurant!.address!,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontFamily: "Milliard",
+                                            fontSize: 15.sp,
+                                            color: Color(0XFF2C2627)
+                                        ),
                                       ),
                                     ),
                                     Expanded(child: SizedBox()),
@@ -149,7 +155,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            "Ouvert",
+                                              AppLocalizations.of(context)!.translate("open"),
                                             style: TextStyle(
                                                 fontFamily: "Milliard",
                                                 fontSize: 15.sp,
@@ -170,7 +176,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            "Fermer",
+                                              AppLocalizations.of(context)!.translate("close"),
                                             style: TextStyle(
                                                 fontFamily: "Milliard",
                                                 fontSize: 15.sp,
@@ -208,7 +214,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                         children: [
                                           SizedBox(width: 35.w,),
                                           Padding(
-                                            padding: const EdgeInsets.only(top: 2.0),
+                                            padding: const EdgeInsets.only(top: 0.0),
                                             child: Row(
                                               children: [
                                                 Icon(
@@ -217,14 +223,16 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                                   color: Color.fromRGBO(251, 182, 52, 1),
                                                 ),
                                                 SizedBox(width: 4.w,),
-
-                                                Text(
-                                                  state.getAllForRestaurant.restaurant!.note!.toStringAsFixed(2),
-                                                  style: TextStyle(
-                                                      fontFamily: "Milliard",
-                                                      fontSize: 15.sp,
-                                                      color: Colors.black,
-                                                      fontWeight:FontWeight.w300
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 1.0),
+                                                  child: Text(
+                                                    state.getAllForRestaurant.restaurant!.note!.toStringAsFixed(2),
+                                                    style: TextStyle(
+                                                        fontFamily: "Milliard",
+                                                        fontSize: 15.sp,
+                                                        color: Colors.black,
+                                                        fontWeight:FontWeight.w300
+                                                    ),
                                                   ),
                                                 ),
                                               ],

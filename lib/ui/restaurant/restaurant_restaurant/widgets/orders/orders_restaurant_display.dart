@@ -4,11 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/bloc/get_all_for_owner_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/get_all_for_owner_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/orders/restau_orders_detail/restau_orders_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -111,12 +112,15 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                         color: Color.fromRGBO(148, 148, 148, 1),
                                                       ),
                                                       SizedBox(width: 8.8.w,),
-                                                      Text(
-                                                        addressRestaurant!,
-                                                        style: TextStyle(
-                                                          color: Color.fromRGBO(148, 148, 148, 1),
-                                                          fontFamily: "Milliard",
-                                                          fontSize: 15.sp,
+                                                      SizedBox(
+                                                        width: 130.w,
+                                                        child: Text(
+                                                          addressRestaurant!,
+                                                          style: TextStyle(
+                                                            color: Color.fromRGBO(148, 148, 148, 1),
+                                                            fontFamily: "Milliard",
+                                                            fontSize: 15.sp,
+                                                          ),
                                                         ),
                                                       ),
                                                     ],
@@ -134,7 +138,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                       ),
                                                       SizedBox(width: 8.8.w,),
                                                       Text(
-                                                        getHour(widget.orders[index].createdAt.toString()) +" Hours Ago",
+                                                        getHour(widget.orders[index].createdAt.toString()) +" "+AppLocalizations.of(context)!.translate("hoursAgo"),
                                                         style: TextStyle(
                                                           color: Color.fromRGBO(148, 148, 148, 1),
                                                           fontFamily: "Milliard",
@@ -221,7 +225,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                               SizedBox(width: 5.w,),
                                                               widget.orders[index].status! == "valid" ?
                                                               Text(
-                                                                "Valid",
+                                                                AppLocalizations.of(context)!.translate("valid"),
                                                                 style: TextStyle(
                                                                   color: Color(0XFFA27AFA),
                                                                   fontSize: 15.sp,
@@ -230,7 +234,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                               ) : (
                                                                   widget.orders[index].status! == "ready" ?
                                                                   Text(
-                                                                    "Pret",
+                                                                    AppLocalizations.of(context)! .translate("ready"),
                                                                     style: TextStyle(
                                                                       color: Color(0XFF68D389),
                                                                       fontSize: 15.sp,

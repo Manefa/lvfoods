@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/chose_restaurant/widgets/choose_restau_display.dart';
 
 import '../../../../constants.dart';
@@ -21,7 +22,7 @@ class _ChooseRestaurantState extends State<ChooseRestaurant> {
             children: [
               SizedBox(height:110.h ,),
               Text(
-                "Choose Your Restaurant",
+                AppLocalizations.of(context)!.translate("chooseYourRestaurant"),
                 style: TextStyle(
                   fontFamily: "Milliard",
                   fontSize: 26.sp,

@@ -84,7 +84,7 @@ class _DeliveryDetailDisplayState extends State<DeliveryDetailDisplay> {
                       Padding(
                         padding: const EdgeInsets.only(right: 35.0),
                         child: Text(
-                          widget.orders[index].total.toString()+" fcfa",
+                          widget.orders[index].total.toString()+" Fcfa",
                           style: TextStyle(
                             fontFamily: "Milliard",
                             fontSize: 15.sp,

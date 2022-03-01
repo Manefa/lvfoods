@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/bloc/deliveries.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/delivery.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery/widgets/in_progress/delivery_in_progress_display.dart';
 import 'package:ivfoods_mobile_app/ui/shimmer_widgets.dart';
 
@@ -38,7 +39,9 @@ class _DeliveryInProgressState extends State<DeliveryInProgress> {
               if(state is EmptyDeliveries){
                 return Container(
                   child: Center(
-                    child: Text("Aucune Livraisons"),
+                    child: Text(
+                        AppLocalizations.of(context)!.translate("noDelivery")
+                    ),
                   ),
                 );
               }
@@ -104,8 +107,8 @@ class _DeliveryInProgressState extends State<DeliveryInProgress> {
                                     fontFamily: "Milliard",
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
-                                    hintText: "Search delivery",
+                                    contentPadding: new EdgeInsets.only(bottom: 22.r),
+                                    hintText: AppLocalizations.of(context)!.translate("searchDeliveries"),
                                     border: InputBorder.none,
                                     prefixIcon: Icon(
                                       LvIcons.search_interface_symbol,
@@ -129,7 +132,9 @@ class _DeliveryInProgressState extends State<DeliveryInProgress> {
                                   onPressed: () {
                                     _deliveriesBloc.add(GetDeliveries());
                                   },
-                                  label: Text('Refresh', style: TextStyle(
+                                  label: Text(
+                                    AppLocalizations.of(context)!.translate("filter"),
+                                    style: TextStyle(
                                     fontSize: 15.sp,
                                     fontFamily: "Milliard",
                                     color: Color(0XFF68D389),

@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/entities/category.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/bloc/get_product_details.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/categorys.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery/widgets/sub_widgets/custom_tab_view_order.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/menu_restau_detail/widgets/infos_menu_display.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/menu_restau_detail/widgets/rating_menu_display.dart';
@@ -27,7 +28,7 @@ class RestauMenuDetailsDisplay extends StatefulWidget {
 class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
   GetProductDetailsBloc _getProductDetailsBloc = sl<GetProductDetailsBloc>();
 
-  List<String> data = ['Informations', 'Rating'];
+  List<String> data = [];
   int initPosition = 0;
 
   @override
@@ -48,6 +49,7 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    data = [AppLocalizations.of(context)!.translate("Information"), AppLocalizations.of(context)!.translate("rating"),];
     Future<void> _refresh() async {
       _getProductDetailsBloc.add(StartGetProductDetails(code: widget.code));
     }
@@ -166,18 +168,19 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                       ),
                                                       SizedBox(width: 7.w,),
                                                       //localisationName
-                                                      Text(
-                                                        widget.address+" - "+widget.name,
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        style: TextStyle(
-                                                          color:Color.fromRGBO(148, 148, 148,1),
-                                                          fontSize: 16.sp,
-                                                          fontFamily: "Milliard",
+                                                      SizedBox(
+                                                        width: 130.w,
+                                                        child: Text(
+                                                          widget.address+" - "+widget.name,
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          style: TextStyle(
+                                                            color:Color.fromRGBO(148, 148, 148,1),
+                                                            fontSize: 16.sp,
+                                                            fontFamily: "Milliard",
+                                                          ),
                                                         ),
-
                                                       ),
-
                                                     ],
                                                   ),
                                                   SizedBox(height: 12.h,),
@@ -242,7 +245,7 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                           ),
                                                           child: Center(
                                                             child: Text(
-                                                              'Available now',
+                                                              AppLocalizations.of(context)!.translate("enable"),
                                                               style: TextStyle(
                                                                   fontSize: 14.sp,
                                                                   fontFamily: "Milliard",
@@ -261,7 +264,7 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                                           ),
                                                           child: Center(
                                                             child: Text(
-                                                              "Unavailable",
+                                                              AppLocalizations.of(context)!.translate("disable"),
                                                               style: TextStyle(
                                                                   fontSize: 14.sp,
                                                                   fontFamily: "Milliard",
@@ -305,7 +308,6 @@ class _RestauMenuDetailsDisplayState extends State<RestauMenuDetailsDisplay> {
                                               tabBuilder: (context, index) => Tab(text: data[index]),
                                               pageBuilder: (context, index) => widgets[index],
                                               onPositionChange: (index){
-                                                print('current position: $index');
                                                 initPosition = index;
                                               },
                                               onScroll: (position) => print('$position'),

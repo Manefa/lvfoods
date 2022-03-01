@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/features/get_all_for_restaurant/domain/entities/order.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order_detail/widgets/order_detail/widgets/order_detail_in_progress.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order_detail/widgets/order_detail/widgets/order_detail_ready.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order_detail/widgets/order_detail/widgets/order_detail_recovered.dart';
@@ -20,7 +21,7 @@ class _OrderDetailState extends State<OrderDetail> {
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   //static List<Widget> _widgetOptions;
-  List<String> data = ['Pret', 'En cours','Récupérés'];
+  List<String> data = [];
   int initPosition = 0;
   bool commandTake = false;
   List<Order>? _orders;
@@ -53,7 +54,9 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   child: Align(
                     alignment: Alignment.center,
-                    child:  Text("Prêt",),
+                    child:  Text(
+                    AppLocalizations.of(context)!.translate("ready"),
+                    ),
                   ),
                 ),
               ),
@@ -66,7 +69,9 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   child: Align(
                     alignment: Alignment.center,
-                    child:  Text("En cours",),
+                    child:  Text(
+                        AppLocalizations.of(context)!.translate("inProgress"),
+                    ),
                   ),
                 ),
               ),
@@ -80,7 +85,9 @@ class _OrderDetailState extends State<OrderDetail> {
                   ),
                   child: Align(
                     alignment: Alignment.center,
-                    child:  Text("Récupérés",),
+                    child:  Text(
+                        AppLocalizations.of(context)!.translate("recovered")
+                    ),
                   ),
                 ),
               ),

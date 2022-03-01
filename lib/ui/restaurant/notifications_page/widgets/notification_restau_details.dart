@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 class NotificationModel{
   final String ? image;
   final String title;
@@ -28,7 +29,7 @@ class _NotificationRestauDetailsState extends State<NotificationRestauDetails> {
     return Scaffold(
       appBar: AppBar(
         title:  Text(
-          "Notifications",
+          AppLocalizations.of(context)!.translate("notifications"),
           style: TextStyle(
               color: Colors.black,
               fontFamily: "Milliard",

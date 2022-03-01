@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/get_all_for_restaurant/domain/entities/restaurant.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 
 class RestaurantDetail extends StatefulWidget {
   final Restaurant? restaurant;
@@ -61,11 +62,15 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                               color: Color(0XFF949494),
                             ),
                             SizedBox(width: 10.w,),
-                            Text(
-                              widget.restaurant!.address!,
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                color: Color(0XFF949494),
+                            SizedBox(
+                              width: 130.w,
+                              child: Text(
+                                widget.restaurant!.address!,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  color: Color(0XFF949494),
+                                ),
                               ),
                             )
                           ],
@@ -81,7 +86,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                             ),
                             SizedBox(width: 10.w,),
                             Text(
-                                "Open",
+                                AppLocalizations.of(context)!.translate("open"),
                               style: TextStyle(
                                 fontSize: 15.sp,
                                 color: Color(0XFF68D389),
@@ -98,7 +103,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                             ),
                             SizedBox(width: 10.w,),
                             Text(
-                              "Close",
+                              AppLocalizations.of(context)!.translate("close"),
                               style: TextStyle(
                                 fontSize: 15.sp,
                                 color: Color(0XFFBC2C3D),
@@ -115,7 +120,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                   children: <Widget>[
                     SizedBox(width: 35.w,),
                     Text(
-                      "Time of time",
+                        AppLocalizations.of(context)!.translate("openingTime"),
                       style: TextStyle(
                         fontSize: 15.sp,
                         fontFamily: "Milliard",
@@ -123,6 +128,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                       ),
                     ),
                     Expanded(child: SizedBox()),
+                    if(widget.restaurant!.hours!.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(top: 2.0),
                       child: Text(
@@ -143,7 +149,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                   children: <Widget>[
                     SizedBox(width: 35.w,),
                     Text(
-                      "Mail",
+                      AppLocalizations.of(context)!.translate("email"),
                       style: TextStyle(
                         fontSize: 15.sp,
                         fontFamily: "Milliard",
@@ -171,7 +177,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                   children: <Widget>[
                     SizedBox(width: 35.w,),
                     Text(
-                      "Phones",
+                        AppLocalizations.of(context)!.translate("phones"),
                       style: TextStyle(
                         fontSize: 15.sp,
                         fontFamily: "Milliard",
@@ -199,7 +205,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                   children: <Widget>[
                     SizedBox(width: 35.w,),
                     Text(
-                      "Address",
+                      AppLocalizations.of(context)!.translate("address"),
                       style: TextStyle(
                         fontSize: 15.sp,
                         fontFamily: "Milliard",
@@ -207,15 +213,18 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                       ),
                     ),
                     Expanded(child: SizedBox()),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2.0),
-                      child: Text(
-                        widget.restaurant!.address!,
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontFamily: "Milliard",
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.w300,
+                    SizedBox(
+                      width: 130.w,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 0.0),
+                        child: Text(
+                          widget.restaurant!.address!,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontFamily: "Milliard",
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.w300,
+                          ),
                         ),
                       ),
                     ),
@@ -233,7 +242,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                   children: [
                     SizedBox(width: 35.w,),
                     Text(
-                      "Desciption",
+                      AppLocalizations.of(context)!.translate("description"),
                       style: TextStyle(
                         fontFamily: "Milliard",
                         fontSize: 15.sp,
@@ -270,7 +279,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                       ),
                       child: Center(
                         child: Text(
-                          "TRACK THE RESTAURANT",
+                          AppLocalizations.of(context)!.translate("trackTheRestaurant"),
                           style: TextStyle(
                             fontFamily: "Milliard",
                             fontSize: 16.sp,
@@ -282,6 +291,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                     ),
                   ],
                 ),
+                SizedBox(height: 10.h,),
               ],
             ),
           ),

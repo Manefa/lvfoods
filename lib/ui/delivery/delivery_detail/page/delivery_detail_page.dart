@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,10 +6,11 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/get_one_for_deliver/bloc/get_one_for_deliver.dart';
 import 'package:ivfoods_mobile_app/features/get_one_for_deliver/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery_detail/widgets/customer/customer_detail.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery_detail/widgets/delivery_detail/delivery_detail.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order_detail/widgets/sub_widgets/custom_tab_view_order_detail.dart';
@@ -29,7 +28,7 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
   int i= 0;
   GetOneForDeliverBloc _getOneForDeliverBloc = sl<GetOneForDeliverBloc>();
 
-  List<String> data = ['Deliverys detail', 'Customer',];
+  List<String> data = [];
   int initPosition = 0;
 
   @override
@@ -42,7 +41,7 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
   @override
   Widget build(BuildContext context) {
     _getOneForDeliverBloc.add(EventGetOneForDeliver(code: widget.code));
-
+    data = [AppLocalizations.of(context)!.translate("deliveryDetail"), AppLocalizations.of(context)!.translate("customer")];
     return Scaffold(
       body: SafeArea(
         child: BlocProvider(
@@ -80,7 +79,6 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
                   value: (value) => getValues(list),
                 );
 
-                print(state.getOneForDeliver.delivery!.orderGroup!.user!);
 
                 return Container(
                       color: Colors.white,
@@ -114,16 +112,15 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
                                             color: Colors.black,
                                           ),
                                         ),
-                                        SizedBox(width: 105.w,),
+                                        SizedBox(width: 80.w,),
                                         Text(
-                                          "Deliverys Detail",
+                                          AppLocalizations.of(context)!.translate("orderDetail"),
                                           style: TextStyle(
                                             fontFamily: "Milliard",
                                             fontSize: 20.sp,
                                             fontWeight: FontWeight.w200,
                                           ),
                                         ),
-
                                       ],
                                     ),
                                     SizedBox(height: 20.h,),
@@ -148,7 +145,6 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
                                         children: [
                                           Row(
                                             children: [
-
                                               Icon(
                                                 Icons.location_on_outlined,
                                                 size: 16.sp,
@@ -166,7 +162,6 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
                                               ),
                                             ],
                                           ),
-
                                           Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
@@ -179,7 +174,7 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
                                               ),
                                               SizedBox(width: 10.w,),
                                               Text(
-                                                state.getOneForDeliver.delivery!.statusPayment == "paid" && state.getOneForDeliver.delivery!.orderGroup!.statusPayment == "paid" ? "Paid" : "Unpaid",
+                                                state.getOneForDeliver.delivery!.statusPayment == "paid" && state.getOneForDeliver.delivery!.orderGroup!.statusPayment == "paid" ? AppLocalizations.of(context)!.translate("paid") : AppLocalizations.of(context)!.translate("unPaid"),
                                                 style: TextStyle(
                                                   fontSize: 15.sp,
                                                   fontFamily: "Milliard",
@@ -239,7 +234,7 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
                                                   ),
                                                   SizedBox(width: 10.w,),
                                                   Text(
-                                                    "Ready",
+                                                    AppLocalizations.of(context)!.translate("ready"),
                                                     style: TextStyle(
                                                       fontSize: 15.sp,
                                                       fontFamily: "Milliard",
@@ -269,7 +264,7 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
                                                   ),
                                                   SizedBox(width: 10.w,),
                                                   Text(
-                                                    "Delivered",
+                                                    AppLocalizations.of(context)!.translate("delivered"),
                                                     style: TextStyle(
                                                       fontSize: 15.sp,
                                                       fontFamily: "Milliard",
@@ -299,7 +294,7 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
                                                   ),
                                                   SizedBox(width: 10.w,),
                                                   Text(
-                                                    "On The Way",
+                                                  AppLocalizations.of(context)!.translate("onTheWay"),
                                                     style: TextStyle(
                                                       fontSize: 15.sp,
                                                       fontFamily: "Milliard",
@@ -357,7 +352,6 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
                                 tabBuilder: (context, index) => Tab(text: data[index]),
                                 pageBuilder: (context, index) => widget[index],
                                 onPositionChange: (index){
-                                  print('current position: $index');
                                   initPosition = index;
                                 },
                                 onScroll: (position) => print('$position'),
@@ -380,7 +374,9 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
 
               return Container(
                 child: Center(
-                  child: Text("Aucun Cas!"),
+                  child: Text(
+                    AppLocalizations.of(context)!.translate("noCase")
+                  ),
                 ),
               );
             },
@@ -399,12 +395,6 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
     String value = "";
     int i = 0;
     values.forEach((element) {
-      // if(i == 0){
-      //   value= value+"$element";
-      // }else{
-      //   value= value+", "+"$element";
-      // }
-      // i++;
       value = element;
     });
     return value;

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:ivfoods_mobile_app/bloc_localization/locale.dart';
 import 'package:ivfoods_mobile_app/core/platform/network_info.dart';
 import 'package:ivfoods_mobile_app/features/auth/blocs/auth/auth.dart';
 import 'package:ivfoods_mobile_app/features/auth/blocs/sign_in/Sign_in.dart';
@@ -1061,6 +1062,14 @@ Future<void> init() async {
 
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+
+
+  //! Features - Localization
+  //Bloc
+
+  sl.registerFactory<LocaleBloc>(
+        () => LocaleBloc(),
+  );
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();

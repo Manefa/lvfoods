@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/get_user/bloc/get_user.dart';
 import 'package:ivfoods_mobile_app/features/get_user/domain/entities/phone.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/bloc/get_all_for_owner_restaurant.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBarRestaurant extends StatefulWidget {
@@ -62,7 +63,6 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
           BlocListener<GetAllForOwnerRestaurantBloc, GetAllForOwnerRestaurantState>(
             listener: (context, state) {
               if(state is GetAllForOwnerRestaurantLoaded){
-                print("ffffffffffffffffffffffffffffffffffffffffffff");
                 order = state.getAllForOwnerRestaurant.orders!.length.toString();
                 print(order.toString());
               }
@@ -141,7 +141,6 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16.h,),
                   //Welcome Back
                   Align(
                     alignment: Alignment.topCenter,
@@ -151,7 +150,7 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Welcome back,",
+                          AppLocalizations.of(context)!.translate("welcomeBack"),
                           style: TextStyle(
                               fontSize: 30.sp,
                               fontFamily: "Milliard",
@@ -194,7 +193,7 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              "Order Total",
+                              AppLocalizations.of(context)!.translate("orderTotal"),
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontFamily: "Milliard",
@@ -219,12 +218,15 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
                                     ),
                                     SizedBox(width: 6.w,),
                                     //Deliver Person
-                                    Text(
-                                      "Restaurateur Person",
-                                      style: TextStyle(
-                                        fontFamily: "Milliard",
-                                        fontSize: 18.sp,
-                                        color: Color(0XFFFFCBCB),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        AppLocalizations.of(context)!.translate("restorer"),
+                                        style: TextStyle(
+                                          fontFamily: "Milliard",
+                                          fontSize: 18.sp,
+                                          color: Color(0XFFFFCBCB),
+                                        ),
                                       ),
                                     )
                                   ],

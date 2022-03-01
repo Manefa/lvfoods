@@ -3,9 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/deliveries_master.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/order.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery_detail/page/delivery_detail_page.dart';
 
 class DeliveryDisplay extends StatefulWidget {
@@ -125,13 +126,13 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                               SizedBox(width: 5.w,),
                                 widget.deliveries!.deliveries![index].statusPayment == "paid" && widget.deliveries!.deliveries![index].orderGroup!.statusPayment == "paid" ?
                               Text(
-                                "Paid",
+                                AppLocalizations.of(context)!.translate("paid"),
                                 style: TextStyle(
                                   color: Color(0XFF4784EE),
                                   fontSize: 15.sp,
                                 ),
                               ) : Text(
-                                "Unpaid",
+                                  AppLocalizations.of(context)!.translate("unPaid"),
                                 style: TextStyle(
                                   color: Color(0XFFBC2C3D),
                                   fontSize: 15.sp,
@@ -172,7 +173,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                   ),
                                   SizedBox(width: 5.w,),
                                   Text(
-                                    widget.deliveries!.deliveries![index].status!,
+                                    AppLocalizations.of(context)!.translate("ready"),
                                     style: TextStyle(
                                         color: Color(0XFFA27AFA),
                                         fontSize: 15.sp,
@@ -200,7 +201,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                     ),
                                     SizedBox(width: 5.w,),
                                     Text(
-                                      widget.deliveries!.deliveries![index].status!,
+                                      AppLocalizations.of(context)!.translate("delivered"),
                                       style: TextStyle(
                                           color: Color(0XFF68D389),
                                           fontSize: 15.sp,
@@ -228,7 +229,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                     ),
                                     SizedBox(width: 5.w,),
                                     Text(
-                                      "On the way",
+                                      AppLocalizations.of(context)!.translate("onTheWay"),
                                       style: TextStyle(
                                           color: Color(0XFFFBB634),
                                           fontSize: 15.sp,

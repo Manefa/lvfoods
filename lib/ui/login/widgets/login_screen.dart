@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +6,7 @@ import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/features/auth/blocs/sign_in/Sign_in.dart';
 import 'package:ivfoods_mobile_app/features/auth/domain/entities/sign_in_user.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/size_config.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Connection...",
+                              AppLocalizations.of(context)!.translate("connectionProgress"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 color: Colors.white,
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       duration: const Duration(seconds: 1),
                       content: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text("Connecter", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.check, color: Colors.white,)],
+                        children: [Text(AppLocalizations.of(context)!.translate("connect"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.check, color: Colors.white,)],
                       ),
                       backgroundColor: kPrimaryColor,
                     ),
@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: getProportionateScreenHeight(20),
                             ),
                             Text(
-                              "WELCOME BACK",
+                              AppLocalizations.of(context)!.translate("welcomeBack"),
                               style: TextStyle(
                                 fontSize: fontSize(size: 40),
                                 fontWeight: FontWeight.w500,
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             SizedBox(height: getProportionateScreenHeight(20),),
                             Text(
-                              "Sign in to continue",
+                              AppLocalizations.of(context)!.translate("signInToContinue"),
                               style: TextStyle(
                                 fontSize: fontSize(size: 18),
                                 fontFamily: "Milliard",
@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
                                   ),
                                   focusColor: Color(0XFFB8B8B8),
-                                  hintText: "Username",
+                                  hintText: AppLocalizations.of(context)!.translate("userName"),
                                   hintStyle: TextStyle(
                                     color: Color(0XFFB8B8B8),
                                     fontSize: fontSize(size: 16),
@@ -181,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
                                   ),
                                   focusColor: Color(0XFFB8B8B8),
-                                  hintText: "Password",
+                                  hintText: AppLocalizations.of(context)!.translate("password"),
                                   hintStyle: TextStyle(
                                     color: Color(0XFFB8B8B8),
                                     fontSize: fontSize(size: 16),
@@ -200,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Container(
                                   margin: EdgeInsets.only(left: 30),
                                   child: Text(
-                                    "Forgot password ?",
+                                    AppLocalizations.of(context)!.translate("passwordForget"),
                                     style: TextStyle(
                                       color: kPrimaryColor,
                                       fontFamily: "Milliard",
@@ -236,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "SIGN IN",
+                                    AppLocalizations.of(context)!.translate("signIn"),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: "Milliard",
@@ -248,33 +248,35 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             SizedBox(height: getProportionateScreenHeight(30),),
-                            RichText(
-                              text: TextSpan(
-                                text: 'By logging in you agree to LV Food ',
-                                style: TextStyle(
-                                  fontFamily: "Milliard",
-                                  fontSize: fontSize(size: 14),
-                                  color: Colors.black,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: RichText(
+                                text: TextSpan(
+                                  text: AppLocalizations.of(context)!.translate("contraTermsOne")+" ",
+                                  style: TextStyle(
+                                    fontFamily: "Milliard",
+                                    fontSize: fontSize(size: 14),
+                                    color: Colors.black,
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(text: AppLocalizations.of(context)!.translate("contraTermsTwo"), style: TextStyle(fontFamily: "Milliard", fontSize: 14, color: kPrimaryColor),),
+                                    TextSpan(text: ',', style: TextStyle(fontFamily: "Milliard", fontSize: 14,),),
+                                  ],
                                 ),
-                                children: const <TextSpan>[
-                                  TextSpan(text: 'Terms and Services', style: TextStyle(fontFamily: "Milliard", fontSize: 14, color: kPrimaryColor),),
-                                  TextSpan(text: ',', style: TextStyle(fontFamily: "Milliard", fontSize: 14,),),
-                                ],
                               ),
                             ),
                             RichText(
                               text: TextSpan(
-                                text: 'Privacy',
+                                text: '',
                                 style: TextStyle(
                                   fontFamily: "Milliard",
                                   fontSize: fontSize(size: 14),
                                   color: kPrimaryColor,
                                   fontWeight: FontWeight.w100,
                                 ),
-                                children: const <TextSpan>[
-                                  TextSpan(text: ',', style: TextStyle(fontFamily: "Milliard", fontSize: 14, color: Colors.black),),
-                                  TextSpan(text: ' and', style: TextStyle(fontFamily: "Milliard", fontSize: 14, color: Colors.black),),
-                                  TextSpan(text: ' content policy', style: TextStyle(fontFamily: "Milliard", fontSize: 14, color: kPrimaryColor),),
+                                children: <TextSpan>[
+                                  TextSpan(text: AppLocalizations.of(context)!.translate("contractTermsThree")+" ", style: TextStyle(fontFamily: "Milliard", fontSize: 14, color: Colors.black),),
+                                  TextSpan(text: AppLocalizations.of(context)!.translate("contractTermsFour"), style: TextStyle(fontFamily: "Milliard", fontSize: 14, color: kPrimaryColor),),
                                 ],
                               ),
                             ),

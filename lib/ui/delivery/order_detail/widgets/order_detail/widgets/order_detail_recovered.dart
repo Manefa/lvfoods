@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/deposited/bloc/deposited.dart';
 import 'package:ivfoods_mobile_app/features/get_all_for_restaurant/bloc/get_all_for_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/get_all_for_restaurant/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/shimmer_widgets.dart';
 
 class OrderDetailRecovered extends StatefulWidget {
@@ -41,7 +42,6 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
 
   @override
   Widget build(BuildContext context) {
-    print('ListViewOrderRecovered rebuilt');
     _getAllForRestaurantBloc.add(GetGetAllForRestaurantEvent(restaurantName: widget.name));
     return MultiBlocProvider(
       providers: [
@@ -69,7 +69,7 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
                 return Container(
                   child: Center(
                     child: Text(
-                        "Empty !"
+                      AppLocalizations.of(context)!.translate("empty"),
                     ),
                   ),
                 );
@@ -190,7 +190,7 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
                                                         ),
                                                         SizedBox(width: 5.w,),
                                                         Text(
-                                                          "recuperate",
+                                                          AppLocalizations.of(context)!.translate("recovered"),
                                                           style: TextStyle(
                                                             color: Color(0XFFA27AFA),
                                                             fontSize: 15.sp,
@@ -203,7 +203,7 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
                                                 ),
                                                 SizedBox(height: 6.h,),
                                                 Text(
-                                                  ordersIsDepositedReal[index].item!.price.toString()+"fcfa",
+                                                  ordersIsDepositedReal[index].item!.price.toString()+" Fcfa",
                                                   style: TextStyle(
                                                     color:  Color.fromRGBO(148, 148, 148, 1),
                                                     fontFamily: "Milliard",
@@ -235,7 +235,7 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
                                               ),
                                               child: Center(
                                                 child:Text(
-                                                  "Déposer ",
+                                                  AppLocalizations.of(context)!.translate("deposit"),
                                                   style: TextStyle(
                                                     color:  Color.fromRGBO(148, 148, 148, 1),
                                                     fontFamily: "Milliard",
@@ -293,7 +293,7 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
                                       )
                                   ),
                                   child:Text(
-                                    "Déposer toutes les commandes",
+                                    AppLocalizations.of(context)!.translate("removeAllControls"),
                                     style: TextStyle(
                                       color:  Colors.white,
                                       fontFamily: "Milliard",
@@ -314,7 +314,7 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
                 return Container(
                   child: Center(
                     child: Text(
-                        "Error !"
+                      AppLocalizations.of(context)!.translate("err"),
                     ),
                   ),
                 );
@@ -322,7 +322,7 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
               return Container(
                 child: Center(
                   child: Text(
-                    "Aucun cas de build !"
+                    AppLocalizations.of(context)!.translate("noCasesOfBuild"),
                   ),
                 ),
               );
@@ -343,10 +343,7 @@ class _ListViewRecoveredState extends State<ListViewRecovered> {
       title: ShimmerWidget.rectangular(
         height: 65.h,
         width: 200.w,
-
       ),
-
-
     );
   }
 }

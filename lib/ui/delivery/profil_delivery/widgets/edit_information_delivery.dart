@@ -7,12 +7,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
-import 'package:ivfoods_mobile_app/core/platform/alert_dialog/alert_dialog_update_user.dart';
 import 'package:ivfoods_mobile_app/features/get_user/bloc/get_user.dart';
-import 'package:ivfoods_mobile_app/features/get_user/domain/entities/phone.dart';
 import 'package:ivfoods_mobile_app/features/update_users/bloc/update_user.dart';
 import 'package:ivfoods_mobile_app/features/update_users/domain/entities/user_for_update.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class UserModel{
   final String name;
@@ -84,7 +83,7 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "En cours...",
+                              AppLocalizations.of(context)!.translate("wait"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 color: Colors.white,
@@ -114,7 +113,9 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                       SnackBar(
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("Mise a jour effectuer", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.check, color: Colors.white,)],
+                          children: [Text(
+                            AppLocalizations.of(context)!.translate("updatePerformed"),
+                            style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.check, color: Colors.white,)],
                         ),
                         backgroundColor: kPrimaryColor,
                       ),
@@ -128,7 +129,7 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                       SnackBar(
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text(state.message + "La mise a jour a Echouer", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                          children: [Text(state.message + AppLocalizations.of(context)!.translate("theUpdateHasFailed"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                         ),
                         backgroundColor: kPrimaryColor,
                       ),
@@ -210,7 +211,8 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
 
                               ),
                               SizedBox(width: 10.w,),
-                              Text("Change Avatar",
+                              Text(
+                                AppLocalizations.of(context)!.translate("changeAvatar"),
                                 style: TextStyle(
                                   fontFamily: "Milliard",
                                   fontSize: 16.sp,
@@ -228,7 +230,7 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                             _updateUserBloc.add(UpdateUser(userForUpdate: userForUpdate));
                           }else{
                             Fluttertoast.showToast(
-                              msg: "Remplissez tout les champs",
+                              msg: AppLocalizations.of(context)!.translate("fillInAllFields"),
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 2,
@@ -241,7 +243,7 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                           if(_image == null){
                             if(fullNameInput.text.isEmpty || emailAddressInput.text.isEmpty){
                               Fluttertoast.showToast(
-                                msg: "Remplissez tout les champs",
+                                msg: AppLocalizations.of(context)!.translate("fillInAllFields"),
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.BOTTOM,
                                 timeInSecForIosWeb: 2,
@@ -255,7 +257,8 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                             }
                           }
                         },
-                        child: Text("Save",
+                        child: Text(
+                          AppLocalizations.of(context)!.translate("save"),
                           style: TextStyle(
                             fontFamily: "Milliard",
                             fontSize: 20.sp,
@@ -277,7 +280,8 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                         //Full Name
                         Align(
                           alignment: Alignment.centerLeft,
-                          child:   Text("Full Name",
+                          child:   Text(
+                            AppLocalizations.of(context)!.translate("fullName"),
                             style: TextStyle(
                               fontFamily: "Milliard",
                               fontSize: 16.sp,
@@ -291,7 +295,8 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                         //Email Adress
                         Align(
                           alignment: Alignment.centerLeft,
-                          child:   Text("Email Address",
+                          child:   Text(
+                            AppLocalizations.of(context)!.translate("email"),
                             style: TextStyle(
                               fontFamily: "Milliard",
                               fontSize: 16.sp,
@@ -305,7 +310,8 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                         //PhoneNumber
                         Align(
                           alignment: Alignment.centerLeft,
-                          child:   Text("User Name",
+                          child:   Text(
+                            AppLocalizations.of(context)!.translate("userName"),
                             style: TextStyle(
                               fontFamily: "Milliard",
                               fontSize: 16.sp,

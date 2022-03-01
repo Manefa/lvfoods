@@ -8,6 +8,7 @@ import 'package:ivfoods_mobile_app/core/platform/alert_dialog/country_code_picke
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_phone/bloc/add_phone.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_phone/domain/entities/for_add_phone.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AlerDialogueAddPhoneDisplay extends StatefulWidget {
@@ -25,13 +26,10 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
   TextEditingController closeMinuteController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
-  String start = "Select Day";
   String? nameRestaurant;
   String? code = "+237";
   @override
   Widget build(BuildContext context) {
-    String ? valueChoose;
-    List dayList = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
 
     nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     return BlocProvider<AddPhoneBloc>(
@@ -49,7 +47,7 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "En cours...",
+                        AppLocalizations.of(context)!.translate("inProgressBloc"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                           color: Colors.white,
@@ -80,7 +78,7 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text(state.message + "Echec de l'ajout", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                    children: [Text(state.message + AppLocalizations.of(context)!.translate("failureToAdd"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                   ),
                   backgroundColor: kPrimaryColor,
                 ),
@@ -111,7 +109,7 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Add another phone",
+                          AppLocalizations.of(context)!.translate("addAnotherPhone"),
                           style: TextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w400,
@@ -129,7 +127,6 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
                             size: 20.sp,
                           ),
                         )
-
                       ],
                     ),
                   ),
@@ -139,7 +136,7 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
                     children: <Widget>[
                       SizedBox(width: 18.w,),
                       Text(
-                          "Phones",
+                        AppLocalizations.of(context)!.translate("phone"),
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
@@ -172,7 +169,7 @@ class _AlerDialogueAddPhoneDisplayState extends State<AlerDialogueAddPhoneDispla
                       ),
                       child: Center(
                         child: Text(
-                          "Add phone",
+                          AppLocalizations.of(context)!.translate("addPhone"),
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: "Milliard",
