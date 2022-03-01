@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/bloc/get_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/domain/entities/product.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/infos/infos_restaurant.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/menu_restaurant.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/orders/orders_restaurants.dart';
@@ -25,7 +26,7 @@ class RestaurantResto extends StatefulWidget {
 
 class _RestaurantRestoState extends State<RestaurantResto> {
   GetRestaurantBloc _getRestaurantBloc = sl<GetRestaurantBloc>();
-  List<String> data = ['Menu', 'Orders', 'Infos', 'Time'];
+  List<String> data = [];
   int initPosition = 0;
   String? nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
   String? addressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
@@ -38,6 +39,7 @@ class _RestaurantRestoState extends State<RestaurantResto> {
 
   @override
   Widget build(BuildContext context) {
+    data = [AppLocalizations.of(context)!.translate("menu"), AppLocalizations.of(context)!.translate("order"), AppLocalizations.of(context)!.translate("Information"), AppLocalizations.of(context)!.translate("times"),];
     List<Widget> widget = [MenuRestaurant(), OrdersRestaurant(), InfosRestaurant(name: nameRestaurant!,), TimesRestaurant()];
     double width = MediaQuery.of(context).size.width;
     var size = MediaQuery.of(context).size;
@@ -117,150 +119,149 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                                 ),
                                               ),
                                               SizedBox(width: 17.w,),
-                                              Container(
-                                                width: 248.w,
-                                                child: Column(
-                                                  children: [
-                                                    //RestauName
-                                                    Container(
-                                                      height: 24.h,
-                                                      width: 245.w,
-                                                      child: Text(
-                                                        state.getRestaurant.restaurant!.name!,
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        style: TextStyle(
-                                                            fontSize: 18.sp,
-                                                            fontFamily: "Milliard",
-                                                            fontWeight: FontWeight.w500
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    //Localisation
-                                                    SizedBox(height: 3.h,),
-                                                    Container(
-                                                      height: 19.h,
-                                                      width: 245.w,
-                                                      child: Row(
-                                                        children: [
-                                                          Icon(
-                                                            LvIcons.pin,
-                                                            size: 14.sp,
-                                                            color:Color.fromRGBO(148, 148, 148,1),
-                                                          ),
-                                                          SizedBox(width: 7.w,),
-                                                          //localisationName
-                                                          Container(
-                                                            width: 220.w,
-                                                            child: Text(
-                                                              state.getRestaurant.restaurant!.address!,
-                                                              maxLines: 1,
-                                                              overflow: TextOverflow.ellipsis,
-                                                              style: TextStyle(
-                                                                color:Color.fromRGBO(148, 148, 148,1),
-                                                                fontSize: 14.sp,
+                                              Expanded(
+                                                  child: Container(
+                                                    child: Column(
+                                                      children: [
+                                                        //RestauName
+                                                        Container(
+                                                          height: 24.h,
+                                                          width: 245.w,
+                                                          child: Text(
+                                                            state.getRestaurant.restaurant!.name!,
+                                                            maxLines: 1,
+                                                            overflow: TextOverflow.ellipsis,
+                                                            style: TextStyle(
+                                                                fontSize: 20.sp,
                                                                 fontFamily: "Milliard",
-                                                              ),
-
+                                                                fontWeight: FontWeight.w500
                                                             ),
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    //OtherInfos
-                                                    SizedBox(height: 4.h,),
-                                                    Container(
-                                                      height: 23.h,
-                                                      width: 249.w,
-                                                      child: IntrinsicHeight(
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                          children: [
-                                                            //First Info
-                                                            Container(
-                                                              child: Row(
-                                                                children: [
-                                                                  //Note
-                                                                  Icon(
-                                                                    LvIconsResto.star,
-                                                                    color:Color.fromRGBO(251, 182, 52, 1),
-                                                                    size: 14.sp,
-                                                                  ),
-                                                                  SizedBox(width: 4.w,),
-                                                                  Text(
-                                                                    state.getRestaurant.restaurant!.note!.toStringAsFixed(1),
-                                                                    style: TextStyle(
-                                                                      fontSize: 14.sp,
-                                                                      fontFamily: "Milliard",
-                                                                      fontWeight: FontWeight.w200,
-                                                                    ),
-                                                                  ),
-                                                                  //VerticaleDevider
-                                                                  VerticalDivider(),
-                                                                  //ProductNumber
-                                                                  Icon(
-                                                                    LvIconsResto.product,
-                                                                    size: 14.sp,
-                                                                    color: Color.fromRGBO(70, 128, 232,1),
-                                                                  ),
-                                                                  SizedBox(width: 5.8.w,),
-                                                                  Text(
-                                                                    " "+getProductQtt(state.getRestaurant.restaurant!.products)+" Products",
-                                                                    style: TextStyle(
-                                                                        fontSize: 14.sp,
-                                                                        fontFamily: "Milliard",
-                                                                        color:Color.fromRGBO(148, 148, 148, 1)
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            //Statut
-                                                            state.getRestaurant.restaurant!.status == "enable" ?Container(
-                                                              width: 56.w,
-                                                              height: 23.h,
-                                                              decoration: BoxDecoration(
-                                                                  color: Color.fromRGBO(222, 249, 231, 1),
-                                                                  borderRadius: BorderRadius.circular(5.r)
-                                                              ),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  "Ouvert",
-                                                                  style: TextStyle(
-                                                                      fontSize: 12.sp,
-                                                                      fontFamily: "Milliard",
-                                                                      fontWeight: FontWeight.w300,
-                                                                      color:Color.fromRGBO(104, 211, 137, 1)
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ):Container(
-                                                              width: 56.w,
-                                                              height: 23.h,
-                                                              decoration: BoxDecoration(
-                                                                  color: Color(0XFFE6BABF),
-                                                                  borderRadius: BorderRadius.circular(5.r)
-                                                              ),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  "Fermer",
-                                                                  style: TextStyle(
-                                                                      fontSize: 12.sp,
-                                                                      fontFamily: "Milliard",
-                                                                      fontWeight: FontWeight.w300,
-                                                                      color: Color(0XFFBC2C3D)
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
                                                         ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              )
+                                                        //Localisation
+                                                        SizedBox(height: 3.h,),
+                                                        Container(
+                                                          height: 19.h,
+                                                          width: 245.w,
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(
+                                                                LvIcons.pin,
+                                                                size: 16.sp,
+                                                                color:Color.fromRGBO(148, 148, 148,1),
+                                                              ),
+                                                              SizedBox(width: 7.w,),
+                                                              //localisationName
+                                                              SizedBox(
+                                                                width: 130.w,
+                                                                child: Text(
+                                                                  state.getRestaurant.restaurant!.address!,
+                                                                  maxLines: 1,
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  style: TextStyle(
+                                                                    color:Color.fromRGBO(148, 148, 148,1),
+                                                                    fontSize: 16.sp,
+                                                                    fontFamily: "Milliard",
+                                                                  ),
+
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        //OtherInfos
+                                                        SizedBox(height: 4.h,),
+                                                        Container(
+                                                          height: 23.h,
+                                                          width: 249.w,
+                                                          child: IntrinsicHeight(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: [
+                                                                //First Info
+                                                                Container(
+                                                                  child: Row(
+                                                                    children: [
+                                                                      //Note
+                                                                      Icon(
+                                                                        LvIconsResto.star,
+                                                                        color:Color.fromRGBO(251, 182, 52, 1),
+                                                                        size: 18.sp,
+                                                                      ),
+                                                                      SizedBox(width: 4.w,),
+                                                                      Text(
+                                                                        state.getRestaurant.restaurant!.note!.toStringAsFixed(1),
+                                                                        style: TextStyle(
+                                                                          fontSize: 18.sp,
+                                                                          fontFamily: "Milliard",
+                                                                          fontWeight: FontWeight.w200,
+                                                                        ),
+                                                                      ),
+                                                                      //VerticaleDevider
+                                                                      VerticalDivider(),
+                                                                      //ProductNumber
+                                                                      Icon(
+                                                                        LvIconsResto.product,
+                                                                        size: 18.sp,
+                                                                        color: Color.fromRGBO(70, 128, 232,1),
+                                                                      ),
+                                                                      SizedBox(width: 5.8.w,),
+                                                                      Text(
+                                                                        " "+getProductQtt(state.getRestaurant.restaurant!.products)+" "+AppLocalizations.of(context)!.translate("product"),
+                                                                        style: TextStyle(
+                                                                            fontSize: 18.sp,
+                                                                            fontFamily: "Milliard",
+                                                                            color:Color.fromRGBO(148, 148, 148, 1)
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                //Statut
+                                                                state.getRestaurant.restaurant!.status == "enable" ?Container(
+                                                                  width: 56.w,
+                                                                  height: 23.h,
+                                                                  decoration: BoxDecoration(
+                                                                      color: Color.fromRGBO(222, 249, 231, 1),
+                                                                      borderRadius: BorderRadius.circular(5.r)
+                                                                  ),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      AppLocalizations.of(context)!.translate("open"),
+                                                                      style: TextStyle(
+                                                                          fontSize: 16.sp,
+                                                                          fontFamily: "Milliard",
+                                                                          fontWeight: FontWeight.w300,
+                                                                          color:Color.fromRGBO(104, 211, 137, 1)
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ):Container(
+                                                                  width: 56.w,
+                                                                  height: 23.h,
+                                                                  decoration: BoxDecoration(
+                                                                      color: Color(0XFFE6BABF),
+                                                                      borderRadius: BorderRadius.circular(5.r)
+                                                                  ),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      AppLocalizations.of(context)!.translate("close"),
+                                                                      style: TextStyle(
+                                                                          fontSize: 16.sp,
+                                                                          fontFamily: "Milliard",
+                                                                          fontWeight: FontWeight.w300,
+                                                                          color: Color(0XFFBC2C3D)
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ))
                                             ],
                                           ),
                                         ),
@@ -272,7 +273,6 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                           tabBuilder: (context, index) => Tab(text: data[index]),
                                           pageBuilder: (context, index) => widget[index],
                                           onPositionChange: (index){
-                                            print('current position: $index');
                                             initPosition = index;
                                           },
                                           onScroll: (position) => print('$position'),
@@ -288,75 +288,18 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                     ),
                   );
                 }
-                //No Connexion
+
                 if(state is GetRestaurantError){
                   return Container(
-                    height: MediaQuery.of(context).size.height,
-                    color: Colors.white,
+                    height: 130.w,
+                    width: 130,
                     child: Center(
-                      child: Column(
-                       children: [
-                         //Pas de connexion
-                         SizedBox(height: 100.h,),
-                         Text(
-                           "PAS DE CONNEXION !!!",
-                           style: TextStyle(
-                               fontSize: 19.sp,
-                               fontFamily: "Milliard",
-                               fontWeight: FontWeight.w600,
-                               color:Color.fromRGBO(188, 44, 61, 1)
-                           ),
-                         ),
-                         //Image
-                         SizedBox(height: 80.h,),
-                         Container(
-                           height: 366.h,
-                           width: 324.w,
-                           decoration: BoxDecoration(
-                               image: DecorationImage(
-                                   image: AssetImage("images/noconnection.png"),
-                                   fit: BoxFit.contain
-                               )
-                           ),
-                         ),
-                         SizedBox(height: 30.h,),
-                         Text(
-                           "Veuillez reactualiser s'il vous plaît",
-                           style: TextStyle(
-                               fontSize: 16.sp,
-                               fontFamily: "Milliard",
-                               color:Color.fromRGBO(148, 148, 148, 1)
-                           ),
-                         ),
-                         SizedBox(height: 82.h,),
-                         //Actualiser 
-                         InkWell(
-                           onTap:(){
-                             setState(() {
-                               _refresh();
-                             });
-                           },
-                           child: Container(
-                             height: 45.h,
-                             width: 342.w,
-                             decoration: BoxDecoration(
-                               color:Color.fromRGBO(188, 44, 61, 1),
-                               borderRadius: BorderRadius.circular(10.r)
-                             ),
-                             child:Center(
-                               child: Text(
-                                 "Actualiser".toUpperCase(),
-                                 style: TextStyle(
-                                     fontSize: 14.sp,
-                                     fontFamily: "Milliard",
-                                     fontWeight: FontWeight.w300,
-                                      color: Colors.white
-                                 ),
-                               ),
-                             ) ,
-                           ),
-                         )
-                       ],
+                      child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("images/error1.png"),
+                            )
+                        ),
                       ),
                     ),
                   );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/notifications_page/widgets/notification_restau_details.dart';
 class NotificationModel{
   final String ? image;
@@ -48,7 +49,7 @@ class _NotificationRestauDisplayState extends State<NotificationRestauDisplay> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "New",
+                  AppLocalizations.of(context)!.translate("new"),
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Milliard",
@@ -213,8 +214,6 @@ class _NotificationRestauDisplayState extends State<NotificationRestauDisplay> {
               }
           ),
           SizedBox(height: 16,),
-
-
           //Promotion Notification
           //Title
           Center(
@@ -223,7 +222,7 @@ class _NotificationRestauDisplayState extends State<NotificationRestauDisplay> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Promotion",
+                  AppLocalizations.of(context)!.translate("promo"),
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: "Milliard",

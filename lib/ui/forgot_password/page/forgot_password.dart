@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/size_config.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -19,19 +21,25 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             width: size.width,
             height: size.height,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SizedBox(height: getProportionateScreenHeight(35),),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(width: getProportionateScreenWidth(35),),
-                    Icon(
-                      Icons.arrow_back_ios_rounded,
-                      size: fontSize(size: 20),
+                    InkWell(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios_rounded,
+                        size: fontSize(size: 20),
+                      ),
                     ),
-                    SizedBox(width: getProportionateScreenWidth(98),),
+                    SizedBox(width: getProportionateScreenWidth(85),),
                     Text(
-                      "Forgot Password",
+                      AppLocalizations.of(context)!.translate("passwordForgot"),
                       style: TextStyle(
                         fontFamily: "Milliard",
                         fontSize: fontSize(size: 20),
@@ -54,7 +62,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 ),
                 SizedBox(height: getProportionateScreenHeight(30),),
                 Text(
-                  "Forgot password ?",
+                  AppLocalizations.of(context)!.translate("passwordForget"),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: fontSize(size: 25),
@@ -62,21 +70,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ),
                 ),
                 SizedBox(height: getProportionateScreenHeight(28),),
-                Text(
-                  "Lorem ipsum boot camps have its supporters and ",
-                  style: TextStyle(
-                    fontFamily: "Milliard",
-                    fontSize: fontSize(size: 16),
-                    color: Color(0XFF949494),
-                  ),
-                ),
-                SizedBox(height: getProportionateScreenHeight(3),),
-                Text(
-                  "its detractors. Some people do not understand.",
-                  style: TextStyle(
-                    fontFamily: "Milliard",
-                    fontSize: fontSize(size: 16),
-                    color: Color(0XFF949494),
+                Center(
+                  child: Text(
+                    AppLocalizations.of(context)!.translate("passwordForgotText"),
+                    style: TextStyle(
+                      fontFamily: "Milliard",
+                      fontSize: fontSize(size: 16),
+                      color: Color(0XFF949494),
+                    ),
                   ),
                 ),
                 SizedBox(height: getProportionateScreenHeight(96),),
@@ -84,7 +85,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   width: getProportionateScreenWidth(344),
                   child: TextFormField(
                     textAlignVertical: TextAlignVertical.center,
-                    obscureText: true,
                     style: TextStyle(
                       color: Color(0XFFB8B8B8),
                       fontSize: fontSize(size: 16),
@@ -103,7 +103,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
                       ),
                       focusColor: Color(0XFFB8B8B8),
-                      hintText: "Enter your email address",
+                      hintText: AppLocalizations.of(context)!.translate("enterEmail"),
                       hintStyle: TextStyle(
                         color: Color(0XFFB8B8B8),
                         fontSize: fontSize(size: 16),
@@ -128,14 +128,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           )
                         ]
                     ),
-                    child: Center(
-                      child: Text(
-                        "SEND",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Milliard",
-                          fontSize: fontSize(size: 16),
-                          fontWeight: FontWeight.w400,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 92.h),
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.translate("send"),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Milliard",
+                            fontSize: fontSize(size: 16),
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),

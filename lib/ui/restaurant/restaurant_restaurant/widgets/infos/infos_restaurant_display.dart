@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/bloc/get_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/domain/entities/styles.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/bloc/get_styles.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/infos/sub_widgets/alert_dialogue_add_phone.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/infos/sub_widgets/phones_display.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/edit_restau/edit_restau.dart';
@@ -106,7 +107,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: Container(
-                                width: 100.w,
+                                width: 87.w,
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                       color: Colors.grey,
@@ -131,16 +132,16 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                       Icon(
                                         LvIconsResto.edit,
                                         color: Color.fromRGBO(148, 148, 148,1),
-                                        size: 10.sp,
+                                        size: 12.sp,
                                       ),
                                       SizedBox(width: 5.7.w,),
                                       Text(
-                                          "Edit Infos",
+                                          AppLocalizations.of(context)!.translate("editInfos"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Color.fromRGBO(148, 148, 148, 1),
                                             fontFamily: "Milliard",
-                                            fontSize: 13.sp,
+                                            fontSize: 15.sp,
                                           )
                                       ),
                                     ],
@@ -160,10 +161,10 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.start,
+                            crossAxisAlignment:CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "Nom restaurant",
+                                AppLocalizations.of(context)!.translate("nameOfRestaurant"),
                                 style: TextStyle(
                                     color: Color.fromRGBO(148, 148, 148, 1),
                                     fontFamily: "Milliard",
@@ -177,7 +178,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     state.getRestaurant.restaurant!.name!,
-                                    textAlign: TextAlign.end,
+                                    textDirection: TextDirection.rtl,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontFamily: "Milliard",
@@ -200,7 +201,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                "Phones",
+                                AppLocalizations.of(context)!.translate("phones"),
                                 style: TextStyle(
                                     color: Color.fromRGBO(148, 148, 148, 1),
                                     fontFamily: "Milliard",
@@ -228,7 +229,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                           );
                                         },
                                         child: Text(
-                                          '+  Add phone number',
+                                          '+ '+AppLocalizations.of(context)!.translate("addNumber"),
                                           textAlign: TextAlign.end,
                                           style: TextStyle(
                                               color: kPrimaryColor,
@@ -255,7 +256,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                             crossAxisAlignment:CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "Email",
+                                AppLocalizations.of(context)!.translate("email"),
                                 style: TextStyle(
                                     color: Color.fromRGBO(148, 148, 148, 1),
                                     fontFamily: "Milliard",
@@ -293,7 +294,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                             crossAxisAlignment:CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "Status",
+                                AppLocalizations.of(context)!.translate("statusRestaurant"),
                                 style: TextStyle(
                                     color: Color.fromRGBO(148, 148, 148, 1),
                                     fontFamily: "Milliard",
@@ -302,15 +303,13 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                 ),
                               ),
                               SizedBox(width: 82.w,),
-
-
-                              state.getRestaurant.restaurant!.status == "enable" ?Container(
+                              state.getRestaurant.restaurant!.status == "enable" ? Container(
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child:Row(
                                     children: [
                                       Text(
-                                        "Enable",
+                                      AppLocalizations.of(context)!.translate("enable"),
                                         style: TextStyle(
                                             color: Color.fromRGBO(188, 44, 61, 1),
                                             fontFamily: "Milliard",
@@ -325,10 +324,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                         child: Switch(
                                           value: isSwitched,
                                           onChanged: (value){
-                                            setState(() {
-                                              isSwitched=false;
 
-                                            });
                                           },
                                           activeTrackColor: Color.fromRGBO(188, 44, 61, 1),
                                           inactiveTrackColor: Color.fromRGBO(223, 222, 221, 1),
@@ -345,7 +341,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                   child:Row(
                                     children: [
                                       Text(
-                                        "Disable",
+                                        AppLocalizations.of(context)!.translate("disable"),
                                         style: TextStyle(
                                             color: Color.fromRGBO(188, 44, 61, 1),
                                             fontFamily: "Milliard",
@@ -360,9 +356,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                         child: Switch(
                                           value: isSwitched,
                                           onChanged: (value){
-                                            setState(() {
-                                              isSwitched=false;
-                                            });
+
                                           },
                                           activeTrackColor: Color.fromRGBO(188, 44, 61, 1),
                                           inactiveTrackColor: Color.fromRGBO(223, 222, 221, 1),
@@ -384,10 +378,10 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.start,
+                            crossAxisAlignment:CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "Style Resto",
+                                AppLocalizations.of(context)!.translate("restaurantStyle"),
                                 style: TextStyle(
                                     color: Color.fromRGBO(148, 148, 148, 1),
                                     fontFamily: "Milliard",
@@ -411,7 +405,6 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                   ),
                                 ),
                               ),
-
                             ],
                           ),
                         ),
@@ -422,10 +415,10 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.start,
+                            crossAxisAlignment:CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "Localisation",
+                                AppLocalizations.of(context)!.translate("location"),
                                 style: TextStyle(
                                     color: Color.fromRGBO(148, 148, 148, 1),
                                     fontFamily: "Milliard",
@@ -433,20 +426,30 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                     fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Expanded(
-                                child: Container(
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      state.getRestaurant.restaurant!.address!,
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(188, 44, 61, 1),
-                                          fontFamily: "Milliard",
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w100
+                              Container(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child:Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 130.w,
+                                        child: Text(
+                                          state.getRestaurant.restaurant!.address!,
+                                          style: TextStyle(
+                                              color: Color.fromRGBO(188, 44, 61, 1),
+                                              fontFamily: "Milliard",
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w100
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      SizedBox(width: 6.w,),
+                                      Icon(
+                                        Icons.my_location_rounded,
+                                        color: Color.fromRGBO(188, 44, 61, 1),
+                                        size:16.sp,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -457,12 +460,13 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                         SizedBox(height: 23.h,),
                         Container(
                           width: 344.w,
+                          //NameRestaurant
                           child: Column(
                             children: [
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "Description",
+                                  AppLocalizations.of(context)!.translate("description"),
                                   style: TextStyle(
                                       color: Color.fromRGBO(148, 148, 148, 1),
                                       fontFamily: "Milliard",

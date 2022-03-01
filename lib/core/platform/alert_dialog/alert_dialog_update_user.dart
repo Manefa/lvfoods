@@ -42,6 +42,7 @@ class AlertDialogueUpdateUser extends StatelessWidget {
                   SizedBox(height: 9.h,),
                   //Title
                   Text(
+                    //TODO CHANGE
                     "Mise a jour Terminer",
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -56,6 +57,7 @@ class AlertDialogueUpdateUser extends StatelessWidget {
                   Container(
                     width: 290.w,
                     child:Text(
+                      //TODO CHANGE
                       "Lorem Ipsum is simply dummy text of the printing and types etting industry. Lorem Ipsum has been the industry's stan dard dummy text ever.",
                       textAlign: TextAlign.center,
                       style: TextStyle(

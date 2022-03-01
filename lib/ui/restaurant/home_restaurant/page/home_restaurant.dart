@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/home_restaurant/widgets/appbar_restaurant.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/home_restaurant/widgets/restaurant_display.dart';
 
@@ -47,7 +48,7 @@ class _HomeRestaurantState extends State<HomeRestaurant> {
                           children: <Widget>[
                             //My Orders
                             Text(
-                              "Our Meals",
+                              AppLocalizations.of(context)!.translate("ourMeals"),
                               style: TextStyle(
                                   fontSize: 20.sp,
                                   fontFamily: "Milliard",
@@ -55,14 +56,6 @@ class _HomeRestaurantState extends State<HomeRestaurant> {
                               ),
                             ),
                             //View All
-                            Text(
-                              "View All",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontFamily: "Milliard",
-                                color: Colors.grey,
-                              ),
-                            ),
                           ],
                         ),
                       ),

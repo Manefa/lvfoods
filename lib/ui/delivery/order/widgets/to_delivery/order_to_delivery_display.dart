@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/orders/domain/entities/recovery.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order_detail/page/order_detail_page.dart';
 

@@ -3,9 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/delivery.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/order.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery_detail/page/delivery_detail_page.dart';
 
 class DeliveryCarryOutDisplay extends StatefulWidget {
@@ -118,7 +119,7 @@ class _DeliveryCarryOutDisplayState extends State<DeliveryCarryOutDisplay> {
                                 ),
                                 SizedBox(width: 10.w,),
                                 Text(
-                                  getHour(_ordersCarryOutReal[index].createdAt.toString())+" Hours Ago",
+                                  getHour(_ordersCarryOutReal[index].createdAt.toString())+" "+AppLocalizations.of(context)!.translate("hoursAgo"),
                                   style: TextStyle(
                                     fontFamily: "Milliard",
                                     fontSize: 15.sp,
@@ -138,7 +139,7 @@ class _DeliveryCarryOutDisplayState extends State<DeliveryCarryOutDisplay> {
                                 ),
                                 SizedBox(width: 5.w,),
                                 Text(
-                                  _ordersCarryOutReal[index].statusPayment == "paid" && _ordersCarryOutReal[index].orderGroup!.statusPayment == "paid" ? "Paid" : "Unpaid",
+                                  _ordersCarryOutReal[index].statusPayment == "paid" && _ordersCarryOutReal[index].orderGroup!.statusPayment == "paid" ? AppLocalizations.of(context)!.translate("paid") : AppLocalizations.of(context)!.translate("unPaid"),
                                   style: TextStyle(
                                     fontFamily: "Milliard",
                                     fontSize: 15.sp,
@@ -182,7 +183,7 @@ class _DeliveryCarryOutDisplayState extends State<DeliveryCarryOutDisplay> {
                                 ),
                                 SizedBox(width: 5.w,),
                                 Text(
-                                  "Delivered",
+                                  AppLocalizations.of(context)!.translate("delivered"),
                                   style: TextStyle(
                                     color: Color(0XFF68D389),
                                     fontSize: 15.sp,
@@ -239,15 +240,7 @@ class _DeliveryCarryOutDisplayState extends State<DeliveryCarryOutDisplay> {
           ),
           SizedBox(height: 30.h,),
           Text(
-            "Deliverys will be displayed here if there is an alert. or other ",
-            style: TextStyle(
-              fontSize: 15.sp,
-              fontFamily: "Milliard",
-            ),
-          ),
-          SizedBox(height: 2.h,),
-          Text(
-            "important information",
+            AppLocalizations.of(context)!.translate("noDeliveryDetail"),
             style: TextStyle(
               fontSize: 15.sp,
               fontFamily: "Milliard",

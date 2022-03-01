@@ -9,11 +9,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/alert_dialog/country_code_picker.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/bloc/add_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/domain/entities/for_create_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/add_restau/widgets/choice_chip.dart';
 
 class AddRestauDisplay extends StatefulWidget {
@@ -36,13 +37,12 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   TextEditingController cityController = TextEditingController();
   TextEditingController districtController = TextEditingController();
 
-
   final formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
   String initialCountry = 'NG';
   PhoneNumber number = PhoneNumber(isoCode: 'NG');
   PhoneNumber number2 = PhoneNumber(dialCode: '+237');
-  int _selectedIndex=0;
+  int _selectedIndex = 0;
   bool isSwitched = true;
   List<int> mySelected = List.empty();
   List<Style>? styleList;
@@ -53,7 +53,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   //   'Douala',
   //   'Francais',
   // ];
-  String style="";
+  String style = "";
   XFile? _imageProfile;
   XFile? _imageCover;
   String code = "+237";
@@ -69,7 +69,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
     List<int> selectedList = [];
     List<String> _styleOptionsTwo = [];
 
-    if(styleList != null){
+    if (styleList != null) {
       styleList!.forEach((element) {
         _styleOptionsTwo.add(element.name!);
       });
@@ -79,25 +79,28 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
       create: (_) => _addRestaurantBloc,
       child: BlocListener(
         bloc: _addRestaurantBloc,
-        listener: (context, state){
-          if(state is AddRestaurantLoading){
+        listener: (context, state) {
+          if (state is AddRestaurantLoading) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  duration: (state is AddRestaurantLoading) ? Duration(days: day) : Duration(seconds: day),
+                  duration: (state is AddRestaurantLoading)
+                      ? Duration(days: day)
+                      : Duration(seconds: day),
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "En cours...",
+                        AppLocalizations.of(context)!.translate("inProgressBloc"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                           color: Colors.white,
                         ),
                       ),
                       CircularProgressIndicator(
-                        valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
                     ],
                   ),
@@ -106,30 +109,39 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
               );
           }
 
-          if(state != AddRestaurantLoading){
+          if (state != AddRestaurantLoading) {
             day = 0;
           }
 
-          if(state is AddRestaurantLoaded){
+          if (state is AddRestaurantLoaded) {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             Navigator.pop(context);
           }
 
-          if(state is AddRestaurantError){
+          if (state is AddRestaurantError) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text(state.message + "Echec de l'ajout", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                    children: [
+                      Text(
+                        state.message + AppLocalizations.of(context)!.translate("failureToAdd"),
+                        style: TextStyle(
+                            fontFamily: "Milliard", color: Colors.white),
+                      ),
+                      Icon(
+                        Icons.error,
+                        color: Colors.white,
+                      )
+                    ],
                   ),
                   backgroundColor: kPrimaryColor,
                 ),
               );
           }
         },
-
         child: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -149,23 +161,28 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                             Container(
                               height: 57.h,
                               width: 57.w,
-                              child: _imageProfile == null ? CircleAvatar(
-                                backgroundColor: Colors.red,
-                              ): CircleAvatar(
-                                backgroundImage: FileImage(
-                                  File(_imageProfile!.path),
-                                ),
-                                backgroundColor: Colors.transparent,
-                              ),
+                              child: _imageProfile == null
+                                  ? CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                    )
+                                  : CircleAvatar(
+                                      backgroundImage: FileImage(
+                                        File(_imageProfile!.path),
+                                      ),
+                                      backgroundColor: Colors.transparent,
+                                    ),
                             ),
-                            SizedBox(width: 11.w,),
+                            SizedBox(
+                              width: 11.w,
+                            ),
                             //UploadIcon
                             InkWell(
-                              onTap: (){
+                              onTap: () {
                                 _showPicker(context);
                               },
                               child: Text(
-                                "Upload Logo",
+                                AppLocalizations.of(context)!
+                                    .translate("uploadLogo"),
                                 style: TextStyle(
                                   color: Color.fromRGBO(188, 44, 61, 1),
                                   fontSize: 18.sp,
@@ -179,14 +196,16 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ],
                   ),
                 ),
-                SizedBox(height: 26.h,),
+                SizedBox(
+                  height: 26.h,
+                ),
                 //UploadImage
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Upload Slide Cover Image",
+                      AppLocalizations.of(context)!.translate("uploadImg"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -195,98 +214,108 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 23.h,),
-                _imageCover == null ? InkWell(
-                  onTap: (){
-                    _showPickerCover(context);
-                  },
-                  child: Container(
-                    height: 42.h,
-                    width: 344.w,
-                    child: DottedBorder(
-                        color: Color.fromRGBO(188, 44, 61, 1),
-                        strokeWidth: 0.2,
-                        dashPattern: [10,6],
-                        child:Center(
-                            child:Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  LvIconsResto.upload,
-                                  color: Color.fromRGBO(188, 44, 61, 1),
-                                  size: 16.sp,
-                                ),
-                                SizedBox(width: 19.w,),
-                                Text(
-                                  "Upload Images Here",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(188, 44, 61, 1),
-                                      fontSize: 20.sp,
-                                      fontFamily: "Milliard",
-
-                                      fontWeight: FontWeight.w200
+                SizedBox(
+                  height: 23.h,
+                ),
+                _imageCover == null
+                    ? InkWell(
+                        onTap: () {
+                          _showPickerCover(context);
+                        },
+                        child: Container(
+                          height: 42.h,
+                          width: 344.w,
+                          child: DottedBorder(
+                              color: Color.fromRGBO(188, 44, 61, 1),
+                              strokeWidth: 0.2,
+                              dashPattern: [10, 6],
+                              child: Center(
+                                  child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    LvIconsResto.upload,
+                                    color: Color.fromRGBO(188, 44, 61, 1),
+                                    size: 16.sp,
                                   ),
-                                )
-                              ],
-                            )
-                        )
-                    ),
-                  ),
-                ): InkWell(
-                  onTap: (){
-                    _showPickerCover(context);
-                  },
-                  child: Container(
-                    height: 50.h,
-                    width: 344.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0XFFF4F4F4),
-                            spreadRadius: 2,
-                            blurRadius: 6,
-                          )
-                        ]
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 15.w,),
-                        Icon(
-                          Icons.image,
-                          color: Color(0XFFCBCBCB),
+                                  SizedBox(
+                                    width: 19.w,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .translate("uploadImgHere"),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(188, 44, 61, 1),
+                                        fontSize: 20.sp,
+                                        fontFamily: "Milliard",
+                                        fontWeight: FontWeight.w200),
+                                  )
+                                ],
+                              ))),
                         ),
-                        SizedBox(width: 14.w,),
-                        SizedBox(
-                          width: 120.w,
-                          child: Text(
-                            _imageCover!.name,
-                            overflow: TextOverflow.ellipsis,
+                      )
+                    : InkWell(
+                        onTap: () {
+                          _showPickerCover(context);
+                        },
+                        child: Container(
+                          height: 50.h,
+                          width: 344.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0XFFF4F4F4),
+                                  spreadRadius: 2,
+                                  blurRadius: 6,
+                                )
+                              ]),
+                          child: Row(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 15.w,
+                              ),
+                              Icon(
+                                Icons.image,
+                                color: Color(0XFFCBCBCB),
+                              ),
+                              SizedBox(
+                                width: 14.w,
+                              ),
+                              SizedBox(
+                                width: 120.w,
+                                child: Text(
+                                  _imageCover!.name,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Expanded(child: SizedBox()),
+                              Icon(
+                                Icons.cancel,
+                                color: Color(0XFFCBCBCB),
+                                size: 20.sp,
+                              ),
+                              SizedBox(
+                                width: 22.w,
+                              ),
+                            ],
                           ),
                         ),
-                        Expanded(child: SizedBox()),
-                        Icon(
-                          Icons.cancel,
-                          color: Color(0XFFCBCBCB),
-                          size: 20.sp,
-                        ),
-                        SizedBox(width: 22.w,),
-                      ],
-                    ),
-                  ),
+                      ),
+                SizedBox(
+                  height: 26.h,
                 ),
-                SizedBox(height: 26.h,),
                 //Restau Name
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Restaurant Name",
+                      AppLocalizations.of(context)!.translate("restaurantName"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -295,16 +324,20 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 restauName(),
-                SizedBox(height: 16.h,),
+                SizedBox(
+                  height: 16.h,
+                ),
                 //Restau country
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Restaurant Country",
+                      AppLocalizations.of(context)!.translate("restaurantCountry"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -313,16 +346,20 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 restauCountry(),
-                SizedBox(height: 16.h,),
+                SizedBox(
+                  height: 16.h,
+                ),
                 //Restau city
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Restaurant City",
+                      AppLocalizations.of(context)!.translate("restaurantCity"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -331,16 +368,20 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 restauCity(),
-                SizedBox(height: 16.h,),
+                SizedBox(
+                  height: 16.h,
+                ),
                 //Restau city
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Restaurant District",
+                      AppLocalizations.of(context)!.translate("restaurantDistrict"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -349,16 +390,20 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 restauDistrict(),
                 //Phone Number
-                SizedBox(height: 16.h,),
+                SizedBox(
+                  height: 16.h,
+                ),
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Phone Number",
+                      AppLocalizations.of(context)!.translate("phoneNumber"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -367,16 +412,21 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 _phoneContainer(),
-                SizedBox(height: 16.h,),
+                SizedBox(
+                  height: 16.h,
+                ),
                 //EmailRestau
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Email Restaurant",
+                      AppLocalizations.of(context)!
+                          .translate("emailRestaurant"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -385,17 +435,21 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 restauEmail(),
                 //Phone Number
-                SizedBox(height: 16.h,),
+                SizedBox(
+                  height: 16.h,
+                ),
                 //Localisation
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Localisation",
+                      AppLocalizations.of(context)!.translate("location"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -404,77 +458,20 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 localisationRestau(),
-                //SizedBox(height: 21.h,),
-                //Statut
-                // Container(
-                //   height: 21.h,
-                //   width: 344.w,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       Container(
-                //         child: Text(
-                //           "Status",
-                //           style: TextStyle(
-                //             color: Colors.black,
-                //             fontSize: 18.sp,
-                //             fontFamily: "Milliard",
-                //           ),
-                //         ),
-                //       ),
-                //       Container(
-                //         child: Row(
-                //           children: [
-                //             isSwitched ? Text(
-                //               "Enable",
-                //               style: TextStyle(
-                //                 color: Colors.black,
-                //                 fontSize: 18.sp,
-                //                 fontFamily: "Milliard",
-                //               ),
-                //             ) : Text(
-                //               "Disable",
-                //               style: TextStyle(
-                //                 color: Colors.black,
-                //                 fontSize: 18.sp,
-                //                 fontFamily: "Milliard",
-                //               ),
-                //             ) ,
-                //             SizedBox(width: 19.w,),
-                //             //Switch
-                //             SizedBox(
-                //               height: 15.h,
-                //               width: 31.w,
-                //               child: Switch(
-                //                 value: isSwitched,
-                //                 onChanged: (value){
-                //                   setState(() {
-                //                     isSwitched=value;
-                //                   });
-                //                 },
-                //                 activeTrackColor: Color.fromRGBO(188, 44, 61, 1),
-                //                 inactiveTrackColor: Color.fromRGBO(223, 222, 221, 1),
-                //                 activeColor: Colors.white,
-                //               ),
-                //             )
-                //
-                //           ],
-                //         ),
-                //
-                //       )
-                //     ],
-                //   ),
-                // ),
-                SizedBox(height: 24.h,),
+                SizedBox(
+                  height: 24.h,
+                ),
                 //Description
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Description",
+                      AppLocalizations.of(context)!.translate("description"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -483,16 +480,21 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 description(),
-                SizedBox(height: 23.h,),
+                SizedBox(
+                  height: 23.h,
+                ),
                 //Resto style
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Resto style",
+                      AppLocalizations.of(context)!
+                          .translate("restaurantStyle"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -501,7 +503,9 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 21.h,),
+                SizedBox(
+                  height: 21.h,
+                ),
                 Container(
                   child: ChipList(
                     supportsMultiSelect: true,
@@ -512,34 +516,36 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                     borderRadiiList: [8.r],
                     runSpacing: 17.h,
-                    activeBgColorList: [Color.fromRGBO(188, 44, 61,1)],
+                    activeBgColorList: [Color.fromRGBO(188, 44, 61, 1)],
                     listOfChipIndicesCurrentlySeclected: selectedList,
                     inactiveBgColorList: [Color.fromRGBO(248, 247, 247, 1)],
                     activeTextColorList: [Colors.white],
-                    inactiveTextColorList: [Color.fromRGBO(148, 148, 148,1)],
+                    inactiveTextColorList: [Color.fromRGBO(148, 148, 148, 1)],
                     shouldWrap: true,
                   ),
                 ),
                 // SizedBox(height: 23.h,),
                 // _phoneContainer(),
-                SizedBox(height: 23.h,),
+                SizedBox(
+                  height: 23.h,
+                ),
                 //AddResto Button
                 InkWell(
-                  onTap: (){
-                    String styles="";
-                    String theIds="";
-                    for(int y=0; y < selectedList.length; y++){
-                      for(int i=0; i <= _styleOptionsTwo.length; i++){
-                        if(i == selectedList[y]){
-                          styles = styles+_styleOptionsTwo[i].trim()+"|";
-                          theIds = theIds+styleList![i].id!.trim()+"|";
+                  onTap: () {
+                    String styles = "";
+                    String theIds = "";
+                    for (int y = 0; y < selectedList.length; y++) {
+                      for (int i = 0; i <= _styleOptionsTwo.length; i++) {
+                        if (i == selectedList[y]) {
+                          styles = styles + _styleOptionsTwo[i].trim() + "|";
+                          theIds = theIds + styleList![i].id!.trim() + "|";
                           print(removeLastCharacter(styles.trim()));
                           print(removeLastCharacter(theIds.trim()));
                         }
                       }
                     }
 
-                    if(restaurantNameController.text.isEmpty ||
+                    if (restaurantNameController.text.isEmpty ||
                         phoneNumberController.text.isEmpty ||
                         emailController.text.isEmpty ||
                         locationController.text.isEmpty ||
@@ -547,9 +553,9 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         cityController.text.isEmpty ||
                         districtController.text.isEmpty ||
                         _imageCover == null ||
-                        _imageProfile == null ){
+                        _imageProfile == null) {
                       Fluttertoast.showToast(
-                        msg: "Renseignez tout les champs et chargez toutes les images",
+                        msg: AppLocalizations.of(context)!.translate("fillInAllFieldsAndUploadAllImages"),
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 5,
@@ -557,8 +563,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         textColor: Colors.white,
                         fontSize: 16.sp,
                       );
-                    }
-                    else{
+                    } else {
                       ForCreateRestaurant restaurant = ForCreateRestaurant(
                         name: restaurantNameController.text.trim(),
                         email: emailController.text.trim(),
@@ -574,7 +579,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         contents: phoneNumberController.text.trim(),
                       );
 
-                      _addRestaurantBloc.add(StartAddRestaurant(createRestaurant: restaurant));
+                      _addRestaurantBloc.add(
+                          StartAddRestaurant(createRestaurant: restaurant));
                     }
                   },
                   child: Container(
@@ -586,7 +592,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                     child: Center(
                       child: Text(
-                        "Add Restaurant",
+                        AppLocalizations.of(context)!
+                            .translate("addRestaurant"),
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w300,
@@ -597,16 +604,18 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 43.h,),
+                SizedBox(
+                  height: 43.h,
+                ),
               ],
             ),
           ),
-
         ),
       ),
     );
   }
-  Widget restauName()=>Container(
+
+  Widget restauName() => Container(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
@@ -621,14 +630,13 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           hintText: 'Enter Name',
-          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
-      )
-  );
+      ));
 
-
-  Widget restauCountry()=>Container(
+  Widget restauCountry() => Container(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
@@ -643,13 +651,13 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           hintText: 'Cameroun',
-          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
-      )
-  );
+      ));
 
-  Widget restauCity()=>Container(
+  Widget restauCity() => Container(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
@@ -664,13 +672,13 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           hintText: 'Douala',
-          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
-      )
-  );
+      ));
 
-  Widget restauDistrict()=>Container(
+  Widget restauDistrict() => Container(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
@@ -685,12 +693,11 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           hintText: 'Logbessou',
-          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
-      )
-  );
-
+      ));
 
   Widget _phoneContainer() {
     return new Container(
@@ -702,7 +709,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           prefixIcon: CountryCodePicker(
-            onChanged: (val){
+            onChanged: (val) {
               code = val.dialCode!;
             },
             initialSelection: '+237',
@@ -718,13 +725,12 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
               borderRadius: BorderRadius.circular(4),
             ),
           ),
-
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
-
           hintText: '697675437',
-          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           focusColor: Color(0XFFB8B8B8),
           border: OutlineInputBorder(),
         ),
@@ -739,7 +745,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
 
   void getPhoneNumber(String phoneNumber) async {
     PhoneNumber number =
-    await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
+        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
 
     setState(() {
       this.number = number;
@@ -752,9 +758,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
     super.dispose();
   }
 
-
-
-  Widget restauEmail()=>Container(
+  Widget restauEmail() => Container(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
@@ -770,12 +774,12 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
           ),
           focusColor: Color(0XFFB8B8B8),
           hintText: 'Enter Email',
-          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
-      )
-  );
-  Widget localisationRestau()=>Container(
+      ));
+  Widget localisationRestau() => Container(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
@@ -791,50 +795,45 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
           ),
           focusColor: Color(0XFFB8B8B8),
           hintText: 'Enter Localisation',
-          suffixIcon:Icon(
+          suffixIcon: Icon(
             Icons.my_location_rounded,
             color: Color.fromRGBO(188, 44, 61, 1),
-            size:20.sp,
+            size: 20.sp,
           ),
-          contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
-      )
-  );
+      ));
 
-  Widget description()=>Container(
-    height: 121.h,
-    width: 344.w,
-    decoration: new BoxDecoration(
-        borderRadius: BorderRadius.circular(5.r),
-        border: new Border.all(color: Color.fromRGBO(223, 222, 221, 1))
-    ),
-    child: new SizedBox.expand(
-      child: new TextField(
-        controller: descriptionController,
-          maxLines: 8,
-          style: new TextStyle(
-              fontSize: 16.sp,
-              fontFamily: "Milliard",
-              color: Colors.black
-          ),
-          decoration: const InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
-            ),
-            focusColor: Color(0XFFB8B8B8),
-            border: InputBorder.none,
-            hintText: "Enter description...",
-            contentPadding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 10.0),
-          )
-      ),
-    ),
-  );
+  Widget description() => Container(
+        height: 121.h,
+        width: 344.w,
+        decoration: new BoxDecoration(
+            borderRadius: BorderRadius.circular(5.r),
+            border: new Border.all(color: Color.fromRGBO(223, 222, 221, 1))),
+        child: new SizedBox.expand(
+          child: new TextField(
+              controller: descriptionController,
+              maxLines: 8,
+              style: new TextStyle(
+                  fontSize: 16.sp, fontFamily: "Milliard", color: Colors.black),
+              decoration: const InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+                ),
+                focusColor: Color(0XFFB8B8B8),
+                border: InputBorder.none,
+                hintText: "Enter description...",
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 10.0),
+              )),
+        ),
+      );
 
   _imgFromCamera() async {
-    XFile? image = await ImagePicker().pickImage(
-        source: ImageSource.camera, imageQuality: 50
-    );
+    XFile? image = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
       _imageProfile = image;
@@ -842,9 +841,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   }
 
   _imgFromGallery() async {
-    XFile? image = await  ImagePicker().pickImage(
-        source: ImageSource.gallery, imageQuality: 50
-    );
+    XFile? image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 50);
 
     setState(() {
       _imageProfile = image;
@@ -894,20 +892,14 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
               ),
             ),
           );
-        }
-    );
+        });
   }
-
-
 
   ///////////////////////////////cover
 
-
-
   _imgFromCameraCover() async {
-    XFile? image = await ImagePicker().pickImage(
-        source: ImageSource.camera, imageQuality: 50
-    );
+    XFile? image = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
       _imageCover = image;
@@ -915,9 +907,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   }
 
   _imgFromGalleryCover() async {
-    XFile? image = await  ImagePicker().pickImage(
-        source: ImageSource.gallery, imageQuality: 50
-    );
+    XFile? image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 50);
 
     setState(() {
       _imageCover = image;
@@ -967,12 +958,11 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
               ),
             ),
           );
-        }
-    );
+        });
   }
 
   String removeLastCharacter(String str) {
-    String result="";
+    String result = "";
     if ((str != null) && (str.length > 0)) {
       result = str.substring(0, str.length - 1);
     }
@@ -1023,6 +1013,3 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   //   );
   // }
 }
-
-
-

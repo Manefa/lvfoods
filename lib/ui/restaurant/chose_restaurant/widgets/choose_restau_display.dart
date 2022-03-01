@@ -2,33 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/bloc/get_all_restaurants_for_current_user.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/bloc/get_styles.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/navigator_restaurant_page.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/add_restau/add_restau.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-class ChooseRestaurantModel{
-  final String image;
-  final String name;
-  final bool statut;
-
-  ChooseRestaurantModel({required this.image,required this.name,required this.statut,});
-}
-
-ChooseRestaurantModel items1 = new ChooseRestaurantModel(
-    image:'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
-    name: "Modiqui restaurant",
-    statut: true
-);
-
-ChooseRestaurantModel items2 = new ChooseRestaurantModel(
-    image:'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
-    name: "Memphis rest",
-    statut: false
-);
 
 
 class ChooseRestaurantDisplay extends StatefulWidget {
@@ -46,7 +28,6 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    List<ChooseRestaurantModel> items = [items1, items2];
     _getAllRestaurantsForCurrentUserBloc.add(StartGetAllRestaurantsForCurrentUser());
     _getStylesBloc.add(StartGetStyles());
     return MultiBlocProvider(
@@ -85,7 +66,6 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
 
               if(state is GetStylesLoaded){
                 styles = state.getStylesMaster.styles!;
-                print("dddddddddddddddddddddddddddddddddddddddddddddddd");
               }
 
               if(state is GetStylesError){
@@ -144,7 +124,7 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                   child:Center(
                                     child: Container(
                                       width: 300.w,
-                                      height: 100.h,
+                                      height: 50.h,
                                       child: Row(
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,14 +148,12 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: <Widget>[
-                                                    FittedBox(
-                                                      child: Text(
-                                                        state.getAllRestaurantsForCurrentUser.restaurants![index].name!,
-                                                        style: TextStyle(
-                                                          fontFamily: "Milliard",
-                                                          fontSize:18.sp,
-                                                          fontWeight: FontWeight.w500,
-                                                        ),
+                                                    Text(
+                                                      state.getAllRestaurantsForCurrentUser.restaurants![index].name!,
+                                                      style: TextStyle(
+                                                        fontFamily: "Milliard",
+                                                        fontSize:19.sp,
+                                                        fontWeight: FontWeight.w500,
                                                       ),
                                                     ),
                                                     SizedBox(height: 4.h,),
@@ -190,15 +168,13 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                                           borderRadius: BorderRadius.circular(6.r)
                                                       ),
                                                       child: Center(
-                                                        child: FittedBox(
-                                                          child: Text(
-                                                            'Restaurant Ouvert',
-                                                            textAlign: TextAlign.center,
-                                                            style: TextStyle(
-                                                                fontSize: 12.sp,
-                                                                fontFamily: "Milliard",
-                                                                color: Colors.white
-                                                            ),
+                                                        child: Text(
+                                                          AppLocalizations.of(context)!.translate("restaurantOpen"),
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 12.sp,
+                                                              fontFamily: "Milliard",
+                                                              color: Colors.white
                                                           ),
                                                         ),
                                                       ),
@@ -211,15 +187,15 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                                           borderRadius: BorderRadius.circular(6.r)
                                                       ),
                                                       child: Center(
-                                                        child: FittedBox(child: Text(
-                                                          'Restaurant Fermé',
+                                                        child: Text(
+                                                          AppLocalizations.of(context)!.translate("restaurantClose"),
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
                                                               fontFamily: "Milliard",
                                                               fontSize: 12.sp,
                                                               color: Colors.white
                                                           ),
-                                                        ),),
+                                                        ),
                                                       ),
                                                     )
                                                   ],
@@ -243,8 +219,7 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                         ),
                       ) : Padding(
                         padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 5.r, bottom: 15.r),
-                        child:
-                        Center(
+                        child: Center(
                             child: InkWell(
                               onTap: (){
                                 Navigator.push(
@@ -278,9 +253,8 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                         size: 30.sp,
                                       ),
                                       SizedBox(width: 10,),
-
                                       Text(
-                                        'Ajouter un restaurant',
+                                        AppLocalizations.of(context)!.translate("addARestaurant"),
                                         style: TextStyle(
                                           fontFamily: "Milliard",
                                           fontSize:20.sp,
@@ -303,7 +277,7 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                   children: [
                     SizedBox(height: 100.h,),
                     Text(
-                      'Aucun Restaurant Disponible',
+                      AppLocalizations.of(context)!.translate("noRestaurantAvailable"),
                       style: TextStyle(
                         fontFamily: "Milliard",
                         fontSize:18.sp,
@@ -311,7 +285,6 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                       ),
                     ),
                     SizedBox(height: 31.h,),
-                    //Ajouter restau
                     Center(
                         child: InkWell(
                           onTap: (){
@@ -346,9 +319,8 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                     size: 30.sp,
                                   ),
                                   SizedBox(width: 10,),
-
                                   Text(
-                                    'Ajouter un restaurant',
+                                    AppLocalizations.of(context)!.translate("addARestaurant"),
                                     style: TextStyle(
                                       fontFamily: "Milliard",
                                       fontSize:20.sp,
@@ -369,7 +341,9 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
             }
 
               return Container(
-                child: Center(child: Text("Aucun cas")),
+                child: Center(child: Text(
+                    AppLocalizations.of(context)!.translate("noCase"),
+                )),
               );
             },
           ),

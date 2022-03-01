@@ -2,16 +2,27 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
+import 'package:ivfoods_mobile_app/core/platform/status_bar_manager.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChooseProfil extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
+    SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+      StatusBarManager.setColor(
+        iconBrightness: Brightness.dark,
+        color: Colors.white,
+      );
+    });
 
     Future<bool> _onBackPressed() async {
       SystemChannels.platform.invokeMethod('SystemNavigator.pop');
@@ -30,7 +41,7 @@ class ChooseProfil extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(height: 80.h,),
                   Text(
-                    "Choisissez La Demo Du\nProfil Souhaité",
+                    AppLocalizations.of(context)!.translate("chooseDemo"),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Milliard",
@@ -82,7 +93,7 @@ class ChooseProfil extends StatelessWidget {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
-                                            "Profil Restaurateur",
+                                            AppLocalizations.of(context)!.translate("restaurantProfile"),
                                             style: TextStyle(
                                               fontFamily: "Milliard",
                                               fontSize:19.sp,
@@ -91,7 +102,7 @@ class ChooseProfil extends StatelessWidget {
                                           ),
                                           SizedBox(height: 4.h,),
                                           Text(
-                                            "Catering person",
+                                            AppLocalizations.of(context)!.translate("catPerson"),
                                             style: TextStyle(
                                               fontFamily: "Milliard",
                                               fontSize:13.sp,
@@ -100,7 +111,6 @@ class ChooseProfil extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-
                                     ],
                                   ),
                                 ),
@@ -159,7 +169,7 @@ class ChooseProfil extends StatelessWidget {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
-                                            "Profil Livreur",
+                                            AppLocalizations.of(context)!.translate("deliveryPersonProfile"),
                                             style: TextStyle(
                                               fontFamily: "Milliard",
                                               fontSize:19.sp,
@@ -168,7 +178,7 @@ class ChooseProfil extends StatelessWidget {
                                           ),
                                           SizedBox(height: 4.h,),
                                           Text(
-                                            "Delivery person",
+                                            AppLocalizations.of(context)!.translate("deliveryPerson"),
                                             style: TextStyle(
                                               fontFamily: "Milliard",
                                               fontSize:13.sp,
@@ -225,7 +235,7 @@ class ChooseProfil extends StatelessWidget {
                                           Image.asset("images/skyp_arrow_left.png"),
                                           SizedBox(width: 14.w,),
                                           Text(
-                                            "Back to login",
+                                            AppLocalizations.of(context)!.translate("backToLogin"),
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize:18.sp,

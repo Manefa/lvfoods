@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/entities/category.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/get_product_details.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/edit_meal/edit_meal_display.dart';
 
 class EditMeal extends StatefulWidget {
@@ -20,7 +21,7 @@ class _EditMealState extends State<EditMeal> {
     return Scaffold(
       appBar: AppBar(
         title:  Text(
-          "Edit Meal",
+          AppLocalizations.of(context)!.translate("editMeal"),
           style: TextStyle(
               color: Colors.black,
               fontFamily: "Milliard",
