@@ -15,7 +15,6 @@ class ChooseProfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
     SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
       StatusBarManager.setColor(
         iconBrightness: Brightness.dark,

@@ -107,7 +107,7 @@ class _DeliveryInProgressState extends State<DeliveryInProgress> {
                                     fontFamily: "Milliard",
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding: new EdgeInsets.only(bottom: 22.r),
+                                    contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
                                     hintText: AppLocalizations.of(context)!.translate("searchDeliveries"),
                                     border: InputBorder.none,
                                     prefixIcon: Icon(
@@ -132,17 +132,21 @@ class _DeliveryInProgressState extends State<DeliveryInProgress> {
                                   onPressed: () {
                                     _deliveriesBloc.add(GetDeliveries());
                                   },
-                                  label: Text(
-                                    AppLocalizations.of(context)!.translate("filter"),
-                                    style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontFamily: "Milliard",
-                                    color: Color(0XFF68D389),
-                                  ),),
-                                  icon: Icon(
-                                    Icons.refresh,
-                                    size: 17.sp,
-                                    color: Color(0XFF68D389),
+                                  label: FittedBox(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.translate("filter"),
+                                      style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontFamily: "Milliard",
+                                      color: Color(0XFF68D389),
+                                    ),),
+                                  ),
+                                  icon: FittedBox(
+                                    child: Icon(
+                                      Icons.refresh,
+                                      size: 17.sp,
+                                      color: Color(0XFF68D389),
+                                    ),
                                   ),
                                   style: TextButton.styleFrom(
                                     backgroundColor: Color(0XFFDEF9E7),
