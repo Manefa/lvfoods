@@ -220,11 +220,9 @@ class ChooseProfil extends StatelessWidget {
                               child: Center(
                                 child: InkWell(
                                   onTap: (){
-
                                     Navigator.pushNamed(context, "/login");
                                   },
                                   child:Container(
-                                    width: 174.w,
                                     height: 63.h,
                                     child: Center(
                                       child:  Row(
@@ -236,7 +234,7 @@ class ChooseProfil extends StatelessWidget {
                                             AppLocalizations.of(context)!.translate("backToLogin"),
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontSize:18.sp,
+                                              fontSize:16.sp,
                                               fontFamily: "Milliard",
                                             ),
                                           )
