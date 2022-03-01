@@ -75,6 +75,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                             SizedBox(height: 10.h,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Icon(
                                   Icons.location_on_outlined,
@@ -82,36 +83,42 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                   color: Color(0XFF949494),
                                 ),
                               SizedBox(width: 10.h,),
-                              Text(
-                                widget.deliveries!.deliveries![index].country.toString() + " - " + widget.deliveries!.deliveries![index].city.toString()+ " - " + widget.deliveries!.deliveries![index].district.toString(),
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontFamily: "Milliard",
-                                  color: Color(0XFF949494),
-                                ),
-                              ),
-                              SizedBox(width: 17.w,),
-                              Container(
-                                height: 8.r,
-                                width: 8.r,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  color: Color(0XFFD7D7D7),
-                                ),
-                              ),
-                              SizedBox(width: 10.w,),
-                              Text(
-                                getHour(widget.deliveries!.deliveries![index].createdAt.toString()).toString()+" min",
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontFamily: "Milliard",
-                                  color: Color(0XFF949494),
+                              Flexible(
+                                child: Text(
+                                  widget.deliveries!.deliveries![index].country.toString() + " - " + widget.deliveries!.deliveries![index].city.toString()+ " - " + widget.deliveries!.deliveries![index].district.toString(),
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontFamily: "Milliard",
+                                    color: Color(0XFF949494),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                           SizedBox(height: 10.h,),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.access_time_rounded,
+                                  size: 15.sp,
+                                  color: Color(0XFF949494),
+                                ),
+                                SizedBox(width: 10.w,),
+                                Text(
+                                  getHour(widget.deliveries!.deliveries![index].createdAt.toString()).toString()+" min",
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontFamily: "Milliard",
+                                    color: Color(0XFF949494),
+                                  ),
+                                ),
+                              ],
+                            ),
+                              SizedBox(height: 10.h,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 widget.deliveries!.deliveries![index].statusPayment == "paid" && widget.deliveries!.deliveries![index].orderGroup!.statusPayment == "paid"?
                               Icon(

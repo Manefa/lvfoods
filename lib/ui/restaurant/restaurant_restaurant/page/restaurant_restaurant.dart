@@ -121,6 +121,7 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                               SizedBox(width: 17.w,),
                                               Expanded(
                                                   child: Container(
+                                                    width: 248.w,
                                                     child: Column(
                                                       children: [
                                                         //RestauName
