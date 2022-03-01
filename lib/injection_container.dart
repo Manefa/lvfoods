@@ -103,6 +103,16 @@ import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/d
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/data/repositories/get_categories_repository_impl.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/repositories/get_categories_repository.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/usecases/get_categories.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/bloc/get_city.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/data/datasources/get_city_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/data/repository/get_city_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/domain/repositories/get_city_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/domain/usecases/get_city.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/bloc/get_country.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/data/datasources/get_country_remote_data_source.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/data/repository/get_country_repository_impl.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/domain/repositories/get_country_repository.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/domain/usecases/get_country.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/bloc/get_one_restaurant_and_populate_products.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/data/datasources/get_one_restaurant_and_populate_products_local_data_source.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaurant_and_populate_products/data/datasources/get_one_restaurant_and_populate_products_remote_data_source.dart';
@@ -1070,6 +1080,58 @@ Future<void> init() async {
   sl.registerFactory<LocaleBloc>(
         () => LocaleBloc(),
   );
+
+  //! Features - GetCity
+  //Bloc
+
+  sl.registerFactory<GetCityBloc>(
+        () => GetCityBloc(
+      getCityUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetCityUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<GetCityRepository>(
+        () => GetCityRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<GetCityRemoteDataSource>(
+        () => GetCityRemoteDataSourceImpl(client: sl(),),
+  );
+
+
+  //! Features - GetCountry
+  //Bloc
+
+  sl.registerFactory<GetCountryBloc>(
+        () => GetCountryBloc(
+      getCountryUseCase: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetCountryUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<GetCountryRepository>(
+        () => GetCountryRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Data sources
+  sl.registerLazySingleton<GetCountryRemoteDataSource>(
+        () => GetCountryRemoteDataSourceImpl(client: sl(),),
+  );
+
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();

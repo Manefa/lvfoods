@@ -220,7 +220,6 @@ class ChooseProfil extends StatelessWidget {
                               child: Center(
                                 child: InkWell(
                                   onTap: (){
-
                                     Navigator.pushNamed(context, "/login");
                                   },
                                   child:Container(
@@ -249,11 +248,8 @@ class ChooseProfil extends StatelessWidget {
                             )
                           ],
                         ),
-
                       )
-
                   )
-
                 ],
               ),
             ),
