@@ -6,35 +6,6 @@ import 'package:ivfoods_mobile_app/features/restaurant_features/get_one_restaura
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/menu_restau_detail/pages/menu_restau_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-class RestaurantHomeDisplayModel{
-  final String name;
-  final String image;
-  final String subname;
-  final double price;
-  final double note;
-  final double ? percent;
-
-  RestaurantHomeDisplayModel({required this.name,required this.image ,required this.note,this.percent,required this.price,required this.subname});
-
-}
-
-RestaurantHomeDisplayModel items1= new RestaurantHomeDisplayModel(
-    name: "Eru & Watafufu Eru & Watafufu Eru & Watafufu Eru & Watafufu ",
-    image:'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
-    subname: "Poulet braisé",
-    note: 3.1,
-    //percent: -12,
-    price: 2000
-);
-
-RestaurantHomeDisplayModel items2= new RestaurantHomeDisplayModel(
-    name: "Sauce Gombo",
-    image:'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80',
-    subname: "Poulet braisé",
-    note: 3.1,
-    percent: 12,
-    price: 2000
-);
 
 class MenuRestaurantDisplay extends StatefulWidget {
   final GetOneRestaurantAndPopulateProducts getOneRestaurantAndPopulateProducts;
@@ -50,9 +21,6 @@ class _MenuRestaurantDisplayState extends State<MenuRestaurantDisplay> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    final double _heightCard=169.h;
-    final double _widthtCard=157.w;
-    //List<RestaurantHomeDisplayModel> items = [items1, items2, items1, items2,items1, items2, items1, items2,items1, items2, items1, items2];
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     var adressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
     return widget.getOneRestaurantAndPopulateProducts.restaurant!.products!.isNotEmpty ? SingleChildScrollView(

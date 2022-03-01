@@ -154,17 +154,16 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                                               SizedBox(width: 7.w,),
                                                               //localisationName
                                                               SizedBox(
-                                                                width: 130.w,
+                                                                width: 220.w,
                                                                 child: Text(
                                                                   state.getRestaurant.restaurant!.address!,
                                                                   maxLines: 1,
                                                                   overflow: TextOverflow.ellipsis,
                                                                   style: TextStyle(
                                                                     color:Color.fromRGBO(148, 148, 148,1),
-                                                                    fontSize: 16.sp,
+                                                                    fontSize: 14.sp,
                                                                     fontFamily: "Milliard",
                                                                   ),
-
                                                                 ),
                                                               ),
                                                             ],
@@ -178,6 +177,7 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                                           child: IntrinsicHeight(
                                                             child: Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
                                                               children: [
                                                                 //First Info
                                                                 Container(
@@ -187,13 +187,13 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                                                       Icon(
                                                                         LvIconsResto.star,
                                                                         color:Color.fromRGBO(251, 182, 52, 1),
-                                                                        size: 18.sp,
+                                                                        size: 14.sp,
                                                                       ),
                                                                       SizedBox(width: 4.w,),
                                                                       Text(
                                                                         state.getRestaurant.restaurant!.note!.toStringAsFixed(1),
                                                                         style: TextStyle(
-                                                                          fontSize: 18.sp,
+                                                                          fontSize: 14.sp,
                                                                           fontFamily: "Milliard",
                                                                           fontWeight: FontWeight.w200,
                                                                         ),
@@ -203,14 +203,14 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                                                       //ProductNumber
                                                                       Icon(
                                                                         LvIconsResto.product,
-                                                                        size: 18.sp,
+                                                                        size: 14.sp,
                                                                         color: Color.fromRGBO(70, 128, 232,1),
                                                                       ),
                                                                       SizedBox(width: 5.8.w,),
                                                                       Text(
                                                                         " "+getProductQtt(state.getRestaurant.restaurant!.products)+" "+AppLocalizations.of(context)!.translate("product"),
                                                                         style: TextStyle(
-                                                                            fontSize: 18.sp,
+                                                                            fontSize: 14.sp,
                                                                             fontFamily: "Milliard",
                                                                             color:Color.fromRGBO(148, 148, 148, 1)
                                                                         ),
@@ -230,7 +230,7 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                                                     child: Text(
                                                                       AppLocalizations.of(context)!.translate("open"),
                                                                       style: TextStyle(
-                                                                          fontSize: 16.sp,
+                                                                          fontSize: 12.sp,
                                                                           fontFamily: "Milliard",
                                                                           fontWeight: FontWeight.w300,
                                                                           color:Color.fromRGBO(104, 211, 137, 1)
@@ -248,7 +248,7 @@ class _RestaurantRestoState extends State<RestaurantResto> {
                                                                     child: Text(
                                                                       AppLocalizations.of(context)!.translate("close"),
                                                                       style: TextStyle(
-                                                                          fontSize: 16.sp,
+                                                                          fontSize: 12.sp,
                                                                           fontFamily: "Milliard",
                                                                           fontWeight: FontWeight.w300,
                                                                           color: Color(0XFFBC2C3D)

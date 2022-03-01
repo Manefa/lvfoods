@@ -412,7 +412,6 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                         SizedBox(height: 23.h,),
                         Container(
                           width: 344.w,
-                          //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment:CrossAxisAlignment.start,

@@ -261,7 +261,7 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                           AppLocalizations.of(context)!.translate("save"),
                           style: TextStyle(
                             fontFamily: "Milliard",
-                            fontSize: 20.sp,
+                            fontSize: 18.sp,
                             color: kPrimaryColor,
                           ),
                         ),

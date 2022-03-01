@@ -104,7 +104,7 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
                                         fontFamily: "Milliard",
                                       ),
                                       decoration: InputDecoration(
-                                        contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
+                                        contentPadding: new EdgeInsets.symmetric(vertical: 13.h),
                                         hintText: AppLocalizations.of(context)!.translate("searchOrders"),
                                         border: InputBorder.none,
                                         prefixIcon: Icon(

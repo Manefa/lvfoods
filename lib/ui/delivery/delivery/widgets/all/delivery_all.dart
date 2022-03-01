@@ -109,7 +109,7 @@ class _DeliveryAllState extends State<DeliveryAll> {
                                     fontFamily: "Milliard",
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding: new EdgeInsets.only(bottom: 22.r),
+                                    contentPadding: new EdgeInsets.symmetric(vertical: 13.h),
                                     hintText: AppLocalizations.of(context)!.translate("searchDeliveries"),
                                     border: InputBorder.none,
                                     prefixIcon: Icon(
