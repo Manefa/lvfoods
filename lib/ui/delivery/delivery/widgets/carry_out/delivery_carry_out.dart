@@ -109,7 +109,7 @@ class _DeliveryCarryOutState extends State<DeliveryCarryOut> {
                                     fontFamily: "Milliard",
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
+                                    contentPadding: new EdgeInsets.only(bottom: 22.r),
                                     hintText: AppLocalizations.of(context)!.translate("searchDeliveries"),
                                     border: InputBorder.none,
                                     prefixIcon: Icon(
