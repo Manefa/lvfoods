@@ -3,9 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/delivery.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/order.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery_detail/page/delivery_detail_page.dart';
 
 
@@ -23,13 +24,6 @@ class _DeliveryToDeliveryDisplayState extends State<DeliveryToDeliveryDisplay> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
 
     List<Delivery> _ordersReady = List.empty();
     List<Delivery> _ordersReadyReal = _ordersReady.toList();
@@ -127,7 +121,7 @@ class _DeliveryToDeliveryDisplayState extends State<DeliveryToDeliveryDisplay> {
                                 ),
                                 SizedBox(width: 10.w,),
                                 Text(
-                                  getHour(_ordersReadyReal[index].createdAt.toString()) +" Hours Ago",
+                                  getHour(_ordersReadyReal[index].createdAt.toString()) +" "+AppLocalizations.of(context)!.translate("hoursAgo"),
                                   style: TextStyle(
                                     fontFamily: "Milliard",
                                     fontSize: 15.sp,
@@ -149,7 +143,7 @@ class _DeliveryToDeliveryDisplayState extends State<DeliveryToDeliveryDisplay> {
                                   ),
                                   SizedBox(width: 5.w,),
                                   Text(
-                                    _ordersReadyReal[index].statusPayment == "paid" && _ordersReadyReal[index].orderGroup!.statusPayment == "paid" ? "Paid" : "Unpaid",
+                                    _ordersReadyReal[index].statusPayment == "paid" && _ordersReadyReal[index].orderGroup!.statusPayment == "paid" ? AppLocalizations.of(context)!.translate("paid") : AppLocalizations.of(context)!.translate("unPaid"),
                                     style: TextStyle(
                                       fontFamily: "Milliard",
                                       fontSize: 15.sp,
@@ -192,7 +186,7 @@ class _DeliveryToDeliveryDisplayState extends State<DeliveryToDeliveryDisplay> {
                                   ),
                                   SizedBox(width: 5.w,),
                                   Text(
-                                    _ordersReadyReal[index].status.toString(),
+                                    AppLocalizations.of(context)!.translate("ready"),
                                     style: TextStyle(
                                       color: Color(0XFFA27AFA),
                                       fontSize: 15.sp,
@@ -238,7 +232,7 @@ class _DeliveryToDeliveryDisplayState extends State<DeliveryToDeliveryDisplay> {
           ),
           SizedBox(height: 48.h,),
           Text(
-            "No Deliverys !",
+            AppLocalizations.of(context)!.translate("noDelivery"),
             style: TextStyle(
               fontFamily: "Milliard",
               fontSize: 20.sp,
@@ -248,15 +242,7 @@ class _DeliveryToDeliveryDisplayState extends State<DeliveryToDeliveryDisplay> {
           ),
           SizedBox(height: 30.h,),
           Text(
-            "Deliverys will be displayed here if there is an alert. or other ",
-            style: TextStyle(
-              fontSize: 15.sp,
-              fontFamily: "Milliard",
-            ),
-          ),
-          SizedBox(height: 2.h,),
-          Text(
-            "important information",
+            AppLocalizations.of(context)!.translate("noDeliveryDetail"),
             style: TextStyle(
               fontSize: 15.sp,
               fontFamily: "Milliard",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 class NotificationModel{
   final String ? image;
   final String title;
@@ -25,16 +26,10 @@ class NotificationRestauDetails extends StatefulWidget {
 class _NotificationRestauDetailsState extends State<NotificationRestauDetails> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return Scaffold(
       appBar: AppBar(
         title:  Text(
-          "Notifications",
+          AppLocalizations.of(context)!.translate("notifications"),
           style: TextStyle(
               color: Colors.black,
               fontFamily: "Milliard",

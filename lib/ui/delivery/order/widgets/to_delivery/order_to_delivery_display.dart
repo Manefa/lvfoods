@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/orders/domain/entities/recovery.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order_detail/page/order_detail_page.dart';
 
@@ -15,12 +15,7 @@ class OrderToDeliveryDisplay extends StatefulWidget {
 class _OrderToDeliveryDisplayState extends State<OrderToDeliveryDisplay> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
+
     return SingleChildScrollView(
       child : ListView.builder(
           physics: BouncingScrollPhysics(),

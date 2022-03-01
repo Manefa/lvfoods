@@ -13,12 +13,6 @@ class DeliveryDetailDisplay extends StatefulWidget {
 class _DeliveryDetailDisplayState extends State<DeliveryDetailDisplay> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
     return SingleChildScrollView(
         child: ListView.builder(
@@ -90,7 +84,7 @@ class _DeliveryDetailDisplayState extends State<DeliveryDetailDisplay> {
                       Padding(
                         padding: const EdgeInsets.only(right: 35.0),
                         child: Text(
-                          widget.orders[index].total.toString()+" fcfa",
+                          widget.orders[index].total.toString()+" Fcfa",
                           style: TextStyle(
                             fontFamily: "Milliard",
                             fontSize: 15.sp,

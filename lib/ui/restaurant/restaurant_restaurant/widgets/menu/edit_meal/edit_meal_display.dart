@@ -7,26 +7,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/core/utils/url_convert.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/entities/category.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/get_product_details.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/bloc/update_product.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/domain/entities/for_update_product.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/chip_list.dart';
-
 
 class EditMealDisplay extends StatefulWidget {
   final GetProductDetails getProductDetails;
   final String code;
   final List<Category> categories;
-  const EditMealDisplay({Key? key, required this.getProductDetails, required this.code, required this.categories}) : super(key: key);
+  const EditMealDisplay(
+      {Key? key,
+      required this.getProductDetails,
+      required this.code,
+      required this.categories})
+      : super(key: key);
 
   @override
   _EditMealDisplayState createState() => _EditMealDisplayState();
 }
-
 
 class _EditMealDisplayState extends State<EditMealDisplay> {
   String name = "";
@@ -47,14 +51,18 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
   TextEditingController descriptionController = TextEditingController();
 
   @override
-  void initState()  {
+  void initState() {
     name = widget.getProductDetails.product!.name!;
     price = widget.getProductDetails.product!.price.toString();
     remise = widget.getProductDetails.product!.discount!.toString();
     description = widget.getProductDetails.product!.description!.toString();
     categoriesList = widget.categories;
-    for(int i = 0; i < widget.getProductDetails.product!.categories!.length; i++){
-      Category category = Category(id:widget.getProductDetails.product!.categories![i].id , name: widget.getProductDetails.product!.categories![i].name);
+    for (int i = 0;
+        i < widget.getProductDetails.product!.categories!.length;
+        i++) {
+      Category category = Category(
+          id: widget.getProductDetails.product!.categories![i].id,
+          name: widget.getProductDetails.product!.categories![i].name);
       categoriesForSaveList.add(category);
     }
     mealNameController = TextEditingController(text: name);
@@ -67,28 +75,17 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
 
   _asyncMethod() async {
     _oldCoverFile = await urlToFile(widget.getProductDetails.product!.picture!);
-    if(_oldCoverFile != null){
+    if (_oldCoverFile != null) {
       _imageCover = XFile(_oldCoverFile!.path);
-      print("chargement effectuer");
-      setState(() {
-
-      });
+      setState(() {});
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
-
     int day = 1;
 
-   List<int> selectedList = [];
+    List<int> selectedList = [];
     // List<String> _categorieOptions = [
     //   'Desert',
     //   'Entrée',
@@ -97,36 +94,38 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
 
     List<String> _categorieOptionsTwo = [];
 
-    if(categoriesList != null){
+    if (categoriesList != null) {
       categoriesList!.forEach((element) {
         _categorieOptionsTwo.add(element.name!);
       });
     }
 
-
     return BlocProvider<UpdateProductBloc>(
       create: (_) => _updateProductBloc,
       child: BlocListener(
         bloc: _updateProductBloc,
-        listener: (context, state){
-          if(state is UpdateProductLoading){
+        listener: (context, state) {
+          if (state is UpdateProductLoading) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
-                  duration: (state is UpdateProductLoading) ? Duration(days: day) : Duration(seconds: day),
+                  duration: (state is UpdateProductLoading)
+                      ? Duration(days: day)
+                      : Duration(seconds: day),
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "En cours...",
+                        AppLocalizations.of(context)!.translate("inProgressBloc"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                           color: Colors.white,
                         ),
                       ),
                       CircularProgressIndicator(
-                        valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
                     ],
                   ),
@@ -135,19 +134,29 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
               );
           }
 
-          if(state is UpdateProductLoaded){
+          if (state is UpdateProductLoaded) {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             Navigator.pop(context);
           }
 
-          if(state is UpdateProductError){
+          if (state is UpdateProductError) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text(state.message + "Echec de la mise a jour", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                    children: [
+                      Text(
+                        state.message + AppLocalizations.of(context)!.translate("theUpdateHasFailed"),
+                        style: TextStyle(
+                            fontFamily: "Milliard", color: Colors.white),
+                      ),
+                      Icon(
+                        Icons.error,
+                        color: Colors.white,
+                      )
+                    ],
                   ),
                   backgroundColor: kPrimaryColor,
                 ),
@@ -164,7 +173,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Name Meal",
+                      AppLocalizations.of(context)!.translate("mealName"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -173,7 +182,9 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 Container(
                     width: 344.w,
                     height: 48.h,
@@ -185,19 +196,21 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                         fontFamily: "Milliard",
                       ),
                       decoration: InputDecoration(
-                        contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 14.r, horizontal: 10.r),
                         border: OutlineInputBorder(),
                       ),
-                    )
+                    )),
+                SizedBox(
+                  height: 23.h,
                 ),
-                SizedBox(height: 23.h,),
                 //UploadImage
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Upload Slide Cover Image",
+                      AppLocalizations.of(context)!.translate("uploadImg"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -206,98 +219,107 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 23.h,),
-                _imageCover == null ? InkWell(
-                  onTap: (){
-                    _showPickerCover(context);
-                  },
-                  child: Container(
-                    height: 42.h,
-                    width: 344.w,
-                    child: DottedBorder(
-                        color: Color.fromRGBO(188, 44, 61, 1),
-                        strokeWidth: 0.2,
-                        dashPattern: [10,6],
-                        child:Center(
-                            child:Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  LvIconsResto.upload,
-                                  color: Color.fromRGBO(188, 44, 61, 1),
-                                  size: 16.sp,
-                                ),
-                                SizedBox(width: 19.w,),
-                                Text(
-                                  "Upload Images Here",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(188, 44, 61, 1),
-                                      fontSize: 20.sp,
-                                      fontFamily: "Milliard",
-
-                                      fontWeight: FontWeight.w200
+                SizedBox(
+                  height: 23.h,
+                ),
+                _imageCover == null
+                    ? InkWell(
+                        onTap: () {
+                          _showPickerCover(context);
+                        },
+                        child: Container(
+                          height: 42.h,
+                          width: 344.w,
+                          child: DottedBorder(
+                              color: Color.fromRGBO(188, 44, 61, 1),
+                              strokeWidth: 0.2,
+                              dashPattern: [10, 6],
+                              child: Center(
+                                  child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    LvIconsResto.upload,
+                                    color: Color.fromRGBO(188, 44, 61, 1),
+                                    size: 16.sp,
                                   ),
-                                )
-                              ],
-                            )
-                        )
-                    ),
-                  ),
-                ):InkWell(
-                  onTap: (){
-                    _showPickerCover(context);
-                  },
-                  child: Container(
-                    height: 50.h,
-                    width: 344.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0XFFF4F4F4),
-                            spreadRadius: 2,
-                            blurRadius: 6,
-                          )
-                        ]
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 15.w,),
-                        Icon(
-                          Icons.image,
-                          color: Color(0XFFCBCBCB),
+                                  SizedBox(
+                                    width: 19.w,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.translate("uploadImgHere"),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(188, 44, 61, 1),
+                                        fontSize: 20.sp,
+                                        fontFamily: "Milliard",
+                                        fontWeight: FontWeight.w200),
+                                  )
+                                ],
+                              ))),
                         ),
-                        SizedBox(width: 14.w,),
-                        SizedBox(
-                          width: 120.w,
-                          child: Text(
-                            _imageCover!.name,
-                            overflow: TextOverflow.ellipsis,
+                      )
+                    : InkWell(
+                        onTap: () {
+                          _showPickerCover(context);
+                        },
+                        child: Container(
+                          height: 50.h,
+                          width: 344.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0XFFF4F4F4),
+                                  spreadRadius: 2,
+                                  blurRadius: 6,
+                                )
+                              ]),
+                          child: Row(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 15.w,
+                              ),
+                              Icon(
+                                Icons.image,
+                                color: Color(0XFFCBCBCB),
+                              ),
+                              SizedBox(
+                                width: 14.w,
+                              ),
+                              SizedBox(
+                                width: 120.w,
+                                child: Text(
+                                  _imageCover!.name,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Expanded(child: SizedBox()),
+                              Icon(
+                                Icons.cancel,
+                                color: Color(0XFFCBCBCB),
+                                size: 20.sp,
+                              ),
+                              SizedBox(
+                                width: 22.w,
+                              ),
+                            ],
                           ),
                         ),
-                        Expanded(child: SizedBox()),
-                        Icon(
-                          Icons.cancel,
-                          color: Color(0XFFCBCBCB),
-                          size: 20.sp,
-                        ),
-                        SizedBox(width: 22.w,),
-                      ],
-                    ),
-                  ),
+                      ),
+                SizedBox(
+                  height: 15.h,
                 ),
-                SizedBox(height: 15.h,),
                 //Price
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Price",
+                      AppLocalizations.of(context)!.translate("price"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -306,7 +328,9 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 Container(
                     width: 344.w,
                     height: 48.h,
@@ -321,8 +345,10 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                               fontFamily: "Milliard",
                             ),
                             decoration: InputDecoration(
-                              hintText: widget.getProductDetails.product!.price!.toString(),
-                              contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                              hintText: widget.getProductDetails.product!.price!
+                                  .toString(),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 14.r, horizontal: 10.r),
                               border: OutlineInputBorder(),
                             ),
                           ),
@@ -330,23 +356,21 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                         Container(
                           width: 76.w,
                           height: 48.h,
-                          color: Color.fromRGBO(241, 241, 241,1),
+                          color: Color.fromRGBO(241, 241, 241, 1),
                           child: Center(
-                            child: Text(
-                                'FCFA',
+                            child: Text('FCFA',
                                 style: TextStyle(
                                   color: Color.fromRGBO(145, 145, 145, 1),
                                   fontSize: 20.sp,
                                   fontFamily: "Milliard",
-                                )
-
-                            ),
+                                )),
                           ),
                         )
                       ],
-                    )
+                    )),
+                SizedBox(
+                  height: 17.h,
                 ),
-                SizedBox(height: 17.h,),
 
                 //Remise
                 Container(
@@ -354,7 +378,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Remise",
+                      AppLocalizations.of(context)!.translate("discount"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -363,7 +387,9 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 Container(
                   width: 344.w,
                   height: 48.h,
@@ -378,7 +404,8 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                             fontFamily: "Milliard",
                           ),
                           decoration: InputDecoration(
-                            contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 14.r, horizontal: 10.r),
                             border: OutlineInputBorder(),
                           ),
                         ),
@@ -386,22 +413,22 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                       Container(
                         width: 76.w,
                         height: 48.h,
-                        color: Color.fromRGBO(241, 241, 241,1),
+                        color: Color.fromRGBO(241, 241, 241, 1),
                         child: Center(
-                          child: Text(
-                              '%',
+                          child: Text('%',
                               style: TextStyle(
                                 color: Color.fromRGBO(145, 145, 145, 1),
                                 fontSize: 20.sp,
                                 fontFamily: "Milliard",
-                              )
-                          ),
+                              )),
                         ),
                       )
                     ],
                   ),
                 ),
-                SizedBox(height: 17.h,),
+                SizedBox(
+                  height: 17.h,
+                ),
 
                 //Description
                 Container(
@@ -409,7 +436,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Description",
+                      AppLocalizations.of(context)!.translate("description"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -418,14 +445,16 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h,),
+                SizedBox(
+                  height: 7.h,
+                ),
                 Container(
                   height: 121.h,
                   width: 344.w,
                   decoration: new BoxDecoration(
                       borderRadius: BorderRadius.circular(5.r),
-                      border: new Border.all(color: Color.fromRGBO(223, 222, 221, 1))
-                  ),
+                      border: new Border.all(
+                          color: Color.fromRGBO(223, 222, 221, 1))),
                   child: new SizedBox.expand(
                     child: new TextFormField(
                         controller: descriptionController,
@@ -433,23 +462,24 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                         style: new TextStyle(
                             fontSize: 16.sp,
                             fontFamily: "Milliard",
-                            color: Colors.black
-                        ),
+                            color: Colors.black),
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 10.0),
-                        )
-                    ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
+                        )),
                   ),
                 ),
-                SizedBox(height: 43.h,),
+                SizedBox(
+                  height: 43.h,
+                ),
                 //Categorie
                 Container(
                   width: 344.w,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Categorie",
+                      AppLocalizations.of(context)!.translate("category"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -458,7 +488,9 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 21.h,),
+                SizedBox(
+                  height: 21.h,
+                ),
                 Container(
                   width: 344.w,
                   child: ChipList(
@@ -470,40 +502,47 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                     ),
                     borderRadiiList: [8.r],
                     runSpacing: 17.h,
-                    activeBgColorList: [Color.fromRGBO(188, 44, 61,1)],
+                    activeBgColorList: [Color.fromRGBO(188, 44, 61, 1)],
                     listOfChipIndicesCurrentlySeclected: selectedList,
                     inactiveBgColorList: [Color.fromRGBO(248, 247, 247, 1)],
                     activeTextColorList: [Colors.white],
-                    inactiveTextColorList: [Color.fromRGBO(148, 148, 148,1)],
+                    inactiveTextColorList: [Color.fromRGBO(148, 148, 148, 1)],
                     shouldWrap: true,
                   ),
                 ),
-                SizedBox(height: 17.h,),
+                SizedBox(
+                  height: 17.h,
+                ),
                 //EditResto Button
                 InkWell(
-                  onTap: (){
-                    String categories="";
-                    String theIds="";
+                  onTap: () {
+                    String categories = "";
+                    String theIds = "";
 
-                    String theIdsForSave="";
-                    for(int i = 0; i<categoriesForSaveList.length; i++){
-                      theIdsForSave = theIdsForSave+categoriesForSaveList[i].id!+"|";
+                    String theIdsForSave = "";
+                    for (int i = 0; i < categoriesForSaveList.length; i++) {
+                      theIdsForSave =
+                          theIdsForSave + categoriesForSaveList[i].id! + "|";
                     }
 
-                    for(int y=0; y < selectedList.length; y++){
-                      for(int i=0; i <= _categorieOptionsTwo.length; i++){
-                        if(i == selectedList[y]){
-                          categories = categories+_categorieOptionsTwo[i].trim()+"|";
-                          theIds = theIds+categoriesList![i].id!.trim()+"|";
+                    for (int y = 0; y < selectedList.length; y++) {
+                      for (int i = 0; i <= _categorieOptionsTwo.length; i++) {
+                        if (i == selectedList[y]) {
+                          categories =
+                              categories + _categorieOptionsTwo[i].trim() + "|";
+                          theIds = theIds + categoriesList![i].id!.trim() + "|";
                           print(removeLastCharacter(categories.trim()));
                           print(removeLastCharacter(theIds.trim()));
                         }
                       }
                     }
 
-                    if(mealNameController.text.isEmpty || priceController.text.isEmpty || remiseController.text.isEmpty || descriptionController.text.isEmpty){
+                    if (mealNameController.text.isEmpty ||
+                        priceController.text.isEmpty ||
+                        remiseController.text.isEmpty ||
+                        descriptionController.text.isEmpty) {
                       Fluttertoast.showToast(
-                        msg: "Renseignez tout les champs",
+                        msg: AppLocalizations.of(context)!.translate("fillInAllFields"),
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 5,
@@ -511,15 +550,21 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                         textColor: Colors.white,
                         fontSize: 16.sp,
                       );
-                    }else{
+                    } else {
                       ForUpdateProduct product = ForUpdateProduct(
                           name: mealNameController.text,
-                          categories: theIds == "" ? removeLastCharacter(theIdsForSave.trim()) : removeLastCharacter(theIds.trim()),
+                          categories: theIds == ""
+                              ? removeLastCharacter(theIdsForSave.trim())
+                              : removeLastCharacter(theIds.trim()),
                           price: double.parse(priceController.text),
-                          discount: double.parse(remiseController.text.toString()),
+                          discount:
+                              double.parse(remiseController.text.toString()),
                           description: descriptionController.text,
-                          picture: _imageCover == null ? null : File(_imageCover!.path));
-                      _updateProductBloc.add(StartUpdateProduct(forUpdateProduct: product, code: widget.code));
+                          picture: _imageCover == null
+                              ? null
+                              : File(_imageCover!.path));
+                      _updateProductBloc.add(StartUpdateProduct(
+                          forUpdateProduct: product, code: widget.code));
                     }
                   },
                   child: Container(
@@ -531,7 +576,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                     ),
                     child: Center(
                       child: Text(
-                        "Edit Meal",
+                        AppLocalizations.of(context)!.translate("editMeal"),
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w300,
@@ -542,29 +587,28 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                     ),
                   ),
                 ),
-                SizedBox(height: 43.h,),
+                SizedBox(
+                  height: 43.h,
+                ),
               ],
             ),
           ),
-
         ),
       ),
     );
   }
 
   _imgFromCameraCover() async {
-    XFile? image = await ImagePicker().pickImage(
-        source: ImageSource.camera, imageQuality: 50
-    );
+    XFile? image = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 50);
     setState(() {
       _imageCover = image;
     });
   }
 
   _imgFromGalleryCover() async {
-    XFile? image = await  ImagePicker().pickImage(
-        source: ImageSource.gallery, imageQuality: 50
-    );
+    XFile? image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 50);
     setState(() {
       _imageCover = image;
     });
@@ -613,11 +657,11 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
               ),
             ),
           );
-        }
-    );
+        });
   }
+
   String removeLastCharacter(String str) {
-    String result="";
+    String result = "";
     if ((str != null) && (str.length > 0)) {
       result = str.substring(0, str.length - 1);
     }

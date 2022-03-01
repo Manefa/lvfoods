@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/custom_nav_bar_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/home_restaurant/page/home_restaurant.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/notifications_page/page/notifications_restaurant.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/profile_restaurant/page/profile_restaurant.dart';
@@ -41,25 +42,25 @@ class _NavigatorRestaurantPageState extends State<NavigatorRestaurantPage> {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(LvIcons.lv_home),
-        title: ("Home"),
+        title: (AppLocalizations.of(context)!.translate("home")),
         activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: Colors.black,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(LvIconsResto.restaurant),
-        title: ("Restaurant"),
+        title: (AppLocalizations.of(context)!.translate("restaurant")),
         activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: Colors.black,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(LvIcons.bell),
-        title: ("Notifications"),
+        title: (AppLocalizations.of(context)!.translate("notifications")),
         activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: Colors.black,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(LvIcons.lv_user),
-        title: ("Profile"),
+        title: (AppLocalizations.of(context)!.translate("profile")),
         activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: Colors.black,
       ),
@@ -76,7 +77,6 @@ class _NavigatorRestaurantPageState extends State<NavigatorRestaurantPage> {
         backgroundColor: Colors.white, // Default is Colors.white.
         handleAndroidBackButtonPress: true, // Default is true.
         resizeToAvoidBottomInset: true,
-        // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
         stateManagement: true, // Default is true.
         hideNavigationBarWhenKeyboardShows: true,
         customWidget: CustomNavBarWidget( // Your custom widget goes here
@@ -84,7 +84,7 @@ class _NavigatorRestaurantPageState extends State<NavigatorRestaurantPage> {
           selectedIndex: _controller!.index,
           onItemSelected: (index) {
             setState(() {
-              _controller!.index = index; // NOTE: THIS IS CRITICAL!! Don't miss it!
+              _controller!.index = index;
             });
           },
         ),
@@ -92,7 +92,6 @@ class _NavigatorRestaurantPageState extends State<NavigatorRestaurantPage> {
         screenTransitionAnimation: ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
           animateTabTransition: true,
           curve: Curves.ease,
-          duration: Duration(milliseconds: 900),
         ),
       ),
     );

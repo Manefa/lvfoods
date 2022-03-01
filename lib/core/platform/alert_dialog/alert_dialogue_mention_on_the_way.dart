@@ -41,6 +41,7 @@ class AlertDialogueDeliveryMentionOnTheWay extends StatelessWidget {
                   ),
                   SizedBox(height: 9.h,),
                   //Title
+                  //TODO CHANGE
                   Text(
                     "Cette livraison est maintenant en cours",
                     textAlign: TextAlign.center,
@@ -55,6 +56,7 @@ class AlertDialogueDeliveryMentionOnTheWay extends StatelessWidget {
                   //Description
                   Container(
                     width: 290.w,
+                    //TODO CHANGE
                     child:Text(
                       "Lorem Ipsum is simply dummy text of the printing and types etting industry. Lorem Ipsum has been the industry's stan dard dummy text ever.",
                       textAlign: TextAlign.center,

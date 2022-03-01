@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/custom_nav_bar_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery/page/delivery_page.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/home_delivery/page/home_delivery.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order/page/order_page.dart';
@@ -39,25 +40,25 @@ class _NavigatorDeliveryPageState extends State<NavigatorDeliveryPage> {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(LvIcons.lv_home),
-        title: ("Home"),
+        title: (AppLocalizations.of(context)!.translate("home")),
         activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: Colors.black,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(LvIcons.lv_orders),
-        title: ("Orders"),
+        title: (AppLocalizations.of(context)!.translate("order")),
         activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: Colors.black,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(LvIcons.lv_delivery),
-        title: ("Delivery"),
+        title: (AppLocalizations.of(context)!.translate("delivery")),
         activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: Colors.black,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(LvIcons.lv_user),
-        title: ("Profile"),
+        title: (AppLocalizations.of(context)!.translate("profile")),
         activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: Colors.black,
       ),

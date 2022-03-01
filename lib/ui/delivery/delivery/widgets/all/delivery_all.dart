@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/bloc/deliveries.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/delivery.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery/widgets/all/delivery_all_display.dart';
 import 'package:ivfoods_mobile_app/ui/shimmer_widgets.dart';
 
@@ -30,12 +31,6 @@ class _DeliveryAllState extends State<DeliveryAll> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -48,7 +43,9 @@ class _DeliveryAllState extends State<DeliveryAll> {
               if(state is EmptyDeliveries){
                 return Container(
                   child: Center(
-                    child: Text("Aucune Livraisons"),
+                    child: Text(
+                        AppLocalizations.of(context)!.translate("noDelivery")
+                    ),
                   ),
                 );
               }
@@ -112,8 +109,8 @@ class _DeliveryAllState extends State<DeliveryAll> {
                                     fontFamily: "Milliard",
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
-                                    hintText: "Search delivery",
+                                    contentPadding: new EdgeInsets.only(bottom: 22.r),
+                                    hintText: AppLocalizations.of(context)!.translate("searchDeliveries"),
                                     border: InputBorder.none,
                                     prefixIcon: Icon(
                                       LvIcons.search_interface_symbol,
@@ -136,19 +133,17 @@ class _DeliveryAllState extends State<DeliveryAll> {
                                   onPressed: () {
                                     _deliveriesBloc.add(GetDeliveries());
                                   },
-                                  label: FittedBox(
-                                    child: Text('Refresh', style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontFamily: "Milliard",
-                                      color: Color(0XFF68D389),
-                                    ),),
-                                  ),
-                                  icon: FittedBox(
-                                    child: Icon(
-                                      Icons.refresh,
-                                      size: 17.sp,
-                                      color: Color(0XFF68D389),
-                                    ),
+                                  label: Text(
+                                    AppLocalizations.of(context)!.translate("filter"),
+                                    style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontFamily: "Milliard",
+                                    color: Color(0XFF68D389),
+                                  ),),
+                                  icon: Icon(
+                                    Icons.refresh,
+                                    size: 17.sp,
+                                    color: Color(0XFF68D389),
                                   ),
                                   style: TextButton.styleFrom(
                                     backgroundColor: Color(0XFFDEF9E7),

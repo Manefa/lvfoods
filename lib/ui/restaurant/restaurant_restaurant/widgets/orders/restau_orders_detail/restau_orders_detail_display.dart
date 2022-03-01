@@ -9,6 +9,7 @@ import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owne
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/mention_order_ready/bloc/mention_order_ready.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/orders/restau_orders_detail/alert_dialogue_order_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 enum Level {
@@ -31,14 +32,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
 
   @override
   Widget build(BuildContext context) {
-
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
-    initializeDateFormatting('fr');
+    initializeDateFormatting(AppLocalizations.of(context)!.locale.languageCode);
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     _getAllForOwnerRestaurantBloc.add(StartGetAllForOwnerRestaurant(name: nameRestaurant!));
 
@@ -65,6 +59,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
+                        //TODO change
                         "En cours...",
                         style: TextStyle(
                           fontFamily: "Milliard",
@@ -101,6 +96,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //TODO change
                     children: [Text(state.message + "Echec", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                   ),
                   backgroundColor: kPrimaryColor,
@@ -162,7 +158,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                                       ),
                                       SizedBox(width: 7.w,),
                                       Text(
-                                        'Pret',
+                                        AppLocalizations.of(context)!.translate("ready"),
                                         style: TextStyle(
                                           color: Color(0XFF68D389),
                                           fontFamily: "Milliard",
@@ -191,7 +187,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                                       ),
                                       SizedBox(width: 7.w,),
                                       Text(
-                                        'Valid',
+                                        AppLocalizations.of(context)!.translate("valid"),
                                         style: TextStyle(
                                           color: Color(0XFFA27AFA),
                                           fontFamily: "Milliard",
@@ -311,7 +307,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              "Item Total",
+                             AppLocalizations.of(context)!.translate("itemTotal"),
                               style: TextStyle(
                                   fontFamily: "Milliard",
                                   fontSize: 16.sp,
@@ -340,7 +336,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              "Remise",
+                              AppLocalizations.of(context)!.translate("discount"),
                               style: TextStyle(
                                   fontFamily: "Milliard",
                                   fontSize: 16.sp,
@@ -369,7 +365,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              "Delivery free",
+                              AppLocalizations.of(context)!.translate("freeDelivery"),
                               style: TextStyle(
                                   fontFamily: "Milliard",
                                   fontSize: 16.sp,
@@ -398,7 +394,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              "Total paid",
+                              AppLocalizations.of(context)!.translate("orderTotal"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 fontSize: 27.sp,
@@ -429,6 +425,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Center(
+                            //TODO change
                             child: Text(
                               "Mentioner la commande prête",
                               style: TextStyle(

@@ -2,10 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/delivery.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/order.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
+import 'package:ivfoods_mobile_app/ui/delivery/delivery_detail/page/delivery_detail_page.dart';
 
 
 class DeliveryAllDisplay extends StatefulWidget {
@@ -23,12 +24,6 @@ class _DeliveryAllDisplayState extends State<DeliveryAllDisplay> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return widget.deliveries.isNotEmpty ? SingleChildScrollView(
       child : ListView.builder(
         physics: BouncingScrollPhysics(),
@@ -52,189 +47,194 @@ class _DeliveryAllDisplayState extends State<DeliveryAllDisplay> {
             value: (value) => getValues(list),
           );
 
-          return Container(
-            color: Colors.white,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 20.h,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            change(names.values),
-                            style: TextStyle(
-                              fontFamily: "Milliard",
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
+          return InkWell(
+            onTap: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => DeliveryDetailPage(code: widget.deliveries[index].code!,)),);
+            },
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 20.h,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              change(names.values),
+                              style: TextStyle(
+                                fontFamily: "Milliard",
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 10.h,),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Icon(
-                                Icons.location_on_outlined,
-                                size: 15.sp,
-                                color: Color(0XFF949494),
-                              ),
-                              SizedBox(width: 10.w,),
-                              Text(
-                                widget.deliveries[index].country.toString()+ " - "+widget.deliveries[index].city.toString()+ " - "+widget.deliveries[index].district.toString(),
-                                style: TextStyle(
-                                  fontFamily: "Milliard",
-                                  fontSize: 15.sp,
-                                  color: Color(0XFF949494),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10.h,),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Icon(
-                                Icons.access_time_rounded,
-                                size: 15.sp,
-                                color: Color(0XFF949494),
-                              ),
-                              SizedBox(width: 10.w,),
-                              Text(
-                                getHour(widget.deliveries[index].createdAt.toString())+" Hours Ago",
-                                style: TextStyle(
-                                  fontFamily: "Milliard",
-                                  fontSize: 15.sp,
-                                  color: Color(0XFF949494),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10.h,),
-                          IntrinsicHeight(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                            SizedBox(height: 10.h,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Icon(
-                                  LvIcons.dollar__1_,
+                                  Icons.location_on_outlined,
                                   size: 15.sp,
-                                  color: widget.deliveries[index].statusPayment == "paid" && widget.deliveries[index].orderGroup!.statusPayment == "paid" ? Color(0XFF4884EE) : Color(0XFFBC2C3D),
+                                  color: Color(0XFF949494),
                                 ),
-                                SizedBox(width: 5.w,),
+                                SizedBox(width: 10.w,),
                                 Text(
-                                  widget.deliveries[index].statusPayment == "paid" && widget.deliveries[index].orderGroup!.statusPayment == "paid" ? "Paid" : "Unpaid",
+                                  widget.deliveries[index].country.toString()+ " - "+widget.deliveries[index].city.toString()+ " - "+widget.deliveries[index].district.toString(),
                                   style: TextStyle(
                                     fontFamily: "Milliard",
                                     fontSize: 15.sp,
-                                    color: widget.deliveries[index].statusPayment == "paid" && widget.deliveries[index].orderGroup!.statusPayment == "paid" ? Color(0XFF4884EE) : Color(0XFFBC2C3D),
+                                    color: Color(0XFF949494),
                                   ),
-                                ),
-                                VerticalDivider(),
-                                Icon(
-                                  LvIcons.dish,
-                                  size: 15.sp,
-                                  color:  Color(0XFF4884EE),
-                                ),
-                                SizedBox(width: 3.w,),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(
-                                    "X "+getQuantity(widget.deliveries[index].orderGroup!.orders),
-                                    style: TextStyle(
-                                      color:  Color(0XFF4884EE),
-                                      fontFamily: "Milliard",
-                                      fontSize: 15.sp,
-                                    ),
-                                  ),
-                                ),
-                                VerticalDivider(),
-                                widget.deliveries[index].status == "delivered" ?
-                                Container(
-                                  height: 20.h,
-                                  width: 20.w,
-                                  decoration: BoxDecoration(
-                                    color: Color(0XFFEFFBF2),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Icon(
-                                    Icons.check,
-                                    size: 12.sp,
-                                    color: Color(0XFF68D389),
-                                  ),
-                                ) : (
-                                    widget.deliveries[index].status == "ready" ?
-                                    Container(
-                                      height: 20.h,
-                                      width: 20.w,
-                                      decoration: BoxDecoration(
-                                        color: Color(0XFFF4EFFF),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Icon(
-                                        Icons.clean_hands_sharp,
-                                        size: 12.sp,
-                                        color: Color(0XFFA27AFA),
-                                      ),
-                                    ) : Container(
-                                      height: 20.h,
-                                      width: 20.w,
-                                      decoration: BoxDecoration(
-                                        color: Color(0XFFFFF7E9),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Icon(
-                                        Icons.access_time_rounded,
-                                        size: 12.sp,
-                                        color: Color(0XFFFBB634),
-                                      ),
-                                    )
-                                ),
-                                SizedBox(width: 5.w,),
-                                widget.deliveries[index].status == "delivered" ?
-                                Text(
-                                  "Delivered",
-                                  style: TextStyle(
-                                    color: Color(0XFF68D389),
-                                    fontSize: 15.sp,
-                                    fontFamily: "Milliard",
-                                  ),
-                                ) : (
-                                    widget.deliveries[index].status == "ready" ?
-                                    Text(
-                                      "Ready",
-                                      style: TextStyle(
-                                        color: Color(0XFFA27AFA),
-                                        fontSize: 15.sp,
-                                        fontFamily: "Milliard",
-                                      ),
-                                    ) : Text(
-                                      "In Progress",
-                                      style: TextStyle(
-                                        color: Color(0XFFFBB634),
-                                        fontSize: 15.sp,
-                                        fontFamily: "Milliard",
-                                      ),
-                                    )
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 10.h,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.access_time_rounded,
+                                  size: 15.sp,
+                                  color: Color(0XFF949494),
+                                ),
+                                SizedBox(width: 10.w,),
+                                Text(
+                                  getHour(widget.deliveries[index].createdAt.toString())+" "+AppLocalizations.of(context)!.translate("hoursAgo"),
+                                  style: TextStyle(
+                                    fontFamily: "Milliard",
+                                    fontSize: 15.sp,
+                                    color: Color(0XFF949494),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10.h,),
+                            IntrinsicHeight(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    LvIcons.dollar__1_,
+                                    size: 15.sp,
+                                    color: widget.deliveries[index].statusPayment == "paid" && widget.deliveries[index].orderGroup!.statusPayment == "paid" ? Color(0XFF4884EE) : Color(0XFFBC2C3D),
+                                  ),
+                                  SizedBox(width: 5.w,),
+                                  Text(
+                                    widget.deliveries[index].statusPayment == "paid" && widget.deliveries[index].orderGroup!.statusPayment == "paid" ? AppLocalizations.of(context)!.translate("paid") : AppLocalizations.of(context)!.translate("unPaid"),
+                                    style: TextStyle(
+                                      fontFamily: "Milliard",
+                                      fontSize: 15.sp,
+                                      color: widget.deliveries[index].statusPayment == "paid" && widget.deliveries[index].orderGroup!.statusPayment == "paid" ? Color(0XFF4884EE) : Color(0XFFBC2C3D),
+                                    ),
+                                  ),
+                                  VerticalDivider(),
+                                  Icon(
+                                    LvIcons.dish,
+                                    size: 15.sp,
+                                    color:  Color(0XFF4884EE),
+                                  ),
+                                  SizedBox(width: 3.w,),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 2.0),
+                                    child: Text(
+                                      "X "+getQuantity(widget.deliveries[index].orderGroup!.orders),
+                                      style: TextStyle(
+                                        color:  Color(0XFF4884EE),
+                                        fontFamily: "Milliard",
+                                        fontSize: 15.sp,
+                                      ),
+                                    ),
+                                  ),
+                                  VerticalDivider(),
+                                  widget.deliveries[index].status == "delivered" ?
+                                  Container(
+                                    height: 20.h,
+                                    width: 20.w,
+                                    decoration: BoxDecoration(
+                                      color: Color(0XFFEFFBF2),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Icon(
+                                      Icons.check,
+                                      size: 12.sp,
+                                      color: Color(0XFF68D389),
+                                    ),
+                                  ) : (
+                                      widget.deliveries[index].status == "ready" ?
+                                      Container(
+                                        height: 20.h,
+                                        width: 20.w,
+                                        decoration: BoxDecoration(
+                                          color: Color(0XFFF4EFFF),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Icon(
+                                          Icons.clean_hands_sharp,
+                                          size: 12.sp,
+                                          color: Color(0XFFA27AFA),
+                                        ),
+                                      ) : Container(
+                                        height: 20.h,
+                                        width: 20.w,
+                                        decoration: BoxDecoration(
+                                          color: Color(0XFFFFF7E9),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Icon(
+                                          Icons.access_time_rounded,
+                                          size: 12.sp,
+                                          color: Color(0XFFFBB634),
+                                        ),
+                                      )
+                                  ),
+                                  SizedBox(width: 5.w,),
+                                  widget.deliveries[index].status == "delivered" ?
+                                  Text(
+                                    AppLocalizations.of(context)!.translate("delivered"),
+                                    style: TextStyle(
+                                      color: Color(0XFF68D389),
+                                      fontSize: 15.sp,
+                                      fontFamily: "Milliard",
+                                    ),
+                                  ) : (
+                                      widget.deliveries[index].status == "ready" ?
+                                      Text(
+                                        AppLocalizations.of(context)!.translate("ready"),
+                                        style: TextStyle(
+                                          color: Color(0XFFA27AFA),
+                                          fontSize: 15.sp,
+                                          fontFamily: "Milliard",
+                                        ),
+                                      ) : Text(
+                                        AppLocalizations.of(context)!.translate("onTheWay"),
+                                        style: TextStyle(
+                                          color: Color(0XFFFBB634),
+                                          fontSize: 15.sp,
+                                          fontFamily: "Milliard",
+                                        ),
+                                      )
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: Color(0XFFBCBCBC),
-                      size: 15.sp,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20.h,),
-                Divider(),
-              ],
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Color(0XFFBCBCBC),
+                        size: 15.sp,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20.h,),
+                  Divider(),
+                ],
+              ),
             ),
           );
         },
@@ -268,15 +268,7 @@ class _DeliveryAllDisplayState extends State<DeliveryAllDisplay> {
           ),
           SizedBox(height: 30.h,),
           Text(
-            "Deliverys will be displayed here if there is an alert. or other ",
-            style: TextStyle(
-              fontSize: 15.sp,
-              fontFamily: "Milliard",
-            ),
-          ),
-          SizedBox(height: 2.h,),
-          Text(
-            "important information",
+            AppLocalizations.of(context)!.translate("noDeliveryDetail"),
             style: TextStyle(
               fontSize: 15.sp,
               fontFamily: "Milliard",

@@ -1,13 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/status_bar_manager.dart';
 import 'package:ivfoods_mobile_app/features/get_user/bloc/get_user.dart';
 import 'package:ivfoods_mobile_app/features/get_user/domain/entities/phone.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/notification_delivery/page/notification_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,21 +23,12 @@ class Appbar extends StatefulWidget {
 
 class _AppbarState extends State<Appbar> {
   GetUserBloc _getUserBloc = sl<GetUserBloc>();
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     String name=" ";
     _getUserBloc.add(GetUser());
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
+
     return BlocProvider<GetUserBloc>(
       create: (_) => _getUserBloc,
       child: BlocListener(
@@ -108,7 +102,7 @@ class _AppbarState extends State<Appbar> {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        "5",
+                                        "0",
                                         style: TextStyle(
                                             fontFamily: "Milliard",
                                             color: kPrimaryColor,
@@ -136,7 +130,7 @@ class _AppbarState extends State<Appbar> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Welcome back,",
+                          AppLocalizations.of(context)!.translate("welcomeBack"),
                           style: TextStyle(
                               fontSize: 30.sp,
                               fontFamily: "Milliard",
@@ -178,7 +172,7 @@ class _AppbarState extends State<Appbar> {
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              "Order Total",
+                              AppLocalizations.of(context)!.translate("orderTotal"),
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontFamily: "Milliard",
@@ -204,7 +198,7 @@ class _AppbarState extends State<Appbar> {
                                     SizedBox(width: 6.w,),
                                     //Deliver Person
                                     Text(
-                                      "Delivery Person",
+                                      AppLocalizations.of(context)!.translate("deliveryPerson"),
                                       style: TextStyle(
                                         fontFamily: "Milliard",
                                         fontSize: 18.sp,
@@ -227,7 +221,7 @@ class _AppbarState extends State<Appbar> {
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             );

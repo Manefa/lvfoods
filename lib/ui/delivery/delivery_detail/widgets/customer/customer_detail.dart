@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/get_one_for_deliver/domain/entities/user.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomerDetail extends StatefulWidget {
@@ -17,12 +17,6 @@ class _CustomerDetailState extends State<CustomerDetail> {
   String phoneNumber="";
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
       var size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
@@ -80,80 +74,16 @@ class _CustomerDetailState extends State<CustomerDetail> {
                             fontWeight: FontWeight.w500
                           ),
                         ),
-                        // SizedBox(height: 10.sp,),
-                        // Row(
-                        //   children: <Widget>[
-                        //     Icon(
-                        //       Icons.location_on_outlined,
-                        //       size: 15.sp,
-                        //       color: Color(0XFF949494),
-                        //     ),
-                        //     SizedBox(width: 10.w,),
-                        //     Text(
-                        //       "Ngoa-Ekele -Ecole de poste",
-                        //       style: TextStyle(
-                        //         fontSize: 15.sp,
-                        //         color: Color(0XFF949494),
-                        //       ),
-                        //     )
-                        //   ],
-                        // ),
-                        // SizedBox(height: 10.sp,),
-                        // Row(
-                        //   children: <Widget>[
-                        //     Icon(
-                        //       LvIcons.shop,
-                        //       size: 15.sp,
-                        //       color: Color(0XFF68D389),
-                        //     ),
-                        //     SizedBox(width: 10.w,),
-                        //     Text(
-                        //         "Open",
-                        //       style: TextStyle(
-                        //         fontSize: 15.sp,
-                        //         color: Color(0XFF68D389),
-                        //       ),
-                        //     )
-                        //   ],
-                        // ),
                       ],
                     ),
                   ],
                 ),
                 SizedBox(height: 35.h,),
-                // Row(
-                //   children: <Widget>[
-                //     SizedBox(width: 35.w,),
-                //     Text(
-                //       "Time of time",
-                //       style: TextStyle(
-                //         fontSize: 15.sp,
-                //         fontFamily: "Milliard",
-                //         color: Color(0XFF949494),
-                //       ),
-                //     ),
-                //     Expanded(child: SizedBox()),
-                //     Padding(
-                //       padding: const EdgeInsets.only(top: 2.0),
-                //       child: Text(
-                //         "7:30 - 22:45",
-                //         style: TextStyle(
-                //           fontSize: 15.sp,
-                //           fontFamily: "Milliard",
-                //           color: Colors.black,
-                //           fontWeight: FontWeight.w300,
-                //         ),
-                //       ),
-                //     ),
-                //     SizedBox(width: 35.w,),
-                //   ],
-                // ),
-                //SizedBox(height: 25.h,),
                 Row(
                   children: <Widget>[
                     SizedBox(width: 35.w,),
                     Text(
-                      "Mail",
+                      AppLocalizations.of(context)!.translate("email"),
                       style: TextStyle(
                         fontSize: 15.sp,
                         fontFamily: "Milliard",
@@ -176,46 +106,12 @@ class _CustomerDetailState extends State<CustomerDetail> {
                     SizedBox(width: 35.w,),
                   ],
                 ),
-                // SizedBox(height: 25.h,),
-                // Row(
-                //   children: <Widget>[
-                //     SizedBox(width: 35.w,),
-                //     Text(
-                //       "Address",
-                //       style: TextStyle(
-                //         fontSize: 15.sp,
-                //         fontFamily: "Milliard",
-                //         color: Color(0XFF949494),
-                //       ),
-                //     ),
-                //     Expanded(child: SizedBox()),
-                //     Padding(
-                //       padding: const EdgeInsets.only(top: 2.0),
-                //       child: Text(
-                //         "Byem-assi. Yaoundé",
-                //         style: TextStyle(
-                //           fontSize: 16.sp,
-                //           fontFamily: "Milliard",
-                //           color: kPrimaryColor,
-                //           fontWeight: FontWeight.w300,
-                //         ),
-                //       ),
-                //     ),
-                //     SizedBox(width: 4.w,),
-                //     Icon(
-                //       Icons.my_location_rounded,
-                //       size: 15.sp,
-                //       color: kPrimaryColor,
-                //     ),
-                //     SizedBox(width: 35.w,),
-                //   ],
-                // ),
                 SizedBox(height: 25.h,),
                 Row(
                   children: <Widget>[
                     SizedBox(width: 35.w,),
                     Text(
-                      "Phones",
+                      AppLocalizations.of(context)!.translate("phones"),
                       style: TextStyle(
                         fontSize: 15.sp,
                         fontFamily: "Milliard",
@@ -244,7 +140,6 @@ class _CustomerDetailState extends State<CustomerDetail> {
                     SizedBox(width: 35.w,),
                     InkWell(
                       onTap: (){
-                        print("fsf");
                         phoneNumber = widget.user.phones![0].content.toString();
                         launch("tel://$phoneNumber");
                       },
@@ -266,7 +161,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                               ),
                               SizedBox(width: 30.w,),
                               Text(
-                                "CALL THE CUSTOMER",
+                                AppLocalizations.of(context)!.translate("callCustomer"),
                                 style: TextStyle(
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.w300,
@@ -294,7 +189,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                       ),
                       child: Center(
                         child: Text(
-                          "TRACK THE CUSTOMER",
+                          AppLocalizations.of(context)!.translate("trackCustomer"),
                           style: TextStyle(
                             fontFamily: "Milliard",
                             fontSize: 16.sp,

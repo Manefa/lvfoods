@@ -11,6 +11,7 @@ import 'package:ivfoods_mobile_app/features/paid_delivery/bloc/paid_delivery.dar
 import 'package:ivfoods_mobile_app/features/paid_order_group/bloc/order_group_paid.dart';
 import 'package:ivfoods_mobile_app/features/take_deliveries/bloc/take_delivery.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery_detail/widgets/delivery_detail/delivery_detail_display.dart';
 import 'package:ivfoods_mobile_app/core/platform/alert_dialog/alert_dialogue_delivery.dart';
 
@@ -31,12 +32,6 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: MultiBlocProvider(
@@ -70,7 +65,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "En cours...",
+                              AppLocalizations.of(context)!.translate("inProgressBloc"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 color: Colors.white,
@@ -102,7 +97,11 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                       SnackBar(
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text(state.message + "Vous n'avez pas pu recuperer la livraison", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                          children: [
+                            Text(
+                              state.message + AppLocalizations.of(context)!.translate("youWereUnableToCollectTheDelivery"),
+                              style: TextStyle(fontFamily: "Milliard", color: Colors.white),),
+                            Icon(Icons.error, color: Colors.white,)],
                         ),
                         backgroundColor: kPrimaryColor,
                       ),
@@ -121,7 +120,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "En cours...",
+                              AppLocalizations.of(context)!.translate("inProgressBloc"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 color: Colors.white,
@@ -152,7 +151,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                       SnackBar(
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("La livraison n'arrive pas a passer a l'etat en cours", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                          children: [Text(AppLocalizations.of(context)!.translate("theDeliveryCannotBeSwitchedToTheCurrentState"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                         ),
                         backgroundColor: kPrimaryColor,
                       ),
@@ -171,7 +170,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Patientez...",
+                              AppLocalizations.of(context)!.translate("inProgressBloc"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 color: Colors.white,
@@ -202,7 +201,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                       SnackBar(
                         content: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("La livraison a echouer", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                          children: [Text(AppLocalizations.of(context)!.translate("theDeliveryFailed"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                         ),
                         backgroundColor: kPrimaryColor,
                       ),
@@ -221,7 +220,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Patientez...",
+                              AppLocalizations.of(context)!.translate("wait"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 color: Colors.white,
@@ -253,7 +252,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                         SnackBar(
                           content: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text("Probleme de connection internet !", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                            children: [Text( AppLocalizations.of(context)!.translate("internetConnectionProblem"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                           ),
                           backgroundColor: kPrimaryColor,
                         ),
@@ -277,7 +276,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Patientez...",
+                              AppLocalizations.of(context)!.translate("wait"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 color: Colors.white,
@@ -306,7 +305,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Le paiement du groupe de commande a echouer",
+                              AppLocalizations.of(context)!.translate("thePaymentOfTheOrderGroupHasFailed"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 color: Colors.white,
@@ -332,6 +331,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                     Row(
                       children: <Widget>[
                         SizedBox(width: 35.w,),
+                        //TODO: change this
                         Text(
                           "ID Commande",
                           style: TextStyle(
@@ -361,7 +361,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                       children: <Widget>[
                         SizedBox(width: 35.w,),
                         Text(
-                          "Item Total",
+                          AppLocalizations.of(context)!.translate("itemTotal"),
                           style: TextStyle(
                             fontSize: 15.sp,
                             fontFamily: "Milliard",
@@ -372,7 +372,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                         Padding(
                           padding: const EdgeInsets.only(right: 35),
                           child: Text(
-                              widget.delivery.orderGroup!.totalPrice.toString()+" fcfa",
+                              widget.delivery.orderGroup!.totalPrice.toString()+" Fcfa",
                             style: TextStyle(
                               fontFamily: "Milliard",
                               fontSize: 18.sp,
@@ -387,7 +387,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                       children: <Widget>[
                         SizedBox(width: 35.w,),
                         Text(
-                          "Delivery Free",
+                          AppLocalizations.of(context)!.translate("freeDelivery"),
                           style: TextStyle(
                             fontSize: 15.sp,
                             fontFamily: "Milliard",
@@ -398,7 +398,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                         Padding(
                           padding: const EdgeInsets.only(right: 35),
                           child: Text(
-                            widget.delivery.deliveryCharges.toString()+ " fcfa",
+                            widget.delivery.deliveryCharges.toString()+ " Fcfa",
                             style: TextStyle(
                                 fontFamily: "Milliard",
                                 fontSize: 18.sp,
@@ -423,7 +423,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                       children: <Widget>[
                         SizedBox(width: 35.w,),
                         Text(
-                          "Total Paid",
+                          AppLocalizations.of(context)!.translate("totalPaid"),
                           style: TextStyle(
                             fontSize: 25.sp,
                             fontFamily: "Milliard",
@@ -434,7 +434,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                         Padding(
                           padding: const EdgeInsets.only(right: 35),
                           child: Text(
-                            (widget.delivery.orderGroup!.totalPrice!.toDouble() + widget.delivery.deliveryCharges!.toDouble()).toString() +" fcfa",
+                            (widget.delivery.orderGroup!.totalPrice!.toDouble() + widget.delivery.deliveryCharges!.toDouble()).toString() +" Fcfa",
                             style: TextStyle(
                               fontFamily: "Milliard",
                               fontSize: 25.sp,
@@ -460,7 +460,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                         ),
                         child: Center(
                           child: Text(
-                            "PRENDRE CETTE LIVRAISON",
+                            AppLocalizations.of(context)!.translate("TakeThisDelivery"),
                             style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w300,
@@ -484,7 +484,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                         ),
                         child: Center(
                           child: Text(
-                            "MENTIONNER CETTE COMMANDE EN COURS",
+                            AppLocalizations.of(context)!.translate("mentionThisCurrentOrder"),
                             style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w300,
@@ -520,7 +520,7 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                         ),
                         child: Center(
                           child: Text(
-                            "LIVRER ET PAYER",
+                            AppLocalizations.of(context)!.translate("deliverAndPay"),
                             style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w300,

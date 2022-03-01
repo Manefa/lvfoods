@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/home_restaurant/widgets/appbar_restaurant.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/home_restaurant/widgets/restaurant_display.dart';
 
@@ -17,12 +18,6 @@ class _HomeRestaurantState extends State<HomeRestaurant> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -53,7 +48,7 @@ class _HomeRestaurantState extends State<HomeRestaurant> {
                           children: <Widget>[
                             //My Orders
                             Text(
-                              "Our Meals",
+                              AppLocalizations.of(context)!.translate("ourMeals"),
                               style: TextStyle(
                                   fontSize: 20.sp,
                                   fontFamily: "Milliard",
@@ -61,14 +56,6 @@ class _HomeRestaurantState extends State<HomeRestaurant> {
                               ),
                             ),
                             //View All
-                            Text(
-                              "View All",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontFamily: "Milliard",
-                                color: Colors.grey,
-                              ),
-                            ),
                           ],
                         ),
                       ),

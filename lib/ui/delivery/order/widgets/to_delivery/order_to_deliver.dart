@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/orders/bloc/orders.dart';
 import 'package:ivfoods_mobile_app/features/orders/domain/entities/recovery.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order/widgets/to_delivery/order_to_delivery_display.dart';
 import 'package:ivfoods_mobile_app/ui/shimmer_widgets.dart';
 
@@ -28,13 +29,6 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
 
   @override
   Widget build(BuildContext context) {
-
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     var size = MediaQuery.of(context).size;
 
     Future<void> _refresh() async {
@@ -47,7 +41,7 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
         bloc: _ordersBloc,
         listener: (context, state){
           if(state is LoadingOrders){
-            print("load...");
+
           }
         },
         child: Scaffold(
@@ -61,7 +55,7 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
                     return Container(
                       child: Center(
                         child: Text(
-                            "Tout est vide!"
+                            AppLocalizations.of(context)!.translate("allIsEmpty"),
                         ),
                       ),
                     );
@@ -102,7 +96,6 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
                                               element.restaurant!.name!.toLowerCase().contains(value.toLowerCase())).toList();
                                           print(visibleOrdersMastersTwo!.length.toString());
                                           test = true;
-                                          print("charge...");
                                         });
                                       },
                                       style: TextStyle(
@@ -111,8 +104,8 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
                                         fontFamily: "Milliard",
                                       ),
                                       decoration: InputDecoration(
-                                        contentPadding: new EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
-                                        hintText: "Search orders",
+                                        contentPadding: new EdgeInsets.only(bottom: 22.r),
+                                        hintText: AppLocalizations.of(context)!.translate("searchOrders"),
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
                                           LvIcons.search_interface_symbol,
@@ -136,19 +129,17 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
                                       onPressed: () {
                                         _refresh();
                                       },
-                                      label: FittedBox(
-                                        child: Text('Refresh', style: TextStyle(
-                                          fontSize: 15.sp,
-                                          fontFamily: "Milliard",
-                                          color: Color(0XFF68D389),
-                                        ),),
-                                      ),
-                                      icon: FittedBox(
-                                        child: Icon(
-                                          Icons.refresh,
-                                          size: 17.sp,
-                                          color: Color(0XFF68D389),
-                                        ),
+                                      label: Text(
+                                        AppLocalizations.of(context)!.translate("filter"),
+                                        style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontFamily: "Milliard",
+                                        color: Color(0XFF68D389),
+                                      ),),
+                                      icon: Icon(
+                                        Icons.refresh,
+                                        size: 17.sp,
+                                        color: Color(0XFF68D389),
                                       ),
                                       style: TextButton.styleFrom(
                                         backgroundColor: Color(0XFFDEF9E7),

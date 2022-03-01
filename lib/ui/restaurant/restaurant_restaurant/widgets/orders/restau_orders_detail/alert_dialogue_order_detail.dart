@@ -10,12 +10,6 @@ class AlertDialogueOrderReady extends StatefulWidget {
 class _AlertDialogueOrderReadyState extends State<AlertDialogueOrderReady> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return Dialog(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0)

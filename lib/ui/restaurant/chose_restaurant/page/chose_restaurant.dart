@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/chose_restaurant/widgets/choose_restau_display.dart';
 
 import '../../../../constants.dart';
@@ -13,12 +14,6 @@ class ChooseRestaurant extends StatefulWidget {
 class _ChooseRestaurantState extends State<ChooseRestaurant> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -27,7 +22,7 @@ class _ChooseRestaurantState extends State<ChooseRestaurant> {
             children: [
               SizedBox(height:50.h ,),
               Text(
-                "Choose Your Restaurant",
+                AppLocalizations.of(context)!.translate("chooseYourRestaurant"),
                 style: TextStyle(
                   fontFamily: "Milliard",
                   fontSize: 26.sp,

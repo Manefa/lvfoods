@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/size_config.dart';
 
 class OnbaordingThree extends StatelessWidget {
@@ -33,18 +36,7 @@ class OnbaordingThree extends StatelessWidget {
                 height: getProportionateScreenHeight(38),
               ),
               Text(
-                "GET IT DELIVERED",
-                style: TextStyle(
-                    fontFamily: "Milliard",
-                    fontWeight: FontWeight.bold,
-                    fontSize: fontSize(size: 33)
-                ),
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(20),
-              ),
-              Text(
-                "QUICKLY",
+                AppLocalizations.of(context)!.translate("bigTextOnBorThree"),
                 style: TextStyle(
                     fontFamily: "Milliard",
                     fontWeight: FontWeight.bold,
@@ -55,7 +47,7 @@ class OnbaordingThree extends StatelessWidget {
                 height: getProportionateScreenHeight(50),
               ),
               Text(
-                "Worem Ipsum is simply dummy text of the ",
+                AppLocalizations.of(context)!.translate("smallTextOnBorThree"),
                 style: TextStyle(
                   fontFamily: "Milliard",
                   fontSize: fontSize(size: 18),
@@ -63,51 +55,45 @@ class OnbaordingThree extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(7),
+                height: getProportionateScreenHeight(30),
               ),
-              Text(
-                "printing and typesetting industry. Lorem Ipsum",
-                style: TextStyle(
-                  fontFamily: "Milliard",
-                  fontSize: fontSize(size: 18),
-                  color: Color(0XFF949494),
-                ),
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(7),
-              ),
-              Text(
-                "has been the",
-                style: TextStyle(
-                  fontFamily: "Milliard",
-                  fontSize: fontSize(size: 18),
-                  color: Color(0XFF949494),
-                ),
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(60),
-              ),
-              InkWell(
-                onTap: (){
-                  Navigator.pushNamed(context, "/login");
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "Skyp",
-                      style: TextStyle(
-                        fontFamily: "Milliard",
-                        fontSize: fontSize(size: 18),
-                        color: Color(0XFF949494),
-                      ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 180.r),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/login");
+                  },
+                  borderRadius: BorderRadius.circular(12.r),
+                  splashColor: kPrimaryColor.withOpacity(0.1),
+                  highlightColor: kPrimaryColor.withOpacity(0.2),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.r),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          AppLocalizations.of(context)!.translate("skip"),
+                          style: TextStyle(
+                            fontFamily: "Milliard",
+                            fontSize: fontSize(size: 18),
+                            color: Color(0XFF949494),
+                          ),
+                        ),
+                        SizedBox(
+                          width: getProportionateScreenWidth(5),
+                        ),
+                        Icon(
+                          LvIcons.lv_skyp,
+                          color: Colors.grey,
+                          size: 10,
+                        ),
+                      ],
                     ),
-                    Image.asset("images/skyp_arrow.png"),
-                  ],
+                  ),
                 ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(50),
+                height: getProportionateScreenHeight(150),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

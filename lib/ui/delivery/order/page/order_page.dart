@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order/widgets/no_orders/no_orders.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/order/widgets/to_delivery/order_to_deliver.dart';
 
@@ -13,30 +15,30 @@ class _OrderPageState extends State<OrderPage> {
   int initPosition = 0;
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     List<Widget> widget = [OrderToDeliver(), NoOrders()];
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Orders",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20.sp,
-            fontFamily: "Milliard",
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        centerTitle: true,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarColor: Colors.white,
       ),
-      body: SafeArea(
-        child: OrderToDeliver(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            AppLocalizations.of(context)!.translate("orders"),
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20.sp,
+              fontFamily: "Milliard",
+              fontWeight: FontWeight.w500
+            ),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.white,
+          centerTitle: true,
+        ),
+        body: SafeArea(
+          child: OrderToDeliver(),
+        ),
       ),
     );
   }

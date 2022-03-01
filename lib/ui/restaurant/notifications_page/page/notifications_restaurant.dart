@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/notifications_page/widgets/notification_restau_display.dart';
 class NotificationRestaurant extends StatefulWidget {
   const NotificationRestaurant({Key? key}) : super(key: key);
@@ -11,16 +12,10 @@ class NotificationRestaurant extends StatefulWidget {
 class _NotificationRestaurantState extends State<NotificationRestaurant> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return Scaffold(
       appBar: AppBar(
         title:  Text(
-          "Notifications",
+          AppLocalizations.of(context)!.translate("notifications"),
           style: TextStyle(
               color: Colors.black,
               fontFamily: "Milliard",

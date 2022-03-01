@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ivfoods_mobile_app/constants.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 
 class NotificationPage extends StatefulWidget {
   @override
@@ -10,16 +8,11 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -40,7 +33,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       child: Container(
                         width: 100.w,
                         child:Text(
-                          "Notifications",
+                          AppLocalizations.of(context)!.translate("notifications"),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 16.sp,
@@ -51,9 +44,6 @@ class _NotificationPageState extends State<NotificationPage> {
                       ),
                     ),
                     //Notification
-
-
-
                   ],
                 ),
               ),
@@ -80,20 +70,11 @@ class _NotificationPageState extends State<NotificationPage> {
               ),
               SizedBox(height: 31.h,),
               Text(
-                "Notifications will be displayed here if there is an alert. or ",
+                "Notifications will be displayed here if there is an alert. or \n                            other important information",
                 style: TextStyle(
                   fontFamily: "Milliard",
                   fontSize: 14.sp,
                   color: Color(0XFF2C2627)
-                ),
-              ),
-              SizedBox(height: 4.h,),
-              Text(
-                "other important information",
-                style: TextStyle(
-                    fontFamily: "Milliard",
-                    fontSize: 14.sp,
-                    color: Color(0XFF2C2627)
                 ),
               ),
             ],

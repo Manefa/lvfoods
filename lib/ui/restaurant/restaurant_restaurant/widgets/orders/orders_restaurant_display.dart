@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons.dart';
+import 'package:intl/intl.dart';
+import 'package:ivfoods_mobile_app/constants.dart';
+import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/bloc/get_all_for_owner_restaurant.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/get_all_for_owner_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/orders/restau_orders_detail/restau_orders_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,12 +29,6 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
   @override
   Widget build(BuildContext context) {
     //List<OrderAllModel> items = [items2, items3,items1,items5,items5];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
      var addressRestaurant = sl<SharedPreferences>().getString('RESTAURANT_ADDRESS');
     //
     // var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
@@ -88,29 +89,56 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                             child:Column(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               crossAxisAlignment: CrossAxisAlignment.start,
+
                                               children: [
                                                 //Name
-                                                  Text(
+                                                Container(
+                                                  child: Text(
                                                     widget.orders[index].item!.name!,
                                                     style: TextStyle(
                                                       fontFamily: "Milliard",
                                                       fontSize: 16.sp,
                                                       fontWeight: FontWeight.w500,
                                                     ),
+                                                  ),),
+                                                SizedBox(height: 3.h,),
+                                                //Location
+                                                Container(
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        LvIcons.pin,
+                                                        size: 15.sp,
+                                                        color: Color.fromRGBO(148, 148, 148, 1),
+                                                      ),
+                                                      SizedBox(width: 8.8.w,),
+                                                      SizedBox(
+                                                        width: 130.w,
+                                                        child: Text(
+                                                          addressRestaurant!,
+                                                          style: TextStyle(
+                                                            color: Color.fromRGBO(148, 148, 148, 1),
+                                                            fontFamily: "Milliard",
+                                                            fontSize: 15.sp,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
+                                                ),
                                                 SizedBox(height: 3.h,),
                                                 //Timer
                                                 Container(
                                                   child: Row(
                                                     children: [
                                                       Icon(
-                                                      Icons.access_time_rounded,
+                                                        LvIcons.ic_timer_24px,
                                                         size: 15.sp,
                                                         color: Color.fromRGBO(148, 148, 148, 1),
                                                       ),
                                                       SizedBox(width: 8.8.w,),
                                                       Text(
-                                                        getHour(widget.orders[index].createdAt.toString()) +" Hours Ago",
+                                                        getHour(widget.orders[index].createdAt.toString()) +" "+AppLocalizations.of(context)!.translate("hoursAgo"),
                                                         style: TextStyle(
                                                           color: Color.fromRGBO(148, 148, 148, 1),
                                                           fontFamily: "Milliard",
@@ -197,7 +225,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                               SizedBox(width: 5.w,),
                                                               widget.orders[index].status! == "valid" ?
                                                               Text(
-                                                                "Valid",
+                                                                AppLocalizations.of(context)!.translate("valid"),
                                                                 style: TextStyle(
                                                                   color: Color(0XFFA27AFA),
                                                                   fontSize: 15.sp,
@@ -206,7 +234,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                               ) : (
                                                                   widget.orders[index].status! == "ready" ?
                                                                   Text(
-                                                                    "Pret",
+                                                                    AppLocalizations.of(context)! .translate("ready"),
                                                                     style: TextStyle(
                                                                       color: Color(0XFF68D389),
                                                                       fontSize: 15.sp,

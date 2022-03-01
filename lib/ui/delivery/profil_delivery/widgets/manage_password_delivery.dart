@@ -6,6 +6,7 @@ import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/features/update_password/bloc/update_password.dart';
 import 'package:ivfoods_mobile_app/features/update_password/domain/entities/send_password.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 class ManagePasswordDelivery extends StatefulWidget {
   const ManagePasswordDelivery({Key? key}) : super(key: key);
 
@@ -27,12 +28,6 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
   UpdatePasswordBloc _updatePasswordBloc = sl<UpdatePasswordBloc>();
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     return BlocProvider<UpdatePasswordBloc>(
       create: (_) => _updatePasswordBloc,
       child: BlocListener<UpdatePasswordBloc, UpdatePasswordState>(
@@ -47,7 +42,7 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "En cours...",
+                        AppLocalizations.of(context)!.translate("inProgressBloc"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                           color: Colors.white,
@@ -70,7 +65,7 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text("Mise a jour effectuer", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.check, color: Colors.white,)],
+                    children: [Text(AppLocalizations.of(context)!.translate("updatePerformed"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.check, color: Colors.white,)],
                   ),
                   backgroundColor: kPrimaryColor,
                 ),
@@ -84,7 +79,7 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text("La mise a jour a echouer", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.check, color: Colors.white,)],
+                    children: [Text(AppLocalizations.of(context)!.translate("theUpdateHasFailed"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.check, color: Colors.white,)],
                   ),
                   backgroundColor: kPrimaryColor,
                 ),
@@ -112,7 +107,8 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Change Password",
+                        Text(
+                          AppLocalizations.of(context)!.translate("changePassword"),
                           style: TextStyle(
                             fontFamily: "Milliard",
                             fontSize: 16.sp,
@@ -126,7 +122,7 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                               _updatePasswordBloc.add(LaunchUpdatePassword(sendPassword: sendPassword));
                             }else{
                               Fluttertoast.showToast(
-                                  msg: "la confimation du mot de passe a echouer !",
+                                  msg: AppLocalizations.of(context)!.translate("passwordConfirmationFailed"),
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   timeInSecForIosWeb: 2,
@@ -136,7 +132,8 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                               );
                             }
                           },
-                          child: Text("Save",
+                          child: Text(
+                            AppLocalizations.of(context)!.translate("save"),
                             style: TextStyle(
                               fontFamily: "Milliard",
                               fontSize: 20.sp,
@@ -157,7 +154,8 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                           //Current Password
                           Align(
                             alignment: Alignment.centerLeft,
-                            child:   Text("Current password",
+                            child:   Text(
+                              AppLocalizations.of(context)!.translate("currentPassword"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 fontSize: 16.sp,
@@ -171,7 +169,8 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                           //New Password
                           Align(
                             alignment: Alignment.centerLeft,
-                            child:   Text("New Password",
+                            child:   Text(
+                              AppLocalizations.of(context)!.translate("newPassword"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 fontSize: 16.sp,
@@ -185,7 +184,8 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                           //Confirm Password
                           Align(
                             alignment: Alignment.centerLeft,
-                            child:   Text("Confirm password",
+                            child:   Text(
+                              AppLocalizations.of(context)!.translate("confirmPassword"),
                               style: TextStyle(
                                 fontFamily: "Milliard",
                                 fontSize: 16.sp,

@@ -22,12 +22,7 @@ class _PhonesDisplayState extends State<PhonesDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
+
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     _getRestaurantBloc.add(StartGetRestaurant(name: nameRestaurant!));
     return MultiBlocProvider(

@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
-import 'package:ivfoods_mobile_app/core/platform/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/bloc/get_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/remove_hours/bloc/remove_hours.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/remove_phone/bloc/remove_phone.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/times/add_day/alert_dialogue_add_time.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,12 +51,6 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
   @override
   Widget build(BuildContext context) {
     //List<HoursRestaurantModel> items = [items1, items2, items3];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
     nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     _getRestaurantBloc.add(StartGetRestaurant(name: nameRestaurant!));
     return MultiBlocProvider(
@@ -87,7 +82,7 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "En cours...",
+                            AppLocalizations.of(context)!.translate("inProgressBloc"),
                             style: TextStyle(
                               fontFamily: "Milliard",
                               color: Colors.white,
@@ -115,7 +110,7 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
                     SnackBar(
                       content: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [Text(state.message + "Echec de la suppression", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                        children: [Text(state.message + AppLocalizations.of(context)!.translate("failedToDelete"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                       ),
                       backgroundColor: kPrimaryColor,
                     ),
@@ -138,52 +133,13 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                          'Horaires',
+                        //todo: change
+                          AppLocalizations.of(context)!.translate("timeTable"),
                           style: TextStyle(
                             fontFamily: "Milliard",
                             fontSize: 18.sp,
                           ),
                       ),
-                      // Container(
-                      //   width: 87.w,
-                      //   decoration: BoxDecoration(
-                      //       border: Border.all(
-                      //         color: Colors.grey,
-                      //         width: 0.1.w,
-                      //       ),
-                      //       borderRadius: BorderRadius.circular(6.r),
-                      //       boxShadow: [
-                      //         BoxShadow(
-                      //           color: Colors.white12,
-                      //           offset: Offset(0, 5),
-                      //           spreadRadius: -17,
-                      //           blurRadius: 20,
-                      //         ),
-                      //       ]
-                      //   ),
-                      //   child: Center(
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: [
-                      //         Icon(
-                      //           LvIconsResto.edit,
-                      //           color: Color.fromRGBO(148, 148, 148,1),
-                      //           size: 12.sp,
-                      //         ),
-                      //         SizedBox(width: 5.7.w,),
-                      //         Text(
-                      //             "Edit Infos",
-                      //             textAlign: TextAlign.center,
-                      //             style: TextStyle(
-                      //               color: Color.fromRGBO(148, 148, 148, 1),
-                      //               fontFamily: "Milliard",
-                      //               fontSize: 15.sp,
-                      //             )
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   ),
                 ),
@@ -218,9 +174,7 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
                                               fontFamily: "Milliard",
                                               fontSize: 16.sp,
                                             )
-
                                         ),
-
                                         Container(
                                           child: Row(
                                             children: [
@@ -300,7 +254,7 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage("images/error2.png"),
-                              )
+                              ),
                           ),
                         ),
                       ),
@@ -320,10 +274,15 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
                             builder:(BuildContext context){
                               return AlerDialogueAddTimeDisplay();
                             }
+                        ).then((value) {
+                          setState(() {
+
+                           });
+                          }
                         );
                       },
                       child: Text(
-                        '+  Add another day',
+                        "+ " + AppLocalizations.of(context)!.translate("addAnotherDay"),
                         style: TextStyle(
                             color: kPrimaryColor,
                             fontFamily: "Milliard",
@@ -334,8 +293,6 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
                     ),
                   ),
                 )
-
-
               ],
             ),
           ),

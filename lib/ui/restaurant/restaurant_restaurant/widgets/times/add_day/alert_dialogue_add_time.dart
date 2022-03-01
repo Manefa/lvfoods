@@ -3,10 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_hours/bloc/add_hours.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_hours/domain/entities/for_add_hours.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
+import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
+import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/times/add_day/print_time_component.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class AlerDialogueAddTimeDisplay extends StatefulWidget {
   const AlerDialogueAddTimeDisplay({Key? key}) : super(key: key);
@@ -21,18 +24,65 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
   TextEditingController openMinuteController = TextEditingController();
   TextEditingController closeHourController = TextEditingController();
   TextEditingController closeMinuteController = TextEditingController();
+  var openTime = TimeOfDay.now();
+  var closeTime = TimeOfDay.now();
+  DateTime? dateTime;
+
+  Future<TimeOfDay> pickTime(BuildContext context) async {
+    final newTime = await showTimePicker(
+      context: context,
+      initialTime: dateTime != null
+          ? TimeOfDay(hour: dateTime!.hour, minute: dateTime!.minute)
+          : openTime,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.dark().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: kPrimaryColor
+            ),
+            dialogBackgroundColor:Colors.blue[900],
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (newTime == null) return TimeOfDay.now();
+
+    return newTime;
+  }
+
+  Future<TimeOfDay> pickTimeClose(BuildContext context) async {
+    final newTime = await showTimePicker(
+      context: context,
+      initialTime: dateTime != null
+          ? TimeOfDay(hour: dateTime!.hour, minute: dateTime!.minute)
+          : closeTime,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.dark().copyWith(
+            colorScheme: ColorScheme.light(
+                primary: kPrimaryColor
+            ),
+            dialogBackgroundColor:Colors.blue[900],
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (newTime == null) return TimeOfDay.now();
+
+    return newTime;
+  }
+
   String start = "Select Day";
   String? nameRestaurant;
   @override
   Widget build(BuildContext context) {
+    Intl.defaultLocale = AppLocalizations.of(context)!.locale.languageCode;
     String ? valueChoose;
-    List dayList = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(416, 897),
-        orientation: Orientation.portrait);
+    List dayList = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
     nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     return BlocProvider<AddHoursBloc>(
       create: (_) => _addHoursBloc,
@@ -49,7 +99,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "En cours...",
+                        AppLocalizations.of(context)!.translate("inProgressBloc"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                           color: Colors.white,
@@ -77,7 +127,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text(state.message + "Echec de l'ajout", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                    children: [Text(state.message + AppLocalizations.of(context)!.translate("failureToAdd"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                   ),
                   backgroundColor: kPrimaryColor,
                 ),
@@ -109,7 +159,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Add another day",
+                          AppLocalizations.of(context)!.translate("addAnotherDay"),
                           style: TextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w400,
@@ -127,7 +177,6 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                             size: 20.sp,
                           ),
                         )
-
                       ],
                     ),
                   ),
@@ -143,7 +192,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                           alignment: Alignment.centerLeft,
                           child: Container(
                             child: Text(
-                              "Day",
+                              AppLocalizations.of(context)!.translate("day"),
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w100,
@@ -210,7 +259,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                           alignment: Alignment.centerLeft,
                           child: Container(
                             child: Text(
-                              "Open Hours",
+                              AppLocalizations.of(context)!.translate("openHours"),
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w100,
@@ -221,61 +270,16 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                           ),
                         ),
                         SizedBox(height: 8.h,),
-                        Container(
-                          width: 292.w,
-                          height: 35.h,
-                          child:Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //Hrs Container
-                              Container(
-                                child:Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    openHours(),
-                                    SizedBox(width: 9.w,),
-                                    Text(
-                                      "Hrs",
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w100,
-                                        fontFamily: "Milliard",
-                                        color: Colors.black,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              //Divider
-                              SizedBox(
-                                width: 18.w,
-                                child: Container(
-                                  height: 2.h,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              //Min Container
-                              Container(
-                                child:Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    openMin(),
-                                    SizedBox(width: 9.w,),
-                                    Text(
-                                      "Min",
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w100,
-                                        fontFamily: "Milliard",
-                                        color: Colors.black,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
+                        PrintDateComponent(
+                          time: formatTimeOfDay(openTime),
+                          onclick: () async {
+                            var tes = await pickTime(context);
+                            setState(() {
+                              openTime = tes;
+                              print(openTime.hourOfPeriod);
+                            });
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -291,7 +295,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                           alignment: Alignment.centerLeft,
                           child: Container(
                             child: Text(
-                              "Close Hours",
+                              AppLocalizations.of(context)!.translate("closeHours"),
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w100,
@@ -302,75 +306,30 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                           ),
                         ),
                         SizedBox(height: 8.h,),
-                        Container(
-                          width: 292.w,
-                          height: 35.h,
-                          child:Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //Hrs Container
-                              Container(
-                                child:Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    closeHours(),
-                                    SizedBox(width: 9.w,),
-                                    Text(
-                                      "Hrs",
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w100,
-                                        fontFamily: "Milliard",
-                                        color: Colors.black,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              //Divider
-                              SizedBox(
-                                width: 18.w,
-                                child: Container(
-                                  height: 2.h,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              //Hrs Container
-                              Container(
-                                child:Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    closeMin(),
-                                    SizedBox(width: 9.w,),
-                                    Text(
-                                      "Min",
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w100,
-                                        fontFamily: "Milliard",
-                                        color: Colors.black,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
+                        PrintDateComponent(
+                          time: formatTimeOfDay(closeTime),
+                          onclick: () async {
+                            var tes = await pickTimeClose(context);
+                            setState(() {
+                              closeTime = tes;
+                              print(closeTime.hourOfPeriod);
+                            });
+                          },
+                        ),
                       ],
                     ),
                   ),
                   SizedBox(height: 15.h,),
                   InkWell(
                     onTap: (){
-                      String open = openHourController.text + "h" + openMinuteController.text + "min";
-                      String close = closeHourController.text + "h" + closeMinuteController.text + "min";
+                      String open = openTime.hour.toString() + "h:" + openTime.minute.toString() + "min";
+                      String close = closeTime.hour.toString() + "h:" + closeTime.minute.toString() + "min";
                       print(open);
                       print(close);
-                      if(start == "Select Day" || openHourController.text.isEmpty || openMinuteController.text.isEmpty||
-                          closeHourController.text.isEmpty || closeMinuteController.text.isEmpty){
+                      if(start == "Select Day" || openTime.toString().isEmpty || openTime.toString().isEmpty||
+                          openTime.toString().isEmpty || openTime.toString().isEmpty){
                         Fluttertoast.showToast(
-                          msg: "Remplissez tous les champs",
+                          msg: AppLocalizations.of(context)!.translate("fillInAllFields"),
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.BOTTOM,
                           timeInSecForIosWeb: 5,
@@ -392,7 +351,7 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                       ),
                       child: Center(
                         child: Text(
-                          "Add day",
+                          AppLocalizations.of(context)!.translate("addAnotherDay"),
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: "Milliard",
@@ -410,6 +369,14 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
       ),
     );
   }
+
+  String formatTimeOfDay(TimeOfDay tod) {
+    final now = new DateTime.now();
+    final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
+    final format = DateFormat.jm();  //"6:00 AM"
+    return format.format(dt);
+  }
+
   Widget openHours()=>Container(
     width: 72.w,
     child: TextFormField(
