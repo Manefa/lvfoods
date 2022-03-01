@@ -412,10 +412,9 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                         SizedBox(height: 23.h,),
                         Container(
                           width: 344.w,
-                          //NameRestaurant
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment:CrossAxisAlignment.center,
+                            crossAxisAlignment:CrossAxisAlignment.start,
                             children: [
                               Text(
                                 AppLocalizations.of(context)!.translate("location"),
@@ -426,36 +425,26 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                     fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Container(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child:Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 130.w,
-                                        child: Text(
-                                          state.getRestaurant.restaurant!.address!,
-                                          style: TextStyle(
-                                              color: Color.fromRGBO(188, 44, 61, 1),
-                                              fontFamily: "Milliard",
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w100
-                                          ),
-                                        ),
+                              Expanded(
+                                child: Container(
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child:Text(
+                                      state.getRestaurant.restaurant!.address!,
+                                      style: TextStyle(
+                                          color: Color.fromRGBO(188, 44, 61, 1),
+                                          fontFamily: "Milliard",
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w100
                                       ),
-                                      SizedBox(width: 6.w,),
-                                      Icon(
-                                        Icons.my_location_rounded,
-                                        color: Color.fromRGBO(188, 44, 61, 1),
-                                        size:16.sp,
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ],
                           ),
                         ),
+
                         //Description
                         SizedBox(height: 23.h,),
                         Container(
@@ -475,14 +464,17 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 6.h,),
-                              Text(
-                                state.getRestaurant.restaurant!.description!,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "Milliard",
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w100
+                              SizedBox(height: 10.h,),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  state.getRestaurant.restaurant!.description!,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: "Milliard",
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w100
+                                  ),
                                 ),
                               ),
                               SizedBox(height: 20.h,),

@@ -154,7 +154,7 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           showAlertDialog(context);
                         },
                         child: Container(
-                          width: 122.w,
+                          width: 145.w,
                           decoration: BoxDecoration(
                               border: Border.all(
                                 color: Colors.grey,
@@ -174,20 +174,24 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  LvIconsResto.remove,
-                                  color: Color.fromRGBO(188, 44, 61,1),
-                                  size: 12.sp,
+                                FittedBox(
+                                  child: Icon(
+                                    LvIconsResto.remove,
+                                    color: Color.fromRGBO(188, 44, 61,1),
+                                    size: 12.sp,
+                                  ),
                                 ),
                                 SizedBox(width: 5.7.w,),
-                                Text(
-                                    AppLocalizations.of(context)!.translate("removeProduct"),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(188, 44, 61, 1),
-                                      fontFamily: "Milliard",
-                                      fontSize: 13.sp,
-                                    )
+                                FittedBox(
+                                  child: Text(
+                                      AppLocalizations.of(context)!.translate("removeProduct"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(188, 44, 61, 1),
+                                        fontFamily: "Milliard",
+                                        fontSize: 12.6.sp,
+                                      )
+                                  ),
                                 ),
                               ],
                             ),
@@ -222,20 +226,24 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  LvIconsResto.edit,
-                                  color: Color.fromRGBO(148, 148, 148,1),
-                                  size: 12.sp,
+                                FittedBox(
+                                  child: Icon(
+                                    LvIconsResto.edit,
+                                    color: Color.fromRGBO(148, 148, 148,1),
+                                    size: 12.sp,
+                                  ),
                                 ),
                                 SizedBox(width: 5.7.w,),
-                                Text(
-                                    AppLocalizations.of(context)!.translate("editInfos"),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(148, 148, 148, 1),
-                                      fontFamily: "Milliard",
-                                      fontSize: 13.sp,
-                                    )
+                                FittedBox(
+                                  child: Text(
+                                      AppLocalizations.of(context)!.translate("editInfos"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(148, 148, 148, 1),
+                                        fontFamily: "Milliard",
+                                        fontSize: 12.6.sp,
+                                      )
+                                  ),
                                 ),
                               ],
                             ),
@@ -397,30 +405,18 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           fontSize: 16.sp,
                         ),
                       ),
-                      Container(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child:Row(
-                            children: [
-                              SizedBox(
-                                width: 130.w,
-                                child: Text(
-                                  widget.addres,
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(188, 44, 61, 1),
-                                    fontFamily: "Milliard",
-                                    fontSize: 16.sp,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 6.w,),
-                              Icon(
-                                Icons.my_location_rounded,
+                      Expanded(
+                        child: Container(
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child:Text(
+                              widget.addres,
+                              style: TextStyle(
                                 color: Color.fromRGBO(188, 44, 61, 1),
-                                size:16.sp,
+                                fontFamily: "Milliard",
+                                fontSize: 16.sp,
                               ),
-
-                            ],
+                            ),
                           ),
                         ),
                       ),
@@ -446,13 +442,16 @@ class _InfosMenuDisplayState extends State<InfosMenuDisplay> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 6.h,),
-                      Text(
-                        widget.getProductDetails.product!.description!,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Milliard",
-                          fontSize: 16.sp,
+                      SizedBox(height: 10.h,),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          widget.getProductDetails.product!.description!,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "Milliard",
+                            fontSize: 16.sp,
+                          ),
                         ),
                       ),
                       SizedBox(height: 19.h,),
