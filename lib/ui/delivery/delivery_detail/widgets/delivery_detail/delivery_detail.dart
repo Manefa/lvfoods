@@ -331,7 +331,6 @@ class _DeliveryDetailState extends State<DeliveryDetail> {
                     Row(
                       children: <Widget>[
                         SizedBox(width: 35.w,),
-                        //TODO: change this
                         Text(
                           "ID Commande",
                           style: TextStyle(

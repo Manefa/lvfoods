@@ -339,6 +339,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                         Expanded(
                           child: TextFormField(
                             controller: priceController,
+                            keyboardType: TextInputType.number,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20.sp,
@@ -398,6 +399,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                       Expanded(
                         child: TextFormField(
                           controller: remiseController,
+                          keyboardType: TextInputType.number,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 20.sp,

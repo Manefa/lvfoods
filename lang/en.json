@@ -190,5 +190,17 @@
     "add": "Add",
     "addAnotherPhone": "Add another phone number",
     "addPhone": "Add the number",
-    "timeTable": "Timetable"
+    "timeTable": "Timetable",
+    "take": "Take",
+    "recoverAll" : "Retrieve all orders",
+    "enterNameOfRestaurant": "Enter the name of the restaurant",
+    "enterTheNumber": "Enter the phone number",
+    "enterLocation": "Enter the location",
+    "enterTheDescription": "Enter the description...",
+    "openTheGallery": "Open the gallery",
+    "camera": "Camera",
+    "pleaseSelectACountry": "Please select a Country",
+    "pleaseSelectACity": "Please select a city",
+    "failure": "Failure",
+    "mentionThisOrderReady": "Mention the order ready"
 }

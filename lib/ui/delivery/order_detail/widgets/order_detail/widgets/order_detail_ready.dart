@@ -306,7 +306,7 @@ class _ListOfOrderReadyState extends State<ListOfOrderReady> {
                                                                 Colors.red)))),
                                             child: Text(
                                               AppLocalizations.of(context)!
-                                                  .translate("recovered"),
+                                                  .translate("take"),
                                               style: TextStyle(
                                                 color: Color.fromRGBO(
                                                     148, 148, 148, 1),

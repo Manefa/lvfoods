@@ -93,7 +93,7 @@ class OnbaordingThree extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(150),
+                height: 100.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

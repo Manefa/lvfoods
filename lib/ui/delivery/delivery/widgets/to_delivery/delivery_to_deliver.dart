@@ -113,7 +113,7 @@ class _DeliveryToDeliverState extends State<DeliveryToDeliver> {
                                       fontFamily: "Milliard",
                                     ),
                                     decoration: InputDecoration(
-                                      contentPadding: new EdgeInsets.symmetric(vertical: 13.h),
+                                      contentPadding: EdgeInsets.only(bottom: 15),
                                       hintText: AppLocalizations.of(context)!.translate("searchDeliveries"),
                                       border: InputBorder.none,
                                       prefixIcon: Icon(
@@ -127,9 +127,7 @@ class _DeliveryToDeliverState extends State<DeliveryToDeliver> {
                                           fontFamily: "Milliard"
                                       ),
                                     ),
-
                                   ),
-
                                 ),
 
                                 //Filter Button

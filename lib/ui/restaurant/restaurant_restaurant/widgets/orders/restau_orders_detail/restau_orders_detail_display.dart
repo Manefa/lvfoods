@@ -58,8 +58,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        //TODO change
-                        "En cours...",
+                        AppLocalizations.of(context)!.translate("inProgressBloc"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                           color: Colors.white,
@@ -95,8 +94,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //TODO change
-                    children: [Text(state.message + "Echec", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                    children: [Text(state.message + AppLocalizations.of(context)!.translate("failure"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                   ),
                   backgroundColor: kPrimaryColor,
                 ),
@@ -424,9 +422,8 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Center(
-                            //TODO change
                             child: Text(
-                              "Mentioner la commande prête",
+                              AppLocalizations.of(context)!.translate("mentionThisOrderReady"),
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.w300,

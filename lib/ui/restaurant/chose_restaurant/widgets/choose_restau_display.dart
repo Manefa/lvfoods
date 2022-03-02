@@ -4,6 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
 import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_restaurants_for_current_user/bloc/get_all_restaurants_for_current_user.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/bloc/get_city.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/domain/entities/city.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/bloc/get_country.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/domain/entities/country.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/bloc/get_styles.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
@@ -23,13 +27,19 @@ class ChooseRestaurantDisplay extends StatefulWidget {
 class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
   GetAllRestaurantsForCurrentUserBloc _getAllRestaurantsForCurrentUserBloc = sl<GetAllRestaurantsForCurrentUserBloc>();
   GetStylesBloc _getStylesBloc = sl<GetStylesBloc>();
+  GetCountryBloc _getCountryBloc = sl<GetCountryBloc>();
+  GetCityBloc _getCityBoc = sl<GetCityBloc>();
   //var styles;
   List<Style> styles = List.empty();
+  List<Country> countries = List.empty();
+  List<City> cities = List.empty();
 
   @override
   Widget build(BuildContext context) {
     _getAllRestaurantsForCurrentUserBloc.add(StartGetAllRestaurantsForCurrentUser());
     _getStylesBloc.add(StartGetStyles());
+    _getCountryBloc.add(StartGetCountry());
+    _getCityBoc.add(StartGetCity());
     return MultiBlocProvider(
       providers: [
         BlocProvider<GetAllRestaurantsForCurrentUserBloc>(
@@ -39,6 +49,15 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
         BlocProvider<GetStylesBloc>(
           create: (_) => _getStylesBloc,
         ),
+
+        BlocProvider<GetCountryBloc>(
+          create: (_) => _getCountryBloc,
+        ),
+
+        BlocProvider<GetCityBloc>(
+          create: (_) => _getCityBoc,
+        ),
+
       ],
       child: MultiBlocListener(
         listeners: [
@@ -69,6 +88,38 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
               }
 
               if(state is GetStylesError){
+
+              }
+            },
+          ),
+
+          BlocListener<GetCountryBloc, GetCountryState>(
+            listener: (context, state){
+              if(state is GetCountryLoading){
+
+              }
+
+              if(state is GetCountryLoaded){
+                countries = state.countryMaster.countries!;
+              }
+
+              if(state is GetCountryError){
+
+              }
+            },
+          ),
+
+          BlocListener<GetCityBloc, GetCityState>(
+            listener: (context, state){
+              if(state is GetCityLoading){
+
+              }
+
+              if(state is GetCityLoaded){
+                cities = state.cityMaster.cities!;
+              }
+
+              if(state is GetCityError){
 
               }
             },
@@ -224,7 +275,7 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                               onTap: (){
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => AddRestaurant(styles: styles,)),
+                                  MaterialPageRoute(builder: (context) => AddRestaurant(styles: styles, countries: countries, cities: cities,)),
                                 ).then((_) => setState(() {}));
                               },
                               child: Container(
@@ -290,7 +341,7 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                           onTap: (){
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AddRestaurant(styles: styles,)),
+                              MaterialPageRoute(builder: (context) => AddRestaurant(styles: styles, countries: countries, cities: cities,)),
                             );
                           },
                           child: Container(
@@ -328,7 +379,6 @@ class _ChooseRestaurantDisplayState extends State<ChooseRestaurantDisplay> {
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-
                                 ],
                               ),
                             ),

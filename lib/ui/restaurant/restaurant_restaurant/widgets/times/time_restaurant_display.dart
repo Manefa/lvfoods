@@ -133,7 +133,6 @@ class _TimesRestaurantDisplayState extends State<TimesRestaurantDisplay> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        //todo: change
                           AppLocalizations.of(context)!.translate("timeTable"),
                           style: TextStyle(
                             fontFamily: "Milliard",

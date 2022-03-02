@@ -20,7 +20,7 @@ class GetCountryLoaded extends GetCountryState {
 
   GetCountryLoaded({required this.countryMaster});
   @override
-  List<Object> get props => [CountryMaster];
+  List<Object> get props => [countryMaster];
 }
 
 class GetCountryError extends GetCountryState {

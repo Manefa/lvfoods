@@ -5,7 +5,7 @@ class City extends Equatable{
 
   final String? name;
   final String? code;
-  final Country? country;
+  final String? country;
   final String? id;
 
   City({
@@ -19,7 +19,7 @@ class City extends Equatable{
   Map<String, dynamic> toJson() => {
     "name": name == null ? null : name,
     "code": code == null ? null : code,
-    "country": country == null ? null : country!.toJson(),
+    "country": country == null ? null : country,
     "_id": id == null ? null : id,
   };
 

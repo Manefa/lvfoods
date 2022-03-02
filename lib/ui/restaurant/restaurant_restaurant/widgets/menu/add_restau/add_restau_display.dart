@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -12,6 +13,8 @@ import 'package:ivfoods_mobile_app/core/platform/alert_dialog/country_code_picke
 import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/bloc/add_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/domain/entities/for_create_restaurant.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/domain/entities/city.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/domain/entities/country.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
@@ -19,7 +22,9 @@ import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/m
 
 class AddRestauDisplay extends StatefulWidget {
   final List<Style> styles;
-  const AddRestauDisplay({Key? key, required this.styles}) : super(key: key);
+  final List<Country> countries;
+  final List<City> cities;
+  const AddRestauDisplay({Key? key, required this.styles, required this.countries, required this.cities}) : super(key: key);
 
   @override
   _AddRestauDisplayState createState() => _AddRestauDisplayState();
@@ -36,6 +41,9 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   TextEditingController countryController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController districtController = TextEditingController();
+
+  String? selectedCountry;
+  String? selectedCity;
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
@@ -75,6 +83,34 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
       });
     }
     int day = 1;
+
+    List<String> namesCountry = [];
+    List<String> namesCity = [];
+
+    for( var e in widget.countries){
+      namesCountry.add(e.name!);
+    }
+
+    for( var e in widget.cities){
+      namesCity.add(e.name!);
+    }
+
+    List<String> getCountrySuggestions(String query) {
+        return List.of(namesCountry).where((food) {
+          final foodLower = food.toLowerCase();
+          final queryLower = query.toLowerCase();
+          return foodLower.contains(queryLower);
+        }).toList();
+    }
+
+    List<String> getCitySuggestions(String query) {
+      return List.of(namesCity).where((food) {
+        final foodLower = food.toLowerCase();
+        final queryLower = query.toLowerCase();
+        return foodLower.contains(queryLower);
+      }).toList();
+    }
+
     return BlocProvider<AddRestaurantBloc>(
       create: (_) => _addRestaurantBloc,
       child: BlocListener(
@@ -349,7 +385,37 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                 SizedBox(
                   height: 7.h,
                 ),
-                restauCountry(),
+                Container(
+                  width: 344.w,
+                  height: 48.h,
+                  child: TypeAheadFormField<String?>(
+                    textFieldConfiguration: TextFieldConfiguration(
+                      controller: countryController,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.sp,
+                        fontFamily: "Milliard",
+                      ),
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+                        ),
+                        hintText: 'Cameroun',
+                        contentPadding:
+                        EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    suggestionsCallback: getCountrySuggestions,
+                    itemBuilder: (context, String? suggestion) => ListTile(
+                      title: Text(suggestion!),
+                    ),
+                    onSuggestionSelected: (String? suggestion) =>
+                    countryController.text = suggestion!,
+                    validator: (value) => value != null && value.isEmpty ? AppLocalizations.of(context)!.translate("pleaseSelectACountry") : null,
+                    onSaved: (value) => selectedCountry = value,
+                  ),
+                ),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -371,7 +437,37 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                 SizedBox(
                   height: 7.h,
                 ),
-                restauCity(),
+                Container(
+                  width: 344.w,
+                  height: 48.h,
+                  child: TypeAheadFormField<String?>(
+                    textFieldConfiguration: TextFieldConfiguration(
+                      controller: cityController,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20.sp,
+                        fontFamily: "Milliard",
+                      ),
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+                        ),
+                        hintText: 'Douala',
+                        contentPadding:
+                        EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    suggestionsCallback: getCitySuggestions,
+                    itemBuilder: (context, String? suggestion) => ListTile(
+                      title: Text(suggestion!),
+                    ),
+                    onSuggestionSelected: (String? suggestion) =>
+                    cityController.text = suggestion!,
+                    validator: (value) => value != null && value.isEmpty ? AppLocalizations.of(context)!.translate("pleaseSelectACity") : null,
+                    onSaved: (value) => selectedCity = value,
+                  ),
+                ),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -629,7 +725,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
-          hintText: 'Enter Name',
+          hintText: AppLocalizations.of(context)!.translate("restaurantName"),
           contentPadding:
               EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
@@ -692,7 +788,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
-          hintText: 'Logbessou',
+          hintText: AppLocalizations.of(context)!.translate("restaurantDistrict"),
           contentPadding:
               EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
@@ -743,15 +839,6 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
     );
   }
 
-  void getPhoneNumber(String phoneNumber) async {
-    PhoneNumber number =
-        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
-
-    setState(() {
-      this.number = number;
-    });
-  }
-
   @override
   void dispose() {
     controller.dispose();
@@ -773,7 +860,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           focusColor: Color(0XFFB8B8B8),
-          hintText: 'Enter Email',
+          hintText: AppLocalizations.of(context)!.translate("emailRestaurant"),
           contentPadding:
               EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
@@ -794,7 +881,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           focusColor: Color(0XFFB8B8B8),
-          hintText: 'Enter Localisation',
+          hintText: AppLocalizations.of(context)!.translate("enterLocalisation"),
           suffixIcon: Icon(
             Icons.my_location_rounded,
             color: Color.fromRGBO(188, 44, 61, 1),
@@ -818,18 +905,19 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
               maxLines: 8,
               style: new TextStyle(
                   fontSize: 16.sp, fontFamily: "Milliard", color: Colors.black),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
                 ),
                 focusColor: Color(0XFFB8B8B8),
                 border: InputBorder.none,
-                hintText: "Enter description...",
+                hintText: AppLocalizations.of(context)!.translate("enterTheDescription"),
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 10.0),
               )),
         ),
       );
+
 
   _imgFromCamera() async {
     XFile? image = await ImagePicker()
@@ -863,7 +951,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         color: kPrimaryColor,
                       ),
                       title: new Text(
-                        'Photo Library',
+                        AppLocalizations.of(context)!.translate("openTheGallery"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                         ),
@@ -878,7 +966,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                       color: kPrimaryColor,
                     ),
                     title: new Text(
-                      'Camera',
+                      AppLocalizations.of(context)!.translate("camera"),
                       style: TextStyle(
                         fontFamily: "Milliard",
                       ),
@@ -929,7 +1017,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         color: kPrimaryColor,
                       ),
                       title: new Text(
-                        'Photo Library',
+                        AppLocalizations.of(context)!.translate("openTheGallery"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                         ),
@@ -944,7 +1032,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                       color: kPrimaryColor,
                     ),
                     title: new Text(
-                      'Camera',
+                      AppLocalizations.of(context)!.translate("camera"),
                       style: TextStyle(
                         fontFamily: "Milliard",
                       ),
