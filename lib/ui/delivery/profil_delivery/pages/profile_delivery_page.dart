@@ -504,8 +504,7 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                     context,
                                     screen: LoginPage(),
                                     withNavBar: false,
-                                    pageTransitionAnimation:
-                                        PageTransitionAnimation.cupertino,
+                                    pageTransitionAnimation: PageTransitionAnimation.cupertino,
                                   );
                                 },
                                 child: Container(

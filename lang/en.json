@@ -144,7 +144,7 @@
     "hoursAgo": "Hours ago",
     "noDeliveryDetail": "Deliveries will be posted here in case of an alert or other important information.",
     "noCase": "No case",
-    "inProgressBlock": "In progress...",
+    "inProgressBloc": "In progress...",
     "youWereUnableToCollectTheDelivery": "You were unable to collect the delivery",
     "theDeliveryCannotBeSwitchedToTheCurrentState": "The delivery cannot be switched to the current state",
     "wait": "Please wait...",
@@ -202,5 +202,9 @@
     "pleaseSelectACountry": "Please select a Country",
     "pleaseSelectACity": "Please select a city",
     "failure": "Failure",
-    "mentionThisOrderReady": "Mention the order ready"
+    "mentionThisOrderReady": "Mention the order ready",
+    "updateFinish": "Update Complete",
+    "thisDeliveryIsNowDeliveredAndPaidFor": "This delivery is now delivered and paid",
+    "thisDeliveryIsNowInProgress": "This delivery is now in progress",
+    "youHavePickedUpThisDelivery": "You have picked up this delivery"
 }

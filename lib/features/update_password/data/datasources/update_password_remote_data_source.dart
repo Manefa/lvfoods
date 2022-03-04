@@ -27,7 +27,8 @@ class UpdatePasswordRemoteDataSourceImpl implements UpdatePasswordRemoteDataSour
     final body = jsonEncode(
         {
           "last_password": sendPassword.lastPassword,
-          "new_password": sendPassword.newPassword
+          "new_password": sendPassword.newPassword,
+          "confirm_password": sendPassword.confirmPassword
         }
     );
     final response = await client.put(
@@ -40,6 +41,9 @@ class UpdatePasswordRemoteDataSourceImpl implements UpdatePasswordRemoteDataSour
       },
       body: body,
     );
+
+    print(response.statusCode.toString() + "ouiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+    print(response.body.toString() + "ffffffffffffffffffffffffffffffffffffffffffffffffff");
 
     if (response.statusCode == 200) {
       var responseJson = jsonDecode(response.body);

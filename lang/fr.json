@@ -201,5 +201,9 @@
   "pleaseSelectACountry": "Veuillez sélectionner un pays",
   "pleaseSelectACity": "Veuillez sélectionner une ville",
   "failure": "Echec",
-  "mentionThisOrderReady": "Mentionner la commande prête"
+  "mentionThisOrderReady": "Mentionner la commande prête",
+  "updateFinish": "Mise a jour Terminer",
+  "thisDeliveryIsNowDeliveredAndPaidFor": "Cette livraison est maintenant livrer et payer",
+  "thisDeliveryIsNowInProgress": "Cette livraison est maintenant en cours",
+  "youHavePickedUpThisDelivery": "Vous avez récupérer cette livraison"
 }

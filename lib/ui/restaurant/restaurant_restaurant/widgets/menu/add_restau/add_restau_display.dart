@@ -43,6 +43,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   TextEditingController districtController = TextEditingController();
 
   String? selectedCountry;
+  String? selectedCountryId;
   String? selectedCity;
 
   final formKey = GlobalKey<FormState>();
@@ -65,6 +66,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   XFile? _imageProfile;
   XFile? _imageCover;
   String code = "+237";
+  List<City> namesCity = [];
 
   @override
   void initState() {
@@ -76,40 +78,26 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   Widget build(BuildContext context) {
     List<int> selectedList = [];
     List<String> _styleOptionsTwo = [];
+    int day = 1;
 
     if (styleList != null) {
       styleList!.forEach((element) {
         _styleOptionsTwo.add(element.name!);
       });
     }
-    int day = 1;
 
-    List<String> namesCountry = [];
-    List<String> namesCity = [];
 
-    for( var e in widget.countries){
-      namesCountry.add(e.name!);
+    List<City> getCityForCountry(String countryId, List<City> cities){
+      List<City> citiesResults = [];
+      cities.forEach((element) {
+        if(countryId.toString() == element.country.toString()){
+          citiesResults.add(element);
+        }
+      });
+
+      return citiesResults;
     }
 
-    for( var e in widget.cities){
-      namesCity.add(e.name!);
-    }
-
-    List<String> getCountrySuggestions(String query) {
-        return List.of(namesCountry).where((food) {
-          final foodLower = food.toLowerCase();
-          final queryLower = query.toLowerCase();
-          return foodLower.contains(queryLower);
-        }).toList();
-    }
-
-    List<String> getCitySuggestions(String query) {
-      return List.of(namesCity).where((food) {
-        final foodLower = food.toLowerCase();
-        final queryLower = query.toLowerCase();
-        return foodLower.contains(queryLower);
-      }).toList();
-    }
 
     return BlocProvider<AddRestaurantBloc>(
       create: (_) => _addRestaurantBloc,
@@ -388,34 +376,36 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                 Container(
                   width: 344.w,
                   height: 48.h,
-                  child: TypeAheadFormField<String?>(
-                    textFieldConfiguration: TextFieldConfiguration(
-                      controller: countryController,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.sp,
-                        fontFamily: "Milliard",
-                      ),
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
-                        ),
-                        hintText: 'Cameroun',
-                        contentPadding:
-                        EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
-                        border: OutlineInputBorder(),
-                      ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: Colors.black.withOpacity(0.4),
                     ),
-                    suggestionsCallback: getCountrySuggestions,
-                    itemBuilder: (context, String? suggestion) => ListTile(
-                      title: Text(suggestion!),
-                    ),
-                    onSuggestionSelected: (String? suggestion) =>
-                    countryController.text = suggestion!,
-                    validator: (value) => value != null && value.isEmpty ? AppLocalizations.of(context)!.translate("pleaseSelectACountry") : null,
-                    onSaved: (value) => selectedCountry = value,
                   ),
-                ),
+                  child: Container(
+                    child:  Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                            value: selectedCountry,
+                            isExpanded: true,
+                            items: widget.countries.map((e) => DropdownMenuItem<String>(
+                              value: e.name,
+                              child: Text(
+                                e.name!,
+                              ),
+                            ) ).toList(),
+                            onChanged: (e) => setState(() {
+                              selectedCountry = e;
+                              selectedCountryId = findIdWithNameCountry(e!, widget.countries);
+                              namesCity = getCityForCountry(selectedCountryId!, widget.cities);
+                              print(namesCity);
+                            } ),
+                          ),
+                      ),
+                    ),
+                    ),
+                  ),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -440,32 +430,32 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                 Container(
                   width: 344.w,
                   height: 48.h,
-                  child: TypeAheadFormField<String?>(
-                    textFieldConfiguration: TextFieldConfiguration(
-                      controller: cityController,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.sp,
-                        fontFamily: "Milliard",
-                      ),
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: Colors.black.withOpacity(0.4),
+                    ),
+                  ),
+                  child: Container(
+                    child:  Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selectedCity,
+                          isExpanded: true,
+                          items: namesCity.map((e) => DropdownMenuItem<String>(
+                            value: e.name,
+                            child: Text(
+                              e.name!,
+                            ),
+                          ) ).toList(),
+                          onChanged: (e) => setState(() {
+                            selectedCity = e;
+                            print(namesCity);
+                          } ),
                         ),
-                        hintText: 'Douala',
-                        contentPadding:
-                        EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
-                        border: OutlineInputBorder(),
                       ),
                     ),
-                    suggestionsCallback: getCitySuggestions,
-                    itemBuilder: (context, String? suggestion) => ListTile(
-                      title: Text(suggestion!),
-                    ),
-                    onSuggestionSelected: (String? suggestion) =>
-                    cityController.text = suggestion!,
-                    validator: (value) => value != null && value.isEmpty ? AppLocalizations.of(context)!.translate("pleaseSelectACity") : null,
-                    onSaved: (value) => selectedCity = value,
                   ),
                 ),
                 SizedBox(
@@ -645,8 +635,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         phoneNumberController.text.isEmpty ||
                         emailController.text.isEmpty ||
                         locationController.text.isEmpty ||
-                        countryController.text.isEmpty ||
-                        cityController.text.isEmpty ||
+                        selectedCountry.toString().isEmpty ||
+                        selectedCity.toString().isEmpty ||
                         districtController.text.isEmpty ||
                         _imageCover == null ||
                         _imageProfile == null) {
@@ -664,8 +654,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         name: restaurantNameController.text.trim(),
                         email: emailController.text.trim(),
                         description: descriptionController.text.trim(),
-                        country: countryController.text.trim(),
-                        city: cityController.text.trim(),
+                        country: selectedCountry.toString().trim(),
+                        city: selectedCity.toString().trim(),
                         district: districtController.text.trim(),
                         address: locationController.text.trim(),
                         profilePicture: File(_imageProfile!.path),
@@ -675,8 +665,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         contents: phoneNumberController.text.trim(),
                       );
 
-                      _addRestaurantBloc.add(
-                          StartAddRestaurant(createRestaurant: restaurant));
+                      _addRestaurantBloc.add(StartAddRestaurant(createRestaurant: restaurant));
                     }
                   },
                   child: Container(
@@ -779,6 +768,9 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
       height: 48.h,
       child: TextFormField(
         controller: districtController,
+        onChanged: (value){
+          locationController.text = selectedCountry!+"-"+selectedCity!+"-"+districtController.text;
+        },
         style: TextStyle(
           color: Colors.black,
           fontSize: 20.sp,
@@ -1056,6 +1048,17 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
     }
 
     return result;
+  }
+
+  String findIdWithNameCountry(String name, List<Country> listCountry){
+    String idCountry = "";
+    listCountry.forEach((element) {
+      if(element.name.toString() == name){
+        idCountry = element.id!;
+      }
+    });
+
+    return idCountry;
   }
 
   // Widget _phoneContainer() {

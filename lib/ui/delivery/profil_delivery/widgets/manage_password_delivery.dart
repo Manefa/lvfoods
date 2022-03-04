@@ -79,7 +79,7 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text(AppLocalizations.of(context)!.translate("theUpdateHasFailed"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.check, color: Colors.white,)],
+                    children: [Text(AppLocalizations.of(context)!.translate("theUpdateHasFailed")+state.message, style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.close, color: Colors.white,)],
                   ),
                   backgroundColor: kPrimaryColor,
                 ),
@@ -117,8 +117,8 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
                         ),
                         InkWell(
                           onTap: (){
-                            if(secondPassword.text.length.toString() == thirdPassword.text.toString()){
-                              SendPassword sendPassword = SendPassword(newPassword: firstPassword.text, lastPassword: secondPassword.text);
+                            if(secondPassword.text.toString().trim() == thirdPassword.text.toString().trim()){
+                              SendPassword sendPassword = SendPassword(lastPassword: firstPassword.text.trim(), newPassword: secondPassword.text.trim(), confirmPassword: thirdPassword.text.trim() );
                               _updatePasswordBloc.add(LaunchUpdatePassword(sendPassword: sendPassword));
                             }else{
                               Fluttertoast.showToast(
@@ -210,6 +210,7 @@ class _ManagePasswordDeliveryState extends State<ManagePasswordDelivery> {
   Widget currentPassword()=>Container(
     height: 49.h,
     child: TextFormField(
+      controller: firstPassword,
       style: TextStyle(
         color: Colors.black,
         fontSize: 20.sp,

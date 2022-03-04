@@ -10,6 +10,7 @@ import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/core/utils/url_convert.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_categories/domain/entities/category.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/domain/entities/city.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_product_details/domain/entities/get_product_details.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/bloc/update_product.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_product/domain/entities/for_update_product.dart';
@@ -49,6 +50,8 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
   TextEditingController priceController = TextEditingController();
   TextEditingController remiseController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController priceWithDiscountController = TextEditingController();
+
 
   @override
   void initState() {
@@ -69,6 +72,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
     priceController = TextEditingController(text: price);
     remiseController = TextEditingController(text: remise);
     descriptionController = TextEditingController(text: description);
+    priceWithDiscountController =  TextEditingController(text: (widget.getProductDetails.product!.price! - calculatePriceWithDiscountFromDiscount(widget.getProductDetails.product!.price!, widget.getProductDetails.product!.discount!)).toString());
     _asyncMethod();
     super.initState();
   }
@@ -99,6 +103,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
         _categorieOptionsTwo.add(element.name!);
       });
     }
+
 
     return BlocProvider<UpdateProductBloc>(
       create: (_) => _updateProductBloc,
@@ -372,6 +377,81 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                 SizedBox(
                   height: 17.h,
                 ),
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    //TODO: change the hard text
+                    child: Text(
+                      "Price with discount",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 7.h,),
+                Container(
+                    width: 344.w,
+                    height: 48.h,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: priceWithDiscountController,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20.sp,
+                              fontFamily: "Milliard",
+                            ),
+                            keyboardType: TextInputType.number,
+                            onChanged: (value){
+                              if(remiseController.text.isNotEmpty && double.parse(priceWithDiscountController.text.toString()) <= double.parse(priceController.text.toString())){
+                                double discount = 0.0;
+                                discount = discountBetweenTwoPrice(double.parse(priceController.text), double.parse(priceWithDiscountController.text));
+                                remiseController.text = discount.toString();
+                              }else{
+                                Fluttertoast.showToast(
+                                  //TODO: change
+                                  msg: "entrer une valeur inferieure a la valeur principale",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.grey,
+                                  textColor: Colors.white,
+                                  fontSize: 16.sp,
+                                );
+                              }
+                            },
+                            decoration: InputDecoration(
+                              hintText: "1000",
+                              contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 76.w,
+                          height: 48.h,
+                          color: Color.fromRGBO(241, 241, 241,1),
+                          child: Center(
+                            child: Text(
+                                'FCFA',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(145, 145, 145, 1),
+                                  fontSize: 20.sp,
+                                  fontFamily: "Milliard",
+                                )
+
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                ),
+                SizedBox(height: 17.h,),
 
                 //Remise
                 Container(
@@ -400,6 +480,24 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                         child: TextFormField(
                           controller: remiseController,
                           keyboardType: TextInputType.number,
+                          onChanged: (value){
+                            if(double.parse(value.toString()) <= 100 && double.parse(value.toString()) >= 0){
+                              double priceWithDiscount = 0.0;
+                              priceWithDiscount = calculatePriceWithDiscountFromDiscount(double.parse(priceController.text), double.parse(remiseController.text));
+                              priceWithDiscountController.text = (double.parse(priceController.text) - priceWithDiscount).toString();
+                            }else{
+                              Fluttertoast.showToast(
+                                //TODO: change
+                                msg: "entrer une valeur entre 1 et 100",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: Colors.grey,
+                                textColor: Colors.white,
+                                fontSize: 16.sp,
+                              );
+                            }
+                          },
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 20.sp,
@@ -629,6 +727,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                         Icons.photo_library,
                         color: kPrimaryColor,
                       ),
+                      //Todo: change
                       title: new Text(
                         'Photo Library',
                         style: TextStyle(
@@ -644,6 +743,7 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
                       Icons.photo_camera,
                       color: kPrimaryColor,
                     ),
+                    //Todo: change
                     title: new Text(
                       'Camera',
                       style: TextStyle(
@@ -669,5 +769,22 @@ class _EditMealDisplayState extends State<EditMealDisplay> {
     }
 
     return result;
+  }
+
+  double discountBetweenTwoPrice(double firstPrice, double secondPrice){
+    double discountPrice = 0;
+    double discount = 0;
+
+    discountPrice = firstPrice - secondPrice;
+    discount = (discountPrice*100)/firstPrice;
+
+    return discount;
+  }
+
+  double calculatePriceWithDiscountFromDiscount(double firstPrice, double discount){
+    double priceWithDiscount = 0;
+    priceWithDiscount = firstPrice * (discount/100);
+
+    return priceWithDiscount;
   }
 }
