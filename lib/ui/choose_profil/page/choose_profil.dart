@@ -170,7 +170,7 @@ class ChooseProfil extends StatelessWidget {
                                             AppLocalizations.of(context)!.translate("deliveryPersonProfile"),
                                             style: TextStyle(
                                               fontFamily: "Milliard",
-                                              fontSize:19.sp,
+                                              fontSize:18.sp,
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
@@ -229,7 +229,7 @@ class ChooseProfil extends StatelessWidget {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: <Widget> [
                                           Image.asset("images/skyp_arrow_left.png"),
-                                          SizedBox(width: 14.w,),
+                                          SizedBox(width: 10.w,),
                                           Text(
                                             AppLocalizations.of(context)!.translate("backToLogin"),
                                             style: TextStyle(
