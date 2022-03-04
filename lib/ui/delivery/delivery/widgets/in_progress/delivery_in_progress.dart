@@ -80,13 +80,9 @@ class _DeliveryInProgressState extends State<DeliveryInProgress> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               //Search
-                              Container(
+                              SizedBox(
                                 height: 36.h,
-                                width: 236.w,
-                                decoration: BoxDecoration(
-                                  color: Color(0XFFF8F7F7),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
+                                width: 246.w,
                                 child: TextFormField(
                                   textAlignVertical: TextAlignVertical.center,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -103,13 +99,15 @@ class _DeliveryInProgressState extends State<DeliveryInProgress> {
                                   },
                                   style: TextStyle(
                                     color: Color(0XFF949494),
-                                    fontSize: 15.sp,
+                                    fontSize: 22.sp,
                                     fontFamily: "Milliard",
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding: new EdgeInsets.symmetric(vertical: 13.h),
+                                    filled: true,
+                                    fillColor: Color(0XFFF8F7F7),
+                                    isDense: true,
                                     hintText: AppLocalizations.of(context)!.translate("searchDeliveries"),
-                                    border: InputBorder.none,
+                                    border: OutlineInputBorder(),
                                     prefixIcon: Icon(
                                       LvIcons.search_interface_symbol,
                                       size: 16.sp,

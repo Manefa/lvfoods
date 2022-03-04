@@ -191,7 +191,7 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                 ),
                               ),
                               SizedBox(
-                                height: 27.h,
+                                height: 17.h,
                               ),
                               //My Informations
                               InkWell(
@@ -231,7 +231,7 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 23.h),
+                              SizedBox(height: 17.h),
                               //Change Password
                               InkWell(
                                 onTap: () => showModalBottomSheet(
@@ -397,7 +397,7 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 32.h),
+                              SizedBox(height: 27.h),
                               //More
                               Container(
                                 height: 27.h,
