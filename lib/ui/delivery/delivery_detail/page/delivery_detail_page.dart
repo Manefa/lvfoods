@@ -62,7 +62,8 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
               }
 
               if(state is GetOneForDeliverLoaded){
-                List<Widget> widget = [DeliveryDetail(delivery: state.getOneForDeliver.delivery!,), CustomerDetail(user: state.getOneForDeliver.delivery!.orderGroup!.user!,)];
+                String phoneTwo = state.getOneForDeliver.delivery!.phone!.code.toString() + state.getOneForDeliver.delivery!.phone!.content.toString();
+                List<Widget> widget = [DeliveryDetail(delivery: state.getOneForDeliver.delivery!,), CustomerDetail(user: state.getOneForDeliver.delivery!.orderGroup!.user!, phoneTwo: phoneTwo,)];
 
                 List<Order>? list = getOrder(state.getOneForDeliver.delivery!.orderGroup!.orders);
 
@@ -153,7 +154,7 @@ class _DeliveryDetailPageState extends State<DeliveryDetailPage> {
                                               SizedBox(width: 10.w,),
                                               //Localisation
                                               Text(
-                                                state.getOneForDeliver.delivery!.country.toString()+" "+state.getOneForDeliver.delivery!.city.toString()+" "+state.getOneForDeliver.delivery!.district.toString(),
+                                                state.getOneForDeliver.delivery!.district.toString()+", "+state.getOneForDeliver.delivery!.city.toString()+", "+state.getOneForDeliver.delivery!.country.toString(),
                                                 style: TextStyle(
                                                     fontFamily: "Milliard",
                                                     fontSize: 15.sp,

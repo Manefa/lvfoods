@@ -56,6 +56,9 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
     email = widget.emailAdress;
     fullName = widget.fullName;
     picture = widget.image;
+    fullNameInput.text = fullName;
+    emailAddressInput.text = email;
+    userNameInput.text = username;
     super.initState();
   }
   @override
@@ -225,23 +228,12 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                       ),
                       InkWell(
                         onTap: (){
-                          if(_image != null || fullNameInput.text.isEmpty || emailAddressInput.text.isEmpty){
-                            UserForUpdate userForUpdate = UserForUpdate(username: username, email: email, fullName: fullName, image: File(_image!.path));
-                            _updateUserBloc.add(UpdateUser(userForUpdate: userForUpdate));
-                          }else{
-                            Fluttertoast.showToast(
-                              msg: AppLocalizations.of(context)!.translate("fillInAllFields"),
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 2,
-                              backgroundColor: Colors.grey,
-                              textColor: Colors.white,
-                              fontSize: 16.sp,
-                            );
-                          }
-
-                          if(_image == null){
-                            if(fullNameInput.text.isEmpty || emailAddressInput.text.isEmpty){
+                          if(_image != null){
+                            if(_image != null || fullNameInput.text.isEmpty || emailAddressInput.text.isEmpty){
+                              UserForUpdate userForUpdate = UserForUpdate(username: username, email: email, fullName: fullName, image: File(_image!.path));
+                              _updateUserBloc.add(UpdateUser(userForUpdate: userForUpdate));
+                            }else{
+                              print("ouiiiiiiiiiiiiii");
                               Fluttertoast.showToast(
                                 msg: AppLocalizations.of(context)!.translate("fillInAllFields"),
                                 toastLength: Toast.LENGTH_SHORT,
@@ -251,11 +243,26 @@ class _EditInformationDeliveryState extends State<EditInformationDelivery> {
                                 textColor: Colors.white,
                                 fontSize: 16.sp,
                               );
-                            }else{
-                              UserForUpdate userForUpdate = UserForUpdate(username: username, email: email, fullName: fullName);
-                              _updateUserBloc.add(UpdateUser(userForUpdate: userForUpdate));
+                            }
+                          }else{
+                            if(_image == null){
+                              if(fullNameInput.text.isEmpty || emailAddressInput.text.isEmpty){
+                                Fluttertoast.showToast(
+                                  msg: AppLocalizations.of(context)!.translate("fillInAllFields"),
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 2,
+                                  backgroundColor: Colors.grey,
+                                  textColor: Colors.white,
+                                  fontSize: 16.sp,
+                                );
+                              }else{
+                                UserForUpdate userForUpdate = UserForUpdate(username: username, email: email, fullName: fullName);
+                                _updateUserBloc.add(UpdateUser(userForUpdate: userForUpdate));
+                              }
                             }
                           }
+
                         },
                         child: Text(
                           AppLocalizations.of(context)!.translate("save"),

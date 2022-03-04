@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -12,6 +13,8 @@ import 'package:ivfoods_mobile_app/core/platform/alert_dialog/country_code_picke
 import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/bloc/add_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/add_restaurant/domain/entities/for_create_restaurant.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/domain/entities/city.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/domain/entities/country.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
@@ -19,7 +22,9 @@ import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/m
 
 class AddRestauDisplay extends StatefulWidget {
   final List<Style> styles;
-  const AddRestauDisplay({Key? key, required this.styles}) : super(key: key);
+  final List<Country> countries;
+  final List<City> cities;
+  const AddRestauDisplay({Key? key, required this.styles, required this.countries, required this.cities}) : super(key: key);
 
   @override
   _AddRestauDisplayState createState() => _AddRestauDisplayState();
@@ -36,6 +41,10 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   TextEditingController countryController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController districtController = TextEditingController();
+
+  String? selectedCountry;
+  String? selectedCountryId;
+  String? selectedCity;
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController();
@@ -57,6 +66,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   XFile? _imageProfile;
   XFile? _imageCover;
   String code = "+237";
+  List<City> namesCity = [];
 
   @override
   void initState() {
@@ -68,13 +78,27 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   Widget build(BuildContext context) {
     List<int> selectedList = [];
     List<String> _styleOptionsTwo = [];
+    int day = 1;
 
     if (styleList != null) {
       styleList!.forEach((element) {
         _styleOptionsTwo.add(element.name!);
       });
     }
-    int day = 1;
+
+
+    List<City> getCityForCountry(String countryId, List<City> cities){
+      List<City> citiesResults = [];
+      cities.forEach((element) {
+        if(countryId.toString() == element.country.toString()){
+          citiesResults.add(element);
+        }
+      });
+
+      return citiesResults;
+    }
+
+
     return BlocProvider<AddRestaurantBloc>(
       create: (_) => _addRestaurantBloc,
       child: BlocListener(
@@ -349,7 +373,39 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                 SizedBox(
                   height: 7.h,
                 ),
-                restauCountry(),
+                Container(
+                  width: 344.w,
+                  height: 48.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: Colors.black.withOpacity(0.4),
+                    ),
+                  ),
+                  child: Container(
+                    child:  Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                            value: selectedCountry,
+                            isExpanded: true,
+                            items: widget.countries.map((e) => DropdownMenuItem<String>(
+                              value: e.name,
+                              child: Text(
+                                e.name!,
+                              ),
+                            ) ).toList(),
+                            onChanged: (e) => setState(() {
+                              selectedCountry = e;
+                              selectedCountryId = findIdWithNameCountry(e!, widget.countries);
+                              namesCity = getCityForCountry(selectedCountryId!, widget.cities);
+                              print(namesCity);
+                            } ),
+                          ),
+                      ),
+                    ),
+                    ),
+                  ),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -371,7 +427,37 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                 SizedBox(
                   height: 7.h,
                 ),
-                restauCity(),
+                Container(
+                  width: 344.w,
+                  height: 48.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: Colors.black.withOpacity(0.4),
+                    ),
+                  ),
+                  child: Container(
+                    child:  Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selectedCity,
+                          isExpanded: true,
+                          items: namesCity.map((e) => DropdownMenuItem<String>(
+                            value: e.name,
+                            child: Text(
+                              e.name!,
+                            ),
+                          ) ).toList(),
+                          onChanged: (e) => setState(() {
+                            selectedCity = e;
+                            print(namesCity);
+                          } ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -549,8 +635,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         phoneNumberController.text.isEmpty ||
                         emailController.text.isEmpty ||
                         locationController.text.isEmpty ||
-                        countryController.text.isEmpty ||
-                        cityController.text.isEmpty ||
+                        selectedCountry.toString().isEmpty ||
+                        selectedCity.toString().isEmpty ||
                         districtController.text.isEmpty ||
                         _imageCover == null ||
                         _imageProfile == null) {
@@ -568,8 +654,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         name: restaurantNameController.text.trim(),
                         email: emailController.text.trim(),
                         description: descriptionController.text.trim(),
-                        country: countryController.text.trim(),
-                        city: cityController.text.trim(),
+                        country: selectedCountry.toString().trim(),
+                        city: selectedCity.toString().trim(),
                         district: districtController.text.trim(),
                         address: locationController.text.trim(),
                         profilePicture: File(_imageProfile!.path),
@@ -579,8 +665,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         contents: phoneNumberController.text.trim(),
                       );
 
-                      _addRestaurantBloc.add(
-                          StartAddRestaurant(createRestaurant: restaurant));
+                      _addRestaurantBloc.add(StartAddRestaurant(createRestaurant: restaurant));
                     }
                   },
                   child: Container(
@@ -629,7 +714,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
-          hintText: 'Enter Name',
+          hintText: AppLocalizations.of(context)!.translate("restaurantName"),
           contentPadding:
               EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
@@ -683,6 +768,9 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
       height: 48.h,
       child: TextFormField(
         controller: districtController,
+        onChanged: (value){
+          locationController.text = selectedCountry!+"-"+selectedCity!+"-"+districtController.text;
+        },
         style: TextStyle(
           color: Colors.black,
           fontSize: 20.sp,
@@ -692,7 +780,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
-          hintText: 'Logbessou',
+          hintText: AppLocalizations.of(context)!.translate("restaurantDistrict"),
           contentPadding:
               EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
@@ -743,15 +831,6 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
     );
   }
 
-  void getPhoneNumber(String phoneNumber) async {
-    PhoneNumber number =
-        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
-
-    setState(() {
-      this.number = number;
-    });
-  }
-
   @override
   void dispose() {
     controller.dispose();
@@ -773,7 +852,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           focusColor: Color(0XFFB8B8B8),
-          hintText: 'Enter Email',
+          hintText: AppLocalizations.of(context)!.translate("emailRestaurant"),
           contentPadding:
               EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
@@ -794,7 +873,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           focusColor: Color(0XFFB8B8B8),
-          hintText: 'Enter Localisation',
+          hintText: AppLocalizations.of(context)!.translate("enterLocalisation"),
           suffixIcon: Icon(
             Icons.my_location_rounded,
             color: Color.fromRGBO(188, 44, 61, 1),
@@ -818,18 +897,19 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
               maxLines: 8,
               style: new TextStyle(
                   fontSize: 16.sp, fontFamily: "Milliard", color: Colors.black),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
                 ),
                 focusColor: Color(0XFFB8B8B8),
                 border: InputBorder.none,
-                hintText: "Enter description...",
+                hintText: AppLocalizations.of(context)!.translate("enterTheDescription"),
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 10.0),
               )),
         ),
       );
+
 
   _imgFromCamera() async {
     XFile? image = await ImagePicker()
@@ -863,7 +943,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         color: kPrimaryColor,
                       ),
                       title: new Text(
-                        'Photo Library',
+                        AppLocalizations.of(context)!.translate("openTheGallery"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                         ),
@@ -878,7 +958,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                       color: kPrimaryColor,
                     ),
                     title: new Text(
-                      'Camera',
+                      AppLocalizations.of(context)!.translate("camera"),
                       style: TextStyle(
                         fontFamily: "Milliard",
                       ),
@@ -929,7 +1009,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         color: kPrimaryColor,
                       ),
                       title: new Text(
-                        'Photo Library',
+                        AppLocalizations.of(context)!.translate("openTheGallery"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                         ),
@@ -944,7 +1024,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                       color: kPrimaryColor,
                     ),
                     title: new Text(
-                      'Camera',
+                      AppLocalizations.of(context)!.translate("camera"),
                       style: TextStyle(
                         fontFamily: "Milliard",
                       ),
@@ -968,6 +1048,17 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
     }
 
     return result;
+  }
+
+  String findIdWithNameCountry(String name, List<Country> listCountry){
+    String idCountry = "";
+    listCountry.forEach((element) {
+      if(element.name.toString() == name){
+        idCountry = element.id!;
+      }
+    });
+
+    return idCountry;
   }
 
   // Widget _phoneContainer() {

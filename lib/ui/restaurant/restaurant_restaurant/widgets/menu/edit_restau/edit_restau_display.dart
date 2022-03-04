@@ -4,11 +4,14 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
 import 'package:ivfoods_mobile_app/core/utils/url_convert.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/domain/entities/city.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/domain/entities/country.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/domain/entities/get_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/domain/entities/style.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/update_restaurant/bloc/update_restaurant.dart';
@@ -21,11 +24,13 @@ class EditRestauDisplay extends StatefulWidget {
   final List<Style> styles;
   final String name;
   final GetRestaurant getRestaurant;
+  final List<Country> countries;
+  final List<City> cities;
   const EditRestauDisplay(
       {Key? key,
       required this.styles,
       required this.name,
-      required this.getRestaurant})
+      required this.getRestaurant, required this.countries, required this.cities})
       : super(key: key);
 
   @override
@@ -41,6 +46,21 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
   String country = "";
   String city = "";
   String district = "";
+  String? selectedCountry;
+  String? selectedCity;
+  var stylesTest = [];
+  String? selectedCountryId;
+
+  List<City> getCityForCountry(String countryId, List<City> cities){
+    List<City> citiesResults = [];
+    cities.forEach((element) {
+      if(countryId.toString() == element.country.toString()){
+        citiesResults.add(element);
+      }
+    });
+
+    return citiesResults;
+  }
 
   UpdateRestaurantBloc _updateRestaurantBloc = sl<UpdateRestaurantBloc>();
   TextEditingController restaurantNameController = TextEditingController();
@@ -70,6 +90,9 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
     email = widget.getRestaurant.restaurant!.email!;
     localisation = widget.getRestaurant.restaurant!.address!;
     descrip = widget.getRestaurant.restaurant!.description!;
+    stylesTest = widget.getRestaurant.restaurant!.styles!;
+    selectedCountry = widget.getRestaurant.restaurant!.country;
+    selectedCity = widget.getRestaurant.restaurant!.city;
 
     if (widget.getRestaurant.restaurant!.country == "") {
       country = "";
@@ -98,6 +121,9 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
     cityController = TextEditingController(text: city);
     districtController = TextEditingController(text: district);
 
+    selectedCountryId = findIdWithNameCountry(selectedCountry!, widget.countries);
+    namesCity = getCityForCountry(selectedCountryId!, widget.cities);
+
     for (int i = 0; i < widget.styles.length; i++) {
       Style category =
           Style(id: widget.styles[i].id, name: widget.styles[i].name);
@@ -125,10 +151,14 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
     }
   }
 
+  List<City> namesCity = [];
+  List<City> namesCityTwo = [];
+
   @override
   Widget build(BuildContext context) {
     List<int> selectedList = [];
     List<String> _styleOptionsTwo = [];
+
 
     if (styleList != null) {
       styleList!.forEach((element) {
@@ -404,7 +434,39 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                 SizedBox(
                   height: 7.h,
                 ),
-                restauCountry(),
+                Container(
+                  width: 344.w,
+                  height: 48.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: Colors.black.withOpacity(0.4),
+                    ),
+                  ),
+                  child: Container(
+                    child:  Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selectedCountry,
+                          isExpanded: true,
+                          items: widget.countries.map((e) => DropdownMenuItem<String>(
+                            value: e.name,
+                            child: Text(
+                              e.name!,
+                            ),
+                          ) ).toList(),
+                          onChanged: (e) => setState(() {
+                            selectedCountry = e;
+                            selectedCountryId = findIdWithNameCountry(e!, widget.countries);
+                            namesCity = getCityForCountry(selectedCountryId!, widget.cities);
+                            print(namesCity);
+                          } ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -426,7 +488,37 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                 SizedBox(
                   height: 7.h,
                 ),
-                restauCity(),
+                Container(
+                  width: 344.w,
+                  height: 48.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: Colors.black.withOpacity(0.4),
+                    ),
+                  ),
+                  child: Container(
+                    child:  Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: selectedCity,
+                          isExpanded: true,
+                          items: namesCity.map((e) => DropdownMenuItem<String>(
+                            value: e.name,
+                            child: Text(
+                              e.name!,
+                            ),
+                          ) ).toList(),
+                          onChanged: (e) => setState(() {
+                            selectedCity = e;
+                            print(namesCity);
+                          } ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -563,11 +655,16 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                   onTap: () {
                     String styles = "";
                     String theIds = "";
+                    String styleTestString = "";
 
                     String theIdsForSave = "";
                     for (int i = 0; i < stylesForSaveList.length; i++) {
                       theIdsForSave =
                           theIdsForSave + stylesForSaveList[i].id! + "|";
+                    }
+
+                    for (int i = 0; i < stylesTest.length; i++) {
+                      styleTestString = styleTestString + stylesTest[i].id! + "|";
                     }
 
                     for (int y = 0; y < selectedList.length; y++) {
@@ -601,13 +698,13 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                         email: emailController.text.trim(),
                         description: descriptionController.text.trim(),
                         address: locationController.text.trim(),
-                        country: countryController.text.trim(),
-                        city: cityController.text.trim(),
+                        country: selectedCountry.toString().trim(),
+                        city: selectedCity.toString().trim(),
                         district: districtController.text.trim(),
                         profilePicture: File(_imageProfile!.path),
                         coverPicture: File(_imageCover!.path),
                         styles: theIds == ""
-                            ? removeLastCharacter(theIdsForSave.trim())
+                            ? removeLastCharacter(styleTestString.trim())
                             : removeLastCharacter(theIds.trim()),
                       );
 
@@ -660,7 +757,7 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
-          hintText: 'Enter Name',
+          hintText: AppLocalizations.of(context)!.translate("enterNameOfRestaurant"),
           contentPadding:
               EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
@@ -714,6 +811,9 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
       height: 48.h,
       child: TextFormField(
         controller: districtController,
+        onChanged: (value){
+          locationController.text = selectedCountry!+"-"+selectedCity!+"-"+districtController.text;
+        },
         style: TextStyle(
           color: Colors.black,
           fontSize: 20.sp,
@@ -729,51 +829,6 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
         ),
       ));
 
-  //
-  // Widget _phoneContainer() {
-  //   return new Container(
-  //     width: 344.w,
-  //     height: 48.h,
-  //     child: new TextFormField(
-  //       controller: phoneNumberController,
-  //       textAlignVertical: TextAlignVertical.top,
-  //       keyboardType: TextInputType.number,
-  //       decoration: InputDecoration(
-  //         prefixIcon: CountryCodePicker(
-  //           onChanged: (val){
-  //             code = val.dialCode!;
-  //           },
-  //           initialSelection: '+237',
-  //           favorite: ['+237', 'CMR'],
-  //           textStyle: TextStyle(
-  //             color: Color(0XFF949494),
-  //             fontSize: 20.sp,
-  //             fontFamily: "Milliard",
-  //           ),
-  //           showFlag: true,
-  //           padding: EdgeInsets.zero,
-  //           flagDecoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(4),
-  //           ),
-  //         ),
-  //
-  //         focusedBorder: OutlineInputBorder(
-  //           borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
-  //         ),
-  //
-  //         hintText: '697675437',
-  //         contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
-  //         focusColor: Color(0XFFB8B8B8),
-  //         border: OutlineInputBorder(),
-  //       ),
-  //       style: TextStyle(
-  //         color: Colors.black,
-  //         fontSize: 20.sp,
-  //         fontFamily: "Milliard",
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget restauNumber() => Container(
       width: 344.w,
@@ -790,7 +845,7 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           focusColor: Color(0XFFB8B8B8),
-          hintText: 'Enter Number',
+          hintText: AppLocalizations.of(context)!.translate("enterTheNumber"),
           contentPadding:
               EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
@@ -812,7 +867,7 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           focusColor: Color(0XFFB8B8B8),
-          hintText: 'Enter Email',
+          hintText: AppLocalizations.of(context)!.translate("emailRestaurant"),
           contentPadding:
               EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
@@ -833,7 +888,7 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           focusColor: Color(0XFFB8B8B8),
-          hintText: 'Enter Localisation',
+          hintText: AppLocalizations.of(context)!.translate("enterLocalisation"),
           suffixIcon: Icon(
             Icons.my_location_rounded,
             color: Color.fromRGBO(188, 44, 61, 1),
@@ -857,13 +912,13 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
               maxLines: 8,
               style: new TextStyle(
                   fontSize: 16.sp, fontFamily: "Milliard", color: Colors.black),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
                 ),
                 focusColor: Color(0XFFB8B8B8),
                 border: InputBorder.none,
-                hintText: "Enter description...",
+                hintText: AppLocalizations.of(context)!.translate("enterTheDescription"),
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 10.0),
               )),
@@ -902,7 +957,7 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                         color: kPrimaryColor,
                       ),
                       title: new Text(
-                        'Photo Library',
+                        AppLocalizations.of(context)!.translate("openTheGallery"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                         ),
@@ -917,7 +972,7 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                       color: kPrimaryColor,
                     ),
                     title: new Text(
-                      'Camera',
+                      AppLocalizations.of(context)!.translate("camera"),
                       style: TextStyle(
                         fontFamily: "Milliard",
                       ),
@@ -968,7 +1023,7 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                         color: kPrimaryColor,
                       ),
                       title: new Text(
-                        'Photo Library',
+                        AppLocalizations.of(context)!.translate("openTheGallery"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                         ),
@@ -983,7 +1038,7 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                       color: kPrimaryColor,
                     ),
                     title: new Text(
-                      'Camera',
+                      AppLocalizations.of(context)!.translate("camera"),
                       style: TextStyle(
                         fontFamily: "Milliard",
                       ),
@@ -998,6 +1053,17 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
             ),
           );
         });
+  }
+
+  String findIdWithNameCountry(String name, List<Country> listCountry){
+    String idCountry = "";
+    listCountry.forEach((element) {
+      if(element.name.toString() == name){
+        idCountry = element.id!;
+      }
+    });
+
+    return idCountry;
   }
 
   String removeLastCharacter(String str) {

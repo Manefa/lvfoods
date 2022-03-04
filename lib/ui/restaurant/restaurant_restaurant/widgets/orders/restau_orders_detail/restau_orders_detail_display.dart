@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/bloc/get_all_for_owner_restaurant.dart';
-import 'package:ivfoods_mobile_app/features/restaurant_features/get_all_for_owner_restaurant/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/mention_order_ready/bloc/mention_order_ready.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
@@ -59,8 +58,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        //TODO change
-                        "En cours...",
+                        AppLocalizations.of(context)!.translate("inProgressBloc"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                           color: Colors.white,
@@ -96,8 +94,7 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                 SnackBar(
                   content: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //TODO change
-                    children: [Text(state.message + "Echec", style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
+                    children: [Text(state.message + AppLocalizations.of(context)!.translate("failure"), style: TextStyle(fontFamily: "Milliard", color: Colors.white),), Icon(Icons.error, color: Colors.white,)],
                   ),
                   backgroundColor: kPrimaryColor,
                 ),
@@ -425,9 +422,8 @@ class _RestauOrderDetailsDisplayState extends State<RestauOrderDetailsDisplay> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Center(
-                            //TODO change
                             child: Text(
-                              "Mentioner la commande prête",
+                              AppLocalizations.of(context)!.translate("mentionThisOrderReady"),
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.w300,

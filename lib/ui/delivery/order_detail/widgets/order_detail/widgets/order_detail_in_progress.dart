@@ -296,7 +296,7 @@ class _ListViewOrderState extends State<ListViewOrder> {
                                         )
                                     ),
                                     child:Text(
-                                      AppLocalizations.of(context)!.translate("takeAll"),
+                                      AppLocalizations.of(context)!.translate("recoverAll"),
                                       style: TextStyle(
                                         color:  Colors.white,
                                         fontFamily: "Milliard",

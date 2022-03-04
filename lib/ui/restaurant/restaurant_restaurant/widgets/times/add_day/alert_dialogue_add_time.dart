@@ -322,8 +322,8 @@ class _AlerDialogueAddTimeDisplayState extends State<AlerDialogueAddTimeDisplay>
                   SizedBox(height: 15.h,),
                   InkWell(
                     onTap: (){
-                      String open = openTime.hour.toString() + "h:" + openTime.minute.toString() + "min";
-                      String close = closeTime.hour.toString() + "h:" + closeTime.minute.toString() + "min";
+                      String open = openTime.hour.toString().padLeft(2,"0")  + ":" + openTime.minute.toString().padRight(2,"0");
+                      String close = closeTime.hour.toString().padLeft(2,"0") + ":" + closeTime.minute.toString().padLeft(2,"0");
                       print(open);
                       print(close);
                       if(start == "Select Day" || openTime.toString().isEmpty || openTime.toString().isEmpty||

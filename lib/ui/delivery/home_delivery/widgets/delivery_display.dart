@@ -5,14 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/deliveries_master.dart';
+import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/delivery.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/order.dart';
 import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/delivery_detail/page/delivery_detail_page.dart';
 
 class DeliveryDisplay extends StatefulWidget {
-  final DeliveriesMasters? deliveries;
+  final List<Delivery> deliveries;
 
-  const DeliveryDisplay({Key? key, this.deliveries}) : super(key: key);
+  const DeliveryDisplay({Key? key, required this.deliveries}) : super(key: key);
   @override
   _DeliveryDisplayState createState() => _DeliveryDisplayState();
 }
@@ -30,9 +31,9 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
         padding: EdgeInsets.only(right: 35, left: 35),
         shrinkWrap: true,
         clipBehavior: Clip.none,
-        itemCount: widget.deliveries!.deliveries!.length,
+        itemCount: widget.deliveries.length,
         itemBuilder: (BuildContext context, int index){
-          List<Order>? list = widget.deliveries!.deliveries![index].orderGroup!.orders;
+          List<Order>? list = widget.deliveries[index].orderGroup!.orders;
           String getValues(List<Order> values){
             String name = "";
             values.forEach((element){
@@ -51,7 +52,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
 
           return InkWell(
             onTap: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context) => DeliveryDetailPage(code: widget.deliveries!.deliveries![index].code!)),);
+              Navigator.push(context,MaterialPageRoute(builder: (context) => DeliveryDetailPage(code: widget.deliveries[index].code!)),);
             },
             child: Container(
               child: Column(
@@ -85,7 +86,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                               SizedBox(width: 10.h,),
                               Flexible(
                                 child: Text(
-                                  widget.deliveries!.deliveries![index].country.toString() + " - " + widget.deliveries!.deliveries![index].city.toString()+ " - " + widget.deliveries!.deliveries![index].district.toString(),
+                                  widget.deliveries[index].country.toString() + " - " + widget.deliveries[index].city.toString()+ " - " + widget.deliveries[index].district.toString(),
                                   style: TextStyle(
                                     fontSize: 15.sp,
                                     fontFamily: "Milliard",
@@ -107,7 +108,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                 ),
                                 SizedBox(width: 10.w,),
                                 Text(
-                                  getHour(widget.deliveries!.deliveries![index].createdAt.toString()).toString()+" min",
+                                  getHour(widget.deliveries[index].createdAt.toString()).toString()+" min",
                                   style: TextStyle(
                                     fontSize: 15.sp,
                                     fontFamily: "Milliard",
@@ -120,7 +121,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                widget.deliveries!.deliveries![index].statusPayment == "paid" && widget.deliveries!.deliveries![index].orderGroup!.statusPayment == "paid"?
+                                widget.deliveries[index].statusPayment == "paid" && widget.deliveries[index].orderGroup!.statusPayment == "paid"?
                               Icon(
                                 Icons.monetization_on_outlined,
                                 size: 15.sp,
@@ -131,7 +132,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                   color: Color(0XFFBC2C3D),
                                 ),
                               SizedBox(width: 5.w,),
-                                widget.deliveries!.deliveries![index].statusPayment == "paid" && widget.deliveries!.deliveries![index].orderGroup!.statusPayment == "paid" ?
+                                widget.deliveries[index].statusPayment == "paid" && widget.deliveries[index].orderGroup!.statusPayment == "paid" ?
                               Text(
                                 AppLocalizations.of(context)!.translate("paid"),
                                 style: TextStyle(
@@ -153,14 +154,14 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                               ),
                               SizedBox(width: 5.w,),
                               Text(
-                                "X "+getQuantity(widget.deliveries!.deliveries![index].orderGroup!.orders),
+                                "X "+getQuantity(widget.deliveries[index].orderGroup!.orders),
                                 style: TextStyle(
                                   color: Color(0XFF4884EE),
                                   fontSize: 15.sp,
                                 ),
                               ),
                               SizedBox(width: 24.w,),
-                                widget.deliveries!.deliveries![index].status == "ready" ?
+                                widget.deliveries[index].status == "ready" ?
                               Row(
                                 children: [
                                   Container(
@@ -188,7 +189,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                     ),
                                   ),
                                 ],
-                              ) : (widget.deliveries!.deliveries![index].status == "delivered") ?
+                              ) : (widget.deliveries[index].status == "delivered") ?
                                 Row(
                                   children: [
                                     Container(
@@ -216,7 +217,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                       ),
                                     ),
                                   ],
-                                ): (widget.deliveries!.deliveries![index].status == "on_the_way") ?
+                                ): (widget.deliveries[index].status == "on_the_way") ?
                                 Row(
                                   children: [
                                     Container(
@@ -263,7 +264,7 @@ class _DeliveryDisplayState extends State<DeliveryDisplay> {
                                     ),
                                     SizedBox(width: 5.w,),
                                     Text(
-                                      widget.deliveries!.deliveries![index].status!,
+                                      widget.deliveries[index].status!,
                                       style: TextStyle(
                                           color: Color(0XFFFBB634),
                                           fontSize: 15.sp,

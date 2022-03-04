@@ -7,8 +7,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CustomerDetail extends StatefulWidget {
   final User user;
+  final String phoneTwo;
 
-  const CustomerDetail({Key? key, required this.user, }) : super(key: key);
+  const CustomerDetail({Key? key, required this.user, required this.phoneTwo, }) : super(key: key);
   @override
   _CustomerDetailState createState() => _CustomerDetailState();
 }
@@ -119,6 +120,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                       ),
                     ),
                     Expanded(child: SizedBox()),
+                    if(widget.user.phones!.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(top: 2.0),
                       child: Text(
@@ -131,6 +133,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                         ),
                       ),
                     ),
+
                     SizedBox(width: 35.w,),
                   ],
                 ),
@@ -140,8 +143,9 @@ class _CustomerDetailState extends State<CustomerDetail> {
                     SizedBox(width: 35.w,),
                     InkWell(
                       onTap: (){
-                        phoneNumber = widget.user.phones![0].content.toString();
-                        launch("tel://$phoneNumber");
+                        print(widget.phoneTwo);
+                        // phoneNumber = widget.user.phones![0].content.toString();
+                        // widget.phoneTwo.isNotEmpty ? launch("tel://${widget.phoneTwo}") : launch("tel://$phoneNumber");
                       },
                       child: Container(
                         width: 340.w,
@@ -177,30 +181,31 @@ class _CustomerDetailState extends State<CustomerDetail> {
                   ],
                 ),
                 SizedBox(height: 20.h,),
-                Row(
-                  children: [
-                    SizedBox(width: 35.w,),
-                    Container(
-                      height: 45.h,
-                      width: 342.w,
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.translate("trackCustomer"),
-                          style: TextStyle(
-                            fontFamily: "Milliard",
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                //TODO: hide this while waiting for the update
+                // Row(
+                //   children: [
+                //     SizedBox(width: 35.w,),
+                //     Container(
+                //       height: 45.h,
+                //       width: 342.w,
+                //       decoration: BoxDecoration(
+                //         color: kPrimaryColor,
+                //         borderRadius: BorderRadius.circular(5),
+                //       ),
+                //       child: Center(
+                //         child: Text(
+                //           AppLocalizations.of(context)!.translate("trackCustomer"),
+                //           style: TextStyle(
+                //             fontFamily: "Milliard",
+                //             fontSize: 16.sp,
+                //             fontWeight: FontWeight.w300,
+                //             color: Colors.white
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 SizedBox(height: 30.h,),
               ],
             ),

@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/features/deliveries/bloc/deliveries.dart';
+import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/deliveries_master.dart';
+import 'package:ivfoods_mobile_app/features/deliveries/domain/entities/delivery.dart';
 import 'package:ivfoods_mobile_app/features/get_user/bloc/get_user.dart';
 import 'package:ivfoods_mobile_app/features/orders/bloc/orders.dart';
 import 'package:ivfoods_mobile_app/injection_container.dart';
@@ -242,8 +244,31 @@ class _HomeDeliveryState extends State<HomeDelivery> {
                             }
 
                             if(state is LoadedDeliveries){
+                              List<Delivery> delivered = [];
+                              List<Delivery> inProgress = [];
+                              List<Delivery> ready = [];
+                              List<Delivery> finalList = [];
+
+                              state.deliveriesMasters.deliveries!.forEach((element) {
+                                if(element.status == "ready"){
+                                  ready.add(element);
+                                }
+
+                                if(element.status == "delivered"){
+                                  delivered.add(element);
+                                }
+
+                                if(element.status == "on_the_way"){
+                                  inProgress.add(element);
+                                }
+                              });
+
+                              finalList.addAll(inProgress);
+                              finalList.addAll(ready);
+                              finalList.addAll(delivered);
+
                               return Container(
-                                child: DeliveryDisplay(deliveries: state.deliveriesMasters,),
+                                child: DeliveryDisplay(deliveries: finalList),
                               );
                             }
 

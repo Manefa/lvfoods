@@ -4,6 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/loading_widget.dart';
 import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/bloc/get_city.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_city/domain/entities/city.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/bloc/get_country.dart';
+import 'package:ivfoods_mobile_app/features/restaurant_features/get_country/domain/entities/country.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/bloc/get_restaurant.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_restaurant/domain/entities/styles.dart';
 import 'package:ivfoods_mobile_app/features/restaurant_features/get_styles/bloc/get_styles.dart';
@@ -44,14 +48,19 @@ class InfosRestaurantDisplay extends StatefulWidget {
 class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
   GetRestaurantBloc _getRestaurantBloc = sl<GetRestaurantBloc>();
   GetStylesBloc _getStylesBloc = sl<GetStylesBloc>();
+  GetCountryBloc _getCountryBloc = sl<GetCountryBloc>();
+  GetCityBloc _getCityBloc = sl<GetCityBloc>();
   bool isSwitched = true;
   List<Style> styles = [];
-
+  List<Country> countries = [];
+  List<City> cities = [];
 
   @override
   Widget build(BuildContext context) {
     _getRestaurantBloc.add(StartGetRestaurant(name: widget.name));
     _getStylesBloc.add(StartGetStyles());
+    _getCountryBloc.add(StartGetCountry());
+    _getCityBloc.add(StartGetCity());
     bool isSwitched = true;
     var nameRestaurant = sl<SharedPreferences>().getString('RESTAURANT_NAME');
     List<String> litems= ['+237 691 380 128','+237 677 589 625'];
@@ -67,6 +76,14 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
         BlocProvider<GetStylesBloc>(
           create: (_) => _getStylesBloc,
         ),
+
+        BlocProvider<GetCountryBloc>(
+          create: (_) => _getCountryBloc,
+        ),
+
+        BlocProvider<GetCityBloc>(
+          create: (_) => _getCityBloc,
+        ),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -74,6 +91,22 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
             listener: (context, state) {
               if(state is GetStylesLoaded){
                 styles = state.getStylesMaster.styles!;
+              }
+            },
+          ),
+
+          BlocListener<GetCountryBloc, GetCountryState>(
+            listener: (context, state) {
+              if(state is GetCountryLoaded){
+                countries = state.countryMaster.countries!;
+              }
+            },
+          ),
+
+          BlocListener<GetCityBloc, GetCityState>(
+            listener: (context, state) {
+              if(state is GetCityLoaded){
+                cities = state.cityMaster.cities!;
               }
             },
           ),
@@ -98,7 +131,7 @@ class _InfosRestaurantDisplayState extends State<InfosRestaurantDisplay> {
                           onTap: (){
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => EditRestaurant(styles: styles, name: widget.name, getRestaurant: state.getRestaurant,)),
+                              MaterialPageRoute(builder: (context) => EditRestaurant(styles: styles, name: widget.name, getRestaurant: state.getRestaurant, countries: countries, cities: cities,)),
                             );
                           },
                           child: Container(

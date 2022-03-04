@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -220,6 +219,7 @@ class ChooseProfil extends StatelessWidget {
                               child: Center(
                                 child: InkWell(
                                   onTap: (){
+                                    sl<SharedPreferences>().clear();
                                     Navigator.pushNamed(context, "/login");
                                   },
                                   child:Container(
@@ -247,11 +247,8 @@ class ChooseProfil extends StatelessWidget {
                             )
                           ],
                         ),
-
                       )
-
                   )
-
                 ],
               ),
             ),

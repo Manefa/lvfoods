@@ -69,7 +69,30 @@ class _DeliveryAllState extends State<DeliveryAll> {
                   element.orderGroup!.orders!.removeWhere((element) => toRemove.contains(element));
                 });
 
-                visibleDeliveries = state.deliveriesMasters.deliveries;
+                List<Delivery> delivered = [];
+                List<Delivery> inProgress = [];
+                List<Delivery> ready = [];
+                List<Delivery> finalList = [];
+
+                state.deliveriesMasters.deliveries!.forEach((element) {
+                  if(element.status == "ready"){
+                    ready.add(element);
+                  }
+
+                  if(element.status == "delivered"){
+                    delivered.add(element);
+                  }
+
+                  if(element.status == "on_the_way"){
+                    inProgress.add(element);
+                  }
+                });
+
+                finalList.addAll(inProgress);
+                finalList.addAll(ready);
+                finalList.addAll(delivered);
+
+                visibleDeliveries = finalList;
 
                 return SafeArea(
                   child: SingleChildScrollView(

@@ -267,30 +267,31 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                 ),
                 SizedBox(height: 60.h,),
                 //TRACK THE RESTAURANT
-                Row(
-                  children: [
-                    SizedBox(width: 35.w,),
-                    Container(
-                      height: 45.h,
-                      width: 342.w,
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.translate("trackTheRestaurant"),
-                          style: TextStyle(
-                            fontFamily: "Milliard",
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                //TODO: hide this while waiting for the update
+                // Row(
+                //   children: [
+                //     SizedBox(width: 35.w,),
+                //     Container(
+                //       height: 45.h,
+                //       width: 342.w,
+                //       decoration: BoxDecoration(
+                //         color: kPrimaryColor,
+                //         borderRadius: BorderRadius.circular(5),
+                //       ),
+                //       child: Center(
+                //         child: Text(
+                //           AppLocalizations.of(context)!.translate("trackTheRestaurant"),
+                //           style: TextStyle(
+                //             fontFamily: "Milliard",
+                //             fontSize: 16.sp,
+                //             fontWeight: FontWeight.w300,
+                //             color: Colors.white
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 SizedBox(height: 10.h,),
               ],
             ),

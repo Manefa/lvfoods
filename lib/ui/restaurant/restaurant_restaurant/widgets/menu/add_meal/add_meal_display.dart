@@ -41,12 +41,14 @@ class _AddMealDisplayState extends State<AddMealDisplay> {
 
   TextEditingController mealNameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  TextEditingController priceWithDiscountController = TextEditingController();
   TextEditingController remiseController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
   @override
   void initState()  {
     categoriesList = widget.categories;
+    remiseController = TextEditingController(text: "0.0");
     super.initState();
   }
 
@@ -322,6 +324,83 @@ class _AddMealDisplayState extends State<AddMealDisplay> {
                     )
                 ),
                 SizedBox(height: 17.h,),
+                //Price with discount
+
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    //TODO: change the hard text
+                    child: Text(
+                      "Price with discount",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 7.h,),
+                Container(
+                    width: 344.w,
+                    height: 48.h,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: priceWithDiscountController,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20.sp,
+                              fontFamily: "Milliard",
+                            ),
+                            keyboardType: TextInputType.number,
+                            onChanged: (value){
+                              if(remiseController.text.isNotEmpty && double.parse(priceWithDiscountController.text.toString()) <= double.parse(priceController.text.toString())){
+                                double discount = 0.0;
+                                discount = discountBetweenTwoPrice(double.parse(priceController.text), double.parse(priceWithDiscountController.text));
+                                remiseController.text = discount.toString();
+                              }else{
+                                Fluttertoast.showToast(
+                                  //TODO: change
+                                  msg: "entrer une valeur inferieure a la valeur principale",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.grey,
+                                  textColor: Colors.white,
+                                  fontSize: 16.sp,
+                                );
+                              }
+                            },
+                            decoration: InputDecoration(
+                              hintText: "1000",
+                              contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 76.w,
+                          height: 48.h,
+                          color: Color.fromRGBO(241, 241, 241,1),
+                          child: Center(
+                            child: Text(
+                                'FCFA',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(145, 145, 145, 1),
+                                  fontSize: 20.sp,
+                                  fontFamily: "Milliard",
+                                )
+
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                ),
+                SizedBox(height: 17.h,),
 
                 //Remise
                 Container(
@@ -354,13 +433,25 @@ class _AddMealDisplayState extends State<AddMealDisplay> {
                           ),
                           keyboardType: TextInputType.number,
                           onChanged: (value){
-                            if(value.isEmpty){
-                              value = 0.toString();
-                            }
-                            priceController.text = discount(double.parse(priceController.text.toString()), double.parse(value)).toString();
-                          },
+                            if(double.parse(value.toString()) <= 100 && double.parse(value.toString()) >= 0){
+                              double priceWithDiscount = 0.0;
+                              priceWithDiscount = calculatePriceWithDiscountFromDiscount(double.parse(priceController.text), double.parse(remiseController.text));
+                              priceWithDiscountController.text = (double.parse(priceController.text) - priceWithDiscount).toString();
+                              }else{
+                                Fluttertoast.showToast(
+                                  //TODO: change
+                                  msg: "entrer une valeur entre 1 et 100",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.grey,
+                                  textColor: Colors.white,
+                                  fontSize: 16.sp,
+                                );
+                              }
+                            },
                           decoration: InputDecoration(
-                            hintText: "10",
+                            hintText: remiseController.text,
                             contentPadding:  EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
                             border: OutlineInputBorder(),
                           ),
@@ -567,7 +658,7 @@ class _AddMealDisplayState extends State<AddMealDisplay> {
                         color: kPrimaryColor,
                       ),
                       title: new Text(
-                        'Photo Library',
+                        AppLocalizations.of(context)!.translate("openTheGallery"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                         ),
@@ -582,7 +673,7 @@ class _AddMealDisplayState extends State<AddMealDisplay> {
                       color: kPrimaryColor,
                     ),
                     title: new Text(
-                      'Camera',
+                      AppLocalizations.of(context)!.translate("camera"),
                       style: TextStyle(
                         fontFamily: "Milliard",
                       ),
@@ -607,4 +698,22 @@ class _AddMealDisplayState extends State<AddMealDisplay> {
 
     return result;
   }
+
+  double discountBetweenTwoPrice(double firstPrice, double secondPrice){
+    double discountPrice = 0;
+    double discount = 0;
+
+    discountPrice = firstPrice - secondPrice;
+    discount = (discountPrice*100)/firstPrice;
+
+    return discount;
+  }
+
+  double calculatePriceWithDiscountFromDiscount(double firstPrice, double discount){
+    double priceWithDiscount = 0;
+    priceWithDiscount = firstPrice * (discount/100);
+
+    return priceWithDiscount;
+  }
+
 }
