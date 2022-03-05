@@ -33,11 +33,11 @@ class OnbaordingTwo extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(38),
+                height:38.h,
               ),
               Text(
                   AppLocalizations.of(context)!.translate("bigTextOnBorTwo"),
-                textAlign: TextAlign.center,
+
                 style: TextStyle(
                     fontFamily: "Milliard",
                     fontWeight: FontWeight.bold,
@@ -52,13 +52,13 @@ class OnbaordingTwo extends StatelessWidget {
                   AppLocalizations.of(context)!.translate("smallTextOnBorTwo"),
                   style: TextStyle(
                     fontFamily: "Milliard",
-                    fontSize: fontSize(size: 18),
+                    fontSize:18.sp,
                     color: Color(0XFF949494),
                   ),
                 ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(30),
+                height:30.h,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 180.r),
@@ -96,7 +96,7 @@ class OnbaordingTwo extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 100.h,
+                height: 80.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
