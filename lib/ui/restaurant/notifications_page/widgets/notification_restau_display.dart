@@ -48,7 +48,7 @@ class _NotificationRestauDisplayState extends State<NotificationRestauDisplay> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("images/no_notification.png"),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               )
           ),
