@@ -60,13 +60,9 @@ class _OrdersRestaurantState extends State<OrdersRestaurant> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         //Search
-                        Container(
+                        SizedBox(
                           height: 36.h,
-                          width: 236.w,
-                          decoration: BoxDecoration(
-                            color: Color(0XFFF8F7F7),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
+                          width: 246.w,
                           child: TextFormField(
                             textAlignVertical: TextAlignVertical.center,
                             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -81,13 +77,22 @@ class _OrdersRestaurantState extends State<OrdersRestaurant> {
                             },
                             style: TextStyle(
                               color: Color(0XFF949494),
-                              fontSize: 15.sp,
+                              fontSize: 22.sp,
                               fontFamily: "Milliard",
                             ),
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(bottom: 15),
+                              filled: true,
+                              fillColor: Color(0XFFF8F7F7),
+                              isDense: true,
+                              //contentPadding: EdgeInsets.only(bottom: 15),
                               hintText: AppLocalizations.of(context)!.translate("searchOrders"),
-                              border: InputBorder.none,
+                              border: OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color.fromRGBO(181, 181, 181, 1), width: 0.7.w),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color.fromRGBO(188, 44, 61, 1), width: 0.9.w),
+                              ),
                               prefixIcon: Icon(
                                 LvIcons.search_interface_symbol,
                                 size: 16.sp,
@@ -95,7 +100,7 @@ class _OrdersRestaurantState extends State<OrdersRestaurant> {
                               ),
                               hintStyle: TextStyle(
                                   color: Color(0XFF949494),
-                                  fontSize: 15.sp,
+                                  fontSize: 14.sp,
                                   fontFamily: "Milliard"
                               ),
                             ),
