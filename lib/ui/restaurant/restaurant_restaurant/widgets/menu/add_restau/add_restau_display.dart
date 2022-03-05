@@ -4,7 +4,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -707,7 +706,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         controller: restaurantNameController,
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.sp,
+          fontSize: 22.sp,
           fontFamily: "Milliard",
         ),
         decoration: InputDecoration(
@@ -715,20 +714,24 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           hintText: AppLocalizations.of(context)!.translate("restaurantName"),
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          hintStyle: TextStyle(
+              color: Color(0XFF949494),
+              fontSize: 16.sp,
+              fontFamily: "Milliard"
+          ),
+          //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
       ));
 
-  Widget restauCountry() => Container(
+  Widget restauCountry() => SizedBox(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
         controller: countryController,
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.sp,
+          fontSize: 22.sp,
           fontFamily: "Milliard",
         ),
         decoration: InputDecoration(
@@ -736,13 +739,17 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           hintText: 'Cameroun',
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          hintStyle: TextStyle(
+              color: Color(0XFF949494),
+              fontSize: 16.sp,
+              fontFamily: "Milliard"
+          ),
+          //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
       ));
 
-  Widget restauCity() => Container(
+  Widget restauCity() => SizedBox(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
@@ -763,7 +770,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         ),
       ));
 
-  Widget restauDistrict() => Container(
+  Widget restauDistrict() => SizedBox(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
@@ -773,7 +780,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         },
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.sp,
+          fontSize: 22.sp,
           fontFamily: "Milliard",
         ),
         decoration: InputDecoration(
@@ -781,14 +788,18 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
           ),
           hintText: AppLocalizations.of(context)!.translate("restaurantDistrict"),
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          hintStyle: TextStyle(
+              color: Color(0XFF949494),
+              fontSize: 16.sp,
+              fontFamily: "Milliard"
+          ),
+          //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
       ));
 
   Widget _phoneContainer() {
-    return new Container(
+    return new SizedBox(
       width: 344.w,
       height: 48.h,
       child: new TextFormField(
@@ -804,7 +815,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             favorite: ['+237', 'CMR'],
             textStyle: TextStyle(
               color: Color(0XFF949494),
-              fontSize: 20.sp,
+              fontSize: 22.sp,
               fontFamily: "Milliard",
             ),
             showFlag: true,
@@ -818,13 +829,13 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
           ),
           hintText: '697675437',
           contentPadding:
-              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+              EdgeInsets.symmetric(vertical: 10.r, horizontal: 10.r),
           focusColor: Color(0XFFB8B8B8),
           border: OutlineInputBorder(),
         ),
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.sp,
+          fontSize: 21.sp,
           fontFamily: "Milliard",
         ),
       ),
@@ -837,14 +848,14 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
     super.dispose();
   }
 
-  Widget restauEmail() => Container(
+  Widget restauEmail() => SizedBox(
       width: 344.w,
       height: 48.h,
       child: TextFormField(
         controller: emailController,
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.sp,
+          fontSize: 22.sp,
           fontFamily: "Milliard",
         ),
         decoration: InputDecoration(
@@ -853,8 +864,12 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
           ),
           focusColor: Color(0XFFB8B8B8),
           hintText: AppLocalizations.of(context)!.translate("emailRestaurant"),
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          hintStyle: TextStyle(
+              color: Color(0XFF949494),
+              fontSize: 16.sp,
+              fontFamily: "Milliard"
+          ),
+          //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
       ));
@@ -865,7 +880,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         controller: locationController,
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.sp,
+          fontSize: 22.sp,
           fontFamily: "Milliard",
         ),
         decoration: InputDecoration(
@@ -874,13 +889,17 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
           ),
           focusColor: Color(0XFFB8B8B8),
           hintText: AppLocalizations.of(context)!.translate("enterLocalisation"),
+          hintStyle: TextStyle(
+              color: Color(0XFF949494),
+              fontSize: 16.sp,
+              fontFamily: "Milliard"
+          ),
           suffixIcon: Icon(
             Icons.my_location_rounded,
             color: Color.fromRGBO(188, 44, 61, 1),
             size: 20.sp,
           ),
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+          //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
       ));

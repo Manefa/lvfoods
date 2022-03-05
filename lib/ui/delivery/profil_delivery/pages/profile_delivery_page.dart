@@ -55,7 +55,7 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
 
     return SafeArea(
       child: Scaffold(
-        body: Container(
+        body:Container(
           height: size.height,
           color: Colors.white,
           child: Container(
@@ -75,7 +75,7 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 35.h,
+                          height: 20.h,
                         ),
                         Text(
                           AppLocalizations.of(context)!.translate("profile"),
@@ -95,26 +95,26 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                             children: [
                               (image == "")
                                   ? CircleAvatar(
-                                      backgroundColor:
-                                          Color.fromRGBO(246, 246, 246, 1),
-                                      radius: 30.0,
-                                      child: Center(
-                                        child: Text(
-                                          fullName![0],
-                                          style: TextStyle(
-                                            fontFamily: "Milliard",
-                                            fontSize: 35.sp,
-                                            color: Color.fromRGBO(188, 44, 61, 1),
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : CircleAvatar(
-                                      backgroundColor: Colors.transparent,
-                                      radius: 30.0,
-                                      backgroundImage: NetworkImage(image!),
+                                backgroundColor:
+                                Color.fromRGBO(246, 246, 246, 1),
+                                radius: 30.0,
+                                child: Center(
+                                  child: Text(
+                                    fullName![0],
+                                    style: TextStyle(
+                                      fontFamily: "Milliard",
+                                      fontSize: 35.sp,
+                                      color: Color.fromRGBO(188, 44, 61, 1),
+                                      fontWeight: FontWeight.w600,
                                     ),
+                                  ),
+                                ),
+                              )
+                                  : CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                radius: 30.0,
+                                backgroundImage: NetworkImage(image!),
+                              ),
                             ],
                           ),
                         ),
@@ -147,11 +147,11 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                   ),
                 ),
                 Positioned(
-                  top: 280.h,
+                  top: 230.h,
                   left: 35.w,
                   right: 35.w,
                   child: Container(
-                    height: 578.h,
+                    height: 590.h,
                     width: 344.w,
                     decoration: BoxDecoration(
                         boxShadow: [
@@ -191,7 +191,7 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                 ),
                               ),
                               SizedBox(
-                                height: 17.h,
+                                height: 27.h,
                               ),
                               //My Informations
                               InkWell(
@@ -200,29 +200,29 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                   height: 27.h,
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                           child: Row(
-                                        children: [
-                                          Icon(
-                                            LvIcons.lv_user,
-                                            size: 16.sp,
-                                            color: kPrimaryColor,
-                                          ),
-                                          SizedBox(
-                                            width: 14.w,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!.translate("myInformation"),
-                                            style: TextStyle(
-                                              fontFamily: "Milliard",
-                                              fontSize: 16.sp,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      )),
+                                            children: [
+                                              Icon(
+                                                LvIcons.lv_user,
+                                                size: 16.sp,
+                                                color: kPrimaryColor,
+                                              ),
+                                              SizedBox(
+                                                width: 14.w,
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)!.translate("myInformation"),
+                                                style: TextStyle(
+                                                  fontFamily: "Milliard",
+                                                  fontSize: 16.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
+                                          )),
                                       Icon(
                                         Icons.arrow_forward_ios_rounded,
                                         size: 16.sp,
@@ -231,7 +231,7 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 17.h),
+                              SizedBox(height: 23.h),
                               //Change Password
                               InkWell(
                                 onTap: () => showModalBottomSheet(
@@ -248,29 +248,29 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                   height: 27.h,
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                           child: Row(
-                                        children: [
-                                          Icon(
-                                            LvIcons.padlock,
-                                            size: 16.sp,
-                                            color: kPrimaryColor,
-                                          ),
-                                          SizedBox(
-                                            width: 14.w,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!.translate("changePass"),
-                                            style: TextStyle(
-                                              fontFamily: "Milliard",
-                                              fontSize: 16.sp,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      )),
+                                            children: [
+                                              Icon(
+                                                LvIcons.padlock,
+                                                size: 16.sp,
+                                                color: kPrimaryColor,
+                                              ),
+                                              SizedBox(
+                                                width: 14.w,
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)!.translate("changePass"),
+                                                style: TextStyle(
+                                                  fontFamily: "Milliard",
+                                                  fontSize: 16.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
+                                          )),
                                       Icon(
                                         Icons.arrow_forward_ios_rounded,
                                         size: 16.sp,
@@ -302,29 +302,29 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                 height: 27.h,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                         child: Row(
-                                      children: [
-                                        Icon(
-                                          LvIcons.bell,
-                                          size: 16.sp,
-                                          color: kPrimaryColor,
-                                        ),
-                                        SizedBox(
-                                          width: 14.w,
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)!.translate("notifications"),
-                                          style: TextStyle(
-                                            fontFamily: "Milliard",
-                                            fontSize: 16.sp,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
+                                          children: [
+                                            Icon(
+                                              LvIcons.bell,
+                                              size: 16.sp,
+                                              color: kPrimaryColor,
+                                            ),
+                                            SizedBox(
+                                              width: 14.w,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!.translate("notifications"),
+                                              style: TextStyle(
+                                                fontFamily: "Milliard",
+                                                fontSize: 16.sp,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
                                     //Switch
                                     SizedBox(
                                       height: 15.h,
@@ -337,9 +337,9 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                           });
                                         },
                                         activeTrackColor:
-                                            Color.fromRGBO(188, 44, 61, 1),
+                                        Color.fromRGBO(188, 44, 61, 1),
                                         inactiveTrackColor:
-                                            Color.fromRGBO(223, 222, 221, 1),
+                                        Color.fromRGBO(223, 222, 221, 1),
                                         activeColor: Colors.white,
                                       ),
                                     )
@@ -352,29 +352,29 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                 height: 27.h,
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                         child: Row(
-                                      children: [
-                                        Icon(
-                                          LvIcons.bell,
-                                          size: 16.sp,
-                                          color: kPrimaryColor,
-                                        ),
-                                        SizedBox(
-                                          width: 14.w,
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)!.translate("promoNotification"),
-                                          style: TextStyle(
-                                            fontFamily: "Milliard",
-                                            fontSize: 16.sp,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
+                                          children: [
+                                            Icon(
+                                              LvIcons.bell,
+                                              size: 16.sp,
+                                              color: kPrimaryColor,
+                                            ),
+                                            SizedBox(
+                                              width: 14.w,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!.translate("promoNotification"),
+                                              style: TextStyle(
+                                                fontFamily: "Milliard",
+                                                fontSize: 16.sp,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
                                     //Switch
                                     SizedBox(
                                       height: 15.h,
@@ -388,16 +388,16 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                           });
                                         },
                                         activeTrackColor:
-                                            Color.fromRGBO(188, 44, 61, 1),
+                                        Color.fromRGBO(188, 44, 61, 1),
                                         inactiveTrackColor:
-                                            Color.fromRGBO(223, 222, 221, 1),
+                                        Color.fromRGBO(223, 222, 221, 1),
                                         activeColor: Colors.white,
                                       ),
                                     )
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 27.h),
+                              SizedBox(height: 32.h),
                               //More
                               Container(
                                 height: 27.h,
@@ -461,9 +461,9 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                     context,
                                     screen: ChooseProfil(),
                                     withNavBar:
-                                        false, // OPTIONAL VALUE. True by default.
+                                    false, // OPTIONAL VALUE. True by default.
                                     pageTransitionAnimation:
-                                        PageTransitionAnimation.cupertino,
+                                    PageTransitionAnimation.cupertino,
                                   );
                                 },
                                 child: Container(
@@ -472,25 +472,25 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                     children: [
                                       Container(
                                           child: Row(
-                                        children: [
-                                          Icon(
-                                            LvIcons.switch_icon,
-                                            size: 16.sp,
-                                            color: kPrimaryColor,
-                                          ),
-                                          SizedBox(
-                                            width: 14.w,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!.translate("changeAcc"),
-                                            style: TextStyle(
-                                              fontFamily: "Milliard",
-                                              fontSize: 16.sp,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      )),
+                                            children: [
+                                              Icon(
+                                                LvIcons.switch_icon,
+                                                size: 16.sp,
+                                                color: kPrimaryColor,
+                                              ),
+                                              SizedBox(
+                                                width: 14.w,
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)!.translate("changeAcc"),
+                                                style: TextStyle(
+                                                  fontFamily: "Milliard",
+                                                  fontSize: 16.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
+                                          )),
                                     ],
                                   ),
                                 ),
@@ -513,25 +513,25 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                                     children: [
                                       Container(
                                           child: Row(
-                                        children: [
-                                          Icon(
-                                            LvIcons.logout,
-                                            size: 16.sp,
-                                            color: kPrimaryColor,
-                                          ),
-                                          SizedBox(
-                                            width: 14.w,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!.translate("logout"),
-                                            style: TextStyle(
-                                              fontFamily: "Milliard",
-                                              fontSize: 16.sp,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      )),
+                                            children: [
+                                              Icon(
+                                                LvIcons.logout,
+                                                size: 16.sp,
+                                                color: kPrimaryColor,
+                                              ),
+                                              SizedBox(
+                                                width: 14.w,
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)!.translate("logout"),
+                                                style: TextStyle(
+                                                  fontFamily: "Milliard",
+                                                  fontSize: 16.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
+                                          )),
                                     ],
                                   ),
                                 ),

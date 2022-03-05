@@ -218,17 +218,14 @@ class _AppBarRestaurantState extends State<AppBarRestaurant> {
                                     ),
                                     SizedBox(width: 6.w,),
                                     //Deliver Person
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Text(
-                                        AppLocalizations.of(context)!.translate("restorer"),
-                                        style: TextStyle(
-                                          fontFamily: "Milliard",
-                                          fontSize: 18.sp,
-                                          color: Color(0XFFFFCBCB),
-                                        ),
+                                    Text(
+                                      AppLocalizations.of(context)!.translate("restorer"),
+                                      style: TextStyle(
+                                        fontFamily: "Milliard",
+                                        fontSize: 18.sp,
+                                        color: Color(0XFFFFCBCB),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),

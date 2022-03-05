@@ -104,9 +104,15 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
                                         filled: true,
                                         fillColor: Color(0XFFF8F7F7),
                                         isDense: true,
-                                        //contentPadding: new EdgeInsets.symmetric(vertical: 13.h),
                                         hintText: AppLocalizations.of(context)!.translate("searchOrders"),
                                         border: OutlineInputBorder(),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Color.fromRGBO(181, 181, 181, 1), width: 0.7.w),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Color.fromRGBO(188, 44, 61, 1), width: 0.9.w),
+                                        ),
+
                                         prefixIcon: Icon(
                                           LvIcons.search_interface_symbol,
                                           size: 16.sp,
@@ -114,7 +120,7 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
                                         ),
                                         hintStyle: TextStyle(
                                             color: Color(0XFF949494),
-                                            fontSize: 15.sp,
+                                            fontSize: 14.sp,
                                             fontFamily: "Milliard"
                                         ),
                                       ),

@@ -133,6 +133,12 @@ class _DeliveryAllState extends State<DeliveryAll> {
                                     isDense: true,
                                     hintText: AppLocalizations.of(context)!.translate("searchDeliveries"),
                                     border: OutlineInputBorder(),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Color.fromRGBO(181, 181, 181, 1), width: 0.7.w),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Color.fromRGBO(188, 44, 61, 1), width: 0.9.w),
+                                    ),
                                     prefixIcon: Icon(
                                       LvIcons.search_interface_symbol,
                                       size: 16.sp,
@@ -140,7 +146,7 @@ class _DeliveryAllState extends State<DeliveryAll> {
                                     ),
                                     hintStyle: TextStyle(
                                         color: Color(0XFF949494),
-                                        fontSize: 15.sp,
+                                        fontSize: 14.sp,
                                         fontFamily: "Milliard"
                                     ),
                                   ),

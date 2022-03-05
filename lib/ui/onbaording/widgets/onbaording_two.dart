@@ -37,11 +37,11 @@ class OnbaordingTwo extends StatelessWidget {
               ),
               Text(
                   AppLocalizations.of(context)!.translate("bigTextOnBorTwo"),
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: "Milliard",
                     fontWeight: FontWeight.bold,
-                    fontSize: fontSize(size: 33)
-                ),
+                    fontSize:28.sp),
               ),
               SizedBox(
                 height: getProportionateScreenHeight(50),

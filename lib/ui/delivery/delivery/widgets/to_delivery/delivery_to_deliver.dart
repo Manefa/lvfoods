@@ -111,6 +111,12 @@ class _DeliveryToDeliverState extends State<DeliveryToDeliver> {
                                     decoration: InputDecoration(
                                       hintText: AppLocalizations.of(context)!.translate("searchDeliveries"),
                                       border: OutlineInputBorder(),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(color: Color.fromRGBO(181, 181, 181, 1), width: 0.7.w),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(color: Color.fromRGBO(188, 44, 61, 1), width: 0.9.w),
+                                      ),
                                       filled: true,
                                       fillColor: Color(0XFFF8F7F7),
                                       isDense: true,
@@ -121,7 +127,7 @@ class _DeliveryToDeliverState extends State<DeliveryToDeliver> {
                                       ),
                                       hintStyle: TextStyle(
                                           color: Color(0XFF949494),
-                                          fontSize: 15.sp,
+                                          fontSize: 14.sp,
                                           fontFamily: "Milliard"
                                       ),
                                     ),
