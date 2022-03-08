@@ -56,8 +56,8 @@ dependencies:
   country_code_picker: ^2.0.2
   #For Number TexField
   intl_phone_number_input: ^0.7.0+2
-
-  flutter_typeahead: ^3.2.4
+  #For geo localisation
+  geolocator: ^8.2.0
 
 
 dev_dependencies:

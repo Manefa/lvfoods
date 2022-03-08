@@ -44,12 +44,36 @@ class OnbaordingTwo extends StatelessWidget {
                     fontSize:28.sp),
               ),
               SizedBox(
+                height: 7.h,
+              ),
+              Text(
+                AppLocalizations.of(context)!.translate("bigTextTwoOnBorTwo"),
+                style: TextStyle(
+                    fontFamily: "Milliard",
+                    fontWeight: FontWeight.bold,
+                    fontSize:28.sp),
+              ),
+              SizedBox(
                 height: getProportionateScreenHeight(50),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14.0),
                 child: Text(
                   AppLocalizations.of(context)!.translate("smallTextOnBorTwo"),
+                  style: TextStyle(
+                    fontFamily: "Milliard",
+                    fontSize:18.sp,
+                    color: Color(0XFF949494),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 7.h,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                child: Text(
+                  AppLocalizations.of(context)!.translate("smallTextTwoOnBorTwo"),
                   style: TextStyle(
                     fontFamily: "Milliard",
                     fontSize:18.sp,

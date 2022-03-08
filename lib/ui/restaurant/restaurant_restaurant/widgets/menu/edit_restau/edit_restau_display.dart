@@ -4,8 +4,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
 import 'package:ivfoods_mobile_app/core/platform/icon/lv_icons_resto.dart';
@@ -71,6 +71,8 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
   TextEditingController countryController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController districtController = TextEditingController();
+  TextEditingController latController = TextEditingController();
+  TextEditingController longController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
   int _selectedIndex = 0;
@@ -93,6 +95,7 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
     stylesTest = widget.getRestaurant.restaurant!.styles!;
     selectedCountry = widget.getRestaurant.restaurant!.country;
     selectedCity = widget.getRestaurant.restaurant!.city;
+    //print(widget.getRestaurant.restaurant!.geographicCoordinates!.longitude.toString() + "sdfdsfdsfds" + widget.getRestaurant.restaurant!.geographicCoordinates!.longitude.toString()+"ffffffffffffffffffff");
 
     if (widget.getRestaurant.restaurant!.country == "") {
       country = "";
@@ -611,6 +614,135 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
                 SizedBox(
                   height: 23.h,
                 ),
+                //localisation
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    //TODO: change this
+                    child: Text(
+                      "Geographique Coordonate",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 7.h,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 30.w,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: 48.h,
+                      child: TextFormField(
+                        controller: latController,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 22.sp,
+                          fontFamily: "Milliard",
+                        ),
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                            BorderSide(color: kPrimaryColor, width: 1.0),
+                          ),
+                          //todo: change
+                          hintText: 'Latitude',
+                          hintStyle: TextStyle(
+                              color: Color(0XFF949494),
+                              fontSize: 16.sp,
+                              fontFamily: "Milliard"),
+                          //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20.w,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: 48.h,
+                      child: TextFormField(
+                        controller: longController,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 22.sp,
+                          fontFamily: "Milliard",
+                        ),
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                            BorderSide(color: kPrimaryColor, width: 1.0),
+                          ),
+                          //todo: change
+                          hintText: 'Longitude',
+                          hintStyle: TextStyle(
+                              color: Color(0XFF949494),
+                              fontSize: 16.sp,
+                              fontFamily: "Milliard"),
+                          //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                InkWell(
+                  onTap: () async {
+                    Position position;
+                    position = await determinePosition();
+                    latController.text = position.latitude.toStringAsFixed(2).toString();
+                    longController.text = position.longitude.toStringAsFixed(2).toString();
+                  },
+                  child: Container(
+                    height: 42.h,
+                    width: 344.w,
+                    child: DottedBorder(
+                        color: Color.fromRGBO(188, 44, 61, 1),
+                        strokeWidth: 0.2,
+                        dashPattern: [10, 6],
+                        child: Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add_location_alt_outlined,
+                                  color: Color.fromRGBO(188, 44, 61, 1),
+                                  size: 16.sp,
+                                ),
+                                SizedBox(
+                                  width: 19.w,
+                                ),
+                                //todo: change
+                                Text(
+                                  "Obtenez vos coordonee",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(188, 44, 61, 1),
+                                      fontSize: 20.sp,
+                                      fontFamily: "Milliard",
+                                      fontWeight: FontWeight.w200),
+                                )
+                              ],
+                            ))),
+                  ),
+                ),
+                SizedBox(
+                  height: 23.h,
+                ),
                 //Resto style
                 Container(
                   width: 344.w,
@@ -1053,6 +1185,43 @@ class _EditRestauDisplayState extends State<EditRestauDisplay> {
             ),
           );
         });
+  }
+
+  Future<Position> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
   }
 
   String findIdWithNameCountry(String name, List<Country> listCountry){

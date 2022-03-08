@@ -43,10 +43,31 @@ class OnbaordingThree extends StatelessWidget {
                     fontSize:28.sp),
               ),
               SizedBox(
+                height: 7.h,
+              ),
+              Text(
+                AppLocalizations.of(context)!.translate("bigTextTwoOnBorThree"),
+                style: TextStyle(
+                    fontFamily: "Milliard",
+                    fontWeight: FontWeight.bold,
+                    fontSize:28.sp),
+              ),
+              SizedBox(
                 height: getProportionateScreenHeight(50),
               ),
               Text(
                 AppLocalizations.of(context)!.translate("smallTextOnBorThree"),
+                style: TextStyle(
+                  fontFamily: "Milliard",
+                  fontSize:18.sp,
+                  color: Color(0XFF949494),
+                ),
+              ),
+              SizedBox(
+                height: 7.h,
+              ),
+              Text(
+                AppLocalizations.of(context)!.translate("smallTextTwoOnBorThree"),
                 style: TextStyle(
                   fontFamily: "Milliard",
                   fontSize:18.sp,

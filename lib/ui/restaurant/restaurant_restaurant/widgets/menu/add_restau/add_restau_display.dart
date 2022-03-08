@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:ivfoods_mobile_app/constants.dart';
@@ -19,11 +20,17 @@ import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/restaurant/restaurant_restaurant/widgets/menu/add_restau/widgets/choice_chip.dart';
 
+
 class AddRestauDisplay extends StatefulWidget {
   final List<Style> styles;
   final List<Country> countries;
   final List<City> cities;
-  const AddRestauDisplay({Key? key, required this.styles, required this.countries, required this.cities}) : super(key: key);
+  const AddRestauDisplay(
+      {Key? key,
+      required this.styles,
+      required this.countries,
+      required this.cities})
+      : super(key: key);
 
   @override
   _AddRestauDisplayState createState() => _AddRestauDisplayState();
@@ -40,6 +47,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
   TextEditingController countryController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController districtController = TextEditingController();
+  TextEditingController latController = TextEditingController();
+  TextEditingController longController = TextEditingController();
 
   String? selectedCountry;
   String? selectedCountryId;
@@ -85,18 +94,16 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
       });
     }
 
-
-    List<City> getCityForCountry(String countryId, List<City> cities){
+    List<City> getCityForCountry(String countryId, List<City> cities) {
       List<City> citiesResults = [];
       cities.forEach((element) {
-        if(countryId.toString() == element.country.toString()){
+        if (countryId.toString() == element.country.toString()) {
           citiesResults.add(element);
         }
       });
 
       return citiesResults;
     }
-
 
     return BlocProvider<AddRestaurantBloc>(
       create: (_) => _addRestaurantBloc,
@@ -115,7 +122,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.translate("inProgressBloc"),
+                        AppLocalizations.of(context)!
+                            .translate("inProgressBloc"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                           color: Colors.white,
@@ -150,7 +158,9 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        state.message + AppLocalizations.of(context)!.translate("failureToAdd"),
+                        state.message +
+                            AppLocalizations.of(context)!
+                                .translate("failureToAdd"),
                         style: TextStyle(
                             fontFamily: "Milliard", color: Colors.white),
                       ),
@@ -186,7 +196,11 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                               width: 57.w,
                               child: _imageProfile == null
                                   ? CircleAvatar(
-                                      backgroundColor: Colors.red,
+                                      backgroundColor: Colors.grey[200],
+                                      child: Icon(
+                                        LvIconsResto.restaurant,
+                                        color: Colors.black,
+                                      ),
                                     )
                                   : CircleAvatar(
                                       backgroundImage: FileImage(
@@ -203,13 +217,19 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                               onTap: () {
                                 _showPicker(context);
                               },
-                              child: Text(
-                                AppLocalizations.of(context)!
-                                    .translate("uploadLogo"),
-                                style: TextStyle(
-                                  color: Color.fromRGBO(188, 44, 61, 1),
-                                  fontSize: 18.sp,
-                                  fontFamily: "Milliard",
+                              borderRadius: BorderRadius.circular(8.0),
+                              highlightColor: kPrimaryColor.withOpacity(0.05),
+                              splashColor: kPrimaryColor.withOpacity(0.5),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .translate("uploadLogo"),
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(188, 44, 61, 1),
+                                    fontSize: 18.sp,
+                                    fontFamily: "Milliard",
+                                  ),
                                 ),
                               ),
                             )
@@ -360,7 +380,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      AppLocalizations.of(context)!.translate("restaurantCountry"),
+                      AppLocalizations.of(context)!
+                          .translate("restaurantCountry"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -382,29 +403,39 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                   child: Container(
-                    child:  Padding(
+                    child: Padding(
                       padding: const EdgeInsets.only(left: 4.0),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                            value: selectedCountry,
-                            isExpanded: true,
-                            items: widget.countries.map((e) => DropdownMenuItem<String>(
-                              value: e.name,
-                              child: Text(
-                                e.name!,
-                              ),
-                            ) ).toList(),
-                            onChanged: (e) => setState(() {
+                          value: selectedCountry,
+                          isExpanded: true,
+                          items: widget.countries
+                              .map((e) => DropdownMenuItem<String>(
+                                    value: e.name,
+                                    child: Text(
+                                      e.name!,
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (e) => setState(
+                            () {
                               selectedCountry = e;
-                              selectedCountryId = findIdWithNameCountry(e!, widget.countries);
-                              namesCity = getCityForCountry(selectedCountryId!, widget.cities);
-                              print(namesCity);
-                            } ),
+                              selectedCountryId =
+                                  findIdWithNameCountry(e!, widget.countries);
+                              namesCity = getCityForCountry(
+                                  selectedCountryId!, widget.cities);
+                              locationController.text = selectedCountry! +
+                                  "-" +
+                                  selectedCity.toString() +
+                                  "-" +
+                                  districtController.text;
+                            },
                           ),
+                        ),
                       ),
                     ),
-                    ),
                   ),
+                ),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -436,22 +467,28 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                     ),
                   ),
                   child: Container(
-                    child:  Padding(
+                    child: Padding(
                       padding: const EdgeInsets.only(left: 4.0),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           value: selectedCity,
                           isExpanded: true,
-                          items: namesCity.map((e) => DropdownMenuItem<String>(
-                            value: e.name,
-                            child: Text(
-                              e.name!,
-                            ),
-                          ) ).toList(),
+                          items: namesCity
+                              .map((e) => DropdownMenuItem<String>(
+                                    value: e.name,
+                                    child: Text(
+                                      e.name!,
+                                    ),
+                                  ))
+                              .toList(),
                           onChanged: (e) => setState(() {
                             selectedCity = e;
-                            print(namesCity);
-                          } ),
+                            locationController.text = selectedCountry! +
+                                "-" +
+                                selectedCity! +
+                                "-" +
+                                districtController.text;
+                          }),
                         ),
                       ),
                     ),
@@ -466,7 +503,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      AppLocalizations.of(context)!.translate("restaurantDistrict"),
+                      AppLocalizations.of(context)!
+                          .translate("restaurantDistrict"),
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.sp,
@@ -572,6 +610,136 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                 SizedBox(
                   height: 23.h,
                 ),
+
+                //localisation
+                Container(
+                  width: 344.w,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    //TODO: change this
+                    child: Text(
+                      "Geographique Coordonate",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.sp,
+                        fontFamily: "Milliard",
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 7.h,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 30.w,
+                    ),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        height: 48.h,
+                        child: TextFormField(
+                          controller: latController,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 22.sp,
+                            fontFamily: "Milliard",
+                          ),
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: kPrimaryColor, width: 1.0),
+                            ),
+                            //todo: change
+                            hintText: 'Latitude',
+                            hintStyle: TextStyle(
+                                color: Color(0XFF949494),
+                                fontSize: 16.sp,
+                                fontFamily: "Milliard"),
+                            //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                    ),
+                    SizedBox(
+                      width: 20.w,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: 48.h,
+                      child: TextFormField(
+                        controller: longController,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 22.sp,
+                          fontFamily: "Milliard",
+                        ),
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                            BorderSide(color: kPrimaryColor, width: 1.0),
+                          ),
+                          //todo: change
+                          hintText: 'Longitude',
+                          hintStyle: TextStyle(
+                              color: Color(0XFF949494),
+                              fontSize: 16.sp,
+                              fontFamily: "Milliard"),
+                          //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                InkWell(
+                  onTap: () async {
+                    Position position;
+                    position = await determinePosition();
+                     latController.text = position.latitude.toStringAsFixed(2).toString();
+                     longController.text = position.longitude.toStringAsFixed(2).toString();
+                  },
+                  child: Container(
+                    height: 42.h,
+                    width: 344.w,
+                    child: DottedBorder(
+                        color: Color.fromRGBO(188, 44, 61, 1),
+                        strokeWidth: 0.2,
+                        dashPattern: [10, 6],
+                        child: Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add_location_alt_outlined,
+                                  color: Color.fromRGBO(188, 44, 61, 1),
+                                  size: 16.sp,
+                                ),
+                                SizedBox(
+                                  width: 19.w,
+                                ),
+                                //todo: change
+                                Text(
+                                  "Obtenez vos coordonee",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(188, 44, 61, 1),
+                                      fontSize: 20.sp,
+                                      fontFamily: "Milliard",
+                                      fontWeight: FontWeight.w200),
+                                )
+                              ],
+                            ))),
+                  ),
+                ),
+                SizedBox(
+                  height: 23.h,
+                ),
                 //Resto style
                 Container(
                   width: 344.w,
@@ -589,7 +757,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                   ),
                 ),
                 SizedBox(
-                  height: 21.h,
+                  height: 7.h,
                 ),
                 Container(
                   child: ChipList(
@@ -640,7 +808,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         _imageCover == null ||
                         _imageProfile == null) {
                       Fluttertoast.showToast(
-                        msg: AppLocalizations.of(context)!.translate("fillInAllFieldsAndUploadAllImages"),
+                        msg: AppLocalizations.of(context)!
+                            .translate("fillInAllFieldsAndUploadAllImages"),
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 5,
@@ -657,6 +826,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         city: selectedCity.toString().trim(),
                         district: districtController.text.trim(),
                         address: locationController.text.trim(),
+                        latitude: double.parse(latController.text),
+                        longitude: double.parse(longController.text),
                         profilePicture: File(_imageProfile!.path),
                         coverPicture: File(_imageCover!.path),
                         styles: removeLastCharacter(theIds.trim()),
@@ -711,14 +882,13 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         ),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+            borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
           ),
           hintText: AppLocalizations.of(context)!.translate("restaurantName"),
           hintStyle: TextStyle(
               color: Color(0XFF949494),
               fontSize: 16.sp,
-              fontFamily: "Milliard"
-          ),
+              fontFamily: "Milliard"),
           //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
@@ -736,14 +906,13 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         ),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+            borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
           ),
           hintText: 'Cameroun',
           hintStyle: TextStyle(
               color: Color(0XFF949494),
               fontSize: 16.sp,
-              fontFamily: "Milliard"
-          ),
+              fontFamily: "Milliard"),
           //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
@@ -761,7 +930,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         ),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+            borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
           ),
           hintText: 'Douala',
           contentPadding:
@@ -775,8 +944,12 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
       height: 48.h,
       child: TextFormField(
         controller: districtController,
-        onChanged: (value){
-          locationController.text = selectedCountry!+"-"+selectedCity!+"-"+districtController.text;
+        onChanged: (value) {
+          locationController.text = selectedCountry! +
+              "-" +
+              selectedCity! +
+              "-" +
+              districtController.text;
         },
         style: TextStyle(
           color: Colors.black,
@@ -785,14 +958,14 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         ),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+            borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
           ),
-          hintText: AppLocalizations.of(context)!.translate("restaurantDistrict"),
+          hintText:
+              AppLocalizations.of(context)!.translate("restaurantDistrict"),
           hintStyle: TextStyle(
               color: Color(0XFF949494),
               fontSize: 16.sp,
-              fontFamily: "Milliard"
-          ),
+              fontFamily: "Milliard"),
           //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
@@ -825,7 +998,7 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+            borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
           ),
           hintText: '697675437',
           contentPadding:
@@ -860,15 +1033,14 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         ),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+            borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
           ),
           focusColor: Color(0XFFB8B8B8),
           hintText: AppLocalizations.of(context)!.translate("emailRestaurant"),
           hintStyle: TextStyle(
               color: Color(0XFF949494),
               fontSize: 16.sp,
-              fontFamily: "Milliard"
-          ),
+              fontFamily: "Milliard"),
           //contentPadding: EdgeInsets.symmetric(vertical: 14.r, horizontal: 10.r),
           border: OutlineInputBorder(),
         ),
@@ -885,15 +1057,15 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
         ),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+            borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
           ),
           focusColor: Color(0XFFB8B8B8),
-          hintText: AppLocalizations.of(context)!.translate("enterLocalisation"),
+          hintText:
+              AppLocalizations.of(context)!.translate("enterLocalisation"),
           hintStyle: TextStyle(
               color: Color(0XFF949494),
               fontSize: 16.sp,
-              fontFamily: "Milliard"
-          ),
+              fontFamily: "Milliard"),
           suffixIcon: Icon(
             Icons.my_location_rounded,
             color: Color.fromRGBO(188, 44, 61, 1),
@@ -918,17 +1090,17 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                   fontSize: 16.sp, fontFamily: "Milliard", color: Colors.black),
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
+                  borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
                 ),
                 focusColor: Color(0XFFB8B8B8),
                 border: InputBorder.none,
-                hintText: AppLocalizations.of(context)!.translate("enterTheDescription"),
+                hintText: AppLocalizations.of(context)!
+                    .translate("enterTheDescription"),
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 10.0),
               )),
         ),
       );
-
 
   _imgFromCamera() async {
     XFile? image = await ImagePicker()
@@ -962,7 +1134,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         color: kPrimaryColor,
                       ),
                       title: new Text(
-                        AppLocalizations.of(context)!.translate("openTheGallery"),
+                        AppLocalizations.of(context)!
+                            .translate("openTheGallery"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                         ),
@@ -1028,7 +1201,8 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
                         color: kPrimaryColor,
                       ),
                       title: new Text(
-                        AppLocalizations.of(context)!.translate("openTheGallery"),
+                        AppLocalizations.of(context)!
+                            .translate("openTheGallery"),
                         style: TextStyle(
                           fontFamily: "Milliard",
                         ),
@@ -1069,10 +1243,10 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
     return result;
   }
 
-  String findIdWithNameCountry(String name, List<Country> listCountry){
+  String findIdWithNameCountry(String name, List<Country> listCountry) {
     String idCountry = "";
     listCountry.forEach((element) {
-      if(element.name.toString() == name){
+      if (element.name.toString() == name) {
         idCountry = element.id!;
       }
     });
@@ -1080,46 +1254,40 @@ class _AddRestauDisplayState extends State<AddRestauDisplay> {
     return idCountry;
   }
 
-  // Widget _phoneContainer() {
-  //   return new Container(
-  //     width: 344.w,
-  //     height: 48.h,
-  //     decoration: new BoxDecoration(
-  //         borderRadius: BorderRadius.circular(5.r),
-  //         border: new Border.all(color: Color.fromRGBO(223, 222, 221, 1))
-  //     ),
-  //     child: new TextFormField(
-  //       controller: phoneController,
-  //       textAlignVertical: TextAlignVertical.top,
-  //       decoration: InputDecoration(
-  //         prefixIcon: CountryCodePicker(
-  //           initialSelection: '+237',
-  //           favorite: ['+237', 'CMR'],
-  //           textStyle: TextStyle(
-  //             color: Color(0XFF949494),
-  //             fontSize: 20.sp,
-  //             fontFamily: "Milliard",
-  //           ),
-  //           showFlag: true,
-  //           padding: EdgeInsets.zero,
-  //           flagDecoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(4),
-  //           ),
-  //           flagWidth: 35.w,
-  //         ),
-  //
-  //         focusedBorder: OutlineInputBorder(
-  //           borderSide: BorderSide(color: kPrimaryColor, width: 2.0),
-  //         ),
-  //         focusColor: Color(0XFFB8B8B8),
-  //         border: InputBorder.none,
-  //       ),
-  //       style: TextStyle(
-  //         color: Colors.black,
-  //         fontSize: 20.sp,
-  //         fontFamily: "Milliard",
-  //       ),
-  //     ),
-  //   );
-  // }
+  Future<Position> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
+  }
 }
