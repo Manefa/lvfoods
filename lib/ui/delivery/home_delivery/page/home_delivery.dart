@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:ivfoods_mobile_app/injection_container.dart';
 import 'package:ivfoods_mobile_app/localization/app_localizations.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/home_delivery/widgets/app_bar.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/home_delivery/widgets/delivery_display.dart';
+import 'package:ivfoods_mobile_app/ui/delivery/home_delivery/widgets/delivery_illustration.dart';
 import 'package:ivfoods_mobile_app/ui/delivery/home_delivery/widgets/order_display.dart';
 import 'package:ivfoods_mobile_app/ui/shimmer_widgets.dart';
 
@@ -108,8 +110,7 @@ class _HomeDeliveryState extends State<HomeDelivery> {
                           ),
                         ),
                       ),
-                      SliverToBoxAdapter(child: SizedBox(height: 20.h,)),
-                      SliverToBoxAdapter(child: SizedBox(height: 30.h,)),
+                      SliverToBoxAdapter(child: SizedBox(height: 50.h,)),
                       //ORDERS
                       SliverToBoxAdapter(
                         child: Row(
@@ -196,6 +197,12 @@ class _HomeDeliveryState extends State<HomeDelivery> {
                         ),
                       ),
                       SliverToBoxAdapter(child: SizedBox(height: 20.h,)),
+                   // New Illustration
+                      SliverToBoxAdapter(
+                        child:Center(
+                         child: DeliveryIllustration()
+                        ),),
+                      SliverToBoxAdapter(child: SizedBox(height: 25.h,)),
                       SliverToBoxAdapter(
                         child: Row(
                           children: <Widget>[

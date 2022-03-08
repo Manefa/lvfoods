@@ -70,6 +70,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         //ImageContainer
                                         Container(
@@ -105,6 +106,7 @@ class _OrderRestaurantDisplayState extends State<OrderRestaurantDisplay> {
                                                 //Location
                                                 Container(
                                                   child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       Icon(
                                                         LvIcons.pin,

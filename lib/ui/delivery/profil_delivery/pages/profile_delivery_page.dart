@@ -151,7 +151,7 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                   left: 35.w,
                   right: 35.w,
                   child: Container(
-                    height: 590.h,
+                    height: 595.h,
                     width: 344.w,
                     decoration: BoxDecoration(
                         boxShadow: [
@@ -171,7 +171,6 @@ class _ProfileDeliveryPageState extends State<ProfileDeliveryPage> {
                         ),
                         Container(
                           width: 290.w,
-                          //height: 470.h,
                           child: Column(
                             children: [
                               //My Account

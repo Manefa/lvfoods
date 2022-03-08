@@ -242,7 +242,6 @@ class _OrderToDeliverState extends State<OrderToDeliver> {
               ],
             ),
           ),
-
         ],
       ),
     );

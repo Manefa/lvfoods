@@ -62,7 +62,7 @@ class _OrdersRestaurantState extends State<OrdersRestaurant> {
                         //Search
                         SizedBox(
                           height: 36.h,
-                          width: 246.w,
+                          width: 240.w,
                           child: TextFormField(
                             textAlignVertical: TextAlignVertical.center,
                             autovalidateMode: AutovalidateMode.onUserInteraction,

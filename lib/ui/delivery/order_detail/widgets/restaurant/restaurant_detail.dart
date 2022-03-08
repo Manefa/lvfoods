@@ -202,6 +202,7 @@ class _RestaurantDetailState extends State<RestaurantDetail> {
                 ),
                 SizedBox(height: 25.h,),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(width: 35.w,),
                     Text(
