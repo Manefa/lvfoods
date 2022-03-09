@@ -38,6 +38,7 @@ Stream<SignInState> _eitherLoadedOrErrorState(
           (signInResponse) {
             sl<SharedPreferences>().setString("token", signInResponse.token!);
             sl<SharedPreferences>().setString("success", signInResponse.success.toString());
+            sl<SharedPreferences>().setString("role", signInResponse.signInUserResponse!.role.toString());
           return SignInSuccess();
       }
   );

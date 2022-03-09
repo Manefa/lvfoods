@@ -21,6 +21,14 @@ class ChooseProfil extends StatelessWidget {
       );
     });
 
+    String role = sl<SharedPreferences>().getString("role").toString();
+    bool? isDelivery;
+    if(role == "deliver"){
+      isDelivery = true;
+    }else{
+      isDelivery = false;
+    }
+
     Future<bool> _onBackPressed() async {
       SystemChannels.platform.invokeMethod('SystemNavigator.pop');
       return false;
@@ -124,79 +132,82 @@ class ChooseProfil extends StatelessWidget {
                   ),
                   SizedBox(height: 39.h,),
                   //Profile Livreur
-                  InkWell(
-                    onTap: (){
-                      Navigator.pushNamed(context, "/navigatorDeliveryPage");
-                    },
-                    child: Container(
-                        height: 82.h,
-                        width: 344.w,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10.r),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey.withOpacity(0.36),
-                                  spreadRadius: -3,
-                                  blurRadius: 10,
-                                  offset: Offset(0, 5)
-                              )
-                            ]
-                        ),
-                        child:Center(
-                          child: Container(
-                            width: 300.w,
-                            height: 50.h,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        height:49.h,
-                                        width:49.w,
-                                        child: Image.asset("images/delivery_man.png"),
-                                      ),
-                                      SizedBox(width: 20.w,),
-
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text(
-                                            AppLocalizations.of(context)!.translate("deliveryPersonProfile"),
-                                            style: TextStyle(
-                                              fontFamily: "Milliard",
-                                              fontSize:18.sp,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          SizedBox(height: 4.h,),
-                                          Text(
-                                            AppLocalizations.of(context)!.translate("deliveryPerson"),
-                                            style: TextStyle(
-                                              fontFamily: "Milliard",
-                                              fontSize:13.sp,
-                                              color: Color(0XFF949494),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-
-                                    ],
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios_rounded ,
-                                  color: Color(0XFFBCBCBC),
-                                  size: 15.sp,
-                                ),
-                              ],
-                            ),
+                  Visibility(
+                    visible: isDelivery,
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.pushNamed(context, "/navigatorDeliveryPage");
+                      },
+                      child: Container(
+                          height: 82.h,
+                          width: 344.w,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10.r),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey.withOpacity(0.36),
+                                    spreadRadius: -3,
+                                    blurRadius: 10,
+                                    offset: Offset(0, 5)
+                                )
+                              ]
                           ),
-                        )
+                          child:Center(
+                            child: Container(
+                              width: 300.w,
+                              height: 50.h,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height:49.h,
+                                          width:49.w,
+                                          child: Image.asset("images/delivery_man.png"),
+                                        ),
+                                        SizedBox(width: 20.w,),
+
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(
+                                              AppLocalizations.of(context)!.translate("deliveryPersonProfile"),
+                                              style: TextStyle(
+                                                fontFamily: "Milliard",
+                                                fontSize:18.sp,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            SizedBox(height: 4.h,),
+                                            Text(
+                                              AppLocalizations.of(context)!.translate("deliveryPerson"),
+                                              style: TextStyle(
+                                                fontFamily: "Milliard",
+                                                fontSize:13.sp,
+                                                color: Color(0XFF949494),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded ,
+                                    color: Color(0XFFBCBCBC),
+                                    size: 15.sp,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                      ),
                     ),
                   ),
                   SizedBox(height: 300.h,),

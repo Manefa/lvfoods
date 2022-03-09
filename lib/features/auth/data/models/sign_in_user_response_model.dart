@@ -6,11 +6,13 @@ class SignInUserResponseModel extends SignInUserResponse{
     required final String? fullname,
     required final String? email,
     required final String? picture,
+    required final String? role,
 }): super(
     username: username,
     fullname: fullname,
     email: email,
     picture: picture,
+    role: role
   );
 
   factory SignInUserResponseModel.fromJson(Map<String, dynamic> json){
@@ -19,6 +21,7 @@ class SignInUserResponseModel extends SignInUserResponse{
         fullname: json['fullname'],
         email: json['email'],
         picture: json['picture'],
+        role: json['role'],
       );
   }
 
@@ -28,6 +31,7 @@ class SignInUserResponseModel extends SignInUserResponse{
       'fullname': fullname,
       'email': email,
       'picture': picture,
+      'role': role,
     };
   }
 }
