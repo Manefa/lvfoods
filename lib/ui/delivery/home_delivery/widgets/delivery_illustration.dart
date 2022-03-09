@@ -23,8 +23,8 @@ class DeliveryIllustration extends StatelessWidget {
             //color: Colors.green,
             child: Text(
               //TODO Translate this text
-              'Decouvrez\nles livraisons\ndisponibles',
-              textAlign: TextAlign.center,
+              'Decouvrez les livraisons disponibles',
+              textAlign: TextAlign.start,
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontFamily: "Milliard",
