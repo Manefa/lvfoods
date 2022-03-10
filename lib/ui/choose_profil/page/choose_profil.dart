@@ -112,8 +112,16 @@ class ChooseProfil extends StatelessWidget {
                         height: 82.h,
                         width: 344.w,
                         decoration: BoxDecoration(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            borderRadius: BorderRadius.circular(6.r),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.r),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.36),
+                                  spreadRadius: -3,
+                                  blurRadius: 10,
+                                  offset: Offset(0, 5)
+                              )
+                            ]
                         ),
                         child:Center(
                           child: Container(
@@ -161,8 +169,8 @@ class ChooseProfil extends StatelessWidget {
                                 ),
                                 Icon(
                                   Icons.arrow_forward_ios_rounded ,
-                                  color: Color.fromRGBO(188, 44, 61,1),
-                                  size: 18.sp,
+                                  color: Color(0XFFBCBCBC),
+                                  size: 15.sp,
                                 ),
                               ],
                             ),
@@ -180,9 +188,16 @@ class ChooseProfil extends StatelessWidget {
                         height: 82.h,
                         width: 344.w,
                         decoration: BoxDecoration(
-                            color: Color.fromRGBO(224, 224, 224, 1),
-                            borderRadius: BorderRadius.circular(6.r),
-
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.r),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.36),
+                                  spreadRadius: -3,
+                                  blurRadius: 10,
+                                  offset: Offset(0, 5)
+                              )
+                            ]
                         ),
                         child:Center(
                           child: Container(
@@ -231,8 +246,8 @@ class ChooseProfil extends StatelessWidget {
                                 ),
                                 Icon(
                                   Icons.arrow_forward_ios_rounded ,
-                                  color: Color.fromRGBO(188, 44, 61,1),
-                                  size: 18.sp,
+                                  color: Color(0XFFBCBCBC),
+                                  size: 15.sp,
                                 ),
                               ],
                             ),
