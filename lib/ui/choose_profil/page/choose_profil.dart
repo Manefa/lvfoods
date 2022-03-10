@@ -83,7 +83,7 @@ class ChooseProfil extends StatelessWidget {
                     width: 341.w,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("images/chooseprofil_illustration.png"),
+                          image: AssetImage("images/chooseprofil_illustration.gif"),
                           fit: BoxFit.contain,
                         ),
                       )
