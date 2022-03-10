@@ -169,8 +169,8 @@ class ChooseProfil extends StatelessWidget {
                                 ),
                                 Icon(
                                   Icons.arrow_forward_ios_rounded ,
-                                  color: Color(0XFFBCBCBC),
-                                  size: 15.sp,
+                                  color: Color.fromRGBO(188, 44, 61, 1),
+                                  size: 18.sp,
                                 ),
                               ],
                             ),
@@ -246,8 +246,8 @@ class ChooseProfil extends StatelessWidget {
                                 ),
                                 Icon(
                                   Icons.arrow_forward_ios_rounded ,
-                                  color: Color(0XFFBCBCBC),
-                                  size: 15.sp,
+                                  color: Color.fromRGBO(188, 44, 61, 1),
+                                  size: 18.sp,
                                 ),
                               ],
                             ),
