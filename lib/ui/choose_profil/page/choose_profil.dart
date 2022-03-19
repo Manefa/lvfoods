@@ -44,17 +44,72 @@ class ChooseProfil extends StatelessWidget {
               color: Colors.white,
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 80.h,),
-                  Text(
-                    AppLocalizations.of(context)!.translate("chooseDemo"),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: "Milliard",
-                      fontSize: 27.sp,
-                      fontWeight: FontWeight.w500,
+                  SizedBox(height: 74.h,),
+                  //TODO translate Hello to Salut
+                  Container(
+                    width: 344.w,
+                    height: 32.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 252.w,
+                          child: Text(
+                            "Hello",
+                            style: TextStyle(
+                            fontFamily: "Milliard",
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+
+                    ),
+                        ),
+                        Container(
+                          height: 32.h,
+                          child: IconButton(
+                            icon: Icon(
+                              LvIcons.logout,
+                              size: 16.sp,
+                              color: kPrimaryColor,
+                            ),
+                            onPressed: () {
+                              sl<SharedPreferences>().clear();
+                              Navigator.pushNamed(context, "/login");
+                            },
+                          ),
+                        )
+
+                      ],
                     ),
                   ),
-                  SizedBox(height: 65.h,),
+                  SizedBox(height: 45.h,),
+                  //Illustration
+                  Container(
+                    height: 341.h,
+                    width: 341.w,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("images/chooseprofil_illustration.gif"),
+                          fit: BoxFit.contain,
+                        ),
+                      )
+                  ),
+                  SizedBox(height: 51.h,),
+                  //ChooseProfile Text
+                  Container(
+                    width: 344.w,
+                    child: Text(
+                      AppLocalizations.of(context)!.translate("chooseDemo"),
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: "Milliard",
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 41.h,),
                   //Profile Restaurateur
                   InkWell(
                     onTap: (){
@@ -121,8 +176,8 @@ class ChooseProfil extends StatelessWidget {
                                 ),
                                 Icon(
                                   Icons.arrow_forward_ios_rounded ,
-                                  color: Color(0XFFBCBCBC),
-                                  size: 15.sp,
+                                  color: Color.fromRGBO(188, 44, 61, 1),
+                                  size: 18.sp,
                                 ),
                               ],
                             ),
@@ -130,7 +185,7 @@ class ChooseProfil extends StatelessWidget {
                         )
                     ),
                   ),
-                  SizedBox(height: 39.h,),
+                  SizedBox(height: 25.h,),
                   //Profile Livreur
                   Visibility(
                     visible: isDelivery,
@@ -195,71 +250,25 @@ class ChooseProfil extends StatelessWidget {
                                           ],
                                         ),
 
-                                      ],
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_rounded ,
-                                    color: Color(0XFFBCBCBC),
-                                    size: 15.sp,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 300.h,),
-                  Expanded(
-                      child:Container(
-                        decoration: BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(170.r),
-                              topLeft:  Radius.circular(170.r)
-
-                          ),
-                        ),
-                        child:  Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(height: 41.h,),
-                            Container(
-                              width: size.width,
-                              child: Center(
-                                child: InkWell(
-                                  onTap: (){
-                                    sl<SharedPreferences>().clear();
-                                    Navigator.pushNamed(context, "/login");
-                                  },
-                                  child:Container(
-                                    height: 63.h,
-                                    child: Center(
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget> [
-                                          Image.asset("images/skyp_arrow_left.png"),
-                                          SizedBox(width: 10.w,),
-                                          Text(
-                                            AppLocalizations.of(context)!.translate("backToLogin"),
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize:16.sp,
-                                              fontFamily: "Milliard",
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                  )
+                                Icon(
+                                  Icons.arrow_forward_ios_rounded ,
+                                  color: Color.fromRGBO(188, 44, 61, 1),
+                                  size: 18.sp,
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                    ),
+                  ),
+
+
+
+
+
                 ],
               ),
             ),
