@@ -18,7 +18,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
 
-  LocaleBloc _localeBloc = sl<LocaleBloc>();
+   LocaleBloc _localeBloc = sl<LocaleBloc>();
 
   @override
   Widget build(BuildContext context) {

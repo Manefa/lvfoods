@@ -35,7 +35,7 @@ class GetRestaurantRemoteDataSourceImpl implements GetRestaurantRemoteDataSource
     );
 
     if (response.statusCode == 200) {
-      var responseJson = json.decode(json.encode(response.body)) as Map<String, dynamic>;
+      var responseJson = json.decode(response.body);
       return GetRestaurantModel.fromJson(responseJson);
     } else {
       throw ServerException();
